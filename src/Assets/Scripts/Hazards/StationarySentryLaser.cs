@@ -1,11 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class StationarySentryLaser : SpawnBucketItemBehaviour
 {
-  private LineRenderer _lineRenderer;
-
   [Tooltip("All layers that the scan rays can collide with. Should include platforms and player.")]
   public LayerMask ScanRayCollisionLayers = 0;
 
@@ -20,6 +16,8 @@ public class StationarySentryLaser : SpawnBucketItemBehaviour
 
   [Tooltip("Once the sentry laser detects the player, he has some time to get cover before being killed by the laser. This is the variable indicating the time.")]
   public float TimeNeededToKillPlayer = .1f;
+
+  private LineRenderer _lineRenderer;
 
   private float _startAngleRad;
 
@@ -65,7 +63,7 @@ public class StationarySentryLaser : SpawnBucketItemBehaviour
     if (angle >= _startAngleRad && angle <= _endAngleRad)
     {
       var raycastHit = Physics2D.Raycast(gameObject.transform.position, playerVector.normalized, playerVector.magnitude, ScanRayCollisionLayers);
-      
+
       if (raycastHit && raycastHit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
       {
         isSeeingPlayer = true;

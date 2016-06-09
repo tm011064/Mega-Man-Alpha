@@ -339,21 +339,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64709f4cfbbb7844a3c1e28ac841e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformMask:
+  PlatformMask:
     serializedVersion: 2
     m_Bits: 4096
-  triggerMask:
+  TriggerMask:
     serializedVersion: 2
     m_Bits: 295936
-  oneWayPlatformMask:
+  OneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 512
-  slopeLimit: 90
-  jumpingThreshold: 0.05
-  slopeSpeedMultiplier:
+  SlopeLimit: 90
+  JumpingThreshold: 0.05
+  SlopeSpeedMultiplier:
     serializedVersion: 2
     m_Curve:
-    - time: -90
+    - time: 0
       value: 1
       inSlope: 0
       outSlope: 0
@@ -363,7 +363,7 @@ MonoBehaviour:
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 91.453735
+    - time: 0
       value: 0.96037066
       inSlope: 0
       outSlope: 0
@@ -371,12 +371,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  totalHorizontalRays: 8
-  totalVerticalRays: 4
-  performFullyGroundedChecks: 0
-  performIsOnWallChecks: 1
-  enableEdgeSlideUpHelp: 1
-  edgeSlideUpCornerWidth: 33
+  TotalHorizontalRays: 8
+  TotalVerticalRays: 4
+  PerformFullyGroundedChecks: 0
+  PerformIsOnWallChecks: 1
+  EnableEdgeSlideUpHelp: 1
+  EdgeSlideUpCornerWidth: 33
   _skinWidth: 6
 --- !u!114 &11463698
 MonoBehaviour:
@@ -389,52 +389,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae30c20452fd0040a6e7fad419061c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPhysicsManager: {fileID: 0}
-  wallJumpSettings:
-    enableWallJumps: 1
-    wallJumpEnabledTime: 100000
-    wallVelocityDownThreshold: -100000
-    wallJumpPushOffAxisOverrideTime: 0.12
-    wallStickGravity: -3960
-    wallJumpWallEvaluationDuration: 0.02
-    maxWallDownwardSpeed: -800
-    minDistanceFromFloor: 64
-  jumpSettings:
-    gravity: -3960
-    standJumpHeight: 378
-    walkJumpHeight: 410
-    walkJumpHeightSpeedTrigger: 100
-    runJumpHeight: 474
-    runJumpHeightSpeedTrigger: 620
-    inAirDamping: 2
-    allowJumpAfterGroundLostThreashold: 0.1
-    maxDownwardSpeed: -1200
-    enableBackflipOnDirectionChange: 1
-    backflipOnDirectionChangeSpeed: 200
-  runSettings:
-    walkSpeed: 600
-    enableRunning: 1
-    runSpeed: 900
-    accelerationGroundDamping: 6
-    decelerationGroundDamping: 8
-  boxColliderOffsetCrouched: {x: 0, y: -38}
-  boxColliderSizeCrouched: {x: 88, y: 44}
-  boxColliderOffsetWallAttached: {x: 0, y: -15}
-  boxColliderSizeWallAttached: {x: 88, y: 90}
-  boxColliderOffsetDefault: {x: 0, y: 0}
-  boxColliderSizeDefault: {x: 0, y: 0}
-  adjustedGravity: 0
-  animator: {fileID: 0}
-  sprite: {fileID: 0}
-  boxCollider: {fileID: 0}
-  spawnLocation: {x: 0, y: 0, z: 0}
-  currentPlatform: {fileID: 0}
-  isInvincible: 0
-  isTakingDamage: 0
-  isAttachedToWall: 0
-  isCrouching: 0
-  isPerformingSpinMeleeAttack: 0
-  spinMeleeAttackBoxCollider: {fileID: 0}
+  CharacterPhysicsManager: {fileID: 0}
+  WallJumpSettings:
+    EnableWallJumps: 1
+    WallJumpEnabledTime: 100000
+    WallVelocityDownThreshold: -100000
+    WallJumpPushOffAxisOverrideTime: 0.12
+    WallStickGravity: -3960
+    WallJumpWallEvaluationDuration: 0.02
+    MaxWallDownwardSpeed: -800
+    MinDistanceFromFloor: 64
+  JumpSettings:
+    Gravity: -3960
+    StandJumpHeight: 378
+    WalkJumpHeight: 410
+    WalkJumpHeightSpeedTrigger: 100
+    RunJumpHeight: 474
+    RunJumpHeightSpeedTrigger: 620
+    InAirDamping: 2
+    AllowJumpAfterGroundLostThreashold: 0.1
+    MaxDownwardSpeed: -1200
+    EnableBackflipOnDirectionChange: 1
+    BackflipOnDirectionChangeSpeed: 200
+  RunSettings:
+    WalkSpeed: 600
+    EnableRunning: 1
+    RunSpeed: 900
+    AccelerationGroundDamping: 6
+    DecelerationGroundDamping: 8
+  BoxColliderOffsetCrouched: {x: 0, y: -38}
+  BoxColliderSizeCrouched: {x: 88, y: 44}
+  BoxColliderOffsetWallAttached: {x: 0, y: -15}
+  BoxColliderSizeWallAttached: {x: 88, y: 90}
+  BoxColliderOffsetDefault: {x: 0, y: 0}
+  BoxColliderSizeDefault: {x: 0, y: 0}
+  AdjustedGravity: 0
+  Animator: {fileID: 0}
+  Sprite: {fileID: 0}
+  BoxCollider: {fileID: 0}
+  SpawnLocation: {x: 0, y: 0, z: 0}
+  CurrentPlatform: {fileID: 0}
+  IsInvincible: 0
+  IsTakingDamage: 0
+  IsAttachedToWall: 0
+  IsCrouching: 0
+  IsPerformingSpinMeleeAttack: 0
+  SpinMeleeAttackBoxCollider: {fileID: 0}
 --- !u!114 &11491702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -446,13 +446,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10574d12cb271749aedb7f13e9cb8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingJumpDistance: 512
-  runningJumpDistance: 1024
-  jumpHeight: 360
-  maxJumpHeight: 304
-  comfortableJumpHeight: 272
-  walkingJumpHeightWidth: 332
-  playerDimensions: {x: 86, y: 86}
+  WalkingJumpDistance: 512
+  RunningJumpDistance: 1024
+  JumpHeight: 360
+  MaxJumpHeight: 304
+  ComfortableJumpHeight: 272
+  WalkingJumpHeightWidth: 332
+  PlayerDimensions: {x: 86, y: 86}
 --- !u!120 &12013644
 LineRenderer:
   m_ObjectHideFlags: 1

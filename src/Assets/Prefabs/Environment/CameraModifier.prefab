@@ -63,7 +63,7 @@ MonoBehaviour:
   allowRightExtension: 0
   offsetX: 0
   offsetY: 0
-  gizmoColor: {r: .448529422, g: .448529422, b: .448529422, a: 1}
+  GizmoColor: {r: .448529422, g: .448529422, b: .448529422, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

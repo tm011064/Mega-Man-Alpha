@@ -3,14 +3,6 @@
 public partial class PlayerMetricsRenderer : MonoBehaviour
 {
 #if UNITY_EDITOR
-  private int _jumpRadiusResolution = 32;
-
-  private Vector3[] _walkingJumpRadiusPositions = null;
-
-  private Vector3[] _runningJumpRadiusPositions = null;
-
-  private BoxCollider2D _collider = null;
-
   public float WalkingJumpDistance = 512f;
 
   public float RunningJumpDistance = 1024f;
@@ -24,6 +16,14 @@ public partial class PlayerMetricsRenderer : MonoBehaviour
   public float WalkingJumpHeightWidth = 332f;
 
   public Vector2 PlayerDimensions = new Vector2(86, 86);
+
+  private int _jumpRadiusResolution = 32;
+
+  private Vector3[] _walkingJumpRadiusPositions = null;
+
+  private Vector3[] _runningJumpRadiusPositions = null;
+
+  private BoxCollider2D _collider = null;
 
   void OnReset()
   {

@@ -87,17 +87,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityCheckInterval: .200000003
-  width: 224
-  height: 32
+  VisibilityCheckInterval: .200000003
+  Width: 224
+  Height: 32
   createTiles: 1
-  tileWidth: 32
-  tileHeight: 32
-  anchor: 6
-  isTrigger: 0
-  colliderSides: 15
-  prefabMeshFolder: Assets/Meshes/
-  prefabObjectFolder: Assets/Prefabs/TestBlocks/
+  TileWidth: 32
+  TileHeight: 32
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
 --- !u!114 &11415276
 MonoBehaviour:
   m_ObjectHideFlags: 1

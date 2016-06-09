@@ -68,10 +68,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f63b25f8c0c3d7419445556f39b7af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalSegments: 14
-  radius: 768
-  startAngle: 90
-  endAngle: 150
+  TotalSegments: 14
+  Radius: 768
+  StartAngle: 90
+  EndAngle: 150
 --- !u!120 &12084812
 LineRenderer:
   m_ObjectHideFlags: 1

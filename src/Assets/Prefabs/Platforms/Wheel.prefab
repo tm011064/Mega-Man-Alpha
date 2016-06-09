@@ -39,16 +39,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6108b7e524db3614ea2f001c9daf4fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineGizmoColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineVisibilityMaskGizmoColor: {r: 1, g: 0, b: 1, a: 1}
-  showGizmoOutline: 1
-  showCameraGizmoOutline: 1
-  floatingAttachedPlatform: {fileID: 140114, guid: b5a770513a84ae04bb86880cca616e8e,
+  OutlineGizmoColor: {r: 1, g: 1, b: 1, a: 1}
+  OutlineVisibilityMaskGizmoColor: {r: 1, g: 0, b: 1, a: 1}
+  ShowGizmoOutline: 1
+  ShowCameraGizmoOutline: 1
+  FloatingAttachedPlatform: {fileID: 140114, guid: b5a770513a84ae04bb86880cca616e8e,
     type: 2}
-  totalPlatforms: 4
-  radius: 384
-  speed: 35
-  visibiltyCheckInterval: .100000001
+  TotalPlatforms: 4
+  Radius: 384
+  Speed: 35
+  VisibiltyCheckInterval: .100000001
   platformWidth: 256
   platformHeight: 32
 --- !u!1001 &100100000

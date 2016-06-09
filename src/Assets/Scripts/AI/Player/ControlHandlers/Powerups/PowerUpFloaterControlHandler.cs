@@ -2,13 +2,6 @@
 
 public class PowerUpFloaterControlHandler : PlayerControlHandler
 {
-  enum FloatStatus
-  {
-    IsInAir = 1,
-    CanFloat = 2,
-    IsFloating = 4
-  }
-
   private PowerUpSettings _powerUpSettings;
 
   private FloatStatus _floatStatus;
@@ -55,19 +48,19 @@ public class PowerUpFloaterControlHandler : PlayerControlHandler
 
       if (velocity.y < 0)
       { // player is moving down, so check floating logic
-        if ((GameManager.InputStateManager.GetButtonState("Jump").buttonPressState & ButtonPressState.IsUp) != 0)
+        if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsUp) != 0)
         {
           // player released jump button on way down, this means he can't float any more for this in air session
           _floatStatus &= ~FloatStatus.CanFloat;
         }
         if (((_floatStatus & FloatStatus.CanFloat) != 0)
-          && (GameManager.InputStateManager.GetButtonState("Jump").buttonPressState & ButtonPressState.IsDown) != 0)
+          && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsDown) != 0)
         {
           // player is on his way down,can float and pressed the jump button, so he starts floating
           velocity.y *= _powerUpSettings.FloaterSettings.StartFloatingDuringFallVelocityMultiplier;
           _floatStatus |= FloatStatus.IsFloating;
         }
-        if ((GameManager.InputStateManager.GetButtonState("Jump").buttonPressState & ButtonPressState.IsPressed) != 0)
+        if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsPressed) != 0)
         {
           // player is on his way down and has the jump button pressed, so set the floating field
           _floatStatus |= FloatStatus.IsFloating;
@@ -110,5 +103,14 @@ public class PowerUpFloaterControlHandler : PlayerControlHandler
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
     return true;
+  }
+
+  enum FloatStatus
+  {
+    IsInAir = 1,
+
+    CanFloat = 2,
+
+    IsFloating = 4
   }
 }

@@ -39,47 +39,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913f3d65f751af747b5074268dd57734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 11463698, guid: 0d314c482e4fa1149b404e6b91347eed, type: 2}
-  gameSettings:
-    powerUpSettings:
-      floaterSettings:
-        floaterGravity: -100
-        startFloatingDuringFallVelocityMultiplier: .100000001
-        floaterGravityDecreaseInterpolationFactor: .0500000007
-        floaterInAirDampingOverride: 3
-      jetpackSettings:
-        jetpackSpeed: 600
-        airDamping: 2
-        autoFloatWithoutThrust: 0
-        floatGravity: -200
-    playerMetricSettings:
-      jumpReleaseUpVelocityMultiplier: .5
-    pooledObjects:
-      basicPowerUpPrefab:
-        prefab: {fileID: 0}
-        initialSize: 1
-      basicBullet:
-        prefab: {fileID: 0}
-        initialSize: 1
-      defaultEnemyDeathParticlePrefab:
-        prefab: {fileID: 0}
-        initialSize: 1
-      defaultPlayerDeathParticlePrefab:
-        prefab: {fileID: 0}
-        initialSize: 1
-    logSettings:
-      logFile: Log\DefaultLog.txt
-      totalArchivedFilesToKeep: 3
-      echoToConsole: 1
-      addTimeStamp: 1
-      breakOnError: 1
-      breakOnAssert: 1
+  Player: {fileID: 11463698, guid: 0d314c482e4fa1149b404e6b91347eed, type: 2}
+  GameSettings:
+    PowerUpSettings:
+      FloaterSettings:
+        FloaterGravity: -100
+        StartFloatingDuringFallVelocityMultiplier: .100000001
+        FloaterGravityDecreaseInterpolationFactor: .0500000007
+        FloaterInAirDampingOverride: 3
+      JetpackSettings:
+        JetpackSpeed: 600
+        AirDamping: 2
+        AutoFloatWithoutThrust: 0
+        FloatGravity: -200
+    PlayerMetricSettings:
+      JumpReleaseUpVelocityMultiplier: .5
+    PooledObjects:
+      BasicPowerUpPrefab:
+        Prefab: {fileID: 0}
+        InitialSize: 1
+      BasicBullet:
+        Prefab: {fileID: 0}
+        InitialSize: 1
+      DefaultEnemyDeathParticlePrefab:
+        Prefab: {fileID: 0}
+        InitialSize: 1
+      DefaultPlayerDeathParticlePrefab:
+        Prefab: {fileID: 0}
+        InitialSize: 1
+    LogSettings:
+      LogFile: Log\DefaultLog.txt
+      TotalArchivedFilesToKeep: 3
+      EchoToConsole: 1
+      AddTimeStamp: 1
+      BreakOnError: 1
+      BreakOnAssert: 1
       enabledTraceTags: []
-      enableAllTraceTags: 0
-      addTraceTagToMessage: 1
-    playerDamageControlHandlerSettings:
-      duration: 3
-      suspendPhysicsTime: 1
+      EnableAllTraceTags: 0
+      AddTraceTagToMessage: 1
+    PlayerDamageControlHandlerSettings:
+      Duration: 3
+      SuspendPhysicsTime: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

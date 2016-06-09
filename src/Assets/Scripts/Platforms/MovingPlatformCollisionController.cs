@@ -4,6 +4,8 @@ public class MovingPlatformCollisionController : MonoBehaviour
 {
   private const string TRACE_TAG = "MovingPlatformCollisionController";
 
+  private const float FUDGE_FACTOR = .0001f;
+
   private BoxCollider2D _boxCollider;
 
   private BoxCollider2D _playerBoxCollider;
@@ -11,8 +13,6 @@ public class MovingPlatformCollisionController : MonoBehaviour
   private PlayerController _playerController;
 
   private AttachPlayerControllerToObject _attachPlayerControllerToObject;
-
-  private const float FUDGE_FACTOR = .0001f;
 
   void Start()
   {

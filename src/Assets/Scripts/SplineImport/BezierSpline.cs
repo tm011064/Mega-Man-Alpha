@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class BezierSpline : MonoBehaviour
 {
-  private float[] _segmentLengthPercentages;
-
   [SerializeField]
   private Vector3[] Points;
 
@@ -13,6 +11,8 @@ public class BezierSpline : MonoBehaviour
 
   [SerializeField]
   private bool _loop;
+
+  private float[] _segmentLengthPercentages;
 
   public bool Loop
   {

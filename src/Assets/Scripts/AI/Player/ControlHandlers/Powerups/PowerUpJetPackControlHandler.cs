@@ -32,7 +32,7 @@ public class PowerUpJetPackControlHandler : PlayerControlHandler
     var horizontalAxisState = GameManager.InputStateManager.GetAxisState("Horizontal");
     var verticalAxisState = GameManager.InputStateManager.GetAxisState("Vertical");
 
-    if ((GameManager.InputStateManager.GetButtonState("Jump").buttonPressState & ButtonPressState.IsPressed) != 0)
+    if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsPressed) != 0)
     {
       // we want to dash towards the direction the controller points to
       velocity.x = Mathf.Lerp(velocity.x, horizontalAxisState.Value * _powerUpSettings.JetpackSettings.JetpackSpeed, Time.deltaTime * _powerUpSettings.JetpackSettings.AirDamping);
@@ -91,7 +91,7 @@ public class PowerUpJetPackControlHandler : PlayerControlHandler
       }
     }
 
-    if ((GameManager.InputStateManager.GetButtonState("Dash").buttonPressState & ButtonPressState.IsPressed) != 0)
+    if ((GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0)
     {// fire
       var autoFireBulletsPerSecond = 10f; // TODO (Roman): hardcoded
 

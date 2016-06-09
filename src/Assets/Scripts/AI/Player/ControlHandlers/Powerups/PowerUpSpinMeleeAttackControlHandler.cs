@@ -50,7 +50,7 @@ public class PowerUpSpinMeleeAttackControlHandler : DefaultPlayerControlHandler
   {
     if (!PlayerController.IsPerformingSpinMeleeAttack
       && CanPerformAttack()
-      && (GameManager.InputStateManager.GetButtonState("Attack").buttonPressState & ButtonPressState.IsDown) != 0)
+      && (GameManager.InputStateManager.GetButtonState("Attack").ButtonPressState & ButtonPressState.IsDown) != 0)
     {
       if (!PlayerController.SpinMeleeAttackBoxCollider.activeSelf)
       {

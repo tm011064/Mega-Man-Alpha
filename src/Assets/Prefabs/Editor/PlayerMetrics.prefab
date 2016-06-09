@@ -39,13 +39,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10574d12cb271749aedb7f13e9cb8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingJumpDistance: 512
-  runningJumpDistance: 1024
-  jumpHeight: 392
-  maxJumpHeight: 336
-  comfortableJumpHeight: 272
-  walkingJumpHeightWidth: 332
-  playerDimensions: {x: 96, y: 96}
+  WalkingJumpDistance: 512
+  RunningJumpDistance: 1024
+  JumpHeight: 392
+  MaxJumpHeight: 336
+  ComfortableJumpHeight: 272
+  WalkingJumpHeightWidth: 332
+  PlayerDimensions: {x: 96, y: 96}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

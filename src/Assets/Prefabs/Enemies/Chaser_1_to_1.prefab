@@ -72,23 +72,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPhysicsManager: {fileID: 0}
-  startDirection: 4
-  bounceJumpMultiplier: .5
-  allowJumpFromTopThresholdInSeconds: .100000001
-  allowedTopCollisionAngleFrom: -38
-  allowedTopCollisionAngleTo: -142
-  speed: 80
-  chaseSpeed: 600
-  gravity: -3960
-  scanRayLength: 512
-  scanRayAngle: 120
-  totalScanRays: 12
-  scanRayCollisionLayers:
+  StartDirection: 4
+  BounceJumpMultiplier: .5
+  AllowJumpFromTopThresholdInSeconds: .100000001
+  AllowedTopCollisionAngleFrom: -38
+  AllowedTopCollisionAngleTo: -142
+  Speed: 80
+  ChaseSpeed: 600
+  Gravity: -3960
+  ScanRayLength: 512
+  ScanRayAngle: 120
+  TotalScanRays: 12
+  ScanRayCollisionLayers:
     serializedVersion: 2
     m_Bits: 4864
-  edgeTurnAroundPause: 2
-  detectPlayerDuration: .5
-  totalChaseDuration: 2
+  EdgeTurnAroundPause: 2
+  DetectPlayerDuration: .5
+  TotalChaseDuration: 2
 --- !u!114 &11432082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,43 +100,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64709f4cfbbb7844a3c1e28ac841e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformMask:
+  PlatformMask:
     serializedVersion: 2
     m_Bits: 4096
-  triggerMask:
+  TriggerMask:
     serializedVersion: 2
     m_Bits: 147712
-  oneWayPlatformMask:
+  OneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 0
-  slopeLimit: 30
-  jumpingThreshold: .0700000003
-  slopeSpeedMultiplier:
+  SlopeLimit: 30
+  JumpingThreshold: .0700000003
+  SlopeSpeedMultiplier:
     serializedVersion: 2
     m_Curve:
-    - time: -90
+    - Time: -90
       value: 1.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 0
+    - Time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 90
+    - Time: 90
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  totalHorizontalRays: 8
-  totalVerticalRays: 4
-  performFullyGroundedChecks: 1
-  performIsOnWallChecks: 0
-  enableEdgeSlideUpHelp: 0
-  edgeSlideUpCornerWidth: 16
+  TotalHorizontalRays: 8
+  TotalVerticalRays: 4
+  PerformFullyGroundedChecks: 1
+  PerformIsOnWallChecks: 0
+  EnableEdgeSlideUpHelp: 0
+  EdgeSlideUpCornerWidth: 16
   _skinWidth: 2
 --- !u!212 &21267002
 SpriteRenderer:

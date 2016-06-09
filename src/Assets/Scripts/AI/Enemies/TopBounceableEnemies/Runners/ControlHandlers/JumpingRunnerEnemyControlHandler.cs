@@ -14,33 +14,32 @@ public class JumpingRunnerEnemyControlHandler : EnemyControlHandler<JumpingRunne
       : 1f;
 
     CharacterPhysicsManager.ControllerBecameGrounded +=
-      _ => _nextJumpTime = Time.time + _enemyController.jumpInterval;
+      _ => _nextJumpTime = Time.time + _enemyController.JumpInterval;
   }
 
   protected override bool DoUpdate()
   {
-    // first move in patrolling mode
     if (Time.time >= _nextJumpTime
       && CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
     {
       var velocityY = Mathf.Sqrt(
             2f
-            * -_enemyController.gravity
-            * _enemyController.jumpHeight
+            * -_enemyController.Gravity
+            * _enemyController.JumpHeight
             );
 
       MoveHorizontally(
         ref _moveDirectionFactor,
-        _enemyController.speed,
-        _enemyController.gravity,
+        _enemyController.Speed,
+        _enemyController.Gravity,
         PlatformEdgeMoveMode.FallOff,
-        jumpVelocityY: Mathf.Sqrt(2f * -_enemyController.gravity * _enemyController.jumpHeight));
+        jumpVelocityY: Mathf.Sqrt(2f * -_enemyController.Gravity * _enemyController.JumpHeight));
 
-      _nextJumpTime = Time.time + _enemyController.jumpInterval;
+      _nextJumpTime = Time.time + _enemyController.JumpInterval;
     }
     else
     {
-      MoveHorizontally(ref _moveDirectionFactor, _enemyController.speed, _enemyController.gravity, PlatformEdgeMoveMode.FallOff);
+      MoveHorizontally(ref _moveDirectionFactor, _enemyController.Speed, _enemyController.Gravity, PlatformEdgeMoveMode.FallOff);
     }
 
     return true;

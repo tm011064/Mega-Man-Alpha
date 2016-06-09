@@ -39,17 +39,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5e56fab47fba64abaefaec63eb7419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineGizmoColor: {r: 1, g: .921568632, b: .0156862754, a: 1}
-  showGizmoOutline: 1
-  canJump: 1
-  platformDownwardDistance: -48
-  platformDownwardDuration: .0799999982
+  OutlineGizmoColor: {r: 1, g: .921568632, b: .0156862754, a: 1}
+  ShowGizmoOutline: 1
+  CanJump: 1
+  PlatformDownwardDistance: -48
+  PlatformDownwardDuration: .0799999982
   platformDownwardEaseType: 7
-  platformUpwardDuration: .400000006
+  PlatformUpwardDuration: .400000006
   platformUpwardEaseType: 24
-  autoBounceFixedJumpHeight: 224
-  fixedJumpHeight: 800
-  onTrampolineSkidDamping: 5
+  AutoBounceFixedJumpHeight: 224
+  FixedJumpHeight: 800
+  OnTrampolineSkidDamping: 5
   trampolinePrefab: {fileID: 119090, guid: 2ce1370c2cf9fce428ee3d7901797b6c, type: 2}
 --- !u!1001 &100100000
 Prefab:

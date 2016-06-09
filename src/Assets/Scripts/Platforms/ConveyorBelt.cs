@@ -18,7 +18,7 @@ public class ConveyorBelt : MonoBehaviour
 
   void OnPlayerGroundedPlatformChanged(GroundedPlatformChangedInfo e)
   {
-    if (e.currentPlatform == gameObject)
+    if (e.CurrentPlatform == gameObject)
     {
       _isGrounded = true;
     }

@@ -13,7 +13,7 @@ public class AttachPlayerControllerToObject : MonoBehaviour, IAttachableObject
 
   void OnPlayerGroundedPlatformChanged(GroundedPlatformChangedInfo e)
   {
-    if (e.previousPlatform == gameObject 
+    if (e.PreviousPlatform == gameObject 
       && _playerController.transform.parent == gameObject.transform)
     {
       _playerController.transform.parent = null;
@@ -29,7 +29,7 @@ public class AttachPlayerControllerToObject : MonoBehaviour, IAttachableObject
     }
     else
     {
-      if (e.currentPlatform == gameObject
+      if (e.CurrentPlatform == gameObject
         && _playerController.transform.parent != gameObject.transform)
       {
         if (_playerController.transform.parent != null)

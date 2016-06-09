@@ -3,47 +3,6 @@ using UnityEngine;
 
 public partial class LinearPath : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  public enum StartPosition
-  {
-    PathStart,
-
-    Center
-  }
-
-  public enum LoopMode
-  {
-    Once,
-
-    Loop,
-
-    PingPong
-  }
-
-  public enum StartPathDirection
-  {
-    Forward,
-
-    Backward
-  }
-
-  private class GameObjectTrackingInformation
-  {
-    public GameObject GameObject;
-
-    public float Percentage = 0f;
-
-    public float DirectionMultiplicationFactor = 1f;
-
-    public float NextStartTime = 0f;
-
-    public GameObjectTrackingInformation(GameObject gameObject, float percentage, float directionMultiplicationFactor)
-    {
-      GameObject = gameObject;
-      Percentage = percentage;
-      DirectionMultiplicationFactor = directionMultiplicationFactor;
-    }
-  }
-
   public Color OutlineGizmoColor = Color.white;
 
   public bool ShowGizmoOutline = true;
@@ -174,7 +133,7 @@ public partial class LinearPath : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 
   void OnPlayerGroundedPlatformChanged(GroundedPlatformChangedInfo e)
   {
-    if (!_gameObjectTrackingInformation.Exists(c => c.GameObject == e.currentPlatform))
+    if (!_gameObjectTrackingInformation.Exists(c => c.GameObject == e.CurrentPlatform))
     {
       return;
     }
@@ -521,5 +480,46 @@ public partial class LinearPath : SpawnBucketItemBehaviour, IObjectPoolBehaviour
     }
 
     return objectPoolRegistrationInfos;
+  }
+
+  public enum StartPosition
+  {
+    PathStart,
+
+    Center
+  }
+
+  public enum LoopMode
+  {
+    Once,
+
+    Loop,
+
+    PingPong
+  }
+
+  public enum StartPathDirection
+  {
+    Forward,
+
+    Backward
+  }
+
+  private class GameObjectTrackingInformation
+  {
+    public GameObject GameObject;
+
+    public float Percentage = 0f;
+
+    public float DirectionMultiplicationFactor = 1f;
+
+    public float NextStartTime = 0f;
+
+    public GameObjectTrackingInformation(GameObject gameObject, float percentage, float directionMultiplicationFactor)
+    {
+      GameObject = gameObject;
+      Percentage = percentage;
+      DirectionMultiplicationFactor = directionMultiplicationFactor;
+    }
   }
 }

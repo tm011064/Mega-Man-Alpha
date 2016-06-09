@@ -23,9 +23,9 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
 
     Logger.Assert(_boxCollider2D != null, "AxisLockedChaserEnemyControlHandler expects the enemy controller to containa box collider 2d");
 
-    _verticalDistanceBetweenRays = CollisionDetectionUtility.GetVerticalDistanceBetweenRays(_boxCollider2D, _enemyController.transform.localScale, _enemyController.totalmovementBoundaryCheckRays, _skinWidth);
+    _verticalDistanceBetweenRays = CollisionDetectionUtility.GetVerticalDistanceBetweenRays(_boxCollider2D, _enemyController.transform.localScale, _enemyController.TotalmovementBoundaryCheckRays, _skinWidth);
 
-    _horizontalDistanceBetweenRays = CollisionDetectionUtility.GetHorizontalDistanceBetweenRays(_boxCollider2D, _enemyController.transform.localScale, _enemyController.totalmovementBoundaryCheckRays, _skinWidth);
+    _horizontalDistanceBetweenRays = CollisionDetectionUtility.GetHorizontalDistanceBetweenRays(_boxCollider2D, _enemyController.transform.localScale, _enemyController.TotalmovementBoundaryCheckRays, _skinWidth);
   }
 
   protected override bool DoUpdate()
@@ -34,7 +34,7 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
 
     var decelerationFactor = 1f;
 
-    if (_enemyController.axisType == AxisType.Horizontal)
+    if (_enemyController.AxisType == AxisType.Horizontal)
     {
       var horizontalVelocity = 0f;
 
@@ -52,37 +52,37 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
             ))
       {
         decelerationFactor = Mathf.Min(Mathf.Abs(direction.x)
-          * _enemyController.decelerationDistanceMultiplicationFactor, 1f);
+          * _enemyController.DecelerationDistanceMultiplicationFactor, 1f);
       }
 
-      if (direction.x > _enemyController.idleDistanceThreshold) // TODO (Roman): maybe don't hardcode that threshold
+      if (direction.x > _enemyController.IdleDistanceThreshold) // TODO (Roman): maybe don't hardcode that threshold
       {
-        horizontalVelocity = _enemyController.speed * Time.deltaTime * decelerationFactor;
+        horizontalVelocity = _enemyController.Speed * Time.deltaTime * decelerationFactor;
       }
-      else if (direction.x < -_enemyController.idleDistanceThreshold)
+      else if (direction.x < -_enemyController.IdleDistanceThreshold)
       {
-        horizontalVelocity = -_enemyController.speed * Time.deltaTime * decelerationFactor;
+        horizontalVelocity = -_enemyController.Speed * Time.deltaTime * decelerationFactor;
       }
 
       _velocity.x = Mathf.Lerp(
         _velocity.x,
         horizontalVelocity,
         (decelerationFactor == 1f
-            ? _enemyController.smoothDampFactorWhenDecelerationIsOff
-            : _enemyController.smoothDampFactorWhenDecelerationIsOn
+            ? _enemyController.SmoothDampFactorWhenDecelerationIsOff
+            : _enemyController.SmoothDampFactorWhenDecelerationIsOn
           ) * Time.deltaTime);
 
       _enemyController.transform.Translate(
         CollisionDetectionUtility.AdjustDeltaMovementWithCollisionCheck(
           AxisType.Horizontal
           , _boxCollider2D
-          , _enemyController.movementBoundaryObjectLayerMask
+          , _enemyController.MovementBoundaryObjectLayerMask
           , _velocity
           , _skinWidth
-          , _enemyController.totalmovementBoundaryCheckRays
+          , _enemyController.TotalmovementBoundaryCheckRays
           , _horizontalDistanceBetweenRays));
     }
-    else if (_enemyController.axisType == AxisType.Vertical)
+    else if (_enemyController.AxisType == AxisType.Vertical)
     {
       var verticalVelocity = 0f;
 
@@ -99,34 +99,34 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
               - _playerController.BoxColliderSizeDefault.x - _playerController.BoxColliderOffsetDefault.x
             ))
       {
-        decelerationFactor = Mathf.Min(Mathf.Abs(direction.y) * _enemyController.decelerationDistanceMultiplicationFactor, 1f);
+        decelerationFactor = Mathf.Min(Mathf.Abs(direction.y) * _enemyController.DecelerationDistanceMultiplicationFactor, 1f);
       }
 
-      if (direction.y > _enemyController.idleDistanceThreshold) // TODO (Roman): maybe don't hardcode that threshold
+      if (direction.y > _enemyController.IdleDistanceThreshold) // TODO (Roman): maybe don't hardcode that threshold
       {
-        verticalVelocity = _enemyController.speed * Time.deltaTime * decelerationFactor;
+        verticalVelocity = _enemyController.Speed * Time.deltaTime * decelerationFactor;
       }
-      else if (direction.y < -_enemyController.idleDistanceThreshold)
+      else if (direction.y < -_enemyController.IdleDistanceThreshold)
       {
-        verticalVelocity = -_enemyController.speed * Time.deltaTime * decelerationFactor;
+        verticalVelocity = -_enemyController.Speed * Time.deltaTime * decelerationFactor;
       }
 
       _velocity.y = Mathf.Lerp(
         _velocity.y,
         verticalVelocity,
         (decelerationFactor == 1f
-            ? _enemyController.smoothDampFactorWhenDecelerationIsOff
-            : _enemyController.smoothDampFactorWhenDecelerationIsOn)
+            ? _enemyController.SmoothDampFactorWhenDecelerationIsOff
+            : _enemyController.SmoothDampFactorWhenDecelerationIsOn)
             * Time.deltaTime);
 
       _enemyController.transform.Translate(
         CollisionDetectionUtility.AdjustDeltaMovementWithCollisionCheck(
           AxisType.Vertical
           , _boxCollider2D
-          , _enemyController.movementBoundaryObjectLayerMask
+          , _enemyController.MovementBoundaryObjectLayerMask
           , _velocity
           , _skinWidth
-          , _enemyController.totalmovementBoundaryCheckRays
+          , _enemyController.TotalmovementBoundaryCheckRays
           , _verticalDistanceBetweenRays));
     }
 

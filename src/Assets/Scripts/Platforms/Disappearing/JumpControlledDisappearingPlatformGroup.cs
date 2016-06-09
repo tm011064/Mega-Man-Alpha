@@ -5,13 +5,6 @@ using UnityEngine;
 
 public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IObjectPoolBehaviour
 {
-  public enum JumpControlledDisappearingPlatformMode
-  {
-    DisappearWhenLandingOnNextPlatform,
-
-    DisappearWhenLostGround
-  }
-
   public GameObject PlatformPrefab;
 
   public List<Vector3> PlatformPositions = new List<Vector3>();
@@ -20,7 +13,7 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
 
   public int TotalInitialVisiblePlatforms = 1;
 
-  public JumpControlledDisappearingPlatformMode PlatformMode = 
+  public JumpControlledDisappearingPlatformMode PlatformMode =
     JumpControlledDisappearingPlatformMode.DisappearWhenLostGround;
 
   private ObjectPoolingManager _objectPoolingManager;
@@ -66,7 +59,7 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
         break;
     }
   }
-  
+
   void Awake()
   {
     _playerController = GameManager.Instance.Player;
@@ -105,7 +98,7 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
 
   void OnDisappearWhenLostGround(GroundedPlatformChangedInfo groundedPlatformChangedInfo)
   {
-    var lostGround = groundedPlatformChangedInfo.currentPlatform == null;
+    var lostGround = groundedPlatformChangedInfo.CurrentPlatform == null;
 
     if (lostGround)
     {
@@ -130,17 +123,17 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
     }
     else
     {
-      if (groundedPlatformChangedInfo.currentPlatform != _currentPlatform)
+      if (groundedPlatformChangedInfo.CurrentPlatform != _currentPlatform)
       {
-        if (_currentPlatforms.Contains(groundedPlatformChangedInfo.currentPlatform))
+        if (_currentPlatforms.Contains(groundedPlatformChangedInfo.CurrentPlatform))
         {
-          _currentPlatform = groundedPlatformChangedInfo.currentPlatform;
+          _currentPlatform = groundedPlatformChangedInfo.CurrentPlatform;
 
           _hasLandedOnPlatform = true;
 
           _isOnPlatform = true;
 
-          if (groundedPlatformChangedInfo.currentPlatform.transform.position == _worldSpacePlatformCoordinates[_currentIndex])
+          if (groundedPlatformChangedInfo.CurrentPlatform.transform.position == _worldSpacePlatformCoordinates[_currentIndex])
           {
             // we are on last platform. Make sure we have the correct count
 
@@ -161,7 +154,7 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
               }
 
               var platform = _objectPoolingManager.GetObject(
-                PlatformPrefab.name, 
+                PlatformPrefab.name,
                 _worldSpacePlatformCoordinates[_currentIndex]);
 
               _currentPlatforms.Enqueue(platform);
@@ -178,10 +171,10 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
 
   void OnDisappearWhenLandingOnNextPlatform(GroundedPlatformChangedInfo GroundedPlatformChangedInfo)
   {
-    if (_currentPlatforms.Contains(GroundedPlatformChangedInfo.currentPlatform))
+    if (_currentPlatforms.Contains(GroundedPlatformChangedInfo.CurrentPlatform))
     {
-      var isLastPlatform = 
-        GroundedPlatformChangedInfo.currentPlatform.transform.position == _worldSpacePlatformCoordinates[_currentIndex];
+      var isLastPlatform =
+        GroundedPlatformChangedInfo.CurrentPlatform.transform.position == _worldSpacePlatformCoordinates[_currentIndex];
 
       if (isLastPlatform)
       {
@@ -196,7 +189,7 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
           }
 
           var platform = _objectPoolingManager.GetObject(
-            PlatformPrefab.name, 
+            PlatformPrefab.name,
             _worldSpacePlatformCoordinates[_currentIndex]);
 
           _currentPlatforms.Enqueue(platform);
@@ -219,5 +212,12 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
     return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(PlatformPrefab, TotalVisiblePlatforms) };
+  }
+
+  public enum JumpControlledDisappearingPlatformMode
+  {
+    DisappearWhenLandingOnNextPlatform,
+
+    DisappearWhenLostGround
   }
 }

@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b154883273c2845f39445c8015d81639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points:
+  Points:
   - {x: -1.91309142, y: 1.60141826, z: 0}
   - {x: -2.32889962, y: 2.61819744, z: 1.52077603}
   - {x: .564922094, y: 1.6659584, z: 1.72214246}
@@ -128,7 +128,7 @@ MonoBehaviour:
   - {x: .189634085, y: .0437897891, z: -2.81193829}
   - {x: -1.40036833, y: .347652197, z: -1.87523246}
   - {x: -1.91309142, y: 1.60141826, z: 0}
-  modes: 0100000002000000000000000100000001000000
+  Modes: 0100000002000000000000000100000001000000
   loop: 1
 --- !u!4 &321500125
 Transform:
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b154883273c2845f39445c8015d81639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points:
+  Points:
   - {x: -1.32299733, y: .803905964, z: -3.12297821}
   - {x: -3.59645295, y: .803905964, z: -1.4082036}
   - {x: -.296885848, y: 3.05280352, z: 0}
@@ -177,7 +177,7 @@ MonoBehaviour:
   - {x: 5.00940132, y: 2.86860895, z: 0}
   - {x: 4.32311726, y: .943481684, z: -1.6139164}
   - {x: 2.2360847, y: -.360789776, z: -1.31819439}
-  modes: 000000000200000000000000
+  Modes: 000000000200000000000000
   loop: 0
 --- !u!4 &516411528
 Transform:
@@ -335,10 +335,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541a76f9c03874323b5154b14ac00427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 321500124}
-  duration: 5
-  lookForward: 1
-  mode: 1
+  Spline: {fileID: 321500124}
+  Duration: 5
+  LookForward: 1
+  Mode: 1
 --- !u!23 &1020182017
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b6b4e22427e4efbb847bd026324e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points:
+  Points:
   - {x: 1, y: .5, z: 0}
   - {x: 2, y: 1, z: .659903526}
   - {x: 2.00550604, y: -.767869949, z: -.45860815}
@@ -467,10 +467,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2cdd158732c4661ba3c2b49fe9ebc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 516411527}
-  frequency: 10
-  lookForward: 1
-  items:
+  Spline: {fileID: 516411527}
+  Frequency: 10
+  LookForward: 1
+  Items:
   - {fileID: 400000, guid: 428260ca0c7884ffa9afcb1da133720c, type: 2}
   - {fileID: 400000, guid: 07bc9122086c6428c8abcca8696763ac, type: 2}
   - {fileID: 400000, guid: 0e17c3c93ca544fbd99b2cc9fbd5e541, type: 2}
@@ -613,13 +613,13 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    Width: 1
+    Height: 1
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 5
+  orthographic Size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -670,10 +670,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2cdd158732c4661ba3c2b49fe9ebc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 321500124}
-  frequency: 10
-  lookForward: 1
-  items:
+  Spline: {fileID: 321500124}
+  Frequency: 10
+  LookForward: 1
+  Items:
   - {fileID: 400000, guid: 428260ca0c7884ffa9afcb1da133720c, type: 2}
   - {fileID: 400000, guid: 07bc9122086c6428c8abcca8696763ac, type: 2}
   - {fileID: 400000, guid: 0e17c3c93ca544fbd99b2cc9fbd5e541, type: 2}

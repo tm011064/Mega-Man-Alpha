@@ -71,14 +71,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c0e7d964261f3e4098f51218f180408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 134230, guid: ebbd14f276f88b846b641dad102593d1, type: 2}
-  projectileAcceleration: 200
-  projectileTargetVelocity: 400
-  fireDirectionSpace: 0
+  ProjectilePrefab: {fileID: 134230, guid: ebbd14f276f88b846b641dad102593d1, type: 2}
+  ProjectileAcceleration: 200
+  ProjectileTargetVelocity: 400
+  FireDirectionSpace: 0
   fireDirectionVectorGroups:
   - vectors:
     - {x: 0, y: -1}
-  roundsPerMinute: 600
+  RoundsPerMinute: 600
 --- !u!114 &11434806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,17 +91,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPhysicsManager: {fileID: 0}
-  startDirection: 4
-  speed: 1600
-  smoothDampFactorWhenDecelerationIsOn: 10
-  smoothDampFactorWhenDecelerationIsOff: .5
-  idleDistanceThreshold: 8
-  decelerationDistanceMultiplicationFactor: .00300000003
-  movementBoundaryObjectLayerMask:
+  StartDirection: 4
+  Speed: 1600
+  SmoothDampFactorWhenDecelerationIsOn: 10
+  SmoothDampFactorWhenDecelerationIsOff: .5
+  IdleDistanceThreshold: 8
+  DecelerationDistanceMultiplicationFactor: .00300000003
+  MovementBoundaryObjectLayerMask:
     serializedVersion: 2
     m_Bits: 4096
-  axisType: 0
-  totalmovementBoundaryCheckRays: 3
+  AxisType: 0
+  TotalmovementBoundaryCheckRays: 3
 --- !u!212 &21213766
 SpriteRenderer:
   m_ObjectHideFlags: 1

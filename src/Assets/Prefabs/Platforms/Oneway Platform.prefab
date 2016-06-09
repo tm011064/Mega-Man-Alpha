@@ -129,15 +129,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568732470efab324eb929b3b650598d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineGizmoColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineVisibilityMaskGizmoColor: {r: 1, g: 0, b: 1, a: 1}
-  showGizmoOutline: 1
-  showCameraGizmoOutline: 1
-  visibilityCheckInterval: .200000003
-  width: 512
-  height: 32
-  tileWidth: 16
-  tileHeight: 16
+  OutlineGizmoColor: {r: 1, g: 1, b: 1, a: 1}
+  OutlineVisibilityMaskGizmoColor: {r: 1, g: 0, b: 1, a: 1}
+  ShowGizmoOutline: 1
+  ShowCameraGizmoOutline: 1
+  VisibilityCheckInterval: .200000003
+  Width: 512
+  Height: 32
+  TileWidth: 16
+  TileHeight: 16
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

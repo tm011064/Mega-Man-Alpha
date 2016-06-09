@@ -2,8 +2,6 @@
 using UnityEngine;
 public class StationaryLaser : SpawnBucketItemBehaviour
 {
-  private LineRenderer _lineRenderer;
-
   [Tooltip("All layers that the scan rays can collide with. Should include platforms and player.")]
   public LayerMask ScanRayCollisionLayers = 0;
 
@@ -12,6 +10,8 @@ public class StationaryLaser : SpawnBucketItemBehaviour
 
   [Tooltip("The offset of the point where the laser gets emitted.")]
   public Vector3 ScanRayEmissionPositionOffset = Vector3.zero;
+
+  private LineRenderer _lineRenderer;
 
   void Awake()
   {

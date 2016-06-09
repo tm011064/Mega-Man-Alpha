@@ -6,9 +6,9 @@ public class DamageTakenPlayerControlHandler : DefaultPlayerControlHandler
 
   public DamageTakenPlayerControlHandler()
     : this(
-      GameManager.Instance.Player,
-      GameManager.Instance.GameSettings.PlayerDamageControlHandlerSettings.Duration,
-      GameManager.Instance.GameSettings.PlayerDamageControlHandlerSettings.SuspendPhysicsTime)
+        GameManager.Instance.Player,
+        GameManager.Instance.GameSettings.PlayerDamageControlHandlerSettings.Duration,
+        GameManager.Instance.GameSettings.PlayerDamageControlHandlerSettings.SuspendPhysicsTime)
   {
   }
 

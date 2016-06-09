@@ -49,7 +49,7 @@ public partial class CameraModifier : MonoBehaviour
   {
     Vector3 transformPoint = ParentPositionObject.transform.TransformPoint(Vector3.zero);
 
-    if (ZoomSettings.zoomPercentage == 0f)
+    if (ZoomSettings.ZoomPercentage == 0f)
     {
       throw new ArgumentOutOfRangeException("Zoom Percentage must not be 0.");
     }
@@ -61,7 +61,7 @@ public partial class CameraModifier : MonoBehaviour
         VerticalLockSettings.TopBoundary =
           transformPoint.y
           + VerticalLockSettings.TopVerticalLockPosition
-          - _cameraController.TargetScreenSize.y * .5f / ZoomSettings.zoomPercentage;
+          - _cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
       }
 
       if (VerticalLockSettings.EnableBottomVerticalLock)
@@ -69,7 +69,7 @@ public partial class CameraModifier : MonoBehaviour
         VerticalLockSettings.BottomBoundary =
           transformPoint.y
           + VerticalLockSettings.BottomVerticalLockPosition
-          + _cameraController.TargetScreenSize.y * .5f / ZoomSettings.zoomPercentage;
+          + _cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
       }
     }
 
@@ -77,12 +77,12 @@ public partial class CameraModifier : MonoBehaviour
     {
       if (HorizontalLockSettings.EnableLeftHorizontalLock)
       {
-        HorizontalLockSettings.LeftBoundary = transformPoint.x + HorizontalLockSettings.LeftHorizontalLockPosition + _cameraController.TargetScreenSize.x * .5f / ZoomSettings.zoomPercentage;
+        HorizontalLockSettings.LeftBoundary = transformPoint.x + HorizontalLockSettings.LeftHorizontalLockPosition + _cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
       }
 
       if (HorizontalLockSettings.EnableRightHorizontalLock)
       {
-        HorizontalLockSettings.RightBoundary = transformPoint.x + HorizontalLockSettings.RightHorizontalLockPosition - _cameraController.TargetScreenSize.x * .5f / ZoomSettings.zoomPercentage;
+        HorizontalLockSettings.RightBoundary = transformPoint.x + HorizontalLockSettings.RightHorizontalLockPosition - _cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
       }
     }
 

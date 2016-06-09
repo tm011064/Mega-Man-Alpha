@@ -3,10 +3,6 @@ using UnityEngine;
 
 public partial class HazardSpawnManager : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  private ObjectPoolingManager _objectPoolingManager;
-
-  private float _nextSpawnTime;
-
   [SpawnableItemAttribute]
   public GameObject ProjectileToSpawn;
 
@@ -16,7 +12,11 @@ public partial class HazardSpawnManager : SpawnBucketItemBehaviour, IObjectPoolB
   [Tooltip("Projectiles get pooled internally, so we want to reuse projectiles that have been destroyed. This number is the minimum number of projectiles available at all time.")]
   public int MinProjectilesToInstanciate = 10;
 
-  public readonly BallisticTrajectorySettings BallisticTrajectorySettings = new BallisticTrajectorySettings();
+  public BallisticTrajectorySettings BallisticTrajectorySettings = new BallisticTrajectorySettings();
+
+  private ObjectPoolingManager _objectPoolingManager;
+
+  private float _nextSpawnTime;
 
   private void Spawn()
   {

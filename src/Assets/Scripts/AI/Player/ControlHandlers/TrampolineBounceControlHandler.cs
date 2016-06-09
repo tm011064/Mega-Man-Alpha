@@ -2,13 +2,13 @@
 
 public class TrampolineBounceControlHandler : PlayerControlHandler
 {
+  public bool HasJumped { get { return _hasJumped; } }
+
   private float _onTrampolineSkidDamping;
 
   private bool _canJump = false;
 
   private bool _hasJumped = false;
-
-  public bool HasJumped { get { return _hasJumped; } }
 
   public TrampolineBounceControlHandler(PlayerController playerController, float duration, float fixedJumpHeight, float onTrampolineSkidDamping, bool canJump)
     : base(playerController, duration)

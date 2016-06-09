@@ -30,13 +30,12 @@ public class TargetShooterFromAboveControlHandler : EnemyControlHandler<TargetSh
       || !_pauseAtEdgeEndTime.HasValue // or we have not reached the edge yet
       )
     {
-      // first move in patrolling mode
       MoveHorizontally(
         ref _moveDirectionFactor,
-        _enemyController.speed,
-        _enemyController.gravity,
+        _enemyController.Speed,
+        _enemyController.Gravity,
         PlatformEdgeMoveMode.TurnAround,
-        _enemyController.edgeTurnAroundPause);
+        _enemyController.EdgeTurnAroundPause);
     }
 
     var raycastOrigin = _moveDirectionFactor > 0f
@@ -44,13 +43,13 @@ public class TargetShooterFromAboveControlHandler : EnemyControlHandler<TargetSh
       : new Vector3(_enemyController.gameObject.transform.position.x - _boxCollider2D.size.x / 2f, _enemyController.gameObject.transform.position.y);
 
     if (_playerInSightDuration > 0f
-      && _playerInSightDuration > _enemyController.detectPlayerDuration
+      && _playerInSightDuration > _enemyController.DetectPlayerDuration
       && _pauseAtEdgeEndTime.HasValue)
     {
       // TODO (Roman): shoot, look at hazard spawn manager and copy/paste logic here
-      if (_lastShotTime + _enemyController.shootIntervalDuration < Time.time)
+      if (_lastShotTime + _enemyController.ShootIntervalDuration < Time.time)
       {
-        var spawnedProjectile = _objectPoolingManager.GetObject(_enemyController.projectileToSpawn.name);
+        var spawnedProjectile = _objectPoolingManager.GetObject(_enemyController.ProjectileToSpawn.name);
 
         spawnedProjectile.transform.position = raycastOrigin;
 
@@ -69,29 +68,29 @@ public class TargetShooterFromAboveControlHandler : EnemyControlHandler<TargetSh
 
         Debug.Log("Endpos: " + ballisticTrajectorySettings.EndPosition + ", " + (GameManager.Instance.Player.transform.position.y - raycastOrigin.y));
 
-        projectileController.PushControlHandler(new BallisticProjectileControlHandler(projectileController, ballisticTrajectorySettings, _enemyController.maxVelocity));
+        projectileController.PushControlHandler(new BallisticProjectileControlHandler(projectileController, ballisticTrajectorySettings, _enemyController.MaxVelocity));
 
         _lastShotTime = Time.time;
       }
     }
 
     var startAngleRad = _moveDirectionFactor > 0f
-      ? (-90f + _enemyController.scanAngleClipping / 2f) * Mathf.Deg2Rad
-      : (-180f + _enemyController.scanAngleClipping / 2f) * Mathf.Deg2Rad;
+      ? (-90f + _enemyController.ScanAngleClipping / 2f) * Mathf.Deg2Rad
+      : (-180f + _enemyController.ScanAngleClipping / 2f) * Mathf.Deg2Rad;
 
     var endAngleRad = _moveDirectionFactor > 0f
-      ? (0f - _enemyController.scanAngleClipping / 2f) * Mathf.Deg2Rad
-      : (-90f - _enemyController.scanAngleClipping / 2f) * Mathf.Deg2Rad;
+      ? (0f - _enemyController.ScanAngleClipping / 2f) * Mathf.Deg2Rad
+      : (-90f - _enemyController.ScanAngleClipping / 2f) * Mathf.Deg2Rad;
 
-    var step = (endAngleRad - startAngleRad) / (float)(_enemyController.totalScanRays);
+    var step = (endAngleRad - startAngleRad) / (float)(_enemyController.TotalScanRays);
 
     var isSeeingPlayer = false;
 
     for (var theta = endAngleRad; theta > startAngleRad - step / 2; theta -= step)
     {
-      var vector = new Vector2((float)(_enemyController.scanRayLength * Mathf.Cos(theta)), (float)(_enemyController.scanRayLength * Mathf.Sin(theta)));
+      var vector = new Vector2((float)(_enemyController.ScanRayLength * Mathf.Cos(theta)), (float)(_enemyController.ScanRayLength * Mathf.Sin(theta)));
 
-      var raycastHit2D = Physics2D.Raycast(raycastOrigin, vector.normalized, vector.magnitude, _enemyController.scanRayCollisionLayers);
+      var raycastHit2D = Physics2D.Raycast(raycastOrigin, vector.normalized, vector.magnitude, _enemyController.ScanRayCollisionLayers);
 
       if (raycastHit2D)
       {

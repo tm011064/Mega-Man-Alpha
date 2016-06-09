@@ -62,7 +62,7 @@ public class PowerUpGunControlHandler : DefaultPlayerControlHandler
 
   private void EvaluateShot(Vector2 aimVector)
   {
-    if ((GameManager.InputStateManager.GetButtonState("Dash").buttonPressState & ButtonPressState.IsDown) != 0)
+    if ((GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsDown) != 0)
     {// fire
       if (_lastBulletTime + (1 / _powerUpSettings.LaserAimGunSettings.BulletsPerSecond)
         * (_powerUpSettings.LaserAimGunSettings.AllowSlowMotionRealTimeBulletsPerSecond ? Time.timeScale : 1f)
@@ -95,7 +95,7 @@ public class PowerUpGunControlHandler : DefaultPlayerControlHandler
     AxisState horizontalAxisState = GameManager.InputStateManager.GetAxisState("Horizontal");
     AxisState verticalAxisState = GameManager.InputStateManager.GetAxisState("Vertical");
 
-    if ((GameManager.InputStateManager.GetButtonState("Aim").buttonPressState & ButtonPressState.IsDown) != 0)
+    if ((GameManager.InputStateManager.GetButtonState("Aim").ButtonPressState & ButtonPressState.IsDown) != 0)
     {
       if (Time.unscaledTime >= _nextAvailableAimStartTime)
       {
@@ -110,7 +110,7 @@ public class PowerUpGunControlHandler : DefaultPlayerControlHandler
         _isAiming = true;
       }
     }
-    else if ((GameManager.InputStateManager.GetButtonState("Aim").buttonPressState & ButtonPressState.IsPressed) != 0)
+    else if ((GameManager.InputStateManager.GetButtonState("Aim").ButtonPressState & ButtonPressState.IsPressed) != 0)
     {
       if (_isAiming)
       {
@@ -122,7 +122,7 @@ public class PowerUpGunControlHandler : DefaultPlayerControlHandler
         }
       }
     }
-    else if ((GameManager.InputStateManager.GetButtonState("Aim").buttonPressState & ButtonPressState.IsUp) != 0)
+    else if ((GameManager.InputStateManager.GetButtonState("Aim").ButtonPressState & ButtonPressState.IsUp) != 0)
     {
       if (_isAiming)
       {

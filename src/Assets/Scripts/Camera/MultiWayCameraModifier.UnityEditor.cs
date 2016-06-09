@@ -5,17 +5,6 @@ using UnityEngine;
 
 public partial class MultiWayCameraModifier : MonoBehaviour
 {
-  private struct BoxVertices
-  {
-    public Vector2 LeftTop;
-
-    public Vector2 RightTop;
-
-    public Vector2 LeftBottom;
-
-    public Vector2 RightBottom;
-  }
-
   public ImportCameraSettings ImportCameraSettings;
 
   private BoxVertices _greenBox;
@@ -345,6 +334,17 @@ public partial class MultiWayCameraModifier : MonoBehaviour
     edgeCollider.points = points.ToArray();
 
     SetColoredBoxVertices();
+  }
+
+  private struct BoxVertices
+  {
+    public Vector2 LeftTop;
+
+    public Vector2 RightTop;
+
+    public Vector2 LeftBottom;
+
+    public Vector2 RightBottom;
   }
 }
 #endif

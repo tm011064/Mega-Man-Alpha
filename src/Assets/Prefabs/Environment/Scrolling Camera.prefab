@@ -48,13 +48,13 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    Width: 1
+    Height: 1
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 540
+  orthographic Size: 540
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -92,18 +92,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridLineSettings:
-  - width: 16
-    height: 16
-    visible: 1
-  - width: 128
-    height: 128
-    visible: 0
-  - width: 368
-    height: 368
-    visible: 1
-  visible: 0
-  size: {x: 4096, y: 1080}
-  center: {x: -2048, y: 540}
+  - Width: 16
+    Height: 16
+    Visible: 1
+  - Width: 128
+    Height: 128
+    Visible: 0
+  - Width: 368
+    Height: 368
+    Visible: 1
+  Visible: 0
+  Size: {x: 4096, y: 1080}
+  Center: {x: -2048, y: 540}
 --- !u!114 &11433236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,41 +115,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aafffe2441d08254c860e973d7ba0c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 168078, guid: c0a6b3f01887eb34db0fcf6fd811c92f, type: 2}
-  gameSettings:
-    powerUpSettings:
-      floaterSettings:
-        floaterGravity: -100
-        startFloatingDuringFallVelocityMultiplier: .100000001
-        floaterGravityDecreaseInterpolationFactor: .0500000007
-        floaterInAirDampingOverride: 3
-      jetpackSettings:
-        jetpackSpeed: 600
-        airDamping: 1.20000005
-        autoFloatWithoutThrust: 0
-        floatGravity: -200
-    playerMetricSettings:
-      jumpReleaseUpVelocityMultiplier: .400000006
-    pooledObjects:
-      basicPowerUpPrefab:
-        prefab: {fileID: 166798, guid: 4bd4b6c05980bf9458a9f748bd42daee, type: 2}
-        initialSize: 1
-      basicBullet:
-        prefab: {fileID: 140326, guid: a827156a372f3b947a7662c8844f43df, type: 2}
-        initialSize: 100
-      defaultEnemyDeathParticlePrefab:
-        prefab: {fileID: 167798, guid: 3b5cf00d763170241b9fa290837211d6, type: 2}
-        initialSize: 5
-      defaultPlayerDeathParticlePrefab:
-        prefab: {fileID: 167798, guid: fa9163f60e66184438326f473debaf07, type: 2}
-        initialSize: 1
-    logSettings:
-      logFile: Log\Log.txt
-      totalArchivedFilesToKeep: 3
-      echoToConsole: 0
-      addTimeStamp: 1
-      breakOnError: 1
-      breakOnAssert: 1
+  GameManagerPrefab: {fileID: 168078, guid: c0a6b3f01887eb34db0fcf6fd811c92f, type: 2}
+  GameSettings:
+    PowerUpSettings:
+      FloaterSettings:
+        FloaterGravity: -100
+        StartFloatingDuringFallVelocityMultiplier: .100000001
+        FloaterGravityDecreaseInterpolationFactor: .0500000007
+        FloaterInAirDampingOverride: 3
+      JetpackSettings:
+        JetpackSpeed: 600
+        AirDamping: 1.20000005
+        AutoFloatWithoutThrust: 0
+        FloatGravity: -200
+    PlayerMetricSettings:
+      JumpReleaseUpVelocityMultiplier: .400000006
+    PooledObjects:
+      BasicPowerUpPrefab:
+        Prefab: {fileID: 166798, guid: 4bd4b6c05980bf9458a9f748bd42daee, type: 2}
+        InitialSize: 1
+      BasicBullet:
+        Prefab: {fileID: 140326, guid: a827156a372f3b947a7662c8844f43df, type: 2}
+        InitialSize: 100
+      DefaultEnemyDeathParticlePrefab:
+        Prefab: {fileID: 167798, guid: 3b5cf00d763170241b9fa290837211d6, type: 2}
+        InitialSize: 5
+      DefaultPlayerDeathParticlePrefab:
+        Prefab: {fileID: 167798, guid: fa9163f60e66184438326f473debaf07, type: 2}
+        InitialSize: 1
+    LogSettings:
+      LogFile: Log\Log.txt
+      TotalArchivedFilesToKeep: 3
+      EchoToConsole: 0
+      AddTimeStamp: 1
+      BreakOnError: 1
+      BreakOnAssert: 1
       enabledTraceTags:
       - _CharacterPhysicsManager
       - PlayerController
@@ -158,11 +158,11 @@ MonoBehaviour:
       - InputState
       - _PlayerMetricsDebug
       - _CharacterPhysicsManagerSlide
-      enableAllTraceTags: 0
-      addTraceTagToMessage: 1
-    playerDamageControlHandlerSettings:
-      duration: 3
-      suspendPhysicsTime: 1
+      EnableAllTraceTags: 0
+      AddTraceTagToMessage: 1
+    PlayerDamageControlHandlerSettings:
+      Duration: 3
+      SuspendPhysicsTime: 1
 --- !u!114 &11492740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,11 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afd1a2782a2cca438d5e85abe2032c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraOffset: {x: 0, y: 0, z: 10}
-  useFixedUpdate: 0
-  targetScreenSize: {x: 1920, y: 1080}
+  CameraOffset: {x: 0, y: 0, z: 10}
+  UseFixedUpdate: 0
+  TargetScreenSize: {x: 1920, y: 1080}
   target: {fileID: 0}
-  transform: {fileID: 0}
+  Transform: {fileID: 0}
 --- !u!124 &12498726
 Behaviour:
   m_ObjectHideFlags: 1

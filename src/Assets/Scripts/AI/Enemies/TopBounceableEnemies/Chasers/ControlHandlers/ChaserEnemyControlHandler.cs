@@ -19,12 +19,12 @@ public class PatrollingChaserEnemyControlHandler : EnemyControlHandler<ChaserEne
   protected override bool DoUpdate()
   {
     if (_playerInSightDuration > 0f
-      && _playerInSightDuration > _enemyController.detectPlayerDuration)
+      && _playerInSightDuration > _enemyController.DetectPlayerDuration)
     {
       _enemyController.PushControlHandler(
         new ChasingChaserEnemyControlHandler(
           _enemyController,
-          _enemyController.totalChaseDuration,
+          _enemyController.TotalChaseDuration,
           _moveDirectionFactor > 0f
             ? Direction.Right
             : Direction.Left));
@@ -34,31 +34,32 @@ public class PatrollingChaserEnemyControlHandler : EnemyControlHandler<ChaserEne
       return true;
     }
 
-    // first move in patrolling mode
     MoveHorizontally(
       ref _moveDirectionFactor,
-      _enemyController.speed,
-      _enemyController.gravity,
+      _enemyController.Speed,
+      _enemyController.Gravity,
       PlatformEdgeMoveMode.TurnAround,
-      _enemyController.edgeTurnAroundPause);
+      _enemyController.EdgeTurnAroundPause);
 
-    var startAngleRad = -(_enemyController.scanRayAngle / 2) * Mathf.Deg2Rad;
-    var endAngleRad = (_enemyController.scanRayAngle / 2) * Mathf.Deg2Rad;
-    var step = _enemyController.scanRayAngle * Mathf.Deg2Rad / (float)(_enemyController.totalScanRays);
+    var startAngleRad = -(_enemyController.ScanRayAngle / 2) * Mathf.Deg2Rad;
+
+    var endAngleRad = (_enemyController.ScanRayAngle / 2) * Mathf.Deg2Rad;
+
+    var step = _enemyController.ScanRayAngle * Mathf.Deg2Rad / (float)(_enemyController.TotalScanRays);
 
     var isSeeingPlayer = false;
 
     for (var theta = endAngleRad; theta > startAngleRad - step / 2; theta -= step)
     {
       var vector = new Vector2(
-        _moveDirectionFactor * (float)(_enemyController.scanRayLength * Mathf.Cos(theta)),
-        (float)(_enemyController.scanRayLength * Mathf.Sin(theta)));
+        _moveDirectionFactor * (float)(_enemyController.ScanRayLength * Mathf.Cos(theta)),
+        (float)(_enemyController.ScanRayLength * Mathf.Sin(theta)));
 
       var raycastHit2D = Physics2D.Raycast(
         _enemyController.gameObject.transform.position,
         vector.normalized,
         vector.magnitude,
-        _enemyController.scanRayCollisionLayers);
+        _enemyController.ScanRayCollisionLayers);
 
       if (raycastHit2D)
       {
@@ -68,13 +69,19 @@ public class PatrollingChaserEnemyControlHandler : EnemyControlHandler<ChaserEne
 
           isSeeingPlayer = true;
 
-          DrawRay(_enemyController.gameObject.transform.position, raycastHit2D.point.ToVector3() - _enemyController.gameObject.transform.position, Color.red);
+          DrawRay(
+            _enemyController.gameObject.transform.position,
+            raycastHit2D.point.ToVector3() - _enemyController.gameObject.transform.position,
+            Color.red);
 
           break;
         }
         else
         {
-          DrawRay(_enemyController.gameObject.transform.position, raycastHit2D.point.ToVector3() - _enemyController.gameObject.transform.position, Color.grey);
+          DrawRay(
+            _enemyController.gameObject.transform.position,
+            raycastHit2D.point.ToVector3() - _enemyController.gameObject.transform.position,
+            Color.grey);
         }
       }
       else

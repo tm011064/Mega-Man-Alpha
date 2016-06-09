@@ -31,7 +31,7 @@ public class AttachObjectToPath : BaseMonoBehaviour, IObjectPoolBehaviour
 
   void OnPlayerGroundedPlatformChanged(GroundedPlatformChangedInfo e)
   {
-    if (e.currentPlatform != _gameObject)
+    if (e.CurrentPlatform != _gameObject)
     {
       return; // we need to check that the player landed on this platform
     }
