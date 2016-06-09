@@ -71,11 +71,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPhysicsManager: {fileID: 0}
-  startDirection: 2
-  bounceJumpMultiplier: .800000012
-  allowJumpFromTopThresholdInSeconds: .100000001
-  allowedTopCollisionAngleFrom: -38
-  allowedTopCollisionAngleTo: -142
+  StartDirection: 2
+  BounceJumpMultiplier: .800000012
+  AllowJumpFromTopThresholdInSeconds: .100000001
+  AllowedTopCollisionAngleFrom: -38
+  AllowedTopCollisionAngleTo: -142
 --- !u!212 &21293404
 SpriteRenderer:
   m_ObjectHideFlags: 1

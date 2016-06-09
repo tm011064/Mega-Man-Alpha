@@ -145,13 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6108b7e524db3614ea2f001c9daf4fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineGizmoColor: {r: 1, g: 1, b: 1, a: 1}
-  showGizmoOutline: 1
-  floatingAttachedPlatform: {fileID: 185638, guid: 05ffa42594c8f7845ab616ee7e2d0327,
+  OutlineGizmoColor: {r: 1, g: 1, b: 1, a: 1}
+  ShowGizmoOutline: 1
+  FloatingAttachedPlatform: {fileID: 185638, guid: 05ffa42594c8f7845ab616ee7e2d0327,
     type: 2}
-  totalPlatforms: 1
-  radius: 384
-  speed: -64
+  TotalPlatforms: 1
+  Radius: 384
+  Speed: -64
 --- !u!114 &11405686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,17 +163,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityCheckInterval: .200000003
-  width: 384
-  height: 32
+  VisibilityCheckInterval: .200000003
+  Width: 384
+  Height: 32
   createTiles: 1
-  tileWidth: 32
-  tileHeight: 32
-  anchor: 6
-  isTrigger: 0
-  colliderSides: 15
-  prefabMeshFolder: Assets/Meshes/
-  prefabObjectFolder: Assets/Prefabs/TestBlocks/
+  TileWidth: 32
+  TileHeight: 32
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
 --- !u!114 &11444932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,13 +196,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6108b7e524db3614ea2f001c9daf4fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineGizmoColor: {r: 1, g: 1, b: 1, a: 1}
-  showGizmoOutline: 1
-  floatingAttachedPlatform: {fileID: 185638, guid: 05ffa42594c8f7845ab616ee7e2d0327,
+  OutlineGizmoColor: {r: 1, g: 1, b: 1, a: 1}
+  ShowGizmoOutline: 1
+  FloatingAttachedPlatform: {fileID: 185638, guid: 05ffa42594c8f7845ab616ee7e2d0327,
     type: 2}
-  totalPlatforms: 1
-  radius: 384
-  speed: 64
+  TotalPlatforms: 1
+  Radius: 384
+  Speed: 64
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

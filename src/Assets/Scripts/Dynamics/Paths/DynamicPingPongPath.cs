@@ -4,14 +4,6 @@ using UnityEngine;
 
 public partial class DynamicPingPongPath : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  [Serializable]
-  public class DynamicPingPongPathMotionSettings
-  {
-    public EasingType EasingType = EasingType.Linear;
-
-    public float Time;
-  }
-
   public Color OutlineGizmoColor = Color.white;
 
   public bool ShowGizmoOutline = true;
@@ -176,5 +168,13 @@ public partial class DynamicPingPongPath : SpawnBucketItemBehaviour, IObjectPool
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
     return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(ObjectToAttach, 1) };
+  }
+
+  [Serializable]
+  public class DynamicPingPongPathMotionSettings
+  {
+    public EasingType EasingType = EasingType.Linear;
+
+    public float Time;
   }
 }

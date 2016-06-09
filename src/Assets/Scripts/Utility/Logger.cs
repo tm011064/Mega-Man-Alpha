@@ -9,19 +9,6 @@ using UnityEngine;
 
 public class Logger : IDisposable
 {
-  private enum LogLevel
-  {
-    Trace,
-
-    Info,
-
-    Warning,
-
-    Error,
-
-    Assert
-  };
-
   private static Logger _logger;
 
   private LogSettings _loggerSettings;
@@ -383,4 +370,17 @@ public class Logger : IDisposable
     _outputStream = new StreamWriter(logSettings.LogFile, false);
 #endif
   }
+
+  private enum LogLevel
+  {
+    Trace,
+
+    Info,
+
+    Warning,
+
+    Error,
+
+    Assert
+  };
 }

@@ -12,11 +12,10 @@
 
   protected override bool DoUpdate()
   {
-    // first move in patrolling mode
     MoveHorizontally(
       ref _moveDirectionFactor,
-      _enemyController.speed,
-      _enemyController.gravity,
+      _enemyController.Speed,
+      _enemyController.Gravity,
       PlatformEdgeMoveMode.FallOff);
 
     return true;

@@ -101,17 +101,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityCheckInterval: .200000003
-  width: 64
-  height: 64
+  VisibilityCheckInterval: .200000003
+  Width: 64
+  Height: 64
   createTiles: 1
-  tileWidth: 64
-  tileHeight: 64
-  anchor: 4
-  isTrigger: 0
-  colliderSides: 0
-  prefabMeshFolder: Assets/Meshes/
-  prefabObjectFolder: Assets/Prefabs/TestBlocks/
+  TileWidth: 64
+  TileHeight: 64
+  Anchor: 4
+  IsTrigger: 0
+  ColliderSides: 0
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
 --- !u!114 &11464264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,14 +123,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c0e7d964261f3e4098f51218f180408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 134230, guid: ebbd14f276f88b846b641dad102593d1, type: 2}
-  projectileAcceleration: 40
-  projectileTargetVelocity: 400
-  fireDirectionSpace: 1
+  ProjectilePrefab: {fileID: 134230, guid: ebbd14f276f88b846b641dad102593d1, type: 2}
+  ProjectileAcceleration: 40
+  ProjectileTargetVelocity: 400
+  FireDirectionSpace: 1
   fireDirectionVectorGroups:
   - vectors:
     - {x: -1, y: 0}
-  roundsPerMinute: 30
+  RoundsPerMinute: 30
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

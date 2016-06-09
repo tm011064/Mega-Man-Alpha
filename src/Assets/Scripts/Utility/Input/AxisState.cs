@@ -2,11 +2,11 @@
 
 public class AxisState
 {
-  private string _axisName;
-
   public float Value;
 
   public float LastValue;
+
+  private string _axisName;
 
   public void Update()
   {

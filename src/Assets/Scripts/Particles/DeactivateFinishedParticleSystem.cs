@@ -13,6 +13,7 @@ public class DeactivateFinishedParticleSystem : MonoBehaviour
   void OnEnable()
   {
     _particleSystem = GetComponent<ParticleSystem>();
+
     StartCoroutine(DeactivationTriggerCheck());
   }
 

@@ -39,88 +39,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913f3d65f751af747b5074268dd57734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 11413412, guid: 2b9c323c1d2e35347b5bd2cfac8c7d9a, type: 2}
-  gameSettings:
-    powerUpSettings:
-      floaterSettings:
-        floaterGravity: -100
-        startFloatingDuringFallVelocityMultiplier: .100000001
-        floaterGravityDecreaseInterpolationFactor: .0500000007
-        floaterInAirDampingOverride: 3
-      jetpackSettings:
-        jetpackSpeed: 600
-        airDamping: 2
-        autoFloatWithoutThrust: 0
-        floatGravity: -200
+  Player: {fileID: 11413412, guid: 2b9c323c1d2e35347b5bd2cfac8c7d9a, type: 2}
+  GameSettings:
+    PowerUpSettings:
+      FloaterSettings:
+        FloaterGravity: -100
+        StartFloatingDuringFallVelocityMultiplier: .100000001
+        FloaterGravityDecreaseInterpolationFactor: .0500000007
+        FloaterInAirDampingOverride: 3
+      JetpackSettings:
+        JetpackSpeed: 600
+        AirDamping: 2
+        AutoFloatWithoutThrust: 0
+        FloatGravity: -200
       laserAimGunSetting:
-        scanRayDirectionDownCollisionLayers:
+        ScanRayDirectionDownCollisionLayers:
           serializedVersion: 2
           m_Bits: 0
-        scanRayDirectionUpCollisionLayers:
+        ScanRayDirectionUpCollisionLayers:
           serializedVersion: 2
           m_Bits: 0
-        scanRayLength: 1280
-        bulletsPerSecond: 10
-        allowSlowMotionRealTimeBulletsPerSecond: 1
-        bulletSpeed: 2000
-        intervalBetweenAiming: 1
-        slowMotionFactorMultplierCurve:
+        ScanRayLength: 1280
+        BulletsPerSecond: 10
+        AllowSlowMotionRealTimeBulletsPerSecond: 1
+        BulletSpeed: 2000
+        IntervalBetweenAiming: 1
+        SlowMotionFactorMultplierCurve:
           serializedVersion: 2
           m_Curve:
-          - time: 0
+          - Time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: .200000003
+          - Time: .200000003
             value: .125
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 1.20000005
+          - Time: 1.20000005
             value: .125
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 2
+          - Time: 2
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
-        doAutoAim: 1
-        autoAimSearchAngle: 12
-        totalAutoAimSearchRaysPerSide: 2
-        aimHelpAngle: 30
-    playerMetricSettings:
-      jumpReleaseUpVelocityMultiplier: .5
-    pooledObjects:
-      basicPowerUpPrefab:
-        prefab: {fileID: 0}
-        initialSize: 1
-      basicBullet:
-        prefab: {fileID: 0}
-        initialSize: 1
-      defaultEnemyDeathParticlePrefab:
-        prefab: {fileID: 0}
-        initialSize: 1
-      defaultPlayerDeathParticlePrefab:
-        prefab: {fileID: 0}
-        initialSize: 1
-    logSettings:
-      logFile: Log\DefaultLog.txt
-      totalArchivedFilesToKeep: 3
-      echoToConsole: 1
-      addTimeStamp: 1
-      breakOnError: 1
-      breakOnAssert: 1
+        DoAutoAim: 1
+        AutoAimSearchAngle: 12
+        TotalAutoAimSearchRaysPerSide: 2
+        AimHelpAngle: 30
+    PlayerMetricSettings:
+      JumpReleaseUpVelocityMultiplier: .5
+    PooledObjects:
+      BasicPowerUpPrefab:
+        Prefab: {fileID: 0}
+        InitialSize: 1
+      BasicBullet:
+        Prefab: {fileID: 0}
+        InitialSize: 1
+      DefaultEnemyDeathParticlePrefab:
+        Prefab: {fileID: 0}
+        InitialSize: 1
+      DefaultPlayerDeathParticlePrefab:
+        Prefab: {fileID: 0}
+        InitialSize: 1
+    LogSettings:
+      LogFile: Log\DefaultLog.txt
+      TotalArchivedFilesToKeep: 3
+      EchoToConsole: 1
+      AddTimeStamp: 1
+      BreakOnError: 1
+      BreakOnAssert: 1
       enabledTraceTags: []
-      enableAllTraceTags: 0
-      addTraceTagToMessage: 1
-    playerDamageControlHandlerSettings:
-      duration: 3
-      suspendPhysicsTime: 1
+      EnableAllTraceTags: 0
+      AddTraceTagToMessage: 1
+    PlayerDamageControlHandlerSettings:
+      Duration: 3
+      SuspendPhysicsTime: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

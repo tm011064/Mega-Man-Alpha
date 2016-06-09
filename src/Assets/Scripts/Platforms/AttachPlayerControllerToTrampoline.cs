@@ -74,10 +74,10 @@ public partial class AttachPlayerControllerToTrampoline : MonoBehaviour, IAttach
   {
     var lostGround =
       ( // either player is in air
-        e.currentPlatform == null
+        e.CurrentPlatform == null
         && _playerController.transform.parent == _gameObject.transform
       )
-      || e.previousPlatform == _gameObject; // or the previous platform was the trampoline 
+      || e.PreviousPlatform == _gameObject; // or the previous platform was the trampoline 
 
     if (lostGround)
     {
@@ -102,7 +102,7 @@ public partial class AttachPlayerControllerToTrampoline : MonoBehaviour, IAttach
 
       Logger.Info("Removed parent (" + gameObject.transform + ") relationship from child (" + _playerController.name + ")");
     }
-    else if (e.currentPlatform == _gameObject)
+    else if (e.CurrentPlatform == _gameObject)
     {
       if (_playerController.transform.parent != _gameObject.transform)
       {

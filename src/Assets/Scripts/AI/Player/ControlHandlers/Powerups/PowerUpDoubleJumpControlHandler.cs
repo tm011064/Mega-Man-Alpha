@@ -37,7 +37,7 @@ public class PowerUpDoubleJumpControlHandler : PlayerControlHandler
       velocity.y = 0f;
     }
 
-    if ((GameManager.InputStateManager.GetButtonState("Jump").buttonPressState & ButtonPressState.IsDown) != 0)
+    if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsDown) != 0)
     {
       if (CanJump())
       {

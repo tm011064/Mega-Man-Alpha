@@ -2,12 +2,12 @@
 
 public partial class SpawnBucket : BaseMonoBehaviour
 {
-  public float VisibiltyCheckInterval = .1f;
-
   [SerializeField]
   [InspectorReadOnlyAttribute]
   [Tooltip("Don't edit this, use the 'Register Child Objects' button instead")]
   private SpawnBucketItemBehaviour[] _children = new SpawnBucketItemBehaviour[0];
+
+  public float VisibiltyCheckInterval = .1f;
 
   protected override void OnGotVisible()
   {

@@ -53,18 +53,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa09f85b9517ec9459a432afb9ee8c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToSpawn: {fileID: 0}
+  EnemyToSpawn: {fileID: 0}
   spawnTriggerMode: 0
-  respawnMode: 3
-  continuousSpawnInterval: 1
-  visibiltyCheckInterval: .100000001
+  RespawnMode: 3
+  ContinuousSpawnInterval: 1
+  VisibiltyCheckInterval: .100000001
   moveDirectionFactor: 1
   ballisticTrajectory:
-    isEnabled: 0
-    angle: 2
-    projectileGravity: -9.81000042
-    endPosition: {x: 0, y: 0}
-  respawnOnDestroyDelay: .100000001
+    IsEnabled: 0
+    Angle: 2
+    ProjectileGravity: -9.81000042
+    EndPosition: {x: 0, y: 0}
+  RespawnOnDestroyDelay: .100000001
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

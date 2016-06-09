@@ -192,17 +192,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityCheckInterval: .200000003
-  width: 192
-  height: 64
+  VisibilityCheckInterval: .200000003
+  Width: 192
+  Height: 64
   createTiles: 1
-  tileWidth: 64
-  tileHeight: 64
-  anchor: 6
-  isTrigger: 1
-  colliderSides: 15
-  prefabMeshFolder: Assets/Meshes/
-  prefabObjectFolder: Assets/Prefabs/TestBlocks/
+  TileWidth: 64
+  TileHeight: 64
+  Anchor: 6
+  IsTrigger: 1
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
 --- !u!114 &11415480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -214,17 +214,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityCheckInterval: .200000003
-  width: 192
-  height: 32
+  VisibilityCheckInterval: .200000003
+  Width: 192
+  Height: 32
   createTiles: 1
-  tileWidth: 32
-  tileHeight: 32
-  anchor: 6
-  isTrigger: 0
-  colliderSides: 15
-  prefabMeshFolder: Assets/Meshes/
-  prefabObjectFolder: Assets/Prefabs/TestBlocks/
+  TileWidth: 32
+  TileHeight: 32
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
 --- !u!114 &11428860
 MonoBehaviour:
   m_ObjectHideFlags: 1

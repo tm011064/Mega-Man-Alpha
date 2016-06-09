@@ -1,8 +1,8 @@
 ﻿public class RunnerEnemyController : TopBounceableEnemyController
 {
-  public float speed = 200f;
+  public float Speed = 200f;
 
-  public float gravity = -3960f;
+  public float Gravity = -3960f;
 
   protected override BaseControlHandler ApplyDamageControlHandler
   {

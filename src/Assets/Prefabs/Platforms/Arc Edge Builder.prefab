@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f63b25f8c0c3d7419445556f39b7af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalSegments: 24
+  TotalSegments: 24
   fillToYPos: 1
   yPosToFill: 0
   fillMaterial: {fileID: 2100000, guid: 7ae0a765c3e35d04c9d42d0949a1626d, type: 2}

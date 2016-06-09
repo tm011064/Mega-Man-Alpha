@@ -5,35 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class CharacterPhysicsManager : BasePhysicsManager
 {
-  private struct CharacterRaycastOrigins
-  {
-    public Vector3 TopLeft;
-
-    public Vector3 BottomRight;
-
-    public Vector3 BottomLeft;
-  }
-
-  struct TopEdgeCollisionTestContainer
-  {
-    public RaycastHit2D RaycastHit2D;
-
-    public bool IsWithinLeftAdjustmentArea;
-
-    public bool IsWithinRightAdjustmentArea;
-
-    public float InsetLeft;
-
-    public override string ToString()
-    {
-      return string.Format("raycastHit2D: {0}, insetLeft: {1}, isWithinLeftAdjustmentArea: {2}, isWithinRightAdjustmentArea: {3}",
-        RaycastHit2D == true ? "true" : "false",
-        InsetLeft,
-        IsWithinLeftAdjustmentArea,
-        IsWithinRightAdjustmentArea);
-    }
-  }
-
   private const string TRACE_TAG = "CharacterPhysicsManager";
 
   private const string SLIDE_TRACE_TAG = "CharacterPhysicsManagerSlide";
@@ -99,7 +70,7 @@ public class CharacterPhysicsManager : BasePhysicsManager
 
   [HideInInspector]
   [NonSerialized]
-  public new Transform Transform;
+  public Transform Transform;
 
   [HideInInspector]
   [NonSerialized]
@@ -1321,7 +1292,7 @@ public class CharacterPhysicsManager : BasePhysicsManager
           if (!rightAdjustmentRaycastHit
             && !hasHitWithinLeftAdjustmentBoundaries)
           {
-            Logger.Trace(TRACE_TAG, "moveVertically -> Vert Ray Hit. isGoingUp: {0}, deltaMovement.y: {1}", 
+            Logger.Trace(TRACE_TAG, "moveVertically -> Vert Ray Hit. isGoingUp: {0}, deltaMovement.y: {1}",
               isGoingUp,
               moveCalculationResult.DeltaMovement.y);
 
@@ -1527,4 +1498,34 @@ public class CharacterPhysicsManager : BasePhysicsManager
   {
     Debug.DrawRay(start, dir, color);
   }
+
+  private struct CharacterRaycastOrigins
+  {
+    public Vector3 TopLeft;
+
+    public Vector3 BottomRight;
+
+    public Vector3 BottomLeft;
+  }
+
+  struct TopEdgeCollisionTestContainer
+  {
+    public RaycastHit2D RaycastHit2D;
+
+    public bool IsWithinLeftAdjustmentArea;
+
+    public bool IsWithinRightAdjustmentArea;
+
+    public float InsetLeft;
+
+    public override string ToString()
+    {
+      return string.Format("raycastHit2D: {0}, insetLeft: {1}, isWithinLeftAdjustmentArea: {2}, isWithinRightAdjustmentArea: {3}",
+        RaycastHit2D == true ? "true" : "false",
+        InsetLeft,
+        IsWithinLeftAdjustmentArea,
+        IsWithinRightAdjustmentArea);
+    }
+  }
+
 }

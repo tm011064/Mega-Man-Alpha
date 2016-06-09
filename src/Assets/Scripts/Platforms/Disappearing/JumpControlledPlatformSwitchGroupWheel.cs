@@ -4,24 +4,6 @@ using UnityEngine;
 
 public partial class JumpControlledPlatformSwitchGroupWheel : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  public class GameObjectContainer
-  {
-    public GameObject GameObject;
-
-    public float Angle;
-  }
-
-  [Serializable]
-  public class JumpSwitchGroup
-  {
-    public GameObject EnabledGameObject;
-
-    public GameObject DisabledGameObject;
-
-    [HideInInspector]
-    public List<GameObjectContainer> GameObjects;
-  }
-
   public int TotalPlatforms = 4;
 
   public float Width = 256f;
@@ -201,5 +183,23 @@ public partial class JumpControlledPlatformSwitchGroupWheel : SpawnBucketItemBeh
     }
 
     return objectPoolRegistrationInfos;
+  }
+
+  public class GameObjectContainer
+  {
+    public GameObject GameObject;
+
+    public float Angle;
+  }
+
+  [Serializable]
+  public class JumpSwitchGroup
+  {
+    public GameObject EnabledGameObject;
+
+    public GameObject DisabledGameObject;
+
+    [HideInInspector]
+    public List<GameObjectContainer> GameObjects;
   }
 }

@@ -3,13 +3,6 @@ using UnityEngine;
 
 public partial class Wheel : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  private class GameObjectContainer
-  {
-    public GameObject GameObject;
-
-    public float Angle;
-  }
-
   public GameObject FloatingAttachedPlatform;
 
   public float TotalPlatforms = 3;
@@ -106,5 +99,12 @@ public partial class Wheel : SpawnBucketItemBehaviour, IObjectPoolBehaviour
     }
 
     return objectPoolRegistrationInfos;
+  }
+
+  private class GameObjectContainer
+  {
+    public GameObject GameObject;
+
+    public float Angle;
   }
 }

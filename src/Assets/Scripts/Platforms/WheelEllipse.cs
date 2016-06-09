@@ -3,13 +3,6 @@ using UnityEngine;
 
 public partial class WheelEllipse : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  private class GameObjectContainer
-  {
-    public GameObject GameObject;
-
-    public float Angle;
-  }
-
   public GameObject FloatingAttachedPlatform;
 
   public float TotalPlatforms = 4;
@@ -94,5 +87,12 @@ public partial class WheelEllipse : SpawnBucketItemBehaviour, IObjectPoolBehavio
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
     return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(FloatingAttachedPlatform, (int)TotalPlatforms) };
+  }
+
+  private class GameObjectContainer
+  {
+    public GameObject GameObject;
+
+    public float Angle;
   }
 }

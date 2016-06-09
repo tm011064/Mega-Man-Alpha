@@ -51,7 +51,7 @@ public partial class MultiWayCameraModifier : MonoBehaviour
         clone.VerticalLockSettings.TopBoundary =
           transformPoint.y
           + clone.VerticalLockSettings.TopVerticalLockPosition
-          - cameraController.TargetScreenSize.y * .5f / clone.ZoomSettings.zoomPercentage;
+          - cameraController.TargetScreenSize.y * .5f / clone.ZoomSettings.ZoomPercentage;
       }
 
       if (clone.VerticalLockSettings.EnableBottomVerticalLock)
@@ -59,7 +59,7 @@ public partial class MultiWayCameraModifier : MonoBehaviour
         clone.VerticalLockSettings.BottomBoundary =
           transformPoint.y
           + clone.VerticalLockSettings.BottomVerticalLockPosition
-          + cameraController.TargetScreenSize.y * .5f / clone.ZoomSettings.zoomPercentage;
+          + cameraController.TargetScreenSize.y * .5f / clone.ZoomSettings.ZoomPercentage;
       }
     }
     if (clone.HorizontalLockSettings.Enabled)
@@ -69,7 +69,7 @@ public partial class MultiWayCameraModifier : MonoBehaviour
         clone.HorizontalLockSettings.LeftBoundary =
           transformPoint.x
           + clone.HorizontalLockSettings.LeftHorizontalLockPosition
-          + cameraController.TargetScreenSize.x * .5f / clone.ZoomSettings.zoomPercentage;
+          + cameraController.TargetScreenSize.x * .5f / clone.ZoomSettings.ZoomPercentage;
       }
 
       if (clone.HorizontalLockSettings.EnableRightHorizontalLock)
@@ -77,7 +77,7 @@ public partial class MultiWayCameraModifier : MonoBehaviour
         clone.HorizontalLockSettings.RightBoundary =
           transformPoint.x
           + clone.HorizontalLockSettings.RightHorizontalLockPosition
-          - cameraController.TargetScreenSize.x * .5f / clone.ZoomSettings.zoomPercentage;
+          - cameraController.TargetScreenSize.x * .5f / clone.ZoomSettings.ZoomPercentage;
       }
     }
 
@@ -89,7 +89,7 @@ public partial class MultiWayCameraModifier : MonoBehaviour
 
   private void SetCameraModificationSettings(MultiWayCameraModificationSetting source)
   {
-    if (source.ZoomSettings.zoomPercentage == 0f)
+    if (source.ZoomSettings.ZoomPercentage == 0f)
     {
       throw new ArgumentOutOfRangeException("Zoom Percentage must not be 0.");
     }

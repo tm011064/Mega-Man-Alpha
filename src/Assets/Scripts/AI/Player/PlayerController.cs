@@ -5,25 +5,11 @@ public partial class PlayerController : BaseCharacterController
 {
   private const string TRACE_TAG = "PlayerController";
 
-  private RaycastHit2D _lastControllerColliderHit;
+  public WallJumpSettings WallJumpSettings = new WallJumpSettings();
 
-  private Vector3 _velocity;
+  public JumpSettings JumpSettings = new JumpSettings();
 
-  private WallJumpControlHandler _reusableWallJumpControlHandler;
-
-  private WallJumpEvaluationControlHandler _reusableWallJumpEvaluationControlHandler;
-
-#if UNITY_EDITOR
-  private Vector3 _lastLostGroundPos = Vector3.zero;
-#endif
-
-  private GameManager _gameManager;
-
-  public readonly WallJumpSettings WallJumpSettings = new WallJumpSettings();
-
-  public readonly JumpSettings JumpSettings = new JumpSettings();
-
-  public readonly RunSettings RunSettings = new RunSettings();
+  public RunSettings RunSettings = new RunSettings();
 
   public Vector2 BoxColliderOffsetCrouched = Vector2.zero;
 
@@ -77,6 +63,20 @@ public partial class PlayerController : BaseCharacterController
 
   [HideInInspector]
   public LaserGunAimContainer LaserGunAimContainer = null;
+
+  private RaycastHit2D _lastControllerColliderHit;
+
+  private Vector3 _velocity;
+
+  private WallJumpControlHandler _reusableWallJumpControlHandler;
+
+  private WallJumpEvaluationControlHandler _reusableWallJumpEvaluationControlHandler;
+
+#if UNITY_EDITOR
+  private Vector3 _lastLostGroundPos = Vector3.zero;
+#endif
+
+  private GameManager _gameManager;
 
   public event Action<GroundedPlatformChangedInfo> GroundedPlatformChanged;
 
@@ -294,7 +294,7 @@ public partial class PlayerController : BaseCharacterController
 
   protected override void Update()
   {
-    if ((_gameManager.InputStateManager.GetButtonState("SwitchPowerUp").buttonPressState & ButtonPressState.IsUp) != 0)
+    if ((_gameManager.InputStateManager.GetButtonState("SwitchPowerUp").ButtonPressState & ButtonPressState.IsUp) != 0)
     {
       _gameManager.PowerUpManager.ApplyNextInventoryPowerUpItem();
     }

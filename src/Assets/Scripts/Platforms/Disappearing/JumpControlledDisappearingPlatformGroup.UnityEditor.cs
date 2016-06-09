@@ -5,13 +5,13 @@ using UnityEngine;
 
 public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour
 {
-  private Vector3 _gizmoCenter = Vector3.zero;
-
-  private Vector3 _gizmoExtents = new Vector3(16, 16, 0);
-
   public Color OutlineGizmoColor = Color.yellow;
 
   public bool ShowGizmoOutline = true;
+
+  private Vector3 _gizmoCenter = Vector3.zero;
+
+  private Vector3 _gizmoExtents = new Vector3(16, 16, 0);
 
   void OnDrawGizmos()
   {

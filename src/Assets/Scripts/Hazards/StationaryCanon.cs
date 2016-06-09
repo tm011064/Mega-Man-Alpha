@@ -1,15 +1,22 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class StationaryCanon : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  [Serializable]
-  public class CanonFireDirectionVectors
-  {
-    public List<Vector2> vectors = new List<Vector2>();
-  }
+  public GameObject ProjectilePrefab;
+
+  public float ProjectileAcceleration = .05f;
+
+  public float ProjectileTargetVelocity = 600f;
+
+  public Space FireDirectionSpace = Space.World;
+
+  public List<CanonFireDirectionVectors> FireDirectionVectorGroups = new List<CanonFireDirectionVectors>();
+
+  public float RoundsPerMinute = 30f;
+
+  public bool OnlyShootWhenInvisible;
 
   private float _rateOfFireInterval;
 
@@ -24,20 +31,6 @@ public class StationaryCanon : SpawnBucketItemBehaviour, IObjectPoolBehaviour
   private int _currentfireDirectionVectorGroupIndex = 0;
 
   private CameraController _cameraController;
-
-  public GameObject ProjectilePrefab;
-
-  public float ProjectileAcceleration = .05f;
-
-  public float ProjectileTargetVelocity = 600f;
-
-  public Space FireDirectionSpace = Space.World;
-
-  public List<CanonFireDirectionVectors> FireDirectionVectorGroups = new List<CanonFireDirectionVectors>();
-
-  public float RoundsPerMinute = 30f;
-
-  public bool OnlyShootWhenInvisible;
 
   void Awake()
   {
@@ -79,7 +72,7 @@ public class StationaryCanon : SpawnBucketItemBehaviour, IObjectPoolBehaviour
         }
 
         _currentfireDirectionVectorGroupIndex = _currentfireDirectionVectorGroupIndex == FireDirectionVectorGroups.Count - 1 ? 0 : _currentfireDirectionVectorGroupIndex + 1;
-        
+
         _lastRoundFiredTime = Time.time;
       }
     }
@@ -88,5 +81,11 @@ public class StationaryCanon : SpawnBucketItemBehaviour, IObjectPoolBehaviour
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
     return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(ProjectilePrefab, 5) };
+  }
+
+  [Serializable]
+  public class CanonFireDirectionVectors
+  {
+    public List<Vector2> vectors = new List<Vector2>();
   }
 }

@@ -4,29 +4,6 @@ using UnityEngine;
 
 public partial class JumpControlledPlatformSwitchGroup : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  [Serializable]
-  public class JumpSwitchGroup
-  {
-
-#if UNITY_EDITOR
-    public Color OutlineGizmoColor = Color.yellow;
-
-    public bool ShowGizmoOutline = true;
-#endif
-
-    public GameObject EnabledGameObject;
-
-    public GameObject DisabledGameObject;
-
-    public List<Vector3> Positions = new List<Vector3>();
-
-    [HideInInspector]
-    public Vector3[] WorldSpaceCoordinates;
-
-    [HideInInspector]
-    public GameObject[] GameObjects;
-  }
-
   public List<JumpSwitchGroup> PlatformGroupPositions = new List<JumpSwitchGroup>();
 
   public int PlatformGroupStartIndex = 0;
@@ -155,5 +132,27 @@ public partial class JumpControlledPlatformSwitchGroup : SpawnBucketItemBehaviou
     }
 
     return objectPoolRegistrationInfos;
+  }
+
+  [Serializable]
+  public class JumpSwitchGroup
+  {
+#if UNITY_EDITOR
+    public Color OutlineGizmoColor = Color.yellow;
+
+    public bool ShowGizmoOutline = true;
+#endif
+
+    public GameObject EnabledGameObject;
+
+    public GameObject DisabledGameObject;
+
+    public List<Vector3> Positions = new List<Vector3>();
+
+    [HideInInspector]
+    public Vector3[] WorldSpaceCoordinates;
+
+    [HideInInspector]
+    public GameObject[] GameObjects;
   }
 }

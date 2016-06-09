@@ -6,15 +6,6 @@ using UnityEngine;
 [Serializable]
 public class PowerUpManager
 {
-  public enum DamageResult
-  {
-    IsDead,
-
-    LostPower,
-
-    LostItem
-  }
-
   private GameManager _gameManager;
 
   private int _powerMeter;
@@ -230,5 +221,14 @@ public class PowerUpManager
     return "Power Meter: " + _powerMeter
       + ", Current Power-Up: " + (_currentPowerUpItem.HasValue ? _currentPowerUpItem.Value.ToString() : "NULL")
       + ", Inventory: " + (sb.Length == 0 ? "empty" : sb.ToString().TrimEnd(", ".ToCharArray()));
+  }
+
+  public enum DamageResult
+  {
+    IsDead,
+
+    LostPower,
+
+    LostItem
   }
 }

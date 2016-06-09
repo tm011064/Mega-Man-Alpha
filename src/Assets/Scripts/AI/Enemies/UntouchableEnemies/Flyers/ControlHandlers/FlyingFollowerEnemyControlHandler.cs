@@ -16,10 +16,10 @@ public class FlyingFollowerEnemyControlHandler : EnemyControlHandler<FlyingFollo
   {
     var direction = _playerController.transform.position - _enemyController.transform.position;
 
-    direction = direction.normalized * _enemyController.speed * Time.deltaTime;
+    direction = direction.normalized * _enemyController.Speed * Time.deltaTime;
 
-    _velocity.x = Mathf.Lerp(_velocity.x, direction.x, _enemyController.smoothDampFactor * Time.deltaTime);
-    _velocity.y = Mathf.Lerp(_velocity.y, direction.y, _enemyController.smoothDampFactor * Time.deltaTime);
+    _velocity.x = Mathf.Lerp(_velocity.x, direction.x, _enemyController.SmoothDampFactor * Time.deltaTime);
+    _velocity.y = Mathf.Lerp(_velocity.y, direction.y, _enemyController.SmoothDampFactor * Time.deltaTime);
 
     _enemyController.transform.Translate(_velocity);
 

@@ -19,7 +19,7 @@ public class MeshTilePlatform : BasePlatform
 
   public int DefaultTileY;
 
-  public Texture2D texture;
+  public Texture2D Texture;
 
   void Awake()
   {
@@ -66,7 +66,7 @@ public class MeshTilePlatform : BasePlatform
 
     var renderer = mf.GetComponent<Renderer>();
 
-    renderer.material.SetTexture("_MainTex", texture);
+    renderer.material.SetTexture("_MainTex", Texture);
 
     mf.mesh = mesh;
 

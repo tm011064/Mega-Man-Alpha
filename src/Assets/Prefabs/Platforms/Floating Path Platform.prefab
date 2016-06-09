@@ -40,13 +40,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f9dadf008d8cf4b91ef5c03aef4d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingAttachedPlatform: {fileID: 124956, guid: 3054ef3c73255f54b9c17f60e65fe728,
+  FloatingAttachedPlatform: {fileID: 124956, guid: 3054ef3c73255f54b9c17f60e65fe728,
     type: 2}
   easeType: 14
   loopType: 2
-  time: 3
-  movingPlatformType: 0
-  visibiltyCheckInterval: .100000001
+  Time: 3
+  MovingPlatformType: 0
+  VisibiltyCheckInterval: .100000001
 --- !u!114 &11431166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,7 +63,7 @@ MonoBehaviour:
   nodes:
   - {x: 17568, y: 1792, z: 0}
   - {x: 17568, y: 2144, z: 0}
-  nodeCount: 2
+  NodeCount: 2
   initialized: 1
   initialName: New Path 1
   pathVisible: 1

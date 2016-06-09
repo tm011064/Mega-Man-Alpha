@@ -84,11 +84,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPhysicsManager: {fileID: 0}
-  startDirection: 4
-  bounceJumpMultiplier: .5
-  allowJumpFromTopThresholdInSeconds: .300000012
-  allowedTopCollisionAngleFrom: -38
-  allowedTopCollisionAngleTo: -142
+  StartDirection: 4
+  BounceJumpMultiplier: .5
+  AllowJumpFromTopThresholdInSeconds: .300000012
+  AllowedTopCollisionAngleFrom: -38
+  AllowedTopCollisionAngleTo: -142
 --- !u!114 &11423320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,14 +100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10453060be2bff040bf215dce8b9e8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileToSpawn: {fileID: 136578, guid: 1fc91e749fb28ca47b95ac65737ea9da, type: 2}
-  continuousSpawnInterval: 1
-  minProjectilesToInstanciate: 10
-  ballisticTrajectorySettings:
-    isEnabled: 1
-    angle: 45
-    projectileGravity: -200
-    endPosition: {x: -1000, y: 0}
+  ProjectileToSpawn: {fileID: 136578, guid: 1fc91e749fb28ca47b95ac65737ea9da, type: 2}
+  ContinuousSpawnInterval: 1
+  MinProjectilesToInstanciate: 10
+  BallisticTrajectorySettings:
+    IsEnabled: 1
+    Angle: 45
+    ProjectileGravity: -200
+    EndPosition: {x: -1000, y: 0}
 --- !u!212 &21200454
 SpriteRenderer:
   m_ObjectHideFlags: 1

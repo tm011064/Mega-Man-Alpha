@@ -3,12 +3,6 @@
 public class EnemyControlHandler<TEnemyController> : BaseControlHandler
   where TEnemyController : EnemyController
 {
-  protected enum PlatformEdgeMoveMode
-  {
-    TurnAround,
-    FallOff
-  }
-
   protected TEnemyController _enemyController;
 
   protected float? _pauseAtEdgeEndTime = null;
@@ -140,5 +134,12 @@ public class EnemyControlHandler<TEnemyController> : BaseControlHandler
 
         break;
     }
+  }
+
+  protected enum PlatformEdgeMoveMode
+  {
+    TurnAround,
+
+    FallOff
   }
 }

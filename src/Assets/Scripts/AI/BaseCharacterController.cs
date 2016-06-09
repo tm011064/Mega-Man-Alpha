@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class BaseCharacterController : BaseMonoBehaviour
 {
+  [HideInInspector]
+  public CharacterPhysicsManager CharacterPhysicsManager;
+
   private CustomStack<BaseControlHandler> _controlHandlers = new CustomStack<BaseControlHandler>();
 
   private BaseControlHandler _currentBaseControlHandler = null;
-
-  [HideInInspector]
-  public CharacterPhysicsManager CharacterPhysicsManager;
 
   public BaseControlHandler CurrentControlHandler { get { return _currentBaseControlHandler; } }
 

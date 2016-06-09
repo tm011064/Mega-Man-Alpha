@@ -3,14 +3,6 @@ using UnityEngine;
 
 public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  private readonly List<GameObject> _spawnedEnemies = new List<GameObject>();
-
-  private ObjectPoolingManager _objectPoolingManager;
-
-  private bool _isDisabling;
-
-  private float _nextSpawnTime;
-
   [SpawnableItemAttribute]
   public GameObject EnemyToSpawn;
 
@@ -26,6 +18,14 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
   [Range(1f / 30.0f, float.MaxValue)]
   public float RespawnOnDestroyDelay = .1f;
+
+  private readonly List<GameObject> _spawnedEnemies = new List<GameObject>();
+
+  private ObjectPoolingManager _objectPoolingManager;
+
+  private bool _isDisabling;
+
+  private float _nextSpawnTime;
 
   private void Spawn()
   {

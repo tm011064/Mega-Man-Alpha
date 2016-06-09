@@ -3,15 +3,6 @@ using UnityEngine;
 
 public static class CollisionDetectionUtility
 {
-  private struct RaycastOrigins
-  {
-    public Vector2 TopLeft;
-
-    public Vector2 BottomRight;
-
-    public Vector2 BottomLeft;
-  }
-
   private const float K_SKIN_WIDTH_FLOAT_FUDGE_FACTOR = 0.001f;
 
   public static float GetVerticalDistanceBetweenRays(BoxCollider2D boxCollider2D, Vector3 transformScale, int totalRays, float skinWidth)
@@ -151,5 +142,14 @@ public static class CollisionDetectionUtility
   private static void DrawRay(Vector3 start, Vector3 dir, Color color)
   {
     Debug.DrawRay(start, dir, color);
+  }
+
+  private struct RaycastOrigins
+  {
+    public Vector2 TopLeft;
+
+    public Vector2 BottomRight;
+
+    public Vector2 BottomLeft;
   }
 }

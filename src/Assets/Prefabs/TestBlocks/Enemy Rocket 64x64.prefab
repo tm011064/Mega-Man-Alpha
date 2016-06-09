@@ -115,13 +115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e461a2bea6b33040a9c4d7bfc8e59ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scanRayDirectionDownCollisionLayers:
+  ScanRayDirectionDownCollisionLayers:
     serializedVersion: 2
     m_Bits: 5632
-  scanRayDirectionUpCollisionLayers:
+  ScanRayDirectionUpCollisionLayers:
     serializedVersion: 2
     m_Bits: 5120
-  skinWidth: .100000001
+  SkinWidth: .100000001
 --- !u!114 &11499460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,17 +133,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibilityCheckInterval: .200000003
-  width: 64
-  height: 64
+  VisibilityCheckInterval: .200000003
+  Width: 64
+  Height: 64
   createTiles: 1
-  tileWidth: 64
-  tileHeight: 64
-  anchor: 4
-  isTrigger: 1
-  colliderSides: 15
-  prefabMeshFolder: Assets/Meshes/
-  prefabObjectFolder: Assets/Prefabs/TestBlocks/
+  TileWidth: 64
+  TileHeight: 64
+  Anchor: 4
+  IsTrigger: 1
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -1,12 +1,12 @@
 ﻿public class JumpingRunnerEnemyController : TopBounceableEnemyController
 {
-  public float speed = 200f;
+  public float Speed = 200f;
 
-  public float gravity = -3960f;
+  public float Gravity = -3960f;
 
-  public float jumpHeight = 256f;
+  public float JumpHeight = 256f;
 
-  public float jumpInterval = 2f;
+  public float JumpInterval = 2f;
 
   protected override BaseControlHandler ApplyDamageControlHandler
   {

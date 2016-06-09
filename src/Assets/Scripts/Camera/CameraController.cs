@@ -2,33 +2,6 @@
 
 public class CameraController : MonoBehaviour
 {
-  class ZoomTimer : UpdateTimer
-  {
-    private float _startSize;
-
-    private float _targetSize;
-
-    private EasingType _easingType;
-
-    private Easing _easing;
-
-    protected override void DoUpdate(float currentTime)
-    {
-      var value = _easing.GetValue(_easingType, currentTime, _duration);
-
-      Camera.main.orthographicSize = _startSize + (_targetSize - _startSize) * value;
-    }
-
-    public ZoomTimer(float duration, float startSize, float targetSize, EasingType easingType)
-      : base(duration)
-    {
-      _startSize = startSize;
-      _targetSize = targetSize;
-      _easingType = easingType;
-      _easing = new Easing();
-    }
-  }
-
   public Vector3 CameraOffset;
 
   public bool UseFixedUpdate = false;
@@ -39,7 +12,7 @@ public class CameraController : MonoBehaviour
   public Transform Target;
 
   [HideInInspector]
-  public Transform Transform; // TODO (Roman): check whether that actually works
+  public Transform Transform;
 
   private CharacterPhysicsManager _characterPhysicsManager;
 
@@ -99,10 +72,10 @@ public class CameraController : MonoBehaviour
 
     Transform = gameObject.transform;
 
+    _playerController = GameManager.Instance.Player;
+
     // we set the target of the camera to our player through code
     Target = _playerController.transform;
-
-    _playerController = GameManager.Instance.Player;
 
     _lastTargetPosition = Target.transform.position;
 
@@ -172,19 +145,19 @@ public class CameraController : MonoBehaviour
       _cameraMovementSettings.Offset.y,
       CameraOffset.z);
 
-    var targetOrthographicSize = (TargetScreenSize.y * .5f) / _cameraMovementSettings.ZoomSettings.zoomPercentage;
+    var targetOrthographicSize = (TargetScreenSize.y * .5f) / _cameraMovementSettings.ZoomSettings.ZoomPercentage;
 
     if (!Mathf.Approximately(Camera.main.orthographicSize, targetOrthographicSize))
     {
       Logger.Info("Start zoom to target size: " + targetOrthographicSize + ", current size: " + Camera.main.orthographicSize);
 
-      if (_cameraMovementSettings.ZoomSettings.zoomTime == 0f)
+      if (_cameraMovementSettings.ZoomSettings.ZoomTime == 0f)
       {
         Camera.main.orthographicSize = targetOrthographicSize;
       }
       else
       {
-        _zoomTimer = new ZoomTimer(_cameraMovementSettings.ZoomSettings.zoomTime, Camera.main.orthographicSize, targetOrthographicSize, _cameraMovementSettings.ZoomSettings.zoomEasingType);
+        _zoomTimer = new ZoomTimer(_cameraMovementSettings.ZoomSettings.ZoomTime, Camera.main.orthographicSize, targetOrthographicSize, _cameraMovementSettings.ZoomSettings.ZoomEasingType);
 
         _zoomTimer.Start();
       }
@@ -438,5 +411,32 @@ public class CameraController : MonoBehaviour
       targetPositon.z);
 
     _lastTargetPosition = Target.transform.position;
+  }
+
+  class ZoomTimer : UpdateTimer
+  {
+    private float _startSize;
+
+    private float _targetSize;
+
+    private EasingType _easingType;
+
+    private Easing _easing;
+
+    public ZoomTimer(float duration, float startSize, float targetSize, EasingType easingType)
+      : base(duration)
+    {
+      _startSize = startSize;
+      _targetSize = targetSize;
+      _easingType = easingType;
+      _easing = new Easing();
+    }
+
+    protected override void DoUpdate(float currentTime)
+    {
+      var value = _easing.GetValue(_easingType, currentTime, _duration);
+
+      Camera.main.orthographicSize = _startSize + (_targetSize - _startSize) * value;
+    }
   }
 }

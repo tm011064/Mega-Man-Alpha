@@ -242,7 +242,7 @@ public class PlayerControlHandler : BaseControlHandler
   {
     // apply gravity before moving
     if (canBreakUpMovement && velocity.y > 0f
-      && (GameManager.InputStateManager.GetButtonState("Jump").buttonPressState & ButtonPressState.IsUp) != 0)
+      && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsUp) != 0)
     {
       return (velocity.y + gravity * Time.deltaTime) * PlayerMetricSettings.JumpReleaseUpVelocityMultiplier;
     }
@@ -305,7 +305,7 @@ public class PlayerControlHandler : BaseControlHandler
     }
 
     if (canJump
-      && (GameManager.InputStateManager.GetButtonState("Jump").buttonPressState & allowedJumpButtonPressState) != 0)
+      && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & allowedJumpButtonPressState) != 0)
     {
       if (CanJump())
       {
@@ -315,7 +315,7 @@ public class PlayerControlHandler : BaseControlHandler
 
         HasPerformedGroundJumpThisFrame = true;
 
-        HadDashPressedWhileJumpOff = (GameManager.InputStateManager.GetButtonState("Dash").buttonPressState & ButtonPressState.IsPressed) != 0;
+        HadDashPressedWhileJumpOff = (GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0;
 
         PlayerController.OnJumpedThisFrame();
       }
@@ -361,7 +361,7 @@ public class PlayerControlHandler : BaseControlHandler
   protected float GetHorizontalVelocityWithDamping(Vector3 velocity, float hAxis, float normalizedHorizontalSpeed)
   {
     var speed = PlayerController.RunSettings.WalkSpeed;
-    if ((GameManager.InputStateManager.GetButtonState("Dash").buttonPressState & ButtonPressState.IsPressed) != 0)
+    if ((GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0)
     {
       if ( // allow dash speed if
           PlayerController.RunSettings.EnableRunning // running is enabled
@@ -444,7 +444,7 @@ public class PlayerControlHandler : BaseControlHandler
   protected void CheckOneWayPlatformFallThrough()
   {
     if (CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
-      && (GameManager.InputStateManager.GetButtonState("Fall").buttonPressState & ButtonPressState.IsPressed) != 0
+      && (GameManager.InputStateManager.GetButtonState("Fall").ButtonPressState & ButtonPressState.IsPressed) != 0
       && PlayerController.CurrentPlatform != null
       && PlayerController.CurrentPlatform.layer == LayerMask.NameToLayer("OneWayPlatform"))
     {

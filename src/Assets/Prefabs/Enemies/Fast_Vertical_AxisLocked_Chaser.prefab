@@ -72,16 +72,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPhysicsManager: {fileID: 0}
-  startDirection: 4
-  speed: 1600
-  smoothDampFactorWhenDecelerationIsOn: 3
-  smoothDampFactorWhenDecelerationIsOff: .5
-  idleDistanceThreshold: 8
-  decelerationDistanceMultiplicationFactor: .00300000003
-  movementBoundaryObjectLayerMask:
+  StartDirection: 4
+  Speed: 1600
+  SmoothDampFactorWhenDecelerationIsOn: 3
+  SmoothDampFactorWhenDecelerationIsOff: .5
+  IdleDistanceThreshold: 8
+  DecelerationDistanceMultiplicationFactor: .00300000003
+  MovementBoundaryObjectLayerMask:
     serializedVersion: 2
     m_Bits: 4096
-  axisType: 1
+  AxisType: 1
 --- !u!114 &11473842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addf534e2712f5f4ca4c71139a40bb12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyHazardOnCollision: 0
+  DestroyHazardOnCollision: 0
 --- !u!212 &21223806
 SpriteRenderer:
   m_ObjectHideFlags: 1

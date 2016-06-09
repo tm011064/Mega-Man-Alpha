@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ObjectPoolingManager
 {
-  private static volatile ObjectPoolingManager _instance;
+  private static object SyncRoot = new object();
+
+  private static ObjectPoolingManager _instance;
 
   private Dictionary<String, ObjectPool> _objectPools;
-
-  private static object SyncRoot = new object();
 
   public event Action<GameObject> BeforeDeactivated;
 

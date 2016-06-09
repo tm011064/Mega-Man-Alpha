@@ -115,13 +115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054a176f504f75848870f2ab5d4d88ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalSteps: 1
-  fromPosition: {x: 0, y: 0}
-  toPosition: {x: 192, y: 48}
-  easingType: 0
-  meshBuilderFillType: 1
-  meshBuilderFillDistanceType: 1
-  fillDistance: -200
+  TotalSteps: 1
+  FromPosition: {x: 0, y: 0}
+  ToPosition: {x: 192, y: 48}
+  EasingType: 0
+  MeshBuilderFillType: 1
+  MeshBuilderFillDistanceType: 1
+  FillDistance: -200
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

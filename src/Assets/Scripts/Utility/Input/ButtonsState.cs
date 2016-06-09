@@ -4,12 +4,12 @@ public class ButtonsState
 {
   private const string TRACE_TAG = "ButtonsState";
 
+  public ButtonPressState ButtonPressState;
+
   private string _buttonName;
 
   private float _pressStarted;
-
-  public ButtonPressState buttonPressState;
-
+  
   public void Update()
   {
     ButtonPressState state = ButtonPressState.Idle;
@@ -20,7 +20,7 @@ public class ButtonsState
     }
 
     if (((state & ButtonPressState.IsPressed) != 0)               // IF   currently pressed
-      && ((buttonPressState & ButtonPressState.IsPressed) == 0))  // AND  previously not pressed
+      && ((ButtonPressState & ButtonPressState.IsPressed) == 0))  // AND  previously not pressed
     {
       _pressStarted = Time.time;
 
@@ -30,7 +30,7 @@ public class ButtonsState
     }
 
     if (((state & ButtonPressState.IsPressed) == 0)               // IF   currently not pressed
-      && ((buttonPressState & ButtonPressState.IsPressed) != 0))  // AND  previously pressed
+      && ((ButtonPressState & ButtonPressState.IsPressed) != 0))  // AND  previously pressed
     {
       state |= ButtonPressState.IsUp;
     }
@@ -40,12 +40,12 @@ public class ButtonsState
       state &= ~ButtonPressState.Idle;
     }
 
-    buttonPressState = state;
+    ButtonPressState = state;
   }
 
   public float GetPressedTime()
   {
-    if (((buttonPressState & ButtonPressState.IsPressed) == 0))
+    if (((ButtonPressState & ButtonPressState.IsPressed) == 0))
     {
       return 0f;
     }
