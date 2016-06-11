@@ -14,8 +14,6 @@ public class OffsetScroller : MonoBehaviour // TODO (Roman): does this work?
 
   private Vector2 _lastOffset;
 
-  Vector3 _distance;
-
   private float _horizontalSmoothDampVelocity;
 
   private float _verticalSmoothDampVelocity;
@@ -29,8 +27,6 @@ public class OffsetScroller : MonoBehaviour // TODO (Roman): does this work?
 
   void Start()
   {
-    _distance = transform.position - _transform.position;
-
     _savedOffset = _renderer.sharedMaterial.GetTextureOffset("_MainTex");
 
     _oldPos = _transform.position;

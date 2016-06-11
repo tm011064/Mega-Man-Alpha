@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 public class DontGoThroughThings : MonoBehaviour
 {
   [Tooltip("All layers that the scan rays can collide with. Should include platforms and player.")]
@@ -7,49 +8,43 @@ public class DontGoThroughThings : MonoBehaviour
   [Tooltip("All layers that the scan rays can collide with. Should include platforms and player.")]
   public LayerMask ScanRayDirectionUpCollisionLayers = 0;
 
-  public float SkinWidth = 0.1f; //probably doesn't need to be changed 
+  public float SkinWidth = 0.1f;
 
-  private float MinimumExtent;
+  private float _minimumExtent;
 
-  private float PartialExtent;
+  private float _squareMinimumExtent;
 
-  private float SquareMinimumExtent;
+  private Vector3 _previousPosition;
 
-  private Vector3 PreviousPosition;
-
-  private Collider2D Collider;
+  private Collider2D _collider;
 
   private bool _skipFirstFrame;
 
-  //initialize values 
   void OnEnable()
   {
-    PreviousPosition = gameObject.transform.position;
+    _previousPosition = gameObject.transform.position;
   }
 
   void Awake()
   {
-    Collider = GetComponent<Collider2D>();
+    _collider = GetComponent<Collider2D>();
   }
 
   void Start()
   {
-    MinimumExtent = Mathf.Min(Mathf.Min(Collider.bounds.extents.x, Collider.bounds.extents.y), Collider.bounds.extents.z);
+    _minimumExtent = Mathf.Min(Mathf.Min(_collider.bounds.extents.x, _collider.bounds.extents.y), _collider.bounds.extents.z);
 
-    PartialExtent = MinimumExtent * (1.0f - SkinWidth);
-
-    SquareMinimumExtent = MinimumExtent * MinimumExtent;
+    _squareMinimumExtent = _minimumExtent * _minimumExtent;
   }
 
   void Update()
   {
-    var movementThisStep = gameObject.transform.position - PreviousPosition;
+    var movementThisStep = gameObject.transform.position - _previousPosition;
 
-    if (movementThisStep.magnitude > SquareMinimumExtent)
+    if (movementThisStep.magnitude > _squareMinimumExtent)
     {
-      //check for obstructions we might have missed 
       var raycastHit = Physics2D.Raycast(
-        PreviousPosition,
+        _previousPosition,
         movementThisStep.normalized,
         movementThisStep.magnitude,
         movementThisStep.y > 0f
@@ -58,10 +53,10 @@ public class DontGoThroughThings : MonoBehaviour
 
       if (raycastHit)
       {
-        Collider.SendMessage("OnTriggerEnter2D", raycastHit.collider, SendMessageOptions.DontRequireReceiver);
+        _collider.SendMessage("OnTriggerEnter2D", raycastHit.collider, SendMessageOptions.DontRequireReceiver);
       }
     }
 
-    PreviousPosition = gameObject.transform.position;
+    _previousPosition = gameObject.transform.position;
   }
 }

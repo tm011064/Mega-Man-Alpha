@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadOnClick : MonoBehaviour
 {
-  private AsyncOperation Async;
+  private AsyncOperation _async;
 
   public GameObject LoadingImage;
 
@@ -19,11 +20,11 @@ public class LoadOnClick : MonoBehaviour
 
   IEnumerator LoadLevelWithBar(int level)
   {
-    Async = Application.LoadLevelAsync(level);
+    _async = SceneManager.LoadSceneAsync(level);
 
-    while (!Async.isDone)
+    while (!_async.isDone)
     {
-      LoadingText.text = "Loading " + Async.progress;
+      LoadingText.text = "Loading " + _async.progress;
 
       yield return null;
     }

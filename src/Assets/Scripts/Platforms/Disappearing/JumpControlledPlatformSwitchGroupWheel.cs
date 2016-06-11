@@ -22,8 +22,6 @@ public partial class JumpControlledPlatformSwitchGroupWheel : SpawnBucketItemBeh
 
   protected PlayerController _playerController;
 
-  private List<Vector3> _worldSpacePlatformCoordinates = new List<Vector3>();
-
   void OnEnable()
   {
     if (PlatformGroups.Count < 1)
