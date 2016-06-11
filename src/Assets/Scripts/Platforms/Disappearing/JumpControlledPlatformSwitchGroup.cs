@@ -14,8 +14,6 @@ public partial class JumpControlledPlatformSwitchGroup : SpawnBucketItemBehaviou
 
   protected PlayerController _playerController;
 
-  private List<Vector3> _worldSpacePlatformCoordinates = new List<Vector3>();
-
   void OnEnable()
   {
     _playerController = GameManager.Instance.Player;

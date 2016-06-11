@@ -26,8 +26,6 @@ public class StationaryCanon : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 
   private ObjectPoolingManager _objectPoolingManager;
 
-  private PlayerController _playerController;
-
   private int _currentfireDirectionVectorGroupIndex = 0;
 
   private CameraController _cameraController;
@@ -44,8 +42,6 @@ public class StationaryCanon : SpawnBucketItemBehaviour, IObjectPoolBehaviour
   void OnEnable()
   {
     _objectPoolingManager = ObjectPoolingManager.Instance;
-
-    _playerController = GameManager.Instance.Player;
 
     _currentfireDirectionVectorGroupIndex = 0;
   }

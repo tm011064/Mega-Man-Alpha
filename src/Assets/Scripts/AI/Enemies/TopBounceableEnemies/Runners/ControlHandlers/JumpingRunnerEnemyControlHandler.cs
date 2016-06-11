@@ -22,12 +22,6 @@ public class JumpingRunnerEnemyControlHandler : EnemyControlHandler<JumpingRunne
     if (Time.time >= _nextJumpTime
       && CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
     {
-      var velocityY = Mathf.Sqrt(
-            2f
-            * -_enemyController.Gravity
-            * _enemyController.JumpHeight
-            );
-
       MoveHorizontally(
         ref _moveDirectionFactor,
         _enemyController.Speed,

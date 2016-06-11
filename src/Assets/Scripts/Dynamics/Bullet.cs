@@ -2,14 +2,7 @@
 
 public class Bullet : MonoBehaviour
 {
-  private Rigidbody2D _rigidBody;
-
   private Vector3 _velocity;
-
-  void Awake()
-  {
-    _rigidBody = GetComponent<Rigidbody2D>();
-  }
 
   public void StartMove(Vector2 startPosition, Vector2 velocity)
   {

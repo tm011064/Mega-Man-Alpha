@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
 
   private int _totalCoins = 0;
 
-  private List<Checkpoint> _orderedSceneCheckpoints;
+  private Checkpoint[] _orderedSceneCheckpoints;
 
   private int _currentCheckpointIndex = 0;
 
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 
   public void SpawnPlayerAtNextCheckpoint(bool doCycle)
   {
-    if (_currentCheckpointIndex >= _orderedSceneCheckpoints.Count - 1)
+    if (_currentCheckpointIndex >= _orderedSceneCheckpoints.Length - 1)
     {
       if (doCycle)
       {
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
       }
       else
       {
-        _currentCheckpointIndex = _orderedSceneCheckpoints.Count - 1;
+        _currentCheckpointIndex = _orderedSceneCheckpoints.Length - 1;
       }
     }
     else
@@ -66,9 +67,9 @@ public class GameManager : MonoBehaviour
     {
       _currentCheckpointIndex = 0;
     }
-    else if (checkpointIndex >= _orderedSceneCheckpoints.Count)
+    else if (checkpointIndex >= _orderedSceneCheckpoints.Length)
     {
-      _currentCheckpointIndex = _orderedSceneCheckpoints.Count - 1;
+      _currentCheckpointIndex = _orderedSceneCheckpoints.Length - 1;
     }
     else
     {
@@ -113,13 +114,13 @@ public class GameManager : MonoBehaviour
     GameObject checkpoint;
 
     // TODO (Roman): don't hardcode tags
-    switch (Application.loadedLevelName)
+    switch (SceneManager.GetActiveScene().name)
     {
       case "Platforms And Enemies":
 
-        _orderedSceneCheckpoints = new List<Checkpoint>(GameObject.FindObjectsOfType<Checkpoint>());
+        _orderedSceneCheckpoints = GameObject.FindObjectsOfType<Checkpoint>();
 
-        _orderedSceneCheckpoints.Sort((a, b) => b.Index.CompareTo(a.Index));
+        Array.Sort(_orderedSceneCheckpoints, (a, b) => b.Index.CompareTo(a.Index));
 
         _currentCheckpointIndex = 0;
 
@@ -129,9 +130,9 @@ public class GameManager : MonoBehaviour
 
       default:
 
-        _orderedSceneCheckpoints = new List<Checkpoint>(GameObject.FindObjectsOfType<Checkpoint>());
+        _orderedSceneCheckpoints = GameObject.FindObjectsOfType<Checkpoint>();
 
-        _orderedSceneCheckpoints.Sort((a, b) => a.Index.CompareTo(b.Index));
+        Array.Sort(_orderedSceneCheckpoints, (a, b) => b.Index.CompareTo(a.Index));
 
         _currentCheckpointIndex = 0;
 
@@ -140,6 +141,7 @@ public class GameManager : MonoBehaviour
         break;
     }
 
+    // TODO (Roman): all those registrations should be optional
     var objectPoolingManager = ObjectPoolingManager.Instance;
 
     objectPoolingManager.DeactivateAndClearAll();
@@ -254,7 +256,7 @@ public class GameManager : MonoBehaviour
 
       if (_currentCheckpointIndex < 0)
       {
-        _currentCheckpointIndex = _orderedSceneCheckpoints.Count - 1;
+        _currentCheckpointIndex = _orderedSceneCheckpoints.Length - 1;
       }
 
       var checkpoint = _orderedSceneCheckpoints[_currentCheckpointIndex].gameObject;
@@ -269,7 +271,7 @@ public class GameManager : MonoBehaviour
 
       _currentCheckpointIndex++;
 
-      if (_currentCheckpointIndex >= _orderedSceneCheckpoints.Count)
+      if (_currentCheckpointIndex >= _orderedSceneCheckpoints.Length)
       {
         _currentCheckpointIndex = 0;
       }

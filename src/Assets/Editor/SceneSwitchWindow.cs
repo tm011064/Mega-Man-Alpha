@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.IO;
 using System.Linq;
-using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class SceneSwitchWindow : EditorWindow
@@ -32,7 +32,7 @@ public class SceneSwitchWindow : EditorWindow
     var fileInfos = Directory.GetFiles(Application.dataPath, "*.unity", SearchOption.AllDirectories)
       .Select(f => new FileInfo(f))
       .OrderByDescending(f => f.LastWriteTimeUtc);
-    
+
     foreach (FileInfo fileInfo in fileInfos)
     {
       var name = fileInfo
@@ -44,14 +44,14 @@ public class SceneSwitchWindow : EditorWindow
       name = name.Substring(0, name.LastIndexOf('.'));
 
       var pressed = GUILayout.Button(
-        name, 
+        name,
         new GUIStyle(GUI.skin.GetStyle("Button")) { alignment = TextAnchor.MiddleLeft });
-      
+
       if (pressed)
       {
-        if (EditorApplication.SaveCurrentSceneIfUserWantsTo())
+        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
         {
-          EditorApplication.OpenScene(fileInfo.FullName);
+          EditorSceneManager.OpenScene(fileInfo.FullName);
         }
       }
     }
