@@ -8,7 +8,7 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
   }
 
   public DefaultPlayerControlHandler(PlayerController playerController, float duration)
-    : base(playerController, duration)
+    : base(playerController, duration: duration)
   {
   }
 

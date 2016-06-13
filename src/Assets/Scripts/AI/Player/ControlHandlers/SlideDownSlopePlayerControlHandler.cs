@@ -11,7 +11,7 @@ public class SlideDownSlopePlayerControlHandler : PlayerControlHandler
   }
 
   public SlideDownSlopePlayerControlHandler(PlayerController playerController, float duration, Direction platformDirection)
-    : base(playerController, duration)
+    : base(playerController, duration: duration)
   {
     _platformDirection = platformDirection;
   }

@@ -417,8 +417,14 @@ MonoBehaviour:
     RunSpeed: 900
     AccelerationGroundDamping: 6
     DecelerationGroundDamping: 8
-  BoxColliderOffsetCrouched: {x: 0, y: -38}
-  BoxColliderSizeCrouched: {x: 88, y: 44}
+  ClimbSettings:
+    EnableLadderClimbing: 1
+    ClimbUpVelocity: 100
+    ClimbDownVelocity: 100
+  CrouchSettings:
+    EnableCrouching: 1
+    BoxColliderOffsetCrouched: {x: 0, y: -38}
+    BoxColliderSizeCrouched: {x: 88, y: 44}
   BoxColliderOffsetWallAttached: {x: 0, y: -15}
   BoxColliderSizeWallAttached: {x: 88, y: 90}
   BoxColliderOffsetDefault: {x: 0, y: 0}
@@ -434,6 +440,7 @@ MonoBehaviour:
   IsAttachedToWall: 0
   IsCrouching: 0
   IsPerformingSpinMeleeAttack: 0
+  IsClimbingLadder: 0
   SpinMeleeAttackBoxCollider: {fileID: 0}
 --- !u!114 &11491702
 MonoBehaviour:

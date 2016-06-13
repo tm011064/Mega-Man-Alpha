@@ -11,7 +11,7 @@ public class TrampolineBounceControlHandler : PlayerControlHandler
   private bool _hasJumped = false;
 
   public TrampolineBounceControlHandler(PlayerController playerController, float duration, float fixedJumpHeight, float onTrampolineSkidDamping, bool canJump)
-    : base(playerController, duration)
+    : base(playerController, duration: duration)
   {
     FixedJumpHeight = fixedJumpHeight;
 

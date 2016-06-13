@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
 
         _orderedSceneCheckpoints = GameObject.FindObjectsOfType<Checkpoint>();
 
-        Array.Sort(_orderedSceneCheckpoints, (a, b) => b.Index.CompareTo(a.Index));
+        Array.Sort(_orderedSceneCheckpoints, (a, b) => a.Index.CompareTo(b.Index));
 
         _currentCheckpointIndex = 0;
 
