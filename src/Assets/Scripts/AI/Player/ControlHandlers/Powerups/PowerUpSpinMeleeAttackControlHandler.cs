@@ -11,8 +11,8 @@ public class PowerUpSpinMeleeAttackControlHandler : DefaultPlayerControlHandler
   }
   public override void Dispose()
   {
-    PlayerController.SpinMeleeAttackBoxCollider.SetActive(false);
-    PlayerController.IsPerformingSpinMeleeAttack = false;
+    PlayerController.SpinMeleeSettings.SpinMeleeAttackBoxCollider.SetActive(false);
+    PlayerController.PlayerState &= ~PlayerState.PerformingSpinMeleeAttack;
 
 #if !FINAL
     PlayerController.Sprite.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
@@ -21,49 +21,49 @@ public class PowerUpSpinMeleeAttackControlHandler : DefaultPlayerControlHandler
 
   private bool CanPerformAttack()
   {
-    return !PlayerController.IsAttachedToWall
-        && !PlayerController.IsCrouching
-        && !PlayerController.IsTakingDamage;
+    return (PlayerController.PlayerState & PlayerState.AttachedToWall) == 0
+        && (PlayerController.PlayerState & PlayerState.Crouching) == 0
+        && (PlayerController.PlayerState & PlayerState.TakingDamage) == 0;
   }
 
   public override void OnAfterStackPeekUpdate()
   {
-    if (PlayerController.IsPerformingSpinMeleeAttack)
+    if ((PlayerController.PlayerState & PlayerState.PerformingSpinMeleeAttack) != 0)
     {
       if (!CanPerformAttack())
       {
-        PlayerController.IsPerformingSpinMeleeAttack = false;
+        PlayerController.PlayerState &= ~PlayerState.PerformingSpinMeleeAttack;
 
-        PlayerController.SpinMeleeAttackBoxCollider.SetActive(false);
+        PlayerController.SpinMeleeSettings.SpinMeleeAttackBoxCollider.SetActive(false);
       }
     }
     else
     {
-      if (PlayerController.SpinMeleeAttackBoxCollider.activeSelf)
+      if (PlayerController.SpinMeleeSettings.SpinMeleeAttackBoxCollider.activeSelf)
       {
-        PlayerController.SpinMeleeAttackBoxCollider.SetActive(false);
+        PlayerController.SpinMeleeSettings.SpinMeleeAttackBoxCollider.SetActive(false);
       }
     }
   }
 
   protected override bool DoUpdate()
   {
-    if (!PlayerController.IsPerformingSpinMeleeAttack
+    if ((PlayerController.PlayerState & PlayerState.PerformingSpinMeleeAttack) == 0
       && CanPerformAttack()
       && (GameManager.InputStateManager.GetButtonState("Attack").ButtonPressState & ButtonPressState.IsDown) != 0)
     {
-      if (!PlayerController.SpinMeleeAttackBoxCollider.activeSelf)
+      if (!PlayerController.SpinMeleeSettings.SpinMeleeAttackBoxCollider.activeSelf)
       {
-        PlayerController.SpinMeleeAttackBoxCollider.SetActive(true);
+        PlayerController.SpinMeleeSettings.SpinMeleeAttackBoxCollider.SetActive(true);
       }
 
-      PlayerController.IsPerformingSpinMeleeAttack = true;
+      PlayerController.PlayerState |= PlayerState.PerformingSpinMeleeAttack;
     }
 
-    if (!PlayerController.IsPerformingSpinMeleeAttack
-      && PlayerController.SpinMeleeAttackBoxCollider.activeSelf)
+    if ((PlayerController.PlayerState & PlayerState.PerformingSpinMeleeAttack) == 0
+      && PlayerController.SpinMeleeSettings.SpinMeleeAttackBoxCollider.activeSelf)
     {
-      PlayerController.SpinMeleeAttackBoxCollider.SetActive(false);
+      PlayerController.SpinMeleeSettings.SpinMeleeAttackBoxCollider.SetActive(false);
     }
 
     return base.DoUpdate();

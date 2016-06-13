@@ -11,9 +11,13 @@ public partial class PlayerController : BaseCharacterController
 
   public RunSettings RunSettings = new RunSettings();
 
-  public Vector2 BoxColliderOffsetCrouched = Vector2.zero;
+  public ClimbSettings ClimbSettings = new ClimbSettings();
 
-  public Vector2 BoxColliderSizeCrouched = Vector2.zero;
+  public CrouchSettings CrouchSettings = new CrouchSettings();
+
+  public SpinMeleeSettings SpinMeleeSettings = new SpinMeleeSettings();
+
+  public IsTakingDamageSettings IsTakingDamageSettings = new IsTakingDamageSettings();
 
   public Vector2 BoxColliderOffsetWallAttached = Vector2.zero;
 
@@ -44,22 +48,7 @@ public partial class PlayerController : BaseCharacterController
   public GameObject CurrentPlatform = null;
 
   [HideInInspector]
-  public bool IsInvincible = false;
-
-  [HideInInspector]
-  public bool IsTakingDamage = false;
-
-  [HideInInspector]
-  public bool IsAttachedToWall = false;
-
-  [HideInInspector]
-  public bool IsCrouching = false;
-
-  [HideInInspector]
-  public bool IsPerformingSpinMeleeAttack = false;
-
-  [HideInInspector]
-  public GameObject SpinMeleeAttackBoxCollider = null;
+  public PlayerState PlayerState;
 
   [HideInInspector]
   public LaserGunAimContainer LaserGunAimContainer = null;
@@ -90,9 +79,9 @@ public partial class PlayerController : BaseCharacterController
     {
       Logger.Assert(childTransform != null, "Player controller is expected to have a SpinMeleeAttackBoxCollider child object. If this is no longer needed, remove this line in code.");
 
-      SpinMeleeAttackBoxCollider = childTransform.gameObject;
+      SpinMeleeSettings.SpinMeleeAttackBoxCollider = childTransform.gameObject;
 
-      SpinMeleeAttackBoxCollider.SetActive(false); // we only want to activate this when the player performs the attack.
+      SpinMeleeSettings.SpinMeleeAttackBoxCollider.SetActive(false); // we only want to activate this when the player performs the attack.
     }
   }
 
@@ -212,6 +201,11 @@ public partial class PlayerController : BaseCharacterController
 
       return;
     }
+
+
+    // TODO (Roman): now here check whether the collider hit was a ladder and react
+
+
 
     // TODO (Roman): these methods should be optimized and put into constant field...
     if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Platforms"))

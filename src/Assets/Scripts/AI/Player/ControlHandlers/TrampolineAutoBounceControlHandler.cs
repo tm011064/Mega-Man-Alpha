@@ -5,7 +5,7 @@ public class TrampolineAutoBounceControlHandler : PlayerControlHandler
   private bool _isFirstUpdate = true;
 
   public TrampolineAutoBounceControlHandler(PlayerController playerController, float fixedJumpHeight)
-    : base(playerController, -1f)
+    : base(playerController, duration: -1f)
   {
     FixedJumpHeight = fixedJumpHeight;
   }

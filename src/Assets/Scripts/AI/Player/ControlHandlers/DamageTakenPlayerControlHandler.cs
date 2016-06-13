@@ -18,16 +18,16 @@ public class DamageTakenPlayerControlHandler : DefaultPlayerControlHandler
     DoDrawDebugBoundingBox = true;
     DebugBoundingBoxColor = Color.red;
 
-    playerController.IsInvincible = true;
-    playerController.IsTakingDamage = true;
+    playerController.PlayerState |= PlayerState.Invincible;
+    playerController.PlayerState |= PlayerState.TakingDamage;
 
     _suspendPhysicsEndTime = Time.time + suspendPhysicsTime;
   }
 
   public override void Dispose()
   {
-    PlayerController.IsInvincible = false;
-    PlayerController.IsTakingDamage = false;
+    PlayerController.PlayerState &= ~PlayerState.Invincible;
+    PlayerController.PlayerState &= ~PlayerState.TakingDamage;
   }
 
   protected override bool DoUpdate()
@@ -38,7 +38,7 @@ public class DamageTakenPlayerControlHandler : DefaultPlayerControlHandler
     }
     else
     {
-      PlayerController.IsTakingDamage = false;
+      PlayerController.PlayerState &= ~PlayerState.TakingDamage;
     }
 
     return base.DoUpdate();

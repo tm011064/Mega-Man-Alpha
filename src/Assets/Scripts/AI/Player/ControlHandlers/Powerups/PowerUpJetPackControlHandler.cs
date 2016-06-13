@@ -7,7 +7,7 @@ public class PowerUpJetPackControlHandler : PlayerControlHandler
   private float _lastBulletTime;
 
   public PowerUpJetPackControlHandler(PlayerController playerController, float duration, PowerUpSettings powerUpSettings)
-    : base(playerController, duration)
+    : base(playerController, duration: duration)
   {
     _powerUpSettings = powerUpSettings;
 

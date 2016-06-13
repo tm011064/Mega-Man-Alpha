@@ -35,7 +35,7 @@ public abstract class TopBounceableEnemyController : EnemyController
     }
     else
     {
-      if (playerController.IsInvincible)
+      if ((playerController.PlayerState & PlayerState.Invincible) != 0)
       {
         return;
       }

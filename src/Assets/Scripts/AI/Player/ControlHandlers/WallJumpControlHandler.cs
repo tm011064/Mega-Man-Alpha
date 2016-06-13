@@ -40,7 +40,7 @@ public class WallJumpControlHandler : PlayerControlHandler
   {
     PlayerController.AdjustedGravity = PlayerController.JumpSettings.Gravity;
 
-    PlayerController.IsAttachedToWall = false;
+    PlayerController.PlayerState &= ~PlayerState.AttachedToWall;
   }
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
@@ -60,7 +60,7 @@ public class WallJumpControlHandler : PlayerControlHandler
       return false;
     }
 
-    PlayerController.IsAttachedToWall = true;
+    PlayerController.PlayerState |= PlayerState.AttachedToWall;
 
     return base.TryActivate(previousControlHandler);
   }
