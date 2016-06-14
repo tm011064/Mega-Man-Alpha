@@ -18,11 +18,11 @@ public class ClimbOverLadderApexControlHandler : PlayerControlHandler
     PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (PlayerController.BoxCollider.bounds.center.y - PlayerController.BoxCollider.bounds.extents.y > _targetPositionY)
     {
-      return false;
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     var velocity = new Vector3(
@@ -31,6 +31,6 @@ public class ClimbOverLadderApexControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }
