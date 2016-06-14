@@ -421,8 +421,9 @@ MonoBehaviour:
     EnableLadderClimbing: 1
     ClimbUpVelocity: 400
     ClimbDownVelocity: -400
+    MinFallDuration: 0.2
   CrouchSettings:
-    EnableCrouching: 1
+    EnableCrouching: 0
     BoxColliderOffsetCrouched: {x: 0, y: -38}
     BoxColliderSizeCrouched: {x: 88, y: 44}
   SpinMeleeSettings:

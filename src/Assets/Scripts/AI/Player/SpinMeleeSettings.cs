@@ -8,5 +8,5 @@ public class SpinMeleeSettings
 
   [HideInInspector]
   [NonSerialized]
-  public GameObject SpinMeleeAttackBoxCollider = null;
+  public GameObject SpinMeleeAttackBoxCollider = null; // TODO (Roman): this should go somewhere else
 }

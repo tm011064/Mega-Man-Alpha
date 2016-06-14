@@ -147,6 +147,18 @@ public partial class PlayerController : BaseCharacterController
     AdjustedGravity = JumpSettings.Gravity;
   }
 
+  public void OnFellFromClimb()
+  {
+    if (ClimbSettings.MinFallDuration <= 0f)
+    {
+      return;
+    }
+
+    ClimbSettings.EnableLadderClimbing = false;
+
+    Invoke("EnableClimbing", ClimbSettings.MinFallDuration);
+  }
+
   public void OnJumpedThisFrame()
   {
     Logger.Info("Ground Jump executed.");
@@ -289,5 +301,10 @@ public partial class PlayerController : BaseCharacterController
     }
 
     base.Update();
+  }
+
+  private void EnableClimbing()
+  {
+    ClimbSettings.EnableLadderClimbing = true;
   }
 }

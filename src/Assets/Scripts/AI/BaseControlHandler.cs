@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Control handler's define how a character reacts to user input in respect to the character's
+/// current state and environment.
+/// </summary>
 public class BaseControlHandler : IDisposable
 {
   protected GameManager GameManager;

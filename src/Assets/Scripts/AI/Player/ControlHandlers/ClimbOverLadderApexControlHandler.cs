@@ -27,7 +27,7 @@ public class ClimbOverLadderApexControlHandler : PlayerControlHandler
 
     var velocity = new Vector3(
       0f,
-      200f);
+      PlayerController.ClimbSettings.ClimbUpVelocity);
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 

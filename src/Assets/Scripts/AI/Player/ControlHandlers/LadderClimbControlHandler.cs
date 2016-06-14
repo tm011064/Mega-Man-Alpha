@@ -18,16 +18,18 @@ public class LadderClimbControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsUp) != 0)
+    if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsDown) != 0)
     {
       PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
+
+      PlayerController.OnFellFromClimb();
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     if (GameManager.Player.BoxCollider.bounds.AreOutsideTopHorizontalBoundsOf(_ladderArea))
     {
-      GameManager.Player.InsertControlHandlerBeneathCurrent(
+      GameManager.Player.InsertControlHandlerBeforeCurrent(
         new ClimbOverLadderApexControlHandler(PlayerController, _climbOverTopExtension));
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
@@ -51,6 +53,13 @@ public class LadderClimbControlHandler : PlayerControlHandler
           : 0f);
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
+
+    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    {
+      PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
+
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
+    }
 
     return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
