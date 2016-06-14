@@ -94,7 +94,7 @@ public class BaseCharacterController : BaseMonoBehaviour
 
   public void InsertControlHandler(int index, BaseControlHandler controlHandler)
   {
-    Logger.Info("Pushing handler: " + controlHandler.ToString());
+    Logger.Info("Inserting handler: " + controlHandler.ToString() + " at index " + index);
 
     if (index >= _controlHandlers.Count)
     {
@@ -104,6 +104,15 @@ public class BaseCharacterController : BaseMonoBehaviour
     {
       _controlHandlers.Insert(index, controlHandler);
     }
+  }
+
+  public void InsertControlHandlerBeneathCurrent(BaseControlHandler controlHandler)
+  {
+    var index = Mathf.Max(0, _controlHandlers.Count - 1);
+
+    Logger.Info("Inserting handler: " + controlHandler.ToString() + " at index " + index);
+
+    _controlHandlers.Insert(index, controlHandler);
   }
 
   public void PushControlHandler(BaseControlHandler controlHandler)

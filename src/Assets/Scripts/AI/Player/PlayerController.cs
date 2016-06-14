@@ -202,11 +202,6 @@ public partial class PlayerController : BaseCharacterController
       return;
     }
 
-
-    // TODO (Roman): now here check whether the collider hit was a ladder and react
-
-
-
     // TODO (Roman): these methods should be optimized and put into constant field...
     if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Platforms"))
     {
