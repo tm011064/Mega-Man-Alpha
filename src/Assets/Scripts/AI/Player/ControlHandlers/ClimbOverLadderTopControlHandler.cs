@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-public class ClimbOverLadderApexControlHandler : PlayerControlHandler
+public class ClimbOverLadderTopControlHandler : PlayerControlHandler
 {
-  private readonly float _targetPositionY;
+  private readonly float _topEdgePositionY;
 
-  public ClimbOverLadderApexControlHandler(PlayerController playerController, float targetPositionY)
+  public ClimbOverLadderTopControlHandler(PlayerController playerController, float topEdgePositionY)
     : base(playerController)
   {
     DoDrawDebugBoundingBox = true;
     DebugBoundingBoxColor = Color.green;
 
-    _targetPositionY = targetPositionY;
+    _topEdgePositionY = topEdgePositionY;
   }
 
   public override void Dispose()
@@ -20,7 +20,8 @@ public class ClimbOverLadderApexControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (PlayerController.BoxCollider.bounds.center.y - PlayerController.BoxCollider.bounds.extents.y > _targetPositionY)
+    if (PlayerController.BoxCollider.bounds.center.y
+      - PlayerController.BoxCollider.bounds.extents.y > _topEdgePositionY)
     {
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }

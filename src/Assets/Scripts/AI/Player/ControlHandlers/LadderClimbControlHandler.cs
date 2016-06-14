@@ -4,16 +4,16 @@ public class LadderClimbControlHandler : PlayerControlHandler
 {
   private readonly Bounds _ladderArea;
 
-  private readonly float _climbOverTopExtension;
+  private readonly float _topEdgePositionY;
 
-  public LadderClimbControlHandler(PlayerController playerController, Bounds ladderArea, float climbOverTopExtension)
+  public LadderClimbControlHandler(PlayerController playerController, Bounds ladderArea, float topEdgePositionY)
     : base(playerController)
   {
     DoDrawDebugBoundingBox = true;
     DebugBoundingBoxColor = Color.green;
 
     _ladderArea = ladderArea;
-    _climbOverTopExtension = climbOverTopExtension;
+    _topEdgePositionY = topEdgePositionY;
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
@@ -27,15 +27,15 @@ public class LadderClimbControlHandler : PlayerControlHandler
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    if (GameManager.Player.BoxCollider.bounds.AreOutsideTopHorizontalBoundsOf(_ladderArea))
+    if (GameManager.Player.BoxCollider.bounds.AreAbove(_ladderArea))
     {
       GameManager.Player.InsertControlHandlerBeforeCurrent(
-        new ClimbOverLadderApexControlHandler(PlayerController, _climbOverTopExtension));
+        new ClimbOverLadderTopControlHandler(PlayerController, _topEdgePositionY));
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    if (GameManager.Player.BoxCollider.bounds.AreOutsideBottomHorizontalBoundsOf(_ladderArea))
+    if (GameManager.Player.BoxCollider.bounds.AreBelow(_ladderArea))
     {
       PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
 

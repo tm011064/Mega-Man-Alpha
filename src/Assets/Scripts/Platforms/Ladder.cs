@@ -2,8 +2,6 @@
 
 public class Ladder : MonoBehaviour
 {
-  private float _topEdgeVerticalOffsetFromBoxCollider = 0f;
-
   private GameManager _gameManager;
 
   private bool _hasPlayerEntered;
@@ -33,11 +31,6 @@ public class Ladder : MonoBehaviour
         throw new MissingComponentException("A " + typeof(Ladder).Name + " game object's TopEdge object must contain a "
           + typeof(EdgeCollider2D).Name + " component");
       }
-
-      _topEdgeVerticalOffsetFromBoxCollider =
-        _topEdge.transform.position.y
-        - _boxCollider.bounds.center.y
-        - _boxCollider.bounds.extents.y;
     }
   }
 
@@ -69,7 +62,7 @@ public class Ladder : MonoBehaviour
     if (_gameManager.Player.CurrentPlatform != null
       && _gameManager.Player.CurrentPlatform == _topEdge
       && verticalAxisState.Value < 0f
-      && _gameManager.Player.BoxCollider.bounds.AreWithinVerticalBoundsOf(_boxCollider.bounds))
+      && _gameManager.Player.BoxCollider.bounds.AreWithinVerticalShaftOf(_boxCollider.bounds))
     {
       _topEdgeCollider.enabled = false;
 
@@ -83,7 +76,7 @@ public class Ladder : MonoBehaviour
     if (_hasPlayerEntered
       && (_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
       && verticalAxisState.Value > 0f
-      && _gameManager.Player.BoxCollider.bounds.AreWithinVerticalBoundsOf(_boxCollider.bounds))
+      && _gameManager.Player.BoxCollider.bounds.AreWithinVerticalShaftOf(_boxCollider.bounds))
     {
       _gameManager.Player.PlayerState |= PlayerState.ClimbingLadder;
 
@@ -101,7 +94,7 @@ public class Ladder : MonoBehaviour
     var controlHandler = new StartClimbDownLadderControlHandler(
       _gameManager.Player,
       _boxCollider.bounds,
-      _boxCollider.bounds.center.y + _boxCollider.bounds.extents.y + _topEdgeVerticalOffsetFromBoxCollider);
+      _topEdge.transform.position.y);
 
     controlHandler.Disposed += OnStartClimbDownLadderControlHandlerDisposed;
 
@@ -125,7 +118,9 @@ public class Ladder : MonoBehaviour
     var ladderClimbControlHandler = new LadderClimbControlHandler(
       _gameManager.Player,
       _boxCollider.bounds,
-      _boxCollider.bounds.center.y + _boxCollider.bounds.extents.y + _topEdgeVerticalOffsetFromBoxCollider);
+      _topEdge == null
+        ? _boxCollider.bounds.center.y + _boxCollider.bounds.extents.y
+        : _topEdge.transform.position.y);
 
     _gameManager.Player.PushControlHandler(ladderClimbControlHandler);
   }

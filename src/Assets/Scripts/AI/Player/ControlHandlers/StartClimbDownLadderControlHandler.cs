@@ -5,19 +5,19 @@ public class StartClimbDownLadderControlHandler : PlayerControlHandler
 {
   private readonly Bounds _ladderArea;
 
-  private readonly float _climbOverTopExtension;
+  private readonly float _topEdgePositionY;
 
   public StartClimbDownLadderControlHandler(
     PlayerController playerController,
     Bounds ladderArea,
-    float climbOverTopExtension)
+    float topEdgePositionY)
     : base(playerController)
   {
     DoDrawDebugBoundingBox = true;
     DebugBoundingBoxColor = Color.green;
 
     _ladderArea = ladderArea;
-    _climbOverTopExtension = climbOverTopExtension;
+    _topEdgePositionY = topEdgePositionY;
   }
 
   public event Action<StartClimbDownLadderControlHandler> Disposed;
@@ -37,17 +37,17 @@ public class StartClimbDownLadderControlHandler : PlayerControlHandler
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (PlayerController.BoxCollider.bounds.center.y
-      + PlayerController.BoxCollider.bounds.extents.y < _climbOverTopExtension)
+      + PlayerController.BoxCollider.bounds.extents.y < _topEdgePositionY)
     {
       GameManager.Player.InsertControlHandlerBeforeCurrent(
-        new LadderClimbControlHandler(PlayerController, _ladderArea, _climbOverTopExtension));
+        new LadderClimbControlHandler(PlayerController, _ladderArea, _topEdgePositionY));
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     var velocity = new Vector3(
       0f,
-      PlayerController.ClimbSettings.ClimbDownVelocity); // TODO (Roman): get from settings
+      PlayerController.ClimbSettings.ClimbDownVelocity);
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
