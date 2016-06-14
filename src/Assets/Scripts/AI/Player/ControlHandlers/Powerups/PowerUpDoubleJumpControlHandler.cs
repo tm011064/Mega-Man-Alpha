@@ -21,7 +21,7 @@ public class PowerUpDoubleJumpControlHandler : PlayerControlHandler
 #endif
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     var velocity = PlayerController.CharacterPhysicsManager.Velocity;
 
@@ -63,6 +63,6 @@ public class PowerUpDoubleJumpControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }

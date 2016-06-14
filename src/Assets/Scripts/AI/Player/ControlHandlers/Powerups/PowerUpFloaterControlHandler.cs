@@ -30,7 +30,7 @@ public class PowerUpFloaterControlHandler : PlayerControlHandler
     PlayerController.JumpSettings.InAirDamping = _originalInAirDamping;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     CheckOneWayPlatformFallThrough();
 
@@ -102,7 +102,7 @@ public class PowerUpFloaterControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 
   enum FloatStatus

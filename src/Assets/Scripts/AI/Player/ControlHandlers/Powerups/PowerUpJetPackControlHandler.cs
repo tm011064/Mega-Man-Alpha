@@ -23,7 +23,7 @@ public class PowerUpJetPackControlHandler : PlayerControlHandler
 #endif
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     // 1) when the player presses the Jump key, the jetpack will fire its engine and propel the player into the direction he his pointing towards
     // 2) when the Jump button is released, the player will still have some inertia before stopping in mid air
@@ -119,6 +119,6 @@ public class PowerUpJetPackControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }

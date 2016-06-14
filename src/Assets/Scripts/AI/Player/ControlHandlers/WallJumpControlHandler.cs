@@ -70,20 +70,20 @@ public class WallJumpControlHandler : PlayerControlHandler
     return "WallJumpControlHandler; override end time: " + OverrideEndTime + "; has jumped from wall: " + _hasJumpedFromWall;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
     {
       Logger.Info("Popped wall jump because player is grounded.");
 
-      return false; // we only want this handler to be active while the player is in mid air
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed; // we only want this handler to be active while the player is in mid air
     }
 
     if (PlayerController.WallJumpSettings.MinDistanceFromFloor > 0f && PlayerController.CharacterPhysicsManager.IsFloorWithinDistance(PlayerController.WallJumpSettings.MinDistanceFromFloor))
     {
       Logger.Info("Popped wall jump because player is within min threshold distance (" + PlayerController.WallJumpSettings.MinDistanceFromFloor + " units) to floor.");
 
-      return false; // we only want this handler to be active while the player is in mid air
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed; // we only want this handler to be active while the player is in mid air
     }
 
     // TODO (Roman): when wall jumping and floating, we should not be able to climb up a wall using wall jumps and floats
@@ -93,7 +93,7 @@ public class WallJumpControlHandler : PlayerControlHandler
     {
       Logger.Info("Popped wall jump because downward velocity threshold was surpassed: " + velocity.y + " < " + _wallJumpSettings.WallVelocityDownThreshold);
 
-      return false; // we can exit as wall jump is not allowed any more after the player accelerated downward beyond threshold
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed; // we can exit as wall jump is not allowed any more after the player accelerated downward beyond threshold
     }
 
     if (!_hasJumpedFromWall
@@ -101,7 +101,7 @@ public class WallJumpControlHandler : PlayerControlHandler
     {
       Logger.Info("Popped wall jump because character is not on wall any more.");
 
-      return false;
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     if (velocity.y <= 0f)
@@ -153,7 +153,7 @@ public class WallJumpControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }
 

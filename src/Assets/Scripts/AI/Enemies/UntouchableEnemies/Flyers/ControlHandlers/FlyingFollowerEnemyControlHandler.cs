@@ -12,7 +12,7 @@ public class FlyingFollowerEnemyControlHandler : EnemyControlHandler<FlyingFollo
     _playerController = GameManager.Instance.Player;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     var direction = _playerController.transform.position - _enemyController.transform.position;
 
@@ -23,6 +23,6 @@ public class FlyingFollowerEnemyControlHandler : EnemyControlHandler<FlyingFollo
 
     _enemyController.transform.Translate(_velocity);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }

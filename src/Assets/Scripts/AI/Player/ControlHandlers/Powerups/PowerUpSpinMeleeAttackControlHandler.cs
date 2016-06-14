@@ -46,7 +46,7 @@ public class PowerUpSpinMeleeAttackControlHandler : DefaultPlayerControlHandler
     }
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if ((PlayerController.PlayerState & PlayerState.PerformingSpinMeleeAttack) == 0
       && CanPerformAttack()

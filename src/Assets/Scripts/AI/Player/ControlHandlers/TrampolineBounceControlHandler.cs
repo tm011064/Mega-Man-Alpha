@@ -20,7 +20,7 @@ public class TrampolineBounceControlHandler : PlayerControlHandler
     _onTrampolineSkidDamping = onTrampolineSkidDamping;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     var velocity = PlayerController.CharacterPhysicsManager.Velocity;
 
@@ -49,6 +49,8 @@ public class TrampolineBounceControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    return (!_hasJumped) || velocity.y >= 0f; // exit if player falls down
+    return (!_hasJumped) || velocity.y >= 0f
+      ? ControlHandlerAfterUpdateStatus.KeepAlive
+      : ControlHandlerAfterUpdateStatus.CanBeDisposed;
   }
 }

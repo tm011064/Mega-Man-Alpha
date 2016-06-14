@@ -17,7 +17,7 @@ public class JumpingRunnerEnemyControlHandler : EnemyControlHandler<JumpingRunne
       _ => _nextJumpTime = Time.time + _enemyController.JumpInterval;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (Time.time >= _nextJumpTime
       && CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
@@ -36,7 +36,7 @@ public class JumpingRunnerEnemyControlHandler : EnemyControlHandler<JumpingRunne
       MoveHorizontally(ref _moveDirectionFactor, _enemyController.Speed, _enemyController.Gravity, PlatformEdgeMoveMode.FallOff);
     }
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }
 

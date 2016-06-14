@@ -30,11 +30,11 @@ public class DamageTakenPlayerControlHandler : DefaultPlayerControlHandler
     PlayerController.PlayerState &= ~PlayerState.TakingDamage;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (Time.time <= _suspendPhysicsEndTime)
     {
-      return true;
+      return ControlHandlerAfterUpdateStatus.KeepAlive;
     }
     else
     {

@@ -16,7 +16,7 @@ public class SlideDownSlopePlayerControlHandler : PlayerControlHandler
     _platformDirection = platformDirection;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     CheckOneWayPlatformFallThrough();
 
@@ -31,16 +31,16 @@ public class SlideDownSlopePlayerControlHandler : PlayerControlHandler
 
     if (_platformDirection == Direction.Left && !moveCalculationResult.CollisionState.Left)
     {
-      return false;
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
     if (_platformDirection == Direction.Right && !moveCalculationResult.CollisionState.Right)
     {
-      return false;
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     Logger.Trace("PlayerMetricsDebug", "Position: " + PlayerController.transform.position + ", Velocity: " + velocity);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }
 

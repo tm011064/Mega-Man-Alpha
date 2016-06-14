@@ -296,7 +296,7 @@ public class PowerUpGunControlHandler : DefaultPlayerControlHandler
     PerformAimAction();
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     PerformAimAction();
 
