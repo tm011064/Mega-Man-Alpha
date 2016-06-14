@@ -28,7 +28,7 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
     _horizontalDistanceBetweenRays = CollisionDetectionUtility.GetHorizontalDistanceBetweenRays(_boxCollider2D, _enemyController.transform.localScale, _enemyController.TotalmovementBoundaryCheckRays, _skinWidth);
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     var direction = _playerController.transform.position - _enemyController.transform.position;
 
@@ -130,6 +130,6 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
           , _verticalDistanceBetweenRays));
     }
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }

@@ -12,7 +12,7 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
   {
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     CheckOneWayPlatformFallThrough();
 
@@ -29,7 +29,7 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
 
     Logger.Trace("PlayerMetricsDebug", "Position: " + PlayerController.transform.position + ", Velocity: " + velocity);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }
 

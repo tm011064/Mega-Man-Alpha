@@ -10,7 +10,7 @@
       : 1f;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     MoveHorizontally(
       ref _moveDirectionFactor,
@@ -18,6 +18,6 @@
       _enemyController.Gravity,
       PlatformEdgeMoveMode.TurnAround);
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }

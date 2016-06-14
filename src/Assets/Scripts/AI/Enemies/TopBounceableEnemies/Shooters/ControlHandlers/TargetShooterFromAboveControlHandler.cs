@@ -24,7 +24,7 @@ public class TargetShooterFromAboveControlHandler : EnemyControlHandler<TargetSh
     _boxCollider2D = _enemyController.GetComponent<BoxCollider2D>();
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (_playerInSightDuration == 0f // either we don't see the player
       || !_pauseAtEdgeEndTime.HasValue // or we have not reached the edge yet
@@ -124,6 +124,6 @@ public class TargetShooterFromAboveControlHandler : EnemyControlHandler<TargetSh
       _pauseAtEdgeEndTime += Time.deltaTime;
     }
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }

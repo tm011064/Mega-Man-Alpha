@@ -9,7 +9,7 @@
 
   protected abstract void OnSingleUpdate();
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (!_hasCompleted)
     {
@@ -17,9 +17,9 @@
 
       _hasCompleted = true;
 
-      return true;
+      return ControlHandlerAfterUpdateStatus.KeepAlive;
     }
 
-    return false;
+    return ControlHandlerAfterUpdateStatus.CanBeDisposed;
   }
 }

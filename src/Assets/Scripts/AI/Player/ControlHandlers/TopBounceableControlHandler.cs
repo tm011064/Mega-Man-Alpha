@@ -12,7 +12,7 @@ public class TopBounceableControlHandler : DefaultPlayerControlHandler
     _bounceJumpMultiplier = bounceJumpMultiplier;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     var velocity = PlayerController.CharacterPhysicsManager.Velocity;
 
@@ -26,7 +26,7 @@ public class TopBounceableControlHandler : DefaultPlayerControlHandler
 
         PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-        return false; // exit, we are done
+        return ControlHandlerAfterUpdateStatus.CanBeDisposed; // exit, we are done
       }
       else
       {
@@ -38,7 +38,7 @@ public class TopBounceableControlHandler : DefaultPlayerControlHandler
 
         Logger.Info("Top bounce jump executed. Jump button was not pressed. BounceJumpMultiplier: " + _bounceJumpMultiplier + ", new velocity y: " + velocity.y);
 
-        return true; // keep waiting, maybe user presses jump before time is up
+        return ControlHandlerAfterUpdateStatus.KeepAlive; // keep waiting, maybe user presses jump before time is up
       }
     }
     if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsPressed) != 0)
@@ -49,7 +49,7 @@ public class TopBounceableControlHandler : DefaultPlayerControlHandler
 
       PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-      return false;
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     return base.DoUpdate();

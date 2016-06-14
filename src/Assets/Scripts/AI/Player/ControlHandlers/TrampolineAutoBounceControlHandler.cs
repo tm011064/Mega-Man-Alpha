@@ -10,7 +10,7 @@ public class TrampolineAutoBounceControlHandler : PlayerControlHandler
     FixedJumpHeight = fixedJumpHeight;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     var velocity = PlayerController.CharacterPhysicsManager.Velocity;
 
@@ -32,6 +32,8 @@ public class TrampolineAutoBounceControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    return velocity.y >= 0f; // exit if player falls down
+    return velocity.y >= 0f
+      ? ControlHandlerAfterUpdateStatus.KeepAlive
+      : ControlHandlerAfterUpdateStatus.CanBeDisposed;
   }
 }

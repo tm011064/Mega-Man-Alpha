@@ -16,7 +16,7 @@ public class PatrollingChaserEnemyControlHandler : EnemyControlHandler<ChaserEne
       : 1f;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (_playerInSightDuration > 0f
       && _playerInSightDuration > _enemyController.DetectPlayerDuration)
@@ -31,7 +31,7 @@ public class PatrollingChaserEnemyControlHandler : EnemyControlHandler<ChaserEne
 
       _playerInSightDuration = 0f;
 
-      return true;
+      return ControlHandlerAfterUpdateStatus.KeepAlive;
     }
 
     MoveHorizontally(
@@ -95,6 +95,6 @@ public class PatrollingChaserEnemyControlHandler : EnemyControlHandler<ChaserEne
       _playerInSightDuration = 0f;
     }
 
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }

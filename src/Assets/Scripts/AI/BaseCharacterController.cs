@@ -35,7 +35,7 @@ public class BaseCharacterController : BaseMonoBehaviour
     {
       if (_currentBaseControlHandler != null)
       {
-        while (!_currentBaseControlHandler.Update())
+        while (_currentBaseControlHandler.Update() == ControlHandlerAfterUpdateStatus.CanBeDisposed)
         {
           var poppedHandler = _controlHandlers.Pop();
 

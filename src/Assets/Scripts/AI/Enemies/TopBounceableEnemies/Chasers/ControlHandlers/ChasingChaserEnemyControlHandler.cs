@@ -8,9 +8,9 @@
   {
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     // if we are chasing, try to get to the player, else, patrole and watch    
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }

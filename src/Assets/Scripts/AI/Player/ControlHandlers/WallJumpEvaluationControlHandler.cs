@@ -35,7 +35,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
     return "WallJumpEvaluationControlHandler; override end time: " + OverrideEndTime + "; has detached from wall: " + _hasDetached;
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
     {
@@ -43,7 +43,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
 
       Logger.Info("Popped wall jump evaluation because player is grounded.");
 
-      return false; // we only want this handler to be active while the player is in mid air
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed; // we only want this handler to be active while the player is in mid air
     }
 
     var velocity = PlayerController.CharacterPhysicsManager.Velocity;
@@ -55,7 +55,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
       Logger.Info("Popped wall jump evaluation because downward velocity threshold was surpassed: " + velocity.y + " < " 
         + _wallJumpSettings.WallVelocityDownThreshold);
 
-      return false; // we can exit as wall jump is not allowed any more after the player accelerated downward beyond threshold
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed; // we can exit as wall jump is not allowed any more after the player accelerated downward beyond threshold
     }
 
     if ((PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.CharacterWallState & CharacterWallState.NotOnWall) != 0)
@@ -64,7 +64,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
 
       Logger.Info("Popped wall jump evaluation because character is not on wall any more.");
 
-      return false;
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     var hAxis = GameManager.InputStateManager.GetAxisState("Horizontal");
@@ -77,7 +77,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
 
         Logger.Info("Popped wall jump evaluation because horizontal axis points to opposite direction. Current and Last axis value: (" + hAxis.Value + ", " + hAxis.LastValue + ")");
 
-        return false;
+        return ControlHandlerAfterUpdateStatus.CanBeDisposed;
       }
     }
     else if (_wallDirection == Direction.Left)
@@ -88,7 +88,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
 
         Logger.Info("Popped wall jump evaluation because horizontal axis points to opposite direction. Current and Last axis value: (" + hAxis.Value + ", " + hAxis.LastValue + ")");
 
-        return false;
+        return ControlHandlerAfterUpdateStatus.CanBeDisposed;
       }
     }
     else
@@ -97,7 +97,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
 
       Logger.Info("Popped wall jump evaluation because direction " + _wallDirection + " is not supported.");
 
-      return false;
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     return base.DoUpdate();

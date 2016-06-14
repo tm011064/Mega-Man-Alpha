@@ -45,9 +45,9 @@ public class BaseControlHandler : IDisposable
   {
   }
 
-  protected virtual bool DoUpdate()
+  protected virtual ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    return true;
+    return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 
   /// <summary>
@@ -64,11 +64,11 @@ public class BaseControlHandler : IDisposable
     return true;
   }
 
-  public bool Update()
+  public ControlHandlerAfterUpdateStatus Update()
   {
     if (OverrideEndTime.HasValue && OverrideEndTime < Time.time)
     {
-      return false;
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     var doUpdate = DoUpdate();

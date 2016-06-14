@@ -6,7 +6,7 @@ public class BallisticTrajectoryControlHandler : BaseControlHandler
 
   private Vector3 _velocity;
 
-  private bool _keepAlive = true;
+  private ControlHandlerAfterUpdateStatus _controlHandlerUpdateStatus = ControlHandlerAfterUpdateStatus.KeepAlive;
 
   public BallisticTrajectoryControlHandler(
     CharacterPhysicsManager characterPhysicsManager,
@@ -21,7 +21,8 @@ public class BallisticTrajectoryControlHandler : BaseControlHandler
 
     if (characterPhysicsManager != null)
     {
-      characterPhysicsManager.ControllerBecameGrounded += _ => _keepAlive = false;
+      characterPhysicsManager.ControllerBecameGrounded += 
+        _ => _controlHandlerUpdateStatus = ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
     _gravity = gravity;
@@ -31,12 +32,12 @@ public class BallisticTrajectoryControlHandler : BaseControlHandler
     Logger.Trace("Ballistic start velocity: " + _velocity + ", (startPosition: " + startPosition + ", endPosition: " + endPosition + ", gravity: " + gravity + ", angle: " + angle + ")");
   }
 
-  protected override bool DoUpdate()
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
     _velocity.y += _gravity * Time.deltaTime;
 
     CharacterPhysicsManager.Move(_velocity * Time.deltaTime);
 
-    return _keepAlive;
+    return _controlHandlerUpdateStatus;
   }
 }
