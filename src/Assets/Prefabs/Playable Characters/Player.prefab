@@ -419,12 +419,17 @@ MonoBehaviour:
     DecelerationGroundDamping: 8
   ClimbSettings:
     EnableLadderClimbing: 1
-    ClimbUpVelocity: 100
-    ClimbDownVelocity: 100
+    ClimbUpVelocity: 400
+    ClimbDownVelocity: -400
+    MinFallDuration: 0.2
   CrouchSettings:
-    EnableCrouching: 1
+    EnableCrouching: 0
     BoxColliderOffsetCrouched: {x: 0, y: -38}
     BoxColliderSizeCrouched: {x: 88, y: 44}
+  SpinMeleeSettings:
+    EnableSpinMelee: 0
+  IsTakingDamageSettings:
+    EnableTakingDamage: 1
   BoxColliderOffsetWallAttached: {x: 0, y: -15}
   BoxColliderSizeWallAttached: {x: 88, y: 90}
   BoxColliderOffsetDefault: {x: 0, y: 0}
@@ -435,13 +440,7 @@ MonoBehaviour:
   BoxCollider: {fileID: 0}
   SpawnLocation: {x: 0, y: 0, z: 0}
   CurrentPlatform: {fileID: 0}
-  IsInvincible: 0
-  IsTakingDamage: 0
-  IsAttachedToWall: 0
-  IsCrouching: 0
-  IsPerformingSpinMeleeAttack: 0
-  IsClimbingLadder: 0
-  SpinMeleeAttackBoxCollider: {fileID: 0}
+  PlayerState: 0
 --- !u!114 &11491702
 MonoBehaviour:
   m_ObjectHideFlags: 1

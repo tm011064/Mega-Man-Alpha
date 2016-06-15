@@ -147,6 +147,18 @@ public partial class PlayerController : BaseCharacterController
     AdjustedGravity = JumpSettings.Gravity;
   }
 
+  public void OnFellFromClimb()
+  {
+    if (ClimbSettings.MinFallDuration <= 0f)
+    {
+      return;
+    }
+
+    ClimbSettings.EnableLadderClimbing = false;
+
+    Invoke("EnableClimbing", ClimbSettings.MinFallDuration);
+  }
+
   public void OnJumpedThisFrame()
   {
     Logger.Info("Ground Jump executed.");
@@ -201,11 +213,6 @@ public partial class PlayerController : BaseCharacterController
 
       return;
     }
-
-
-    // TODO (Roman): now here check whether the collider hit was a ladder and react
-
-
 
     // TODO (Roman): these methods should be optimized and put into constant field...
     if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Platforms"))
@@ -294,5 +301,10 @@ public partial class PlayerController : BaseCharacterController
     }
 
     base.Update();
+  }
+
+  private void EnableClimbing()
+  {
+    ClimbSettings.EnableLadderClimbing = true;
   }
 }

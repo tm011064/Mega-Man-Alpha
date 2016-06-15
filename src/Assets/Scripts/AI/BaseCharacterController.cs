@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// A character controller controls all of a character's behavior. It is responsible for managing a
+/// character's <see cref="BaseControlHandler"/>s and perform game loop updates. 
+/// </summary>
 public class BaseCharacterController : BaseMonoBehaviour
 {
   [HideInInspector]
@@ -94,7 +98,7 @@ public class BaseCharacterController : BaseMonoBehaviour
 
   public void InsertControlHandler(int index, BaseControlHandler controlHandler)
   {
-    Logger.Info("Pushing handler: " + controlHandler.ToString());
+    Logger.Info("Inserting handler: " + controlHandler.ToString() + " at index " + index);
 
     if (index >= _controlHandlers.Count)
     {
@@ -104,6 +108,15 @@ public class BaseCharacterController : BaseMonoBehaviour
     {
       _controlHandlers.Insert(index, controlHandler);
     }
+  }
+
+  public void InsertControlHandlerBeforeCurrent(BaseControlHandler controlHandler)
+  {
+    var index = Mathf.Max(0, _controlHandlers.Count - 1);
+
+    Logger.Info("Inserting handler: " + controlHandler.ToString() + " at index " + index);
+
+    _controlHandlers.Insert(index, controlHandler);
   }
 
   public void PushControlHandler(BaseControlHandler controlHandler)
