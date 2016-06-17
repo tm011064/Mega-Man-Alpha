@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
@@ -32,7 +34,16 @@ public class CameraController : MonoBehaviour
 
   private float _targetedTransformPositionX;
 
-  private bool _isAboveJumpHeightLocked = false;
+  private bool _isAboveJumpHeightLocked;
+
+  private readonly Queue<TranslateTransformAction> _scrollActions = new Queue<TranslateTransformAction>(16);
+
+  private TranslateTransformAction _activeTranslateTransformAction;
+
+  public void EnqueueScrollAction(TranslateTransformAction scrollAction)
+  {
+    _scrollActions.Enqueue(scrollAction);
+  }
 
   public void SetPosition(Vector3 position)
   {
@@ -43,6 +54,57 @@ public class CameraController : MonoBehaviour
     _targetedTransformPositionX = _lastTargetPosition.x;
 
     _horizontalSmoothDampVelocity = _verticalSmoothDampVelocity = 0f;
+  }
+
+  public bool IsPointVisible(Vector2 point)
+  {
+    var defaultOrthographicSize = (TargetScreenSize.y * .5f);
+
+    var zoomPercentage = Camera.main.orthographicSize / defaultOrthographicSize;
+
+    var screenSize = new Vector2(
+      (float)TargetScreenSize.x * zoomPercentage,
+      (float)TargetScreenSize.y * zoomPercentage);
+
+    var rect = new Rect(
+      Camera.main.transform.position.x - screenSize.x * .5f,
+      Camera.main.transform.position.y - screenSize.y * .5f,
+      screenSize.x,
+      screenSize.y);
+
+    return rect.Contains(point);
+  }
+
+  public void SetCameraMovementSettings(CameraMovementSettings cameraMovementSettings)
+  {
+    _cameraMovementSettings = cameraMovementSettings;
+
+    CameraOffset = new Vector3(
+      _cameraMovementSettings.Offset.x,
+      _cameraMovementSettings.Offset.y,
+      CameraOffset.z);
+
+    var targetOrthographicSize = (TargetScreenSize.y * .5f) / _cameraMovementSettings.ZoomSettings.ZoomPercentage;
+
+    if (!Mathf.Approximately(Camera.main.orthographicSize, targetOrthographicSize))
+    {
+      Logger.Info("Start zoom to target size: " + targetOrthographicSize + ", current size: " + Camera.main.orthographicSize);
+
+      if (_cameraMovementSettings.ZoomSettings.ZoomTime == 0f)
+      {
+        Camera.main.orthographicSize = targetOrthographicSize;
+      }
+      else
+      {
+        _zoomTimer = new ZoomTimer(_cameraMovementSettings.ZoomSettings.ZoomTime, Camera.main.orthographicSize, targetOrthographicSize, _cameraMovementSettings.ZoomSettings.ZoomEasingType);
+
+        _zoomTimer.Start();
+      }
+    }
+
+    Logger.Info("Camera movement set to: " + _cameraMovementSettings.ToString());
+
+    Logger.Info("Camera size; current: " + Camera.main.orthographicSize + ", target: " + targetOrthographicSize);
   }
 
   void Reset()
@@ -117,300 +179,338 @@ public class CameraController : MonoBehaviour
     }
   }
 
-  public bool IsPointVisible(Vector2 point)
+  public Vector3 CalculateTargetPosition()
   {
-    var defaultOrthographicSize = (TargetScreenSize.y * .5f);
+    UpdateParameters updateParameters;
 
-    var zoomPercentage = Camera.main.orthographicSize / defaultOrthographicSize;
-
-    var screenSize = new Vector2(
-      (float)TargetScreenSize.x * zoomPercentage,
-      (float)TargetScreenSize.y * zoomPercentage);
-
-    var rect = new Rect(
-      Camera.main.transform.position.x - screenSize.x * .5f,
-      Camera.main.transform.position.y - screenSize.y * .5f,
-      screenSize.x,
-      screenSize.y);
-
-    return rect.Contains(point);
+    return CalculateTargetPosition(out updateParameters);
   }
 
-  public void SetCameraMovementSettings(CameraMovementSettings cameraMovementSettings)
+  private Vector3 CalculateTargetPosition(out UpdateParameters updateParameters)
   {
-    _cameraMovementSettings = cameraMovementSettings;
+    updateParameters = new UpdateParameters();
 
-    CameraOffset = new Vector3(
-      _cameraMovementSettings.Offset.x,
-      _cameraMovementSettings.Offset.y,
-      CameraOffset.z);
+    CalculateVerticalCameraPosition(ref updateParameters);
 
-    var targetOrthographicSize = (TargetScreenSize.y * .5f) / _cameraMovementSettings.ZoomSettings.ZoomPercentage;
+    CalculateHorizontalCameraPosition(ref updateParameters);
 
-    if (!Mathf.Approximately(Camera.main.orthographicSize, targetOrthographicSize))
-    {
-      Logger.Info("Start zoom to target size: " + targetOrthographicSize + ", current size: " + Camera.main.orthographicSize);
-
-      if (_cameraMovementSettings.ZoomSettings.ZoomTime == 0f)
-      {
-        Camera.main.orthographicSize = targetOrthographicSize;
-      }
-      else
-      {
-        _zoomTimer = new ZoomTimer(_cameraMovementSettings.ZoomSettings.ZoomTime, Camera.main.orthographicSize, targetOrthographicSize, _cameraMovementSettings.ZoomSettings.ZoomEasingType);
-
-        _zoomTimer.Start();
-      }
-    }
-
-    Logger.Info("Camera movement set to: " + _cameraMovementSettings.ToString());
-
-    Logger.Info("Camera size; current: " + Camera.main.orthographicSize + ", target: " + targetOrthographicSize);
+    return new Vector3(
+      updateParameters.XPos,
+      updateParameters.YPos - CameraOffset.y,
+      Target.position.z - CameraOffset.z);
   }
 
   void UpdateCameraPosition()
   {
-    var yPos = 0f;
-    var xPos = 0f;
-
-    var isOnCameraTrolley = false;
-
-    if (_cameraTrolleys != null)
+    if (IsCameraControlledByScrollAction())
     {
-      for (var i = 0; i < _cameraTrolleys.Length; i++)
-      {
-        if (_cameraTrolleys[i].IsPlayerWithinBoundingBox)
-        {
-          float? posY = _cameraTrolleys[i].GetPositionY(Target.position.x);
-
-          if (posY.HasValue)
-          {
-            yPos = posY.Value;
-
-            isOnCameraTrolley = true;
-          }
-
-          break;
-        }
-      }
+      return;
     }
 
-    var verticalSmoothDampTime = _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
+    UpdateParameters updateParameters;
 
-    if (!isOnCameraTrolley)
+    var targetPositon = CalculateTargetPosition(out updateParameters);
+
+    _targetedTransformPositionX = updateParameters.XPos;
+
+    Transform.position = new Vector3(
+      Mathf.SmoothDamp(Transform.position.x, targetPositon.x, ref _horizontalSmoothDampVelocity, _cameraMovementSettings.SmoothDampMoveSettings.HorizontalSmoothDampTime),
+      Mathf.SmoothDamp(Transform.position.y, targetPositon.y, ref _verticalSmoothDampVelocity, updateParameters.VerticalSmoothDampTime),
+      targetPositon.z);
+
+    _lastTargetPosition = Target.transform.position;
+  }
+
+  private bool IsCameraControlledByScrollAction()
+  {
+    if (_activeTranslateTransformAction == null
+      && _scrollActions.Any())
     {
-      var isFallingDown = false;
+      _activeTranslateTransformAction = _scrollActions.Dequeue();
 
-      var doSmoothDamp = false;
+      _activeTranslateTransformAction.Start();
+    }
 
-      switch (_cameraMovementSettings.VerticalCameraFollowMode)
+    if (_activeTranslateTransformAction == null)
+    {
+      return false;
+    }
+
+    var actionStatus = _activeTranslateTransformAction.Update();
+
+    if (actionStatus == TranslateTransformActionStatus.Completed)
+    {
+      _activeTranslateTransformAction = _scrollActions.Any()
+        ? _scrollActions.Dequeue()
+        : null;
+    }
+
+    return true;
+  }
+
+  private void AdjustFollowWhenGroundedParameters(ref UpdateParameters updateParameters)
+  {
+    if (_isAboveJumpHeightLocked && _characterPhysicsManager.Velocity.y < 0f)
+    {
+      // We set this value to true in order to make the camera follow the character upwards when catapulted above the maximum jump height. The
+      // character can not exceed the maximum jump heihgt without help (trampoline, powerup...).
+      _isAboveJumpHeightLocked = false; // if we reached the peak we unlock
+    }
+
+    if (_isAboveJumpHeightLocked
+      && (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
+       && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary))
+    {
+      // we were locked but character has exceeded the top boundary. In that case we set the y pos and smooth damp
+      updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
+
+      updateParameters.DoSmoothDamp = true;
+    }
+    else
+    {
+      // we want to adjust the y position on upward movement if:
+      if (_isAboveJumpHeightLocked // either we are locked in above jump height lock
+          || (
+                (
+                  !_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock // OR (we either have no top boundary or we are beneath the top boundary in which case we can go up)
+                  || Target.position.y <= _cameraMovementSettings.VerticalLockSettings.TopBoundary)
+                &&
+                (
+                  Target.position.y > Transform.position.y + CameraOffset.y + _playerController.JumpSettings.RunJumpHeight // (the character has exceeded the jump height which means he has been artifically catapulted upwards)
+                  && _characterPhysicsManager.Velocity.y > 0f // AND we go up  
+                )
+             )
+        )
       {
-        case VerticalCameraFollowMode.FollowWhenGrounded:
+        updateParameters.YPos = Target.position.y - _playerController.JumpSettings.RunJumpHeight;
 
-          if (_isAboveJumpHeightLocked && _characterPhysicsManager.Velocity.y < 0f)
-          {
-            // We set this value to true in order to make the camera follow the character upwards when catapulted above the maximum jump height. The
-            // character can not exceed the maximum jump heihgt without help (trampoline, powerup...).
-            _isAboveJumpHeightLocked = false; // if we reached the peak we unlock
-          }
+        _isAboveJumpHeightLocked = true; // make sure for second if condition
+      }
+      else
+      {
+        updateParameters.IsFallingDown = (_characterPhysicsManager.Velocity.y < 0f
+           && (Target.position.y < Transform.position.y + CameraOffset.y));
 
-          if (_isAboveJumpHeightLocked
-            && (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
-             && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary))
-          {
-            // we were locked but character has exceeded the top boundary. In that case we set the y pos and smooth damp
-            yPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
-
-            doSmoothDamp = true;
-          }
-          else
-          {
-            // we want to adjust the y position on upward movement if:
-            if (_isAboveJumpHeightLocked // either we are locked in above jump height lock
-                || (
-                      (
-                        !_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock // OR (we either have no top boundary or we are beneath the top boundary in which case we can go up)
-                        || Target.position.y <= _cameraMovementSettings.VerticalLockSettings.TopBoundary)
-                      &&
-                      (
-                        Target.position.y > Transform.position.y + CameraOffset.y + _playerController.JumpSettings.RunJumpHeight // (the character has exceeded the jump height which means he has been artifically catapulted upwards)
-                        && _characterPhysicsManager.Velocity.y > 0f // AND we go up  
-                      )
-                   )
-              )
-            {
-              yPos = Target.position.y - _playerController.JumpSettings.RunJumpHeight;
-
-              _isAboveJumpHeightLocked = true; // make sure for second if condition
-            }
-            else
-            {
-              isFallingDown = (_characterPhysicsManager.Velocity.y < 0f
-                 && (Target.position.y < Transform.position.y + CameraOffset.y));
-
-              if (_characterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
-                || isFallingDown)
-              {
-                if (_cameraMovementSettings.VerticalLockSettings.Enabled)
-                {
-                  yPos = _cameraMovementSettings.VerticalLockSettings.EnableDefaultVerticalLockPosition
-                    ? _cameraMovementSettings.VerticalLockSettings.TranslatedVerticalLockPosition
-                    : Target.position.y;
-
-                  if (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
-                    && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary)
-                  {
-                    yPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
-
-                    // we might have been shot up, so use smooth damp override
-                    doSmoothDamp = true;
-                  }
-                  else if (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
-                    && Target.position.y < _cameraMovementSettings.VerticalLockSettings.BottomBoundary)
-                  {
-                    yPos = _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y;
-
-                    // we might have been falling down, so use smooth damp override
-                    doSmoothDamp = true;
-                  }
-                }
-                else
-                {
-                  yPos = Target.position.y;
-                }
-              }
-              else
-              {
-                // character is in air, so the camera stays same
-                yPos = Transform.position.y + CameraOffset.y; // we need to add offset bceause we will deduct it later on again
-              }
-            }
-          }
-
-          break;
-
-        case VerticalCameraFollowMode.FollowAlways:
-        default:
-
-          _isAboveJumpHeightLocked = false; // this is not used at this mode
-
+        if (_characterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
+          || updateParameters.IsFallingDown)
+        {
           if (_cameraMovementSettings.VerticalLockSettings.Enabled)
           {
-            yPos = _cameraMovementSettings.VerticalLockSettings.EnableDefaultVerticalLockPosition
+            updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.EnableDefaultVerticalLockPosition
               ? _cameraMovementSettings.VerticalLockSettings.TranslatedVerticalLockPosition
               : Target.position.y;
 
             if (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
-              && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y)
+              && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary)
             {
-              yPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
+              updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
 
               // we might have been shot up, so use smooth damp override
-              doSmoothDamp = true;
+              updateParameters.DoSmoothDamp = true;
             }
-            else if (_cameraMovementSettings.VerticalLockSettings.EnableBottomVerticalLock
-              && Target.position.y < _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y)
+            else if (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
+              && Target.position.y < _cameraMovementSettings.VerticalLockSettings.BottomBoundary)
             {
-              yPos = _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y;
+              updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y;
 
               // we might have been falling down, so use smooth damp override
-              doSmoothDamp = true;
+              updateParameters.DoSmoothDamp = true;
             }
           }
           else
           {
-            yPos = Target.position.y;
+            updateParameters.YPos = Target.position.y;
           }
-
-          break;
+        }
+        else
+        {
+          // character is in air, so the camera stays same
+          updateParameters.YPos = Transform.position.y + CameraOffset.y; // we need to add offset bceause we will deduct it later on again
+        }
       }
+    }
+  }
 
-      verticalSmoothDampTime = doSmoothDamp // override
-        ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime
-        : isFallingDown
-          ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalRapidDescentSmoothDampTime
-          : _isAboveJumpHeightLocked
-            ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalAboveRapidAcsentSmoothDampTime
-            : _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
+  private void AdjustFollowAlwaysParameters(ref UpdateParameters updateParameters)
+  {
+    _isAboveJumpHeightLocked = false; // this is not used at this mode
+
+    if (_cameraMovementSettings.VerticalLockSettings.Enabled)
+    {
+      updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.EnableDefaultVerticalLockPosition
+        ? _cameraMovementSettings.VerticalLockSettings.TranslatedVerticalLockPosition
+        : Target.position.y;
+
+      if (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
+        && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y)
+      {
+        updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
+
+        // we might have been shot up, so use smooth damp override
+        updateParameters.DoSmoothDamp = true;
+      }
+      else if (_cameraMovementSettings.VerticalLockSettings.EnableBottomVerticalLock
+        && Target.position.y < _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y)
+      {
+        updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y;
+
+        // we might have been falling down, so use smooth damp override
+        updateParameters.DoSmoothDamp = true;
+      }
+    }
+    else
+    {
+      updateParameters.YPos = Target.position.y;
+    }
+  }
+
+  private bool IsCameraOnTrolley(ref UpdateParameters updateParameters)
+  {
+    if (_cameraTrolleys == null)
+    {
+      return false;
     }
 
-    var xTargetDelta = Target.transform.position.x - _lastTargetPosition.x;
+    for (var i = 0; i < _cameraTrolleys.Length; i++)
+    {
+      if (!_cameraTrolleys[i].IsPlayerWithinBoundingBox)
+      {
+        continue;
+      }
 
-    xPos = Target.position.x;
+      float? posY = _cameraTrolleys[i].GetPositionY(Target.position.x);
 
-    var doAdjustHorizontalOffset = CameraOffset.x != 0f;
+      if (posY.HasValue)
+      {
+        updateParameters.YPos = posY.Value;
 
+        return true;
+      }
+
+      break;
+    }
+
+    return false;
+  }
+
+  private bool NeedsHorizontalOffsetAdjustment(ref UpdateParameters updateParameters)
+  {
     if (_cameraMovementSettings.HorizontalLockSettings.Enabled)
     {
       if (_cameraMovementSettings.HorizontalLockSettings.EnableRightHorizontalLock
         && Target.position.x > _cameraMovementSettings.HorizontalLockSettings.RightBoundary - CameraOffset.x)
       {
-        xPos = _cameraMovementSettings.HorizontalLockSettings.RightBoundary;
+        updateParameters.XPos = _cameraMovementSettings.HorizontalLockSettings.RightBoundary;
 
-        doAdjustHorizontalOffset = false;
+        return false;
       }
       else if (_cameraMovementSettings.HorizontalLockSettings.EnableLeftHorizontalLock
         && Target.position.x < _cameraMovementSettings.HorizontalLockSettings.LeftBoundary + CameraOffset.x)
       {
-        xPos = _cameraMovementSettings.HorizontalLockSettings.LeftBoundary;
+        updateParameters.XPos = _cameraMovementSettings.HorizontalLockSettings.LeftBoundary;
 
-        doAdjustHorizontalOffset = false;
+        return false;
       }
     }
 
-    if (doAdjustHorizontalOffset)
+    return CameraOffset.x != 0f;
+  }
+
+  private void AdjustHorizontalOffset(ref UpdateParameters updateParameters)
+  {
+    var horizontalTargetDistance = Target.transform.position.x - _lastTargetPosition.x;
+
+    updateParameters.XPos = _targetedTransformPositionX;
+
+    if ((horizontalTargetDistance >= -.001f && horizontalTargetDistance <= .001f)
+      || CameraOffset.x >= 0f)
     {
-      xPos = _targetedTransformPositionX;
-
-      if ((xTargetDelta < -.001f
-          || xTargetDelta > .001f))
-      {
-        if (CameraOffset.x < 0f)
-        {
-          xPos =
-            _targetedTransformPositionX
-            + xTargetDelta * _cameraMovementSettings.HorizontalOffsetDeltaMovementFactor;
-
-          if (xTargetDelta > 0f) // going right
-          {
-            if (xPos + CameraOffset.x > Target.position.x)
-            {
-              xPos = Target.position.x - CameraOffset.x;
-            }
-
-            if (_cameraMovementSettings.HorizontalLockSettings.EnableRightHorizontalLock
-              && xPos > _cameraMovementSettings.HorizontalLockSettings.RightBoundary)
-            {
-              xPos = _cameraMovementSettings.HorizontalLockSettings.RightBoundary;
-            }
-          }
-          else // going left
-          {
-            if (xPos - CameraOffset.x < Target.position.x)
-            {
-              xPos = Target.position.x + CameraOffset.x;
-            }
-
-            if (_cameraMovementSettings.HorizontalLockSettings.EnableLeftHorizontalLock
-              && xPos < _cameraMovementSettings.HorizontalLockSettings.LeftBoundary)
-            {
-              xPos = _cameraMovementSettings.HorizontalLockSettings.LeftBoundary;
-            }
-          }
-        }
-      }
+      return;
     }
 
-    _targetedTransformPositionX = xPos;
+    updateParameters.XPos =
+      _targetedTransformPositionX
+      + horizontalTargetDistance * _cameraMovementSettings.HorizontalOffsetDeltaMovementFactor;
 
-    var targetPositon = new Vector3(xPos, yPos - CameraOffset.y, Target.position.z - CameraOffset.z);
+    if (horizontalTargetDistance > 0f) // going right
+    {
+      if (updateParameters.XPos + CameraOffset.x > Target.position.x)
+      {
+        updateParameters.XPos = Target.position.x - CameraOffset.x;
+      }
 
-    Transform.position = new Vector3(
-      Mathf.SmoothDamp(Transform.position.x, targetPositon.x, ref _horizontalSmoothDampVelocity, _cameraMovementSettings.SmoothDampMoveSettings.HorizontalSmoothDampTime),
-      Mathf.SmoothDamp(Transform.position.y, targetPositon.y, ref _verticalSmoothDampVelocity, verticalSmoothDampTime),
-      targetPositon.z);
+      if (_cameraMovementSettings.HorizontalLockSettings.EnableRightHorizontalLock
+        && updateParameters.XPos > _cameraMovementSettings.HorizontalLockSettings.RightBoundary)
+      {
+        updateParameters.XPos = _cameraMovementSettings.HorizontalLockSettings.RightBoundary;
+      }
+    }
+    else // going left
+    {
+      if (updateParameters.XPos - CameraOffset.x < Target.position.x)
+      {
+        updateParameters.XPos = Target.position.x + CameraOffset.x;
+      }
 
-    _lastTargetPosition = Target.transform.position;
+      if (_cameraMovementSettings.HorizontalLockSettings.EnableLeftHorizontalLock
+        && updateParameters.XPos < _cameraMovementSettings.HorizontalLockSettings.LeftBoundary)
+      {
+        updateParameters.XPos = _cameraMovementSettings.HorizontalLockSettings.LeftBoundary;
+      }
+    }
+  }
+
+  void CalculateVerticalCameraPosition(ref UpdateParameters updateParameters)
+  {
+    if (IsCameraOnTrolley(ref updateParameters))
+    {
+      updateParameters.VerticalSmoothDampTime = _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
+
+      return;
+    }
+
+    switch (_cameraMovementSettings.VerticalCameraFollowMode)
+    {
+      case VerticalCameraFollowMode.FollowWhenGrounded:
+        AdjustFollowWhenGroundedParameters(ref updateParameters);
+        break;
+
+      case VerticalCameraFollowMode.FollowAlways:
+      default:
+        AdjustFollowAlwaysParameters(ref updateParameters);
+        break;
+    }
+
+    updateParameters.VerticalSmoothDampTime = updateParameters.DoSmoothDamp // override
+      ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime
+      : updateParameters.IsFallingDown
+        ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalRapidDescentSmoothDampTime
+        : _isAboveJumpHeightLocked
+          ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalAboveRapidAcsentSmoothDampTime
+          : _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
+  }
+
+  void CalculateHorizontalCameraPosition(ref UpdateParameters updateParameters)
+  {
+    updateParameters.XPos = Target.position.x;
+
+    if (NeedsHorizontalOffsetAdjustment(ref updateParameters))
+    {
+      AdjustHorizontalOffset(ref updateParameters);
+    }
+  }
+
+  private struct UpdateParameters
+  {
+    public float YPos;
+
+    public float XPos;
+
+    public bool DoSmoothDamp;
+
+    public bool IsFallingDown;
+
+    public float VerticalSmoothDampTime;
   }
 
   class ZoomTimer : UpdateTimer

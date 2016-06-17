@@ -88,24 +88,27 @@ public class iTweenPath : MonoBehaviour
       return null;
     }
   }
+
   public Vector3 GetFirstNodeInWorldSpace()
   {
     return gameObject.transform.TransformPoint(nodes[0]);
   }
+
   public Vector3[] GetPathInWorldSpace()
   {
-    Vector3[] worldNodes = new Vector3[nodes.Count];
+    var worldNodes = new Vector3[nodes.Count];
 
     for (var i = 0; i < nodes.Count; i++)
       worldNodes[i] = gameObject.transform.TransformPoint(nodes[i]);
 
     return worldNodes;
   }
+
   public Vector3[] GetPathInWorldSpaceReversed()
   {
-    Vector3[] worldNodes = new Vector3[nodes.Count];
+    var worldNodes = new Vector3[nodes.Count];
 
-    int j = nodes.Count - 1;
+    var j = nodes.Count - 1;
     for (var i = 0; i < nodes.Count; i++)
       worldNodes[j--] = gameObject.transform.TransformPoint(nodes[i]);
 
@@ -125,8 +128,10 @@ public class iTweenPath : MonoBehaviour
   {
     if (paths.ContainsKey(requestedName))
     {
-      List<Vector3> revNodes = paths[requestedName].nodes.GetRange(0, paths[requestedName].nodes.Count);
+      var revNodes = paths[requestedName].nodes.GetRange(0, paths[requestedName].nodes.Count);
+
       revNodes.Reverse();
+
       return revNodes.ToArray();
     }
     else

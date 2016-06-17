@@ -47,7 +47,7 @@ public partial class CameraModifier : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D col)
   {
-    Vector3 transformPoint = ParentPositionObject.transform.TransformPoint(Vector3.zero);
+    var transformPoint = ParentPositionObject.transform.TransformPoint(Vector3.zero);
 
     if (ZoomSettings.ZoomPercentage == 0f)
     {
