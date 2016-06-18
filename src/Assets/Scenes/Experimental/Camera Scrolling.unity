@@ -1953,8 +1953,13 @@ MonoBehaviour:
     VerticalSmoothDampTime: 0.2
     VerticalRapidDescentSmoothDampTime: 0.01
     VerticalAboveRapidAcsentSmoothDampTime: 0.2
-  FullScreenScrollerSettings:
-    TransitionTime: 1
+  FullScreenScrollSettings:
+    TransitionTime: 0.6
+    CameraScrollEasingType: 15
+    PlayerTranslationDistance: 32
+    PlayerTranslationEasingType: 0
+    StartScrollFreezeTime: 0.3
+    EndScrollFreezeTime: 0.4
   EnableDefaultVerticalLockPosition: 1
   DefaultVerticalLockPosition: 540
   RelativePositioningParentObject: {fileID: 0}
@@ -2126,8 +2131,13 @@ MonoBehaviour:
     VerticalSmoothDampTime: 0.2
     VerticalRapidDescentSmoothDampTime: 0.01
     VerticalAboveRapidAcsentSmoothDampTime: 0.2
-  FullScreenScrollerSettings:
-    TransitionTime: 1
+  FullScreenScrollSettings:
+    TransitionTime: 0.6
+    CameraScrollEasingType: 15
+    PlayerTranslationDistance: 32
+    PlayerTranslationEasingType: 0
+    StartScrollFreezeTime: 0.3
+    EndScrollFreezeTime: 0.4
   EnableDefaultVerticalLockPosition: 1
   DefaultVerticalLockPosition: 540
   RelativePositioningParentObject: {fileID: 0}

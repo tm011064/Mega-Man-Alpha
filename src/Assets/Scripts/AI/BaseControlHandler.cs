@@ -11,6 +11,8 @@ public class BaseControlHandler : IDisposable
 
   protected float? OverrideEndTime;
 
+  protected float Duration;
+
   protected CharacterPhysicsManager CharacterPhysicsManager;
 
   protected Color DebugBoundingBoxColor = Color.green; // TODO (Roman: remove all this from release build
@@ -28,9 +30,9 @@ public class BaseControlHandler : IDisposable
 
     CharacterPhysicsManager = characterPhysicsManager;
 
-    OverrideEndTime = duration >= 0f
-      ? (float?)(Time.time + duration)
-      : null;
+    Duration = duration;
+
+    ResetOverrideEndTime();
   }
 
   public virtual void DrawGizmos()
@@ -47,6 +49,13 @@ public class BaseControlHandler : IDisposable
 
   public virtual void Dispose()
   {
+  }
+
+  protected void ResetOverrideEndTime()
+  {
+    OverrideEndTime = Duration >= 0f
+      ? (float?)(Time.time + Duration)
+      : null;
   }
 
   protected virtual ControlHandlerAfterUpdateStatus DoUpdate()

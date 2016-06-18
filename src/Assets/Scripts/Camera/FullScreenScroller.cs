@@ -6,7 +6,7 @@ public class FullScreenScroller : MonoBehaviour
 
   public SmoothDampMoveSettings SmoothDampMoveSettings;
 
-  public FullScreenScrollSettings FullScreenScrollerSettings;
+  public FullScreenScrollSettings FullScreenScrollSettings;
 
   [Tooltip("Enables the default vertical lock position. The default position simulates a Super Mario Bros style side scrolling camera which is fixed on the y axis, not reacting to vertical player movement.")]
   public bool EnableDefaultVerticalLockPosition = true;
@@ -32,6 +32,8 @@ public class FullScreenScroller : MonoBehaviour
 
   private HorizontalLockSettings _horizontalLockSettings;
 
+  private bool _skipEnter;
+
   void Awake()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
@@ -46,15 +48,12 @@ public class FullScreenScroller : MonoBehaviour
     _horizontalLockSettings = CreateHorizontalLockSettings(boxCollider.bounds);
 
     _verticalLockSettings = CreateVerticalLockSettings(boxCollider.bounds);
+
+    _skipEnter = boxCollider.bounds.Contains(GameManager.Instance.Player.transform.position);
   }
 
-  void OnTriggerEnter2D(Collider2D col)
+  private void SetCameraMovementSettings()
   {
-    GameManager.Instance.Player.PushControlHandler(
-      new FreezePlayerControlHandler(
-        GameManager.Instance.Player,
-        FullScreenScrollerSettings.TransitionTime));
-
     var cameraMovementSettings = new CameraMovementSettings(
       _verticalLockSettings,
       _horizontalLockSettings,
@@ -65,24 +64,76 @@ public class FullScreenScroller : MonoBehaviour
       HorizontalOffsetDeltaMovementFactor);
 
     _cameraController.SetCameraMovementSettings(cameraMovementSettings);
+  }
+
+  private void StartScroll()
+  {
+    SetCameraMovementSettings();
 
     // the order here is important. First we want to set the camera movement settings, then we can create
     // the scroll transform action.
-    var scrollTransformationAction = CreateTranslateTransformAction();
+    var targetPosition = _cameraController.CalculateTargetPosition();
+
+    Vector3? playerTranslationVector = null;
+
+    if (FullScreenScrollSettings.PlayerTranslationDistance != 0f)
+    {
+      var currentCameraPosition = _cameraController.gameObject.transform.position;
+
+      var directionVector = targetPosition - currentCameraPosition;
+
+      playerTranslationVector = directionVector.normalized * FullScreenScrollSettings.PlayerTranslationDistance;
+    }
+
+    if (FullScreenScrollSettings.EndScrollFreezeTime > 0f)
+    {
+      GameManager.Instance.Player.PushControlHandler(
+        new FreezePlayerControlHandler(
+          GameManager.Instance.Player,
+          FullScreenScrollSettings.EndScrollFreezeTime));
+    }
+
+    GameManager.Instance.Player.PushControlHandler(
+      new FreezePlayerControlHandler(
+        GameManager.Instance.Player,
+        FullScreenScrollSettings.TransitionTime,
+        playerTranslationVector,
+        FullScreenScrollSettings.PlayerTranslationEasingType));
+
+    var scrollTransformationAction = new TranslateTransformAction(
+      _cameraController.Transform,
+      targetPosition,
+      FullScreenScrollSettings.TransitionTime,
+      EasingType.Linear,
+      GameManager.Instance.Easing);
 
     _cameraController.EnqueueScrollAction(scrollTransformationAction);
   }
 
-  private TranslateTransformAction CreateTranslateTransformAction()
+  void OnTriggerEnter2D(Collider2D col)
   {
-    var targetPosition = _cameraController.CalculateTargetPosition();
+    if (_skipEnter)
+    {
+      _skipEnter = false;
 
-    return new TranslateTransformAction(
-      _cameraController.Transform,
-      targetPosition,
-      FullScreenScrollerSettings.TransitionTime,
-      EasingType.Linear,
-      GameManager.Instance.Easing);
+      SetCameraMovementSettings();
+
+      return;
+    }
+
+    if (FullScreenScrollSettings.StartScrollFreezeTime > 0f)
+    {
+      GameManager.Instance.Player.PushControlHandler(
+        new FreezePlayerControlHandler(
+          GameManager.Instance.Player,
+          FullScreenScrollSettings.StartScrollFreezeTime));
+
+      Invoke("StartScroll", FullScreenScrollSettings.StartScrollFreezeTime);
+    }
+    else
+    {
+      StartScroll();
+    }
   }
 
   private Vector3 GetTransformPoint()

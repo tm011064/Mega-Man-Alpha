@@ -2,17 +2,45 @@
 
 public class FreezePlayerControlHandler : DefaultPlayerControlHandler
 {
-  private float _suspendPhysicsEndTime;
+  private TranslateTransformAction _translateTransformAction;
 
-  public FreezePlayerControlHandler(PlayerController playerController, float suspendPhysicsTime)
+  private readonly Vector3? _playerTranslationVector;
+
+  private readonly EasingType _playerTranslationEasingType;
+
+  public FreezePlayerControlHandler(
+    PlayerController playerController,
+    float suspendPhysicsTime,
+    Vector3? playerTranslationVector = null,
+    EasingType playerTranslationEasingType = EasingType.Linear)
     : base(playerController, suspendPhysicsTime)
   {
     DoDrawDebugBoundingBox = true;
     DebugBoundingBoxColor = Color.red;
 
-    playerController.PlayerState |= PlayerState.Invincible;
+    _playerTranslationVector = playerTranslationVector;
+    _playerTranslationEasingType = playerTranslationEasingType;
+  }
 
-    _suspendPhysicsEndTime = Time.time + suspendPhysicsTime;
+  public override bool TryActivate(BaseControlHandler previousControlHandler)
+  {
+    PlayerController.PlayerState |= PlayerState.Invincible;
+
+    if (_playerTranslationVector.HasValue)
+    {
+      _translateTransformAction = new TranslateTransformAction(
+        PlayerController.transform,
+        PlayerController.transform.position + _playerTranslationVector.Value,
+        Duration,
+        _playerTranslationEasingType,
+        GameManager.Instance.Easing);
+
+      _translateTransformAction.Start();
+    }
+
+    ResetOverrideEndTime();
+
+    return true;
   }
 
   public override void Dispose()
@@ -22,8 +50,13 @@ public class FreezePlayerControlHandler : DefaultPlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (Time.time <= _suspendPhysicsEndTime)
+    if (Time.time <= OverrideEndTime)
     {
+      if (_translateTransformAction != null)
+      {
+        _translateTransformAction.Update();
+      }
+
       return ControlHandlerAfterUpdateStatus.KeepAlive;
     }
 
