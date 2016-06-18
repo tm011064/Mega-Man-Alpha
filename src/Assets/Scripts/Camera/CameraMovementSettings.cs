@@ -18,7 +18,11 @@ public class CameraMovementSettings
 
   public override string ToString()
   {
-    return string.Format("verticalLockSettings {{ {0} }}\nhorizontalLockSettings {{ {1} }}\nzoomSettings {{ {2} }}\nsmoothDampMoveSettings {{ {3} }}\noffset: {4}; verticalCameraFollowMode: {5}",
+    return string.Format(@"verticalLockSettings {{ {0} }}
+horizontalLockSettings {{ {1} }}
+zoomSettings {{ {2} }}
+smoothDampMoveSettings {{ {3} }}
+offset: {4}; verticalCameraFollowMode: {5}",
       VerticalLockSettings,
       HorizontalLockSettings,
       ZoomSettings,
