@@ -101,7 +101,6 @@ public class FullScreenScroller : MonoBehaviour
         FullScreenScrollSettings.PlayerTranslationEasingType));
 
     var scrollTransformationAction = new TranslateTransformAction(
-      _cameraController.Transform,
       targetPosition,
       FullScreenScrollSettings.TransitionTime,
       EasingType.Linear,

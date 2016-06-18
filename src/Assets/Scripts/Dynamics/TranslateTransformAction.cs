@@ -2,9 +2,9 @@
 
 public class TranslateTransformAction
 {
-  private readonly Vector3 _targetPosition;
+  public TranslateTransformActionStatus ActionStatus = TranslateTransformActionStatus.Idle;
 
-  private readonly Transform _transform;
+  private readonly Vector3 _targetPosition;
 
   private readonly Easing _easing;
 
@@ -14,14 +14,29 @@ public class TranslateTransformAction
 
   private float _startTime;
 
-  private TranslateTransformActionStatus _actionStatus = TranslateTransformActionStatus.Idle;
-
   private Vector3 _path;
 
   private Vector3 _startPosition;
 
+  public static TranslateTransformAction Start(
+    Vector3 startPosition,
+    Vector3 targetPosition,
+    float duration,
+    EasingType easingType,
+    Easing easing)
+  {
+    var translateTransformAction = new TranslateTransformAction(
+      targetPosition,
+      duration,
+      easingType,
+      easing);
+
+    translateTransformAction.Start(startPosition);
+
+    return translateTransformAction;
+  }
+
   public TranslateTransformAction(
-    Transform transform,
     Vector3 targetPosition,
     float duration,
     EasingType easingType,
@@ -29,27 +44,31 @@ public class TranslateTransformAction
   {
     _easing = easing;
     _easingType = easingType;
-    _transform = transform;
     _targetPosition = targetPosition;
     _duration = duration;
   }
 
-  public void Start()
+  public void Start(Vector3 startPosition)
   {
-    _actionStatus = TranslateTransformActionStatus.Started;
+    ActionStatus = TranslateTransformActionStatus.Started;
 
     _startTime = Time.time;
 
-    _startPosition = _transform.position;
+    _startPosition = startPosition;
 
     _path = _targetPosition - _startPosition;
   }
 
-  public TranslateTransformActionStatus Update()
+  public Vector3 GetPosition()
   {
-    if (_actionStatus != TranslateTransformActionStatus.Started)
+    if (ActionStatus == TranslateTransformActionStatus.Completed)
     {
-      return _actionStatus;
+      return _targetPosition;
+    }
+
+    if (ActionStatus == TranslateTransformActionStatus.Idle)
+    {
+      return _startPosition;
     }
 
     float currentTime = Time.time - _startTime;
@@ -58,17 +77,13 @@ public class TranslateTransformAction
 
     if (percentage >= 1f)
     {
-      _transform.position = _targetPosition;
+      ActionStatus = TranslateTransformActionStatus.Completed;
 
-      _actionStatus = TranslateTransformActionStatus.Completed;
-    }
-    else
-    {
-      var translationVector = _startPosition + (_path.normalized * (_path.magnitude * percentage));
-
-      _transform.position = translationVector;
+      return _targetPosition;
     }
 
-    return _actionStatus;
+    var translationVector = _startPosition + (_path.normalized * (_path.magnitude * percentage));
+
+    return translationVector;
   }
 }

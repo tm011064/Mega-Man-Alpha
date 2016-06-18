@@ -28,14 +28,12 @@ public class FreezePlayerControlHandler : DefaultPlayerControlHandler
 
     if (_playerTranslationVector.HasValue)
     {
-      _translateTransformAction = new TranslateTransformAction(
-        PlayerController.transform,
+      _translateTransformAction = TranslateTransformAction.Start(
+        PlayerController.transform.position,
         PlayerController.transform.position + _playerTranslationVector.Value,
         Duration,
         _playerTranslationEasingType,
         GameManager.Instance.Easing);
-
-      _translateTransformAction.Start();
     }
 
     ResetOverrideEndTime();
@@ -54,7 +52,7 @@ public class FreezePlayerControlHandler : DefaultPlayerControlHandler
     {
       if (_translateTransformAction != null)
       {
-        _translateTransformAction.Update();
+        PlayerController.transform.position = _translateTransformAction.GetPosition();
       }
 
       return ControlHandlerAfterUpdateStatus.KeepAlive;

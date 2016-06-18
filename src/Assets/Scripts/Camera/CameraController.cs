@@ -228,7 +228,7 @@ public class CameraController : MonoBehaviour
     {
       _activeTranslateTransformAction = _scrollActions.Dequeue();
 
-      _activeTranslateTransformAction.Start();
+      _activeTranslateTransformAction.Start(transform.position);
     }
 
     if (_activeTranslateTransformAction == null)
@@ -236,9 +236,9 @@ public class CameraController : MonoBehaviour
       return false;
     }
 
-    var actionStatus = _activeTranslateTransformAction.Update();
+    transform.position = _activeTranslateTransformAction.GetPosition();
 
-    if (actionStatus == TranslateTransformActionStatus.Completed)
+    if (_activeTranslateTransformAction.ActionStatus == TranslateTransformActionStatus.Completed)
     {
       _activeTranslateTransformAction = _scrollActions.Any()
         ? _scrollActions.Dequeue()
