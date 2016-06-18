@@ -107,6 +107,13 @@ public class CameraController : MonoBehaviour
     Logger.Info("Camera size; current: " + Camera.main.orthographicSize + ", target: " + targetOrthographicSize);
   }
 
+  public Vector3 CalculateTargetPosition()
+  {
+    UpdateParameters updateParameters;
+
+    return CalculateTargetPosition(out updateParameters);
+  }
+
   void Reset()
   {
     Logger.Info("Resetting camera movement settings.");
@@ -179,27 +186,6 @@ public class CameraController : MonoBehaviour
     }
   }
 
-  public Vector3 CalculateTargetPosition()
-  {
-    UpdateParameters updateParameters;
-
-    return CalculateTargetPosition(out updateParameters);
-  }
-
-  private Vector3 CalculateTargetPosition(out UpdateParameters updateParameters)
-  {
-    updateParameters = new UpdateParameters();
-
-    CalculateVerticalCameraPosition(ref updateParameters);
-
-    CalculateHorizontalCameraPosition(ref updateParameters);
-
-    return new Vector3(
-      updateParameters.XPos,
-      updateParameters.YPos - CameraOffset.y,
-      Target.position.z - CameraOffset.z);
-  }
-
   void UpdateCameraPosition()
   {
     if (IsCameraControlledByScrollAction())
@@ -214,11 +200,33 @@ public class CameraController : MonoBehaviour
     _targetedTransformPositionX = updateParameters.XPos;
 
     Transform.position = new Vector3(
-      Mathf.SmoothDamp(Transform.position.x, targetPositon.x, ref _horizontalSmoothDampVelocity, _cameraMovementSettings.SmoothDampMoveSettings.HorizontalSmoothDampTime),
-      Mathf.SmoothDamp(Transform.position.y, targetPositon.y, ref _verticalSmoothDampVelocity, updateParameters.VerticalSmoothDampTime),
+      Mathf.SmoothDamp(
+        Transform.position.x,
+        targetPositon.x,
+        ref _horizontalSmoothDampVelocity,
+        _cameraMovementSettings.SmoothDampMoveSettings.HorizontalSmoothDampTime),
+      Mathf.SmoothDamp(
+        Transform.position.y,
+        targetPositon.y,
+        ref _verticalSmoothDampVelocity,
+        updateParameters.VerticalSmoothDampTime),
       targetPositon.z);
 
     _lastTargetPosition = Target.transform.position;
+  }
+
+  private Vector3 CalculateTargetPosition(out UpdateParameters updateParameters)
+  {
+    updateParameters = new UpdateParameters();
+
+    CalculateVerticalCameraPosition(ref updateParameters);
+
+    CalculateHorizontalCameraPosition(ref updateParameters);
+
+    return new Vector3(
+      updateParameters.XPos,
+      updateParameters.YPos - CameraOffset.y,
+      Target.position.z - CameraOffset.z);
   }
 
   private bool IsCameraControlledByScrollAction()
@@ -460,7 +468,7 @@ public class CameraController : MonoBehaviour
     }
   }
 
-  void CalculateVerticalCameraPosition(ref UpdateParameters updateParameters)
+  private void CalculateVerticalCameraPosition(ref UpdateParameters updateParameters)
   {
     if (IsCameraOnTrolley(ref updateParameters))
     {
@@ -490,7 +498,7 @@ public class CameraController : MonoBehaviour
           : _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
   }
 
-  void CalculateHorizontalCameraPosition(ref UpdateParameters updateParameters)
+  private void CalculateHorizontalCameraPosition(ref UpdateParameters updateParameters)
   {
     updateParameters.XPos = Target.position.x;
 
