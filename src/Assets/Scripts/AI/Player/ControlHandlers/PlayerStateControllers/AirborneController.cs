@@ -26,11 +26,11 @@ public class AirborneController : PlayerStateController
 
     if (PlayerController.CharacterPhysicsManager.Velocity.y >= 0f)
     {
-      PlayerController.Animator.Play(Animator.StringToHash("PlayerJump"));
+      PlayerController.Animator.Play(Animator.StringToHash("Jump"));
     }
     else
     {
-      PlayerController.Animator.Play(Animator.StringToHash("PlayerFall"));
+      PlayerController.Animator.Play(Animator.StringToHash("Fall"));
     }
 
     return AnimationPlayResult.Played;

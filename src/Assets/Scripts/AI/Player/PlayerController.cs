@@ -19,6 +19,8 @@ public partial class PlayerController : BaseCharacterController
 
   public IsTakingDamageSettings IsTakingDamageSettings = new IsTakingDamageSettings();
 
+  public InputSettings InputSettings = new InputSettings();
+
   public Vector2 BoxColliderOffsetWallAttached = Vector2.zero;
 
   public Vector2 BoxColliderSizeWallAttached = Vector2.zero;

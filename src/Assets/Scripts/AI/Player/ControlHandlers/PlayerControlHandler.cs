@@ -48,6 +48,11 @@ public class PlayerControlHandler : BaseControlHandler
       controllers.Add(new SpinMeleeAttackController(playerController));
     }
 
+    if (playerController.ClimbSettings.EnableLadderClimbing)
+    {
+      controllers.Add(new ClimbController(playerController));
+    }
+
     if (playerController.IsTakingDamageSettings.EnableTakingDamage)
     {
       controllers.Add(new IsTakingDamageController(playerController));
@@ -78,7 +83,7 @@ public class PlayerControlHandler : BaseControlHandler
       ? GameManager.InputStateManager.GetAxisState("Vertical").Value
       : VerticalAxisOverride.Value;
 
-    axisState.SensibilityThreshold = .1f; // TODO (Roman): hardcoded
+    axisState.SensitivityThreshold = PlayerController.InputSettings.AxisSensitivityThreshold;
 
     for (var i = 0; i < _animationStateControllers.Length; i++)
     {

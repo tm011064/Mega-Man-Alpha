@@ -4,11 +4,23 @@
 
   public float YAxis;
 
-  public float SensibilityThreshold;
+  public float SensitivityThreshold;
 
-  public bool IsWithinThreshold()
+  /// <summary>
+  /// If true, the horizontal axis press is not strong enough and must be ignored
+  /// </summary>
+  public bool IsInHorizontalSensitivityDeadZone()
   {
-    return XAxis > -SensibilityThreshold
-      && XAxis < SensibilityThreshold;
+    return XAxis > -SensitivityThreshold
+      && XAxis < SensitivityThreshold;
+  }
+
+  /// <summary>
+  /// If true, the vertical axis press is not strong enough and must be ignored
+  /// </summary>
+  public bool IsInVerticalSensitivityDeadZone()
+  {
+    return YAxis > -SensitivityThreshold
+      && YAxis < SensitivityThreshold;
   }
 }
