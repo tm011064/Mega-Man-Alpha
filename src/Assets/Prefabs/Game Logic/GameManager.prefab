@@ -25,6 +25,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -39,21 +40,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913f3d65f751af747b5074268dd57734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 11463698, guid: 0d314c482e4fa1149b404e6b91347eed, type: 2}
+  Player: {fileID: 11445864, guid: 765c0d825582c6d4fa57e1c2f54aa89d, type: 2}
   GameSettings:
     PowerUpSettings:
       FloaterSettings:
         FloaterGravity: -100
-        StartFloatingDuringFallVelocityMultiplier: .100000001
-        FloaterGravityDecreaseInterpolationFactor: .0500000007
+        StartFloatingDuringFallVelocityMultiplier: 0.1
+        FloaterGravityDecreaseInterpolationFactor: 0.05
         FloaterInAirDampingOverride: 3
       JetpackSettings:
         JetpackSpeed: 600
         AirDamping: 2
         AutoFloatWithoutThrust: 0
         FloatGravity: -200
+      LaserAimGunSettings:
+        ScanRayDirectionDownCollisionLayers:
+          serializedVersion: 2
+          m_Bits: 0
+        ScanRayDirectionUpCollisionLayers:
+          serializedVersion: 2
+          m_Bits: 0
+        ScanRayLength: 1280
+        BulletsPerSecond: 10
+        AllowSlowMotionRealTimeBulletsPerSecond: 1
+        BulletSpeed: 2000
+        IntervalBetweenAiming: 1
+        SlowMotionFactorMultplierCurve:
+          serializedVersion: 2
+          m_Curve:
+          - time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - time: 0.2
+            value: 0.125
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - time: 1.2
+            value: 0.125
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - time: 2
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        DoAutoAim: 1
+        AutoAimSearchAngle: 12
+        TotalAutoAimSearchRaysPerSide: 2
+        AimHelpAngle: 30
     PlayerMetricSettings:
-      JumpReleaseUpVelocityMultiplier: .5
+      JumpReleaseUpVelocityMultiplier: 0.5
     PooledObjects:
       BasicPowerUpPrefab:
         Prefab: {fileID: 0}
@@ -74,7 +117,7 @@ MonoBehaviour:
       AddTimeStamp: 1
       BreakOnError: 1
       BreakOnAssert: 1
-      enabledTraceTags: []
+      EnabledTraceTags: []
       EnableAllTraceTags: 0
       AddTraceTagToMessage: 1
     PlayerDamageControlHandlerSettings:

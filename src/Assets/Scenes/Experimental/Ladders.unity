@@ -266,7 +266,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 817841030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1422, y: 820, z: 0}
+  m_LocalPosition: {x: 1424, y: 816, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -798,7 +798,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2046632, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
       propertyPath: orthographic size

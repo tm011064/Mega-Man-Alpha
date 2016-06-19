@@ -1,0 +1,319 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &105696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 431318}
+  - 212: {fileID: 21258044}
+  - 95: {fileID: 9585766}
+  m_Layer: 8
+  m_Name: SpriteAndAnimator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &195970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 486980}
+  - 212: {fileID: 21261412}
+  - 114: {fileID: 11445864}
+  - 50: {fileID: 5059884}
+  - 61: {fileID: 6107630}
+  - 114: {fileID: 11466334}
+  - 114: {fileID: 11418146}
+  m_Layer: 8
+  m_Name: Mega Man
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &431318
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105696}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -48, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 486980}
+  m_RootOrder: 0
+--- !u!4 &486980
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195970}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1120, y: 464, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 431318}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!50 &5059884
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195970}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &6107630
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195970}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 22}
+  serializedVersion: 2
+  m_Size: {x: 88, y: 128}
+--- !u!95 &9585766
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105696}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 05516976aa9d8514fa34fc4781c4d506, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11418146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10574d12cb271749aedb7f13e9cb8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkingJumpDistance: 512
+  RunningJumpDistance: 1024
+  JumpHeight: 360
+  MaxJumpHeight: 304
+  ComfortableJumpHeight: 272
+  WalkingJumpHeightWidth: 332
+  PlayerDimensions: {x: 86, y: 86}
+--- !u!114 &11445864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae30c20452fd0040a6e7fad419061c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterPhysicsManager: {fileID: 0}
+  WallJumpSettings:
+    EnableWallJumps: 0
+    WallJumpEnabledTime: 100000
+    WallVelocityDownThreshold: -100000
+    WallJumpPushOffAxisOverrideTime: 0.12
+    WallStickGravity: -3960
+    WallJumpWallEvaluationDuration: 0.02
+    MaxWallDownwardSpeed: -800
+    MinDistanceFromFloor: 64
+  JumpSettings:
+    Gravity: -8000
+    StandJumpHeight: 300
+    WalkJumpHeight: 200
+    WalkJumpHeightSpeedTrigger: 2000
+    RunJumpHeight: 1000
+    RunJumpHeightSpeedTrigger: 2000
+    InAirDamping: 8
+    AllowJumpAfterGroundLostThreashold: 0.1
+    MaxDownwardSpeed: -1200
+    EnableBackflipOnDirectionChange: 1
+    BackflipOnDirectionChangeSpeed: 200
+  RunSettings:
+    WalkSpeed: 800
+    EnableRunning: 1
+    RunSpeed: 2000
+    AccelerationGroundDamping: 12
+    DecelerationGroundDamping: 12
+  ClimbSettings:
+    EnableLadderClimbing: 1
+    ClimbUpVelocity: 400
+    ClimbDownVelocity: -400
+    MinFallDuration: 0.2
+  CrouchSettings:
+    EnableCrouching: 0
+    BoxColliderOffsetCrouched: {x: 0, y: -38}
+    BoxColliderSizeCrouched: {x: 88, y: 44}
+  SpinMeleeSettings:
+    EnableSpinMelee: 0
+  IsTakingDamageSettings:
+    EnableTakingDamage: 1
+  InputSettings:
+    AxisSensitivityThreshold: 0.2
+  BoxColliderOffsetWallAttached: {x: 0, y: -15}
+  BoxColliderSizeWallAttached: {x: 88, y: 90}
+  BoxColliderOffsetDefault: {x: 0, y: 0}
+  BoxColliderSizeDefault: {x: 0, y: 0}
+  AdjustedGravity: 0
+  Animator: {fileID: 0}
+  Sprite: {fileID: 0}
+  BoxCollider: {fileID: 0}
+  SpawnLocation: {x: 0, y: 0, z: 0}
+  CurrentPlatform: {fileID: 0}
+  PlayerState: 0
+--- !u!114 &11466334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64709f4cfbbb7844a3c1e28ac841e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlatformMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  TriggerMask:
+    serializedVersion: 2
+    m_Bits: 295936
+  OneWayPlatformMask:
+    serializedVersion: 2
+    m_Bits: 512
+  SlopeLimit: 90
+  JumpingThreshold: 0.05
+  SlopeSpeedMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0
+      value: 0.96037066
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TotalHorizontalRays: 8
+  TotalVerticalRays: 4
+  PerformFullyGroundedChecks: 0
+  PerformIsOnWallChecks: 1
+  EnableEdgeSlideUpHelp: 1
+  EdgeSlideUpCornerWidth: 33
+  _skinWidth: 6
+--- !u!212 &21258044
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105696}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -752253655
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: ccb254ead0f110c418ce3d88b458cf4d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+--- !u!212 &21261412
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195970}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -752253655
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 29689edf152f76a40916850ad149b4a2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 195970}
+  m_IsPrefabParent: 1

@@ -22,15 +22,15 @@ public class GroundedController : PlayerStateController
       return AnimationPlayResult.Played;
     }
 
-    if (axisState.IsWithinThreshold())
+    if (axisState.IsInHorizontalSensitivityDeadZone())
     {
-      PlayerController.Animator.Play(Animator.StringToHash("PlayerIdle"));
+      PlayerController.Animator.Play(Animator.StringToHash("Idle"));
     }
     else
     {
       AdjustSpriteScale(axisState);
 
-      PlayerController.Animator.Play(Animator.StringToHash("PlayerRun"));
+      PlayerController.Animator.Play(Animator.StringToHash("Run"));
     }
 
     return AnimationPlayResult.Played;

@@ -68,7 +68,7 @@ public class CrouchController : PlayerStateController
       return AnimationPlayResult.NotPlayed;
     }
 
-    if (axisState.IsWithinThreshold())
+    if (axisState.IsInHorizontalSensitivityDeadZone())
     {
       PlayerController.Animator.Play(Animator.StringToHash("PlayerCrouchIdle"));
     }
