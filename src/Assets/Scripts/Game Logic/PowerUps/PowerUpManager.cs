@@ -174,21 +174,9 @@ public class PowerUpManager
 
             break;
 
-          case PowerUpType.SpinMeleeAttack:
-
-            _currentPowerUpControlHandler = new PowerUpSpinMeleeAttackControlHandler(_gameManager.Player);
-
-            break;
-
           case PowerUpType.JetPack:
 
             _currentPowerUpControlHandler = new PowerUpJetPackControlHandler(_gameManager.Player, 30f, _gameManager.GameSettings.PowerUpSettings);
-
-            break;
-
-          case PowerUpType.Gun:
-
-            _currentPowerUpControlHandler = new PowerUpGunControlHandler(_gameManager.Player, -1f, _gameManager.GameSettings.PowerUpSettings);
 
             break;
         }

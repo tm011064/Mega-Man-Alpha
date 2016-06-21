@@ -43,20 +43,15 @@ public class PlayerControlHandler : BaseControlHandler
   {
     var controllers = new List<PlayerStateController>();
 
-    if (playerController.SpinMeleeSettings.EnableSpinMelee)
-    {
-      controllers.Add(new SpinMeleeAttackController(playerController));
-    }
-
     if (playerController.ClimbSettings.EnableLadderClimbing)
     {
       controllers.Add(new ClimbController(playerController));
     }
 
-    if (playerController.IsTakingDamageSettings.EnableTakingDamage)
-    {
-      controllers.Add(new IsTakingDamageController(playerController));
-    }
+    //if (playerController.IsTakingDamageSettings.EnableTakingDamage)
+    //{
+    //  controllers.Add(new IsTakingDamageController(playerController));
+    //}
 
     if (playerController.WallJumpSettings.EnableWallJumps)
     {

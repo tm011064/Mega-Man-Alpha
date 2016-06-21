@@ -29,6 +29,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
 
     if (GameManager.Player.BoxCollider.bounds.AreAbove(_ladderArea))
     {
+      Debug.Log("above: " + GameManager.Player.BoxCollider.bounds.AreAbove(_ladderArea));
       GameManager.Player.InsertControlHandlerBeforeCurrent(
         new ClimbOverLadderTopControlHandler(PlayerController, _topEdgePositionY));
 

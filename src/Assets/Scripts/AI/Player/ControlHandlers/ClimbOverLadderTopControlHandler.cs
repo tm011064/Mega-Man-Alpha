@@ -15,7 +15,15 @@ public class ClimbOverLadderTopControlHandler : PlayerControlHandler
 
   public override void Dispose()
   {
+    PlayerController.PlayerState &= ~PlayerState.ClimbingLadderTop;
     PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
+  }
+
+  public override bool TryActivate(BaseControlHandler previousControlHandler)
+  {
+    PlayerController.PlayerState |= ~PlayerState.ClimbingLadderTop;
+
+    return true;
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()

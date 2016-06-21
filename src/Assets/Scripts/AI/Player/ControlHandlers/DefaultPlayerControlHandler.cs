@@ -7,8 +7,11 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
   {
   }
 
-  public DefaultPlayerControlHandler(PlayerController playerController, float duration)
-    : base(playerController, duration: duration)
+  public DefaultPlayerControlHandler(
+    PlayerController playerController, 
+    PlayerStateController[] animationStateControllers, 
+    float duration)
+    : base(playerController, animationStateControllers, duration)
   {
   }
 

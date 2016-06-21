@@ -9,7 +9,8 @@ public class ClimbController : PlayerStateController
 
   public override AnimationPlayResult PlayAnimation(XYAxisState axisState)
   {
-    if ((PlayerController.PlayerState & PlayerState.ClimbingLadder) == 0)
+    if ((PlayerController.PlayerState & PlayerState.ClimbingLadder) == 0
+      && (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0)
     {
       PlayerController.Animator.speed = 1;
 
@@ -18,9 +19,14 @@ public class ClimbController : PlayerStateController
 
     var animatorState = PlayerController.Animator.GetCurrentAnimatorStateInfo(0);
 
-    if (!animatorState.IsName("Climb"))
+    var animationName = (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) != 0
+      ? "Climb Laddertop"
+      : "Climb";
+
+    Debug.Log("PLAY: " + animationName);
+    if (!animatorState.IsName(animationName))
     {
-      PlayerController.Animator.Play(Animator.StringToHash("Climb"));
+      PlayerController.Animator.Play(Animator.StringToHash(animationName));
     }
 
     PlayerController.Animator.speed = axisState.IsInVerticalSensitivityDeadZone()

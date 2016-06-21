@@ -1784,7 +1784,7 @@ MonoBehaviour:
   FullScreenScrollSettings:
     TransitionTime: 0.6
     CameraScrollEasingType: 15
-    PlayerTranslationDistance: 32
+    PlayerTranslationDistance: 128
     PlayerTranslationEasingType: 0
     StartScrollFreezeTime: 0.3
     EndScrollFreezeTime: 0.4
@@ -2003,7 +2003,7 @@ MonoBehaviour:
   FullScreenScrollSettings:
     TransitionTime: 0.6
     CameraScrollEasingType: 15
-    PlayerTranslationDistance: 32
+    PlayerTranslationDistance: 128
     PlayerTranslationEasingType: 0
     StartScrollFreezeTime: 0.3
     EndScrollFreezeTime: 0.4
@@ -2181,7 +2181,7 @@ MonoBehaviour:
   FullScreenScrollSettings:
     TransitionTime: 0.6
     CameraScrollEasingType: 15
-    PlayerTranslationDistance: 32
+    PlayerTranslationDistance: 128
     PlayerTranslationEasingType: 0
     StartScrollFreezeTime: 0.3
     EndScrollFreezeTime: 0.4

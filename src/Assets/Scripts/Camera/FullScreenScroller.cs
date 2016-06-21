@@ -34,6 +34,8 @@ public class FullScreenScroller : MonoBehaviour
 
   private bool _skipEnter;
 
+  private int _animationShortNameHash;
+
   void Awake()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
@@ -90,13 +92,15 @@ public class FullScreenScroller : MonoBehaviour
       GameManager.Instance.Player.PushControlHandler(
         new FreezePlayerControlHandler(
           GameManager.Instance.Player,
-          FullScreenScrollSettings.EndScrollFreezeTime));
+          FullScreenScrollSettings.EndScrollFreezeTime,
+          _animationShortNameHash));
     }
 
     GameManager.Instance.Player.PushControlHandler(
       new FreezePlayerControlHandler(
         GameManager.Instance.Player,
         FullScreenScrollSettings.TransitionTime,
+        _animationShortNameHash,
         playerTranslationVector,
         FullScreenScrollSettings.PlayerTranslationEasingType));
 
@@ -120,12 +124,17 @@ public class FullScreenScroller : MonoBehaviour
       return;
     }
 
+    var currentAnimatorStateInfo = GameManager.Instance.Player.Animator.GetCurrentAnimatorStateInfo(0);
+
+    _animationShortNameHash = currentAnimatorStateInfo.shortNameHash;
+
     if (FullScreenScrollSettings.StartScrollFreezeTime > 0f)
     {
       GameManager.Instance.Player.PushControlHandler(
         new FreezePlayerControlHandler(
           GameManager.Instance.Player,
-          FullScreenScrollSettings.StartScrollFreezeTime));
+          FullScreenScrollSettings.StartScrollFreezeTime,
+          _animationShortNameHash));
 
       Invoke("StartScroll", FullScreenScrollSettings.StartScrollFreezeTime);
     }

@@ -3,7 +3,7 @@
   private bool _hasCompleted = false;
 
   public SingleUpdatePlayerControlHandler(PlayerController playerController, float duration)
-    : base(playerController, duration)
+    : base(playerController, null, duration)
   {
   }
 

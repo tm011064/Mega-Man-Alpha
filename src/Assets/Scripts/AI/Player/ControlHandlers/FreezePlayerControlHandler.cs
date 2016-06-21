@@ -8,23 +8,34 @@ public class FreezePlayerControlHandler : DefaultPlayerControlHandler
 
   private readonly EasingType _playerTranslationEasingType;
 
+  private readonly int _animationShortNameHash;
+
   public FreezePlayerControlHandler(
     PlayerController playerController,
     float suspendPhysicsTime,
+    int animationShortNameHash,
     Vector3? playerTranslationVector = null,
     EasingType playerTranslationEasingType = EasingType.Linear)
-    : base(playerController, suspendPhysicsTime)
+    : base(
+      playerController,
+      new PlayerStateController[] 
+      { 
+        new PlaySpecificAnimationPlayerStateController(playerController, animationShortNameHash)
+      },
+      suspendPhysicsTime)
   {
     DoDrawDebugBoundingBox = true;
     DebugBoundingBoxColor = Color.red;
 
     _playerTranslationVector = playerTranslationVector;
     _playerTranslationEasingType = playerTranslationEasingType;
+    _animationShortNameHash = animationShortNameHash;
   }
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
   {
     PlayerController.PlayerState |= PlayerState.Invincible;
+    PlayerController.PlayerState |= PlayerState.Locked;
 
     if (_playerTranslationVector.HasValue)
     {
@@ -44,6 +55,7 @@ public class FreezePlayerControlHandler : DefaultPlayerControlHandler
   public override void Dispose()
   {
     PlayerController.PlayerState &= ~PlayerState.Invincible;
+    PlayerController.PlayerState &= ~PlayerState.Locked;
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()

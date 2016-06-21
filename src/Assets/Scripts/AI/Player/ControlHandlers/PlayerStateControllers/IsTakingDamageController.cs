@@ -14,7 +14,7 @@ public class IsTakingDamageController : PlayerStateController
       return AnimationPlayResult.NotPlayed;
     }
 
-    PlayerController.Animator.Play(Animator.StringToHash("PlayerDamageTaken"));
+    PlayerController.Animator.Play(Animator.StringToHash("Taking Damage"));
 
     return AnimationPlayResult.Played;
   }

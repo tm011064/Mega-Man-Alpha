@@ -7,7 +7,10 @@ public class GroundedController : PlayerStateController
   public GroundedController(PlayerController playerController)
     : base(playerController)
   {
-    _crouchController = new CrouchController(PlayerController);
+    if (playerController.CrouchSettings.EnableCrouching)
+    {
+      _crouchController = new CrouchController(PlayerController);
+    }
   }
 
   public override AnimationPlayResult PlayAnimation(XYAxisState axisState)
@@ -17,7 +20,8 @@ public class GroundedController : PlayerStateController
       return AnimationPlayResult.NotPlayed;
     }
 
-    if (_crouchController.UpdateStateAndPlayAnimation(axisState) == AnimationPlayResult.Played)
+    if (PlayerController.CrouchSettings.EnableCrouching
+      && _crouchController.UpdateStateAndPlayAnimation(axisState) == AnimationPlayResult.Played)
     {
       return AnimationPlayResult.Played;
     }

@@ -8,8 +8,10 @@
 
   Crouching = 8,
 
-  PerformingSpinMeleeAttack = 16,
+  ClimbingLadder = 16,
 
-  ClimbingLadder = 32
+  ClimbingLadderTop = 32,
+
+  Locked = 64
 }
 

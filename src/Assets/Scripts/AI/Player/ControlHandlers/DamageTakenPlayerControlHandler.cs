@@ -4,6 +4,8 @@ public class DamageTakenPlayerControlHandler : DefaultPlayerControlHandler
 {
   private float _suspendPhysicsEndTime;
 
+  private readonly float _suspendPhysicsTime;
+
   public DamageTakenPlayerControlHandler()
     : this(
         GameManager.Instance.Player,
@@ -13,15 +15,22 @@ public class DamageTakenPlayerControlHandler : DefaultPlayerControlHandler
   }
 
   public DamageTakenPlayerControlHandler(PlayerController playerController, float duration, float suspendPhysicsTime)
-    : base(playerController, duration)
+    : base(playerController, null, duration)
   {
     DoDrawDebugBoundingBox = true;
     DebugBoundingBoxColor = Color.red;
 
-    playerController.PlayerState |= PlayerState.Invincible;
-    playerController.PlayerState |= PlayerState.TakingDamage;
+    _suspendPhysicsTime = suspendPhysicsTime;
+  }
 
-    _suspendPhysicsEndTime = Time.time + suspendPhysicsTime;
+  public override bool TryActivate(BaseControlHandler previousControlHandler)
+  {
+    PlayerController.PlayerState |= PlayerState.Invincible;
+    PlayerController.PlayerState |= PlayerState.TakingDamage;
+
+    _suspendPhysicsEndTime = Time.time + _suspendPhysicsTime;
+
+    return true;
   }
 
   public override void Dispose()
