@@ -17,6 +17,8 @@ public partial class PlayerMetricsRenderer : MonoBehaviour
 
   public Vector2 PlayerDimensions = new Vector2(86, 86);
 
+  public Vector2 SafeAreaBounds = new Vector2(1920, 1080);
+
   private int _jumpRadiusResolution = 32;
 
   private Vector3[] _walkingJumpRadiusPositions = null;
@@ -112,25 +114,7 @@ public partial class PlayerMetricsRenderer : MonoBehaviour
         new Vector3(transform.position.x + PlayerDimensions.x, transform.position.y - PlayerDimensions.y * .5f, transform.position.z));
 
       // draw player visible rect
-      GizmoUtility.DrawBoundingBox(transform.position, new Vector3(950f, 540f, 0f), Color.blue);
-
-      // draw default camera locked
-      // draw player visible rect 
-      GizmoUtility.DrawBoundingBox(new Vector3(transform.position.x, 540f, transform.position.z), new Vector3(950f, 540f, 0f), Color.cyan);
-
-      Gizmos.color = Color.cyan;
-
-      Gizmos.DrawLine(
-        new Vector3(transform.position.x - 1000f, 540f, transform.position.z),
-        new Vector3(transform.position.x + 1000f, 540f, transform.position.z));
-
-      Gizmos.DrawLine(
-        new Vector3(transform.position.x - 1000f, 720f, transform.position.z),
-        new Vector3(transform.position.x + 1000f, 720f, transform.position.z));
-
-      Gizmos.DrawLine(
-        new Vector3(transform.position.x - 1000f, 360f, transform.position.z),
-        new Vector3(transform.position.x + 1000f, 360f, transform.position.z));
+      GizmoUtility.DrawBoundingBox(transform.position, SafeAreaBounds, Color.blue);
     }
   }
 #endif

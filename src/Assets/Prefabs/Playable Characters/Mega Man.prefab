@@ -45,8 +45,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -48, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalPosition: {x: 0, y: -11, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 486980}
@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1120, y: 464, z: 0}
+  m_LocalPosition: {x: 544, y: 400, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -93,9 +93,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 22}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 88, y: 128}
+  m_Size: {x: 14, y: 22}
 --- !u!95 &9585766
 Animator:
   serializedVersion: 3
@@ -124,13 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10574d12cb271749aedb7f13e9cb8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkingJumpDistance: 512
-  RunningJumpDistance: 1024
-  JumpHeight: 360
-  MaxJumpHeight: 304
-  ComfortableJumpHeight: 272
-  WalkingJumpHeightWidth: 332
-  PlayerDimensions: {x: 86, y: 86}
+  WalkingJumpDistance: 64
+  RunningJumpDistance: 64
+  JumpHeight: 64
+  MaxJumpHeight: 64
+  ComfortableJumpHeight: 64
+  WalkingJumpHeightWidth: 64
+  PlayerDimensions: {x: 14, y: 22}
+  SafeAreaBounds: {x: 240, y: 216}
 --- !u!114 &11445864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,8 +154,8 @@ MonoBehaviour:
     MaxWallDownwardSpeed: -800
     MinDistanceFromFloor: 64
   JumpSettings:
-    Gravity: -8000
-    StandJumpHeight: 300
+    Gravity: -2000
+    StandJumpHeight: 64
     WalkJumpHeight: 200
     WalkJumpHeightSpeedTrigger: 2000
     RunJumpHeight: 1000
@@ -165,14 +166,13 @@ MonoBehaviour:
     EnableBackflipOnDirectionChange: 1
     BackflipOnDirectionChangeSpeed: 200
   RunSettings:
-    WalkSpeed: 800
-    EnableRunning: 1
+    WalkSpeed: 200
+    EnableRunning: 0
     RunSpeed: 2000
     AccelerationGroundDamping: 12
     DecelerationGroundDamping: 12
   ClimbSettings:
     EnableLadderClimbing: 1
-    ClimbOverLadderTopTime: 0.2
     ClimbUpVelocity: 400
     ClimbDownVelocity: -400
     MinFallDuration: 0.2
@@ -244,7 +244,7 @@ MonoBehaviour:
   PerformIsOnWallChecks: 1
   EnableEdgeSlideUpHelp: 1
   EdgeSlideUpCornerWidth: 33
-  _skinWidth: 6
+  _skinWidth: 2
 --- !u!212 &21258044
 SpriteRenderer:
   m_ObjectHideFlags: 1
