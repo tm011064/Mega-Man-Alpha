@@ -52,6 +52,8 @@ public class SceneSwitchWindow : EditorWindow
         if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
         {
           EditorSceneManager.OpenScene(fileInfo.FullName);
+
+          EditorWindow.GetWindow(typeof(SceneView)).Show();
         }
       }
     }

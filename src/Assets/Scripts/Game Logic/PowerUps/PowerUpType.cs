@@ -6,11 +6,7 @@
 
   DoubleJump = 4,
 
-  SpinMeleeAttack = 8,
+  TaserAttack = 8,
 
-  TaserAttack = 16,
-
-  JetPack = 32,
-
-  Gun
+  Gun = 16
 }

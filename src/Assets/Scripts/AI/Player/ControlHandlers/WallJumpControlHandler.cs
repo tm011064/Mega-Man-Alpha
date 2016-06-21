@@ -15,8 +15,7 @@ public class WallJumpControlHandler : PlayerControlHandler
   public WallJumpControlHandler(PlayerController playerController)
     : base(playerController)
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.cyan;
+    SetDebugDraw(Color.cyan, true);
   }
 
   public void Reset(float duration, Direction wallDirection, WallJumpSettings wallJumpSettings)

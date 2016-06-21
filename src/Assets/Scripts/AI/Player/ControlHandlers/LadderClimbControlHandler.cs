@@ -4,16 +4,15 @@ public class LadderClimbControlHandler : PlayerControlHandler
 {
   private readonly Bounds _ladderArea;
 
-  private readonly float _topEdgePositionY;
+  private readonly float _ladderTopEdgePosY;
 
-  public LadderClimbControlHandler(PlayerController playerController, Bounds ladderArea, float topEdgePositionY)
-    : base(playerController)
+  public LadderClimbControlHandler(PlayerController playerController, Bounds ladderArea, float ladderTopEdgePosY)
+    : base(playerController, new PlayerStateController[] { new ClimbController(playerController) })
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.green;
+    SetDebugDraw(Color.green, true);
 
     _ladderArea = ladderArea;
-    _topEdgePositionY = topEdgePositionY;
+    _ladderTopEdgePosY = ladderTopEdgePosY;
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
@@ -30,7 +29,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
     if (GameManager.Player.BoxCollider.bounds.AreAbove(_ladderArea))
     {
       GameManager.Player.InsertControlHandlerBeforeCurrent(
-        new ClimbOverLadderTopControlHandler(PlayerController, _topEdgePositionY));
+        new ClimbOverLadderTopControlHandler(PlayerController, _ladderTopEdgePosY));
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
@@ -42,7 +41,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    var yAxis = GameManager.InputStateManager.GetAxisState("Vertical").Value;
+    var yAxis = GameManager.InputStateManager.GetVerticalAxisState().Value;
 
     var velocity = new Vector3(
       0f,

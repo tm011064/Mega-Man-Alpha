@@ -13,6 +13,15 @@ public static class BoundsExtensions
     return self.center.y - self.extents.y > bounds.center.y + bounds.extents.y;
   }
 
+  public static bool AreAboveOrOnEdge(this Bounds self, Bounds bounds)
+  {
+    float selfBottom = self.center.y - self.extents.y;
+    float boundsTop = bounds.center.y + bounds.extents.y;
+
+    return selfBottom > boundsTop
+      || Mathf.Approximately(selfBottom, boundsTop);
+  }
+
   public static bool AreBelow(this Bounds self, Bounds bounds)
   {
     return self.center.y + self.extents.y < bounds.center.y - bounds.extents.y;

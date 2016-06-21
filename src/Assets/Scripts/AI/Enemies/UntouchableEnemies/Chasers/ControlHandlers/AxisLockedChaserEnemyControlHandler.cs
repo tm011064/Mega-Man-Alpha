@@ -55,7 +55,7 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
           * _enemyController.DecelerationDistanceMultiplicationFactor, 1f);
       }
 
-      if (direction.x > _enemyController.IdleDistanceThreshold) // TODO (Roman): maybe don't hardcode that threshold
+      if (direction.x > _enemyController.IdleDistanceThreshold)
       {
         horizontalVelocity = _enemyController.Speed * Time.deltaTime * decelerationFactor;
       }
@@ -102,7 +102,7 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
         decelerationFactor = Mathf.Min(Mathf.Abs(direction.y) * _enemyController.DecelerationDistanceMultiplicationFactor, 1f);
       }
 
-      if (direction.y > _enemyController.IdleDistanceThreshold) // TODO (Roman): maybe don't hardcode that threshold
+      if (direction.y > _enemyController.IdleDistanceThreshold)
       {
         verticalVelocity = _enemyController.Speed * Time.deltaTime * decelerationFactor;
       }

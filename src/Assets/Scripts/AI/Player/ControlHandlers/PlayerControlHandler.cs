@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerControlHandler : BaseControlHandler
@@ -43,26 +44,6 @@ public class PlayerControlHandler : BaseControlHandler
   {
     var controllers = new List<PlayerStateController>();
 
-    if (playerController.SpinMeleeSettings.EnableSpinMelee)
-    {
-      controllers.Add(new SpinMeleeAttackController(playerController));
-    }
-
-    if (playerController.ClimbSettings.EnableLadderClimbing)
-    {
-      controllers.Add(new ClimbController(playerController));
-    }
-
-    if (playerController.IsTakingDamageSettings.EnableTakingDamage)
-    {
-      controllers.Add(new IsTakingDamageController(playerController));
-    }
-
-    if (playerController.WallJumpSettings.EnableWallJumps)
-    {
-      controllers.Add(new WallSlideController(playerController));
-    }
-
     controllers.Add(new GroundedController(playerController));
     controllers.Add(new AirborneController(playerController));
 
@@ -76,11 +57,11 @@ public class PlayerControlHandler : BaseControlHandler
     XYAxisState axisState;
 
     axisState.XAxis = HorizontalAxisOverride == null
-      ? GameManager.InputStateManager.GetAxisState("Horizontal").Value
+      ? GameManager.InputStateManager.GetHorizontalAxisState().Value
       : HorizontalAxisOverride.Value;
 
     axisState.YAxis = VerticalAxisOverride == null
-      ? GameManager.InputStateManager.GetAxisState("Vertical").Value
+      ? GameManager.InputStateManager.GetVerticalAxisState().Value
       : VerticalAxisOverride.Value;
 
     axisState.SensitivityThreshold = PlayerController.InputSettings.AxisSensitivityThreshold;
@@ -273,7 +254,7 @@ public class PlayerControlHandler : BaseControlHandler
   protected float GetDefaultHorizontalVelocity(Vector3 velocity)
   {
     var horizontalAxis = HorizontalAxisOverride == null
-      ? GameManager.InputStateManager.GetAxisState("Horizontal")
+      ? GameManager.InputStateManager.GetHorizontalAxisState()
       : HorizontalAxisOverride;
 
     var normalizedHorizontalSpeed = GetNormalizedHorizontalSpeed(horizontalAxis);

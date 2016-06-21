@@ -5,8 +5,7 @@ public class GoodHealthPlayerControlHandler : DefaultPlayerControlHandler
   public GoodHealthPlayerControlHandler(PlayerController playerController)
     : base(playerController)
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.green;
+    SetDebugDraw(Color.green, true);
   }
 }
 

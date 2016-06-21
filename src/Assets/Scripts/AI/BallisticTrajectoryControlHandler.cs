@@ -16,8 +16,7 @@ public class BallisticTrajectoryControlHandler : BaseControlHandler
     float angle)
     : base(characterPhysicsManager)
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.cyan;
+    SetDebugDraw(Color.cyan, true);
 
     if (characterPhysicsManager != null)
     {

@@ -15,8 +15,6 @@ public partial class PlayerController : BaseCharacterController
 
   public CrouchSettings CrouchSettings = new CrouchSettings();
 
-  public SpinMeleeSettings SpinMeleeSettings = new SpinMeleeSettings();
-
   public IsTakingDamageSettings IsTakingDamageSettings = new IsTakingDamageSettings();
 
   public InputSettings InputSettings = new InputSettings();
@@ -51,10 +49,7 @@ public partial class PlayerController : BaseCharacterController
 
   [HideInInspector]
   public PlayerState PlayerState;
-
-  [HideInInspector]
-  public LaserGunAimContainer LaserGunAimContainer = null;
-
+  
   private RaycastHit2D _lastControllerColliderHit;
 
   private Vector3 _velocity;
@@ -72,33 +67,7 @@ public partial class PlayerController : BaseCharacterController
   public event Action<GroundedPlatformChangedInfo> GroundedPlatformChanged;
 
   public event Action JumpedThisFrame;
-
-  private void InitializeSpinMeleeAttack()
-  {
-    var childTransform = transform.FindChild("SpinMeleeAttackBoxCollider");
-
-    if (childTransform != null)
-    {
-      Logger.Assert(childTransform != null, "Player controller is expected to have a SpinMeleeAttackBoxCollider child object. If this is no longer needed, remove this line in code.");
-
-      SpinMeleeSettings.SpinMeleeAttackBoxCollider = childTransform.gameObject;
-
-      SpinMeleeSettings.SpinMeleeAttackBoxCollider.SetActive(false); // we only want to activate this when the player performs the attack.
-    }
-  }
-
-  private void InitializeLaserGunAim()
-  {
-    var childTransform = transform.FindChild("LaserGunAim");
-
-    if (childTransform != null)
-    {
-      LaserGunAimContainer = new LaserGunAimContainer();
-
-      LaserGunAimContainer.Initialize(childTransform);
-    }
-  }
-
+  
   void Awake()
   {
     // register with game context so this game object can be accessed everywhere
@@ -111,10 +80,6 @@ public partial class PlayerController : BaseCharacterController
     BoxColliderOffsetDefault = BoxCollider.offset;
 
     BoxColliderSizeDefault = BoxCollider.size;
-
-    InitializeSpinMeleeAttack();
-
-    InitializeLaserGunAim();
 
     var childTransform = transform.FindChild("SpriteAndAnimator");
 

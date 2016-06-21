@@ -7,7 +7,7 @@ public class TopBounceableControlHandler : DefaultPlayerControlHandler
   private float _bounceJumpMultiplier;
 
   public TopBounceableControlHandler(PlayerController playerController, float duration, float bounceJumpMultiplier)
-    : base(playerController, duration)
+    : base(playerController, null, duration)
   {
     _bounceJumpMultiplier = bounceJumpMultiplier;
   }
