@@ -57,7 +57,7 @@ public class Ladder : MonoBehaviour
       return;
     }
 
-    var verticalAxisState = _gameManager.InputStateManager.GetAxisState("Vertical");
+    var verticalAxisState = _gameManager.InputStateManager.GetVerticalAxisState();
 
     if (_gameManager.Player.CurrentPlatform != null
       && _gameManager.Player.CurrentPlatform == _topEdge
@@ -76,7 +76,8 @@ public class Ladder : MonoBehaviour
     if (_hasPlayerEntered
       && (_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
       && verticalAxisState.Value > 0f
-      && _gameManager.Player.BoxCollider.bounds.AreWithinVerticalShaftOf(_boxCollider.bounds))
+      && _gameManager.Player.BoxCollider.bounds.AreWithinVerticalShaftOf(_boxCollider.bounds)
+      && !_gameManager.Player.BoxCollider.bounds.AreAboveOrOnEdge(_boxCollider.bounds))
     {
       _gameManager.Player.PlayerState |= PlayerState.ClimbingLadder;
 

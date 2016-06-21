@@ -8,7 +8,5 @@
 
   TaserAttack = 8,
 
-  JetPack = 16,
-
-  Gun = 32
+  Gun = 16
 }

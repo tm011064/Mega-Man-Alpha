@@ -81,7 +81,10 @@ public class PowerUpFloaterControlHandler : PlayerControlHandler
     {
       if (_isFloating)
       {
-        PlayerController.AdjustedGravity = Mathf.Lerp(PlayerController.AdjustedGravity, PlayerController.JumpSettings.Gravity, Time.deltaTime * _powerUpSettings.FloaterSettings.FloaterGravityDecreaseInterpolationFactor); // TODO (Roman): hard coded...
+        PlayerController.AdjustedGravity = Mathf.Lerp(
+          PlayerController.AdjustedGravity,
+          PlayerController.JumpSettings.Gravity,
+          Time.deltaTime * _powerUpSettings.FloaterSettings.FloaterGravityDecreaseInterpolationFactor);
       }
       else
       {

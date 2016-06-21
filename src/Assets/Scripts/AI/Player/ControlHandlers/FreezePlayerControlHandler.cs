@@ -8,8 +8,6 @@ public class FreezePlayerControlHandler : DefaultPlayerControlHandler
 
   private readonly EasingType _playerTranslationEasingType;
 
-  private readonly int _animationShortNameHash;
-
   public FreezePlayerControlHandler(
     PlayerController playerController,
     float suspendPhysicsTime,
@@ -24,12 +22,10 @@ public class FreezePlayerControlHandler : DefaultPlayerControlHandler
       },
       suspendPhysicsTime)
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.red;
+    SetDebugDraw(Color.red, true);
 
     _playerTranslationVector = playerTranslationVector;
     _playerTranslationEasingType = playerTranslationEasingType;
-    _animationShortNameHash = animationShortNameHash;
   }
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)

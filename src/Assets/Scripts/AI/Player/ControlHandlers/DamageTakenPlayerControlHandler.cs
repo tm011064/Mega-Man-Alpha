@@ -17,8 +17,7 @@ public class DamageTakenPlayerControlHandler : DefaultPlayerControlHandler
   public DamageTakenPlayerControlHandler(PlayerController playerController, float duration, float suspendPhysicsTime)
     : base(playerController, null, duration)
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.red;
+    SetDebugDraw(Color.red, true);
 
     _suspendPhysicsTime = suspendPhysicsTime;
   }

@@ -17,9 +17,14 @@ public class InputStateManager
     return _buttonStates[buttonName];
   }
 
-  public AxisState GetAxisState(string axisName)
+  public AxisState GetVerticalAxisState()
   {
-    return _axisStates[axisName];
+    return _axisStates["Vertical"];
+  }
+
+  public AxisState GetHorizontalAxisState()
+  {
+    return _axisStates["Horizontal"];
   }
 
   public void Update()

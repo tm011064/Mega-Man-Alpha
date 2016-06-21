@@ -2,34 +2,39 @@
 
 public class ClimbOverLadderTopControlHandler : PlayerControlHandler
 {
-  private readonly float _topEdgePositionY;
+  private readonly float _ladderTopEdgePosY;
 
-  public ClimbOverLadderTopControlHandler(PlayerController playerController, float topEdgePositionY)
-    : base(playerController)
+  public ClimbOverLadderTopControlHandler(PlayerController playerController, float ladderTopEdgePosY)
+    : base(
+      playerController,
+      new PlayerStateController[] { new ClimbController(playerController) })
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.green;
+    SetDebugDraw(Color.green, true);
 
-    _topEdgePositionY = topEdgePositionY;
+    _ladderTopEdgePosY = ladderTopEdgePosY;
   }
 
   public override void Dispose()
   {
     PlayerController.PlayerState &= ~PlayerState.ClimbingLadderTop;
     PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
+
+    PlayerController.transform.position = new Vector3(
+      PlayerController.transform.position.x,
+      _ladderTopEdgePosY + PlayerController.transform.position.y - PlayerController.BoxCollider.bounds.min.y,
+      PlayerController.transform.position.z);
   }
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
   {
-    PlayerController.PlayerState |= ~PlayerState.ClimbingLadderTop;
+    PlayerController.PlayerState |= PlayerState.ClimbingLadderTop;
 
     return true;
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (PlayerController.BoxCollider.bounds.center.y
-      - PlayerController.BoxCollider.bounds.extents.y > _topEdgePositionY)
+    if (PlayerController.BoxCollider.bounds.min.y > _ladderTopEdgePosY)
     {
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }

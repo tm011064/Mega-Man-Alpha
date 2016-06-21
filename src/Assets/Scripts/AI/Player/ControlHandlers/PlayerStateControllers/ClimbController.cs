@@ -23,15 +23,16 @@ public class ClimbController : PlayerStateController
       ? "Climb Laddertop"
       : "Climb";
 
-    Debug.Log("PLAY: " + animationName);
     if (!animatorState.IsName(animationName))
     {
       PlayerController.Animator.Play(Animator.StringToHash(animationName));
     }
 
-    PlayerController.Animator.speed = axisState.IsInVerticalSensitivityDeadZone()
-      ? 0
-      : 1;
+    PlayerController.Animator.speed =
+      (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0
+      && axisState.IsInVerticalSensitivityDeadZone()
+        ? 0
+        : 1;
 
     return AnimationPlayResult.Played;
   }

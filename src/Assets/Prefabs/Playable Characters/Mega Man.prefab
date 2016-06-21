@@ -172,6 +172,7 @@ MonoBehaviour:
     DecelerationGroundDamping: 12
   ClimbSettings:
     EnableLadderClimbing: 1
+    ClimbOverLadderTopTime: 0.2
     ClimbUpVelocity: 400
     ClimbDownVelocity: -400
     MinFallDuration: 0.2
@@ -179,8 +180,6 @@ MonoBehaviour:
     EnableCrouching: 0
     BoxColliderOffsetCrouched: {x: 0, y: -38}
     BoxColliderSizeCrouched: {x: 88, y: 44}
-  SpinMeleeSettings:
-    EnableSpinMelee: 0
   IsTakingDamageSettings:
     EnableTakingDamage: 1
   InputSettings:

@@ -13,8 +13,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
   public WallJumpEvaluationControlHandler(PlayerController playerController)
     : base(playerController)
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.cyan;
+    SetDebugDraw(Color.cyan, true);
   }
 
   public bool HasDetached { get { return _hasDetached; } }
@@ -67,7 +66,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    var hAxis = GameManager.InputStateManager.GetAxisState("Horizontal");
+    var hAxis = GameManager.InputStateManager.GetHorizontalAxisState();
 
     if (_wallDirection == Direction.Right)
     {

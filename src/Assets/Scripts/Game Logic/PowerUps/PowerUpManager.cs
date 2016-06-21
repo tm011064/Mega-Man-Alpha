@@ -173,12 +173,6 @@ public class PowerUpManager
             _currentPowerUpControlHandler = new PowerUpDoubleJumpControlHandler(_gameManager.Player);
 
             break;
-
-          case PowerUpType.JetPack:
-
-            _currentPowerUpControlHandler = new PowerUpJetPackControlHandler(_gameManager.Player, 30f, _gameManager.GameSettings.PowerUpSettings);
-
-            break;
         }
 
         _gameManager.Player.PushControlHandler(_currentPowerUpControlHandler);

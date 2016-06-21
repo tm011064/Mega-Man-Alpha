@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 
 /// <summary>
@@ -15,7 +16,7 @@ public class BaseControlHandler : IDisposable
 
   protected CharacterPhysicsManager CharacterPhysicsManager;
 
-  protected Color DebugBoundingBoxColor = Color.green; // TODO (Roman: remove all this from release build
+  protected Color DebugBoundingBoxColor = Color.green;
 
   protected bool DoDrawDebugBoundingBox = false;
 
@@ -33,10 +34,6 @@ public class BaseControlHandler : IDisposable
     Duration = duration;
 
     ResetOverrideEndTime();
-  }
-
-  public virtual void DrawGizmos()
-  {
   }
 
   protected virtual void OnAfterUpdate()
@@ -89,5 +86,19 @@ public class BaseControlHandler : IDisposable
     OnAfterUpdate();
 
     return doUpdate;
+  }
+
+  [Conditional("DEBUG"), Conditional("PROFILE")]
+  protected void SetDebugDraw(
+    Color debugBoundingBoxColor,
+    bool doDrawDebugBoundingBox)
+  {
+    DebugBoundingBoxColor = debugBoundingBoxColor;
+    DoDrawDebugBoundingBox = doDrawDebugBoundingBox;
+  }
+
+  [Conditional("DEBUG"), Conditional("PROFILE")]
+  public virtual void DrawGizmos()
+  {
   }
 }

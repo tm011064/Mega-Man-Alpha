@@ -11,10 +11,9 @@ public class StartClimbDownLadderControlHandler : PlayerControlHandler
     PlayerController playerController,
     Bounds ladderArea,
     float topEdgePositionY)
-    : base(playerController)
+    : base(playerController, new PlayerStateController[] { new ClimbController(playerController) })
   {
-    DoDrawDebugBoundingBox = true;
-    DebugBoundingBoxColor = Color.green;
+    SetDebugDraw(Color.green, true);
 
     _ladderArea = ladderArea;
     _topEdgePositionY = topEdgePositionY;
@@ -24,10 +23,7 @@ public class StartClimbDownLadderControlHandler : PlayerControlHandler
 
   public override void Dispose()
   {
-    PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
-
     var handler = Disposed;
-
     if (handler != null)
     {
       Disposed(this);
@@ -36,8 +32,7 @@ public class StartClimbDownLadderControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (PlayerController.BoxCollider.bounds.center.y
-      + PlayerController.BoxCollider.bounds.extents.y < _topEdgePositionY)
+    if (PlayerController.BoxCollider.bounds.max.y < _topEdgePositionY)
     {
       GameManager.Player.InsertControlHandlerBeforeCurrent(
         new LadderClimbControlHandler(PlayerController, _ladderArea, _topEdgePositionY));
