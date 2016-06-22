@@ -10,6 +10,10 @@ public class CameraController : MonoBehaviour
 
   public Vector2 TargetScreenSize = new Vector2(1920, 1080);
 
+  public bool UseFixedAspectRatio = false;
+
+  public Vector2 FixedAspectRatio = new Vector2(4, 3);
+
   [HideInInspector]
   public Transform Target;
 
@@ -132,6 +136,11 @@ public class CameraController : MonoBehaviour
 
   void Start()
   {
+    if (UseFixedAspectRatio)
+    {
+      AssignFixedAspectRatio(FixedAspectRatio.x / FixedAspectRatio.y);
+    }
+
     if (_cameraTrolleys == null)
     {
       _cameraTrolleys = FindObjectsOfType<CameraTrolley>();
@@ -213,6 +222,40 @@ public class CameraController : MonoBehaviour
       targetPositon.z);
 
     _lastTargetPosition = Target.transform.position;
+  }
+
+  private void AssignFixedAspectRatio(float targetAspectRatio)
+  {
+    var windowaspect = (float)Screen.width / (float)Screen.height;
+
+    var scaleheight = windowaspect / targetAspectRatio;
+
+    var camera = GetComponent<Camera>();
+
+    if (scaleheight < 1.0f) // add letterbox
+    {
+      var rect = camera.rect;
+
+      rect.width = 1.0f;
+      rect.height = scaleheight;
+      rect.x = 0;
+      rect.y = (1.0f - scaleheight) / 2.0f;
+
+      camera.rect = rect;
+    }
+    else // add pillarbox
+    {
+      var scalewidth = 1.0f / scaleheight;
+
+      var rect = camera.rect;
+
+      rect.width = scalewidth;
+      rect.height = 1.0f;
+      rect.x = (1.0f - scalewidth) / 2.0f;
+      rect.y = 0;
+
+      camera.rect = rect;
+    }
   }
 
   private Vector3 CalculateTargetPosition(out UpdateParameters updateParameters)

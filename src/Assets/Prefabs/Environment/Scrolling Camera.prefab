@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,18 +44,18 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .823529422, g: .948884428, b: 1, a: .0196078438}
+  m_BackGroundColor: {r: 0.8235294, g: 0.9488844, b: 1, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
-    Width: 1
-    Height: 1
-  near clip plane: .300000012
+    width: 1
+    height: 1
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic Size: 540
+  orthographic size: 120
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -62,10 +63,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!81 &8192236
 AudioListener:
   m_ObjectHideFlags: 1
@@ -91,19 +94,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab5e98f106d7ecf49b5d0d791f32e172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridLineSettings:
-  - Width: 16
-    Height: 16
-    Visible: 1
-  - Width: 128
-    Height: 128
-    Visible: 0
-  - Width: 368
-    Height: 368
-    Visible: 1
+  GridLineSettings: []
   Visible: 0
-  Size: {x: 4096, y: 1080}
-  Center: {x: -2048, y: 540}
+  Size: {x: 2048, y: 2048}
+  Center: {x: 1024, y: 1024}
 --- !u!114 &11433236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,16 +114,11 @@ MonoBehaviour:
     PowerUpSettings:
       FloaterSettings:
         FloaterGravity: -100
-        StartFloatingDuringFallVelocityMultiplier: .100000001
-        FloaterGravityDecreaseInterpolationFactor: .0500000007
+        StartFloatingDuringFallVelocityMultiplier: 0.1
+        FloaterGravityDecreaseInterpolationFactor: 0.05
         FloaterInAirDampingOverride: 3
-      JetpackSettings:
-        JetpackSpeed: 600
-        AirDamping: 1.20000005
-        AutoFloatWithoutThrust: 0
-        FloatGravity: -200
     PlayerMetricSettings:
-      JumpReleaseUpVelocityMultiplier: .400000006
+      JumpReleaseUpVelocityMultiplier: 0.4
     PooledObjects:
       BasicPowerUpPrefab:
         Prefab: {fileID: 166798, guid: 4bd4b6c05980bf9458a9f748bd42daee, type: 2}
@@ -150,14 +139,7 @@ MonoBehaviour:
       AddTimeStamp: 1
       BreakOnError: 1
       BreakOnAssert: 1
-      enabledTraceTags:
-      - _CharacterPhysicsManager
-      - PlayerController
-      - WallJumpControlHandler
-      - _PlayerControlHandler
-      - InputState
-      - _PlayerMetricsDebug
-      - _CharacterPhysicsManagerSlide
+      EnabledTraceTags: []
       EnableAllTraceTags: 0
       AddTraceTagToMessage: 1
     PlayerDamageControlHandlerSettings:
@@ -176,8 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraOffset: {x: 0, y: 0, z: 10}
   UseFixedUpdate: 0
-  TargetScreenSize: {x: 1920, y: 1080}
-  target: {fileID: 0}
+  TargetScreenSize: {x: 256, y: 240}
+  Target: {fileID: 0}
   Transform: {fileID: 0}
 --- !u!124 &12498726
 Behaviour:
