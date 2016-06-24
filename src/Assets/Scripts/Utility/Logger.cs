@@ -367,7 +367,7 @@ public class Logger : IDisposable
 
     UnityEngine.Debug.Log("Logger initialized. File location: " + fileInfo.FullName + ", Time: " + DateTime.Now.ToString());
 
-    _outputStream = new StreamWriter(logSettings.LogFile, false);
+    _outputStream = new StreamWriter(logSettings.LogFile.Replace("\\", "/"), false);
 #endif
   }
 
