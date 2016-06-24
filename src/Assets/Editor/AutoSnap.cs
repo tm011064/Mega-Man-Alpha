@@ -7,7 +7,7 @@ public class AutoSnap : EditorWindow
 
   private bool _doSnap = true;
 
-  private float _snapValue = 16;
+  private float _snapValue = 1;
 
   [MenuItem("Tools/Auto Snap %_l")]
   static void Init()
