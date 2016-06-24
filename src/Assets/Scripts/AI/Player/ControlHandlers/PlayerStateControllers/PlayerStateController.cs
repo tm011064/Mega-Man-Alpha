@@ -33,4 +33,24 @@ public abstract class PlayerStateController
         PlayerController.Sprite.transform.localScale.z);
     }
   }
+
+  protected void StartAnimationIfNotAlreadyStarted(string name, params string[] transitionAnimationNames)
+  {
+    var animationInfo = PlayerController.Animator.GetCurrentAnimatorStateInfo(0);
+
+    if (animationInfo.IsName(name))
+    {
+      return;
+    }
+
+    foreach (var animationName in transitionAnimationNames)
+    {
+      if (animationInfo.IsName(animationName))
+      {
+        return;
+      }
+    }
+
+    PlayerController.Animator.Play(Animator.StringToHash(name));
+  }
 }

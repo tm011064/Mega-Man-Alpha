@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 public class GroundedController : PlayerStateController
 {
   private readonly CrouchController _crouchController;
@@ -28,13 +27,13 @@ public class GroundedController : PlayerStateController
 
     if (axisState.IsInHorizontalSensitivityDeadZone())
     {
-      PlayerController.Animator.Play(Animator.StringToHash("Idle"));
+      StartAnimationIfNotAlreadyStarted("Idle");
     }
     else
     {
       AdjustSpriteScale(axisState);
 
-      PlayerController.Animator.Play(Animator.StringToHash("Run"));
+      StartAnimationIfNotAlreadyStarted("Run Start", "Run");
     }
 
     return AnimationPlayResult.Played;
