@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 544, y: 400, z: 0}
+  m_LocalPosition: {x: 532.3, y: 90.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -93,9 +93,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.086120605, y: 0.10334015}
   serializedVersion: 2
-  m_Size: {x: 14, y: 22}
+  m_Size: {x: 21.249275, y: 20.652454}
 --- !u!95 &9585766
 Animator:
   serializedVersion: 3
@@ -154,23 +154,23 @@ MonoBehaviour:
     MaxWallDownwardSpeed: -800
     MinDistanceFromFloor: 64
   JumpSettings:
-    Gravity: -1200
-    StandJumpHeight: 56
-    WalkJumpHeight: 200
+    Gravity: -900
+    StandJumpHeight: 52
+    WalkJumpHeight: 52
     WalkJumpHeightSpeedTrigger: 2000
     RunJumpHeight: 1000
     RunJumpHeightSpeedTrigger: 2000
     InAirDamping: 8
     AllowJumpAfterGroundLostThreashold: 0.1
     MaxDownwardSpeed: -500
-    EnableBackflipOnDirectionChange: 1
-    BackflipOnDirectionChangeSpeed: 200
+    EnableBackflipOnDirectionChange: 0
+    BackflipOnDirectionChangeSpeed: 0
   RunSettings:
-    WalkSpeed: 98
+    WalkSpeed: 92
     EnableRunning: 0
     RunSpeed: 2000
-    AccelerationGroundDamping: 12
-    DecelerationGroundDamping: 12
+    AccelerationGroundDamping: 8
+    DecelerationGroundDamping: 350
   ClimbSettings:
     EnableLadderClimbing: 1
     ClimbUpVelocity: 80
