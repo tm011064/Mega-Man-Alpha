@@ -1,0 +1,83 @@
+.0000000 Awaking Game Manager at 06/23/2016 23:16:10
+.0000000 Setting Game Manager instance.
+.0000000 Deactivating all pooled objects.
+.0000000 Clearing object pool.
+.0000000 Registered Power Up Basic at object pool manager
+.0000000 Registered bullet_32x16_blue at object pool manager
+.0000000 Registered Enemy Death Particles at object pool manager
+.0000000 Registered Player Death Particles at object pool manager
+.0000000 Registering 0 objects at object pool.
+.0000000 Playercontroller awoke and added to game context instance.
+.0000000 Pushing handler: GoodHealthPlayerControlHandler
+.0000000 Activated control handler: GoodHealthPlayerControlHandler
+.0000000 Player Dimensions: (14.0, 22.0)
+.0000000 Player Dimensions: (21.2, 20.7)
+.0000000 Window size: 739 x 554
+.0000000 Resetting camera movement settings.
+.0000000 Start zoom to target size: 120, current size: 16.63014
+.0000000 Camera movement set to: verticalLockSettings { enabled: False; enableTopVerticalLock: False; topVerticalLockPosition: 1080; topBoundary: 0;
+enableBottomVerticalLock: False; bottomVerticalLockPosition: 0; bottomBoundary: 0;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 540; translatedVerticalLockPosition: 0 }
+horizontalLockSettings { enabled: False; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1920; rightBoundary: 0; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 0; leftBoundary: 0; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.2; verticalSmoothDampTime: 0.2; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+.0000000 Camera size; current: 120, target: 120
+.0000000 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: 240; topBoundary: 120;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: 0; bottomBoundary: 120;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1180; rightBoundary: 1052; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 12; leftBoundary: 140; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+.0000000 Camera size; current: 120, target: 120
+2.2015610 Ground Jump executed.
+3.4816500 Ground Jump executed.
+4.1935290 Ground Jump executed.
+5.1255670 Ground Jump executed.
+6.2372720 Ground Jump executed.
+6.5332870 Ground Jump executed.
+6.8853480 Ground Jump executed.
+7.2492580 Ground Jump executed.
+7.8453110 Ground Jump executed.
+9.5210260 Ground Jump executed.
+10.5011100 Ground Jump executed.
+12.6688900 Ground Jump executed.
+13.6887500 Ground Jump executed.
+14.8168900 Ground Jump executed.
+15.4607400 Ground Jump executed.
+16.1967000 Ground Jump executed.
+17.2206000 Ground Jump executed.
+17.8726900 Ground Jump executed.
+17.9800000 Pushing handler: FreezePlayerControlHandler
+18.2885700 Popped handler: FreezePlayerControlHandler
+18.2885700 Activated control handler: GoodHealthPlayerControlHandler
+18.2885700 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: 240; topBoundary: 120;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: 0; bottomBoundary: 120;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1548; rightBoundary: 1420; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 1148; leftBoundary: 1276; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+18.2885700 Camera size; current: 120, target: 120
+18.2885700 Pushing handler: FreezePlayerControlHandler
+18.2885700 Pushing handler: FreezePlayerControlHandler
+18.9004200 Popped handler: FreezePlayerControlHandler
+19.3004400 Popped handler: FreezePlayerControlHandler
+19.3004400 Activated control handler: GoodHealthPlayerControlHandler
+20.3000000 Pushing handler: FreezePlayerControlHandler
+20.6123800 Popped handler: FreezePlayerControlHandler
+20.6123800 Activated control handler: GoodHealthPlayerControlHandler
+20.6123800 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: 240; topBoundary: 120;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: 0; bottomBoundary: 120;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1180; rightBoundary: 1052; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 12; leftBoundary: 140; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+20.6123800 Camera size; current: 120, target: 120
+20.6123800 Pushing handler: FreezePlayerControlHandler
+20.6123800 Pushing handler: FreezePlayerControlHandler
+21.2243300 Popped handler: FreezePlayerControlHandler
+21.6243500 Popped handler: FreezePlayerControlHandler
+21.6243500 Activated control handler: GoodHealthPlayerControlHandler

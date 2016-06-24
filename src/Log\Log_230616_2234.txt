@@ -1,0 +1,77 @@
+.0000000 Awaking Game Manager at 06/23/2016 22:32:14
+.0000000 Setting Game Manager instance.
+.0000000 Deactivating all pooled objects.
+.0000000 Clearing object pool.
+.0000000 Registered Power Up Basic at object pool manager
+.0000000 Registered bullet_32x16_blue at object pool manager
+.0000000 Registered Enemy Death Particles at object pool manager
+.0000000 Registered Player Death Particles at object pool manager
+.0000000 Registering 0 objects at object pool.
+.0000000 Playercontroller awoke and added to game context instance.
+.0000000 Pushing handler: GoodHealthPlayerControlHandler
+.0000000 Activated control handler: GoodHealthPlayerControlHandler
+.0000000 Player Dimensions: (14.0, 22.0)
+.0000000 Player Dimensions: (14.0, 22.0)
+.0000000 Window size: 739 x 554
+.0000000 Resetting camera movement settings.
+.0000000 Camera movement set to: verticalLockSettings { enabled: False; enableTopVerticalLock: False; topVerticalLockPosition: 1080; topBoundary: 0;
+enableBottomVerticalLock: False; bottomVerticalLockPosition: 0; bottomBoundary: 0;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 540; translatedVerticalLockPosition: 0 }
+horizontalLockSettings { enabled: False; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1920; rightBoundary: 0; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 0; leftBoundary: 0; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.2; verticalSmoothDampTime: 0.2; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+.0000000 Camera size; current: 120, target: 120
+.0000000 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: 240; topBoundary: 120;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: 0; bottomBoundary: 120;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1180; rightBoundary: 1052; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 12; leftBoundary: 140; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+.0000000 Camera size; current: 120, target: 120
+31.3794700 Pushing handler: PowerUpFloaterControlHandler
+31.3794700 Activated control handler: PowerUpFloaterControlHandler
+31.3794700 Added Floater power up. Power Meter: 1, Current Power-Up: Floater, Inventory: Floater
+31.3794700 Removing handler: PowerUpFloaterControlHandler
+31.3794700 Activated control handler: GoodHealthPlayerControlHandler
+31.3794700 Pushing handler: PowerUpDoubleJumpControlHandler
+31.3794700 Activated control handler: PowerUpDoubleJumpControlHandler
+31.3794700 Added DoubleJump power up. Power Meter: 1, Current Power-Up: DoubleJump, Inventory: Floater, DoubleJump
+31.3794700 Removing handler: PowerUpDoubleJumpControlHandler
+31.3794700 Activated control handler: GoodHealthPlayerControlHandler
+31.3794700 Pushing handler: PowerUpDoubleJumpControlHandler
+31.3794700 Activated control handler: PowerUpDoubleJumpControlHandler
+31.3794700 Added Gun power up. Power Meter: 1, Current Power-Up: Gun, Inventory: Floater, DoubleJump, Gun
+35.9593000 Resetting character control handlers.
+35.9593000 Removing handler: PowerUpDoubleJumpControlHandler
+35.9593000 Removing handler: GoodHealthPlayerControlHandler
+35.9593000 Pushing handler: GoodHealthPlayerControlHandler
+35.9593000 Activated control handler: GoodHealthPlayerControlHandler
+39.1796200 Ground Jump executed.
+39.8790000 Ground Jump executed.
+40.4591800 Ground Jump executed.
+40.9881400 Ground Jump executed.
+43.4951700 Ground Jump executed.
+44.1428300 Ground Jump executed.
+44.7747000 Ground Jump executed.
+46.5505700 Ground Jump executed.
+49.4874800 Ground Jump executed.
+50.3303200 Ground Jump executed.
+51.6302300 Ground Jump executed.
+52.2429700 Ground Jump executed.
+52.8421700 Ground Jump executed.
+53.3741300 Ground Jump executed.
+53.9627500 Ground Jump executed.
+54.9703400 Ground Jump executed.
+56.3100200 Ground Jump executed.
+57.4738200 Ground Jump executed.
+57.9537600 Ground Jump executed.
+58.4700100 Ground Jump executed.
+59.1502000 Ground Jump executed.
+59.9137200 Ground Jump executed.
+71.9707300 Ground Jump executed.
+74.4945900 Ground Jump executed.
+75.3226200 Ground Jump executed.
+77.2144200 Ground Jump executed.
+80.6344000 Ground Jump executed.

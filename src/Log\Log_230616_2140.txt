@@ -1,0 +1,123 @@
+.0000000 Awaking Game Manager at 06/23/2016 21:36:00
+.0000000 Setting Game Manager instance.
+.0000000 Deactivating all pooled objects.
+.0000000 Clearing object pool.
+.0000000 Registered Power Up Basic at object pool manager
+.0000000 Registered bullet_32x16_blue at object pool manager
+.0000000 Registered Enemy Death Particles at object pool manager
+.0000000 Registered Player Death Particles at object pool manager
+.0000000 Registering 0 objects at object pool.
+.0000000 Playercontroller awoke and added to game context instance.
+.0000000 Pushing handler: GoodHealthPlayerControlHandler
+.0000000 Activated control handler: GoodHealthPlayerControlHandler
+.0000000 Player Dimensions: (14.0, 22.0)
+.0000000 Player Dimensions: (14.0, 22.0)
+.0000000 Window size: 739 x 554
+.0000000 Resetting camera movement settings.
+.0000000 Camera movement set to: verticalLockSettings { enabled: False; enableTopVerticalLock: False; topVerticalLockPosition: 1080; topBoundary: 0;
+enableBottomVerticalLock: False; bottomVerticalLockPosition: 0; bottomBoundary: 0;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 540; translatedVerticalLockPosition: 0 }
+horizontalLockSettings { enabled: False; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1920; rightBoundary: 0; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 0; leftBoundary: 0; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.2; verticalSmoothDampTime: 0.2; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+.0000000 Camera size; current: 120, target: 120
+.0000000 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: 240; topBoundary: 120;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: 0; bottomBoundary: 120;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1180; rightBoundary: 1052; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 12; leftBoundary: 140; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+.0000000 Camera size; current: 120, target: 120
+10.8729800 Ground Jump executed.
+11.3409300 Ground Jump executed.
+13.2128900 Ground Jump executed.
+20.5043300 Ground Jump executed.
+29.0677500 Ground Jump executed.
+29.8119100 Ground Jump executed.
+30.4476800 Ground Jump executed.
+31.1042900 Ground Jump executed.
+32.1035300 Ground Jump executed.
+33.1435100 Ground Jump executed.
+33.7555000 Ground Jump executed.
+34.3876600 Ground Jump executed.
+35.1714200 Ground Jump executed.
+36.3275700 Switch to next powerup item
+36.4153500 Ground Jump executed.
+37.1994400 Ground Jump executed.
+37.2800000 Pushing handler: FreezePlayerControlHandler
+37.5916300 Popped handler: FreezePlayerControlHandler
+37.5916300 Activated control handler: GoodHealthPlayerControlHandler
+37.5916300 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: 240; topBoundary: 120;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: 0; bottomBoundary: 120;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1548; rightBoundary: 1420; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 1148; leftBoundary: 1276; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+37.5916300 Camera size; current: 120, target: 120
+37.5916300 Pushing handler: FreezePlayerControlHandler
+37.5916300 Pushing handler: FreezePlayerControlHandler
+38.1991000 Popped handler: FreezePlayerControlHandler
+38.6070400 Popped handler: FreezePlayerControlHandler
+38.6070400 Activated control handler: GoodHealthPlayerControlHandler
+41.3350100 Ground Jump executed.
+42.3000000 Pushing handler: FreezePlayerControlHandler
+42.6027900 Popped handler: FreezePlayerControlHandler
+42.6027900 Activated control handler: GoodHealthPlayerControlHandler
+42.6027900 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: 2; topBoundary: -118;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: -238; bottomBoundary: -118;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1548; rightBoundary: 1420; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 1292; leftBoundary: 1420; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+42.6027900 Camera size; current: 120, target: 120
+42.6027900 Pushing handler: FreezePlayerControlHandler
+42.6027900 Pushing handler: FreezePlayerControlHandler
+43.2068000 Popped handler: FreezePlayerControlHandler
+43.6188900 Popped handler: FreezePlayerControlHandler
+43.6188900 Activated control handler: GoodHealthPlayerControlHandler
+44.0000000 Pushing handler: FreezePlayerControlHandler
+44.3027400 Popped handler: FreezePlayerControlHandler
+44.3027400 Activated control handler: GoodHealthPlayerControlHandler
+44.3027400 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: -240; topBoundary: -360;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: -480; bottomBoundary: -360;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1548; rightBoundary: 1420; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 1292; leftBoundary: 1420; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+44.3027400 Camera size; current: 120, target: 120
+44.3027400 Pushing handler: FreezePlayerControlHandler
+44.3027400 Pushing handler: FreezePlayerControlHandler
+44.9031600 Popped handler: FreezePlayerControlHandler
+45.3111400 Popped handler: FreezePlayerControlHandler
+45.3111400 Activated control handler: GoodHealthPlayerControlHandler
+46.4265500 Ground Jump executed.
+47.2906100 Ground Jump executed.
+47.9026300 Ground Jump executed.
+48.8425300 Ground Jump executed.
+49.6183900 Ground Jump executed.
+51.4903800 Ground Jump executed.
+52.8425300 Ground Jump executed.
+55.6021000 Ground Jump executed.
+56.5259500 Ground Jump executed.
+56.8340000 Ground Jump executed.
+57.1101200 Ground Jump executed.
+65.1525900 Ground Jump executed.
+67.9046600 Ground Jump executed.
+68.7686400 Ground Jump executed.
+69.5844100 Ground Jump executed.
+70.3963200 Ground Jump executed.
+71.1923100 Ground Jump executed.
+71.9722700 Ground Jump executed.
+72.7002500 Ground Jump executed.
+75.6359300 Switch to next powerup item
+75.8078500 Ground Jump executed.
+76.6320200 Ground Jump executed.
+92.7267300 Ground Jump executed.
+95.5384500 Ground Jump executed.
+96.9305300 Ground Jump executed.
+97.6464500 Ground Jump executed.

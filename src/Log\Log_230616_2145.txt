@@ -1,0 +1,59 @@
+.0000000 Awaking Game Manager at 06/23/2016 21:44:26
+.0000000 Setting Game Manager instance.
+.0000000 Deactivating all pooled objects.
+.0000000 Clearing object pool.
+.0000000 Registered Power Up Basic at object pool manager
+.0000000 Registered bullet_32x16_blue at object pool manager
+.0000000 Registered Enemy Death Particles at object pool manager
+.0000000 Registered Player Death Particles at object pool manager
+.0000000 Registering 0 objects at object pool.
+.0000000 Playercontroller awoke and added to game context instance.
+.0000000 Pushing handler: GoodHealthPlayerControlHandler
+.0000000 Activated control handler: GoodHealthPlayerControlHandler
+.0000000 Player Dimensions: (14.0, 22.0)
+.0000000 Player Dimensions: (14.0, 22.0)
+.0000000 Window size: 739 x 554
+.0000000 Resetting camera movement settings.
+.0000000 Camera movement set to: verticalLockSettings { enabled: False; enableTopVerticalLock: False; topVerticalLockPosition: 1080; topBoundary: 0;
+enableBottomVerticalLock: False; bottomVerticalLockPosition: 0; bottomBoundary: 0;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 540; translatedVerticalLockPosition: 0 }
+horizontalLockSettings { enabled: False; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1920; rightBoundary: 0; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 0; leftBoundary: 0; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.2; verticalSmoothDampTime: 0.2; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+.0000000 Camera size; current: 120, target: 120
+.0000000 Camera movement set to: verticalLockSettings { enabled: True; enableTopVerticalLock: True; topVerticalLockPosition: 240; topBoundary: 120;
+enableBottomVerticalLock: True; bottomVerticalLockPosition: 0; bottomBoundary: 120;
+enableDefaultVerticalLockPosition: True; defaultVerticalLockPosition: 120; translatedVerticalLockPosition: 120 }
+horizontalLockSettings { enabled: True; enableRightHorizontalLock: True; rightHorizontalLockPosition: 1180; rightBoundary: 1052; enableLeftHorizontalLock: True; leftHorizontalLockPosition: 12; leftBoundary: 140; }
+zoomSettings { zoomPercentage: 1; zoomTime: 0; zoomEasingType: Linear; }
+smoothDampMoveSettings { horizontalSmoothDampTime: 0.02; verticalSmoothDampTime: 0.02; verticalRapidDescentSmoothDampTime: 0.01; verticalAboveRapidAcsentSmoothDampTime: 0.2; }
+offset: (0.0, 0.0); verticalCameraFollowMode: FollowAlways
+.0000000 Camera size; current: 120, target: 120
+.4399303 Ground Jump executed.
+1.4200480 Ground Jump executed.
+2.4319040 Ground Jump executed.
+3.1517070 Ground Jump executed.
+4.0638540 Ground Jump executed.
+5.2875560 Ground Jump executed.
+6.3833630 Ground Jump executed.
+7.5395800 Ground Jump executed.
+8.7512120 Ground Jump executed.
+10.1400300 Ground Jump executed.
+11.3842100 Ground Jump executed.
+13.1761000 Ground Jump executed.
+14.2239600 Ground Jump executed.
+16.2595600 Ground Jump executed.
+16.9638000 Ground Jump executed.
+17.7315400 Ground Jump executed.
+18.6035400 Ground Jump executed.
+19.9837200 Ground Jump executed.
+21.5273600 Ground Jump executed.
+22.3754800 Ground Jump executed.
+23.3353300 Ground Jump executed.
+25.2111600 Ground Jump executed.
+27.8601800 Ground Jump executed.
+28.8001100 Ground Jump executed.
+29.7243700 Ground Jump executed.
+30.7319000 Ground Jump executed.
+31.9479700 Ground Jump executed.
