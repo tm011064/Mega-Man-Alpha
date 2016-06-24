@@ -154,7 +154,7 @@ MonoBehaviour:
     MaxWallDownwardSpeed: -800
     MinDistanceFromFloor: 64
   JumpSettings:
-    Gravity: -1800
+    Gravity: -1200
     StandJumpHeight: 56
     WalkJumpHeight: 200
     WalkJumpHeightSpeedTrigger: 2000
@@ -162,11 +162,11 @@ MonoBehaviour:
     RunJumpHeightSpeedTrigger: 2000
     InAirDamping: 8
     AllowJumpAfterGroundLostThreashold: 0.1
-    MaxDownwardSpeed: -400
+    MaxDownwardSpeed: -500
     EnableBackflipOnDirectionChange: 1
     BackflipOnDirectionChangeSpeed: 200
   RunSettings:
-    WalkSpeed: 160
+    WalkSpeed: 98
     EnableRunning: 0
     RunSpeed: 2000
     AccelerationGroundDamping: 12
