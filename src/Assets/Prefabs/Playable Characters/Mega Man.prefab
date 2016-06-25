@@ -162,7 +162,7 @@ MonoBehaviour:
     RunJumpHeightSpeedTrigger: 2000
     InAirDamping: 8
     AllowJumpAfterGroundLostThreashold: 0.1
-    MaxDownwardSpeed: -500
+    MaxDownwardSpeed: -400
     EnableBackflipOnDirectionChange: 0
     BackflipOnDirectionChangeSpeed: 0
   RunSettings:
