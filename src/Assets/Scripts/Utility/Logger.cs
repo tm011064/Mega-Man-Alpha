@@ -270,7 +270,7 @@ public class Logger : IDisposable
 
       try
       {
-        var fileInfo = new FileInfo(_loggerSettings.LogFile);
+        var fileInfo = new FileInfo(GetSafeFileName(_loggerSettings.LogFile));
 
         if (_loggerSettings.TotalArchivedFilesToKeep > 0)
         {
@@ -351,12 +351,12 @@ public class Logger : IDisposable
 #if !FINAL
     _writeTimer = new Timer(WriteToDisk, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
 
-    var fileInfo = new FileInfo(logSettings.LogFile);
+    var fileInfo = new FileInfo(GetSafeFileName(logSettings.LogFile));
     if (!fileInfo.Exists)
     {
       if (!fileInfo.Directory.Exists)
       {
-        fileInfo.Directory.Create();
+        Directory.CreateDirectory(fileInfo.Directory.Name);
       }
 
       if (fileInfo.Exists)
@@ -367,9 +367,15 @@ public class Logger : IDisposable
 
     UnityEngine.Debug.Log("Logger initialized. File location: " + fileInfo.FullName + ", Time: " + DateTime.Now.ToString());
 
-    _outputStream = new StreamWriter(logSettings.LogFile, false);
+    _outputStream = new StreamWriter(GetSafeFileName(logSettings.LogFile), false);
 #endif
   }
+
+  private string GetSafeFileName(string fileName)
+  {
+    return fileName.Replace("\\", "/");
+  }
+
 
   private enum LogLevel
   {
