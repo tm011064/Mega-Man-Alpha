@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public partial class PlayerController : BaseCharacterController
@@ -49,7 +51,7 @@ public partial class PlayerController : BaseCharacterController
 
   [HideInInspector]
   public PlayerState PlayerState;
-  
+
   private RaycastHit2D _lastControllerColliderHit;
 
   private Vector3 _velocity;
@@ -58,16 +60,12 @@ public partial class PlayerController : BaseCharacterController
 
   private WallJumpEvaluationControlHandler _reusableWallJumpEvaluationControlHandler;
 
-#if UNITY_EDITOR
-  private Vector3 _lastLostGroundPos = Vector3.zero;
-#endif
-
   private GameManager _gameManager;
 
   public event Action<GroundedPlatformChangedInfo> GroundedPlatformChanged;
 
   public event Action JumpedThisFrame;
-  
+
   void Awake()
   {
     // register with game context so this game object can be accessed everywhere
@@ -75,33 +73,13 @@ public partial class PlayerController : BaseCharacterController
 
     Logger.Info("Playercontroller awoke and added to game context instance.");
 
-    BoxCollider = GetComponent<BoxCollider2D>();
+    InitializeBoxCollider();
 
-    BoxColliderOffsetDefault = BoxCollider.offset;
+    InitializeSpriteAndAnimator();
 
-    BoxColliderSizeDefault = BoxCollider.size;
+    InitializeCharacterPhysicsManager();
 
-    var childTransform = transform.FindChild("SpriteAndAnimator");
-
-    Logger.Assert(childTransform != null, "Player controller is expected to have a SpriteAndAnimator child object. If this is no longer needed, remove this line in code.");
-
-    Sprite = childTransform.gameObject;
-
-    Animator = childTransform.gameObject.GetComponent<Animator>();
-
-    CharacterPhysicsManager = GetComponent<CharacterPhysicsManager>();
-
-    // listen to some events for illustration purposes
-    CharacterPhysicsManager.ControllerCollided += OnControllerCollided;
-
-    CharacterPhysicsManager.TriggerEnterEvent += OnTriggerEnterEvent;
-
-    CharacterPhysicsManager.ControllerLostGround += OnControllerLostGround;
-
-#if UNITY_EDITOR
-    CharacterPhysicsManager.ControllerBecameGrounded += _ =>
-      Logger.Trace(TRACE_TAG, "Jump distance: " + Mathf.RoundToInt((transform.position.x - _lastLostGroundPos.x)) + " px");
-#endif
+    InitializeWeapons();
 
     _reusableWallJumpControlHandler = new WallJumpControlHandler(this);
 
@@ -112,6 +90,60 @@ public partial class PlayerController : BaseCharacterController
     _gameManager.PowerUpManager.PowerMeter = 1;
 
     AdjustedGravity = JumpSettings.Gravity;
+  }
+
+  private void InitializeWeapons()
+  {
+    var childTransform = transform.FindChild("Weapons");
+
+    var weapons = childTransform.GetComponents(typeof(IWeapon)).Cast<IWeapon>();
+
+    var controlHandlers = new List<WeaponControlHandler>();
+
+    foreach (var weapon in weapons)
+    {
+      controlHandlers.Add(weapon.CreateControlHandler(this));
+    }
+
+    WeaponControlHandlers = controlHandlers.ToArray();
+  }
+
+  private void InitializeCharacterPhysicsManager()
+  {
+    CharacterPhysicsManager = GetComponent<CharacterPhysicsManager>();
+
+    CharacterPhysicsManager.ControllerCollided += OnControllerCollided;
+
+    CharacterPhysicsManager.TriggerEnterEvent += OnTriggerEnterEvent;
+
+    CharacterPhysicsManager.ControllerLostGround += OnControllerLostGround;
+  }
+
+  private void InitializeBoxCollider()
+  {
+    BoxCollider = GetComponent<BoxCollider2D>();
+
+    BoxColliderOffsetDefault = BoxCollider.offset;
+
+    BoxColliderSizeDefault = BoxCollider.size;
+  }
+
+  private void InitializeSpriteAndAnimator()
+  {
+    var childTransform = transform.FindChild("SpriteAndAnimator");
+
+    Logger.Assert(
+      childTransform != null,
+      "Player controller is expected to have a SpriteAndAnimator child object. If this is no longer needed, remove this line in code.");
+
+    Sprite = childTransform.gameObject;
+
+    Animator = childTransform.gameObject.GetComponent<Animator>();
+  }
+
+  public bool IsFacingRight()
+  {
+    return Sprite.transform.localScale.x > 0f;
   }
 
   public void OnFellFromClimb()
@@ -162,10 +194,6 @@ public partial class PlayerController : BaseCharacterController
     {
       SetCurrentPlatform(null);
     }
-
-#if UNITY_EDITOR
-    _lastLostGroundPos = transform.position;
-#endif
   }
 
   void OnControllerCollided(RaycastHit2D hit)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public class LogSettings
 {
-  public string LogFile = @"Log\DefaultLog.txt";
+  public string LogFile = @"Log/DefaultLog.txt";
 
   public int TotalArchivedFilesToKeep = 3;
 
@@ -21,4 +21,9 @@ public class LogSettings
   public bool EnableAllTraceTags = false;
 
   public bool AddTraceTagToMessage = true;
+
+  public LogSettings Clone()
+  {
+    return this.MemberwiseClone() as LogSettings;
+  }
 }

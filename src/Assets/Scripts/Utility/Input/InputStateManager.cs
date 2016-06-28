@@ -27,6 +27,11 @@ public class InputStateManager
     return _axisStates["Horizontal"];
   }
 
+  public bool DoesButtonNameExist(string buttonName)
+  {
+    return _buttonStates.ContainsKey(buttonName);
+  }
+
   public void Update()
   {
     foreach (var value in _buttonStates.Values)

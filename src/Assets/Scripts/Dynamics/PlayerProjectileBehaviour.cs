@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class PlayerProjectileBehaviour : MonoBehaviour
 {
   private Vector3 _velocity;
 
@@ -23,22 +23,11 @@ public class Bullet : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D col)
   {
-    // TODO (Roman): bullet going up should go through one way platform, but hit when going down - just as player does
     ObjectPoolingManager.Instance.Deactivate(gameObject);
-
-    Debug.Log("Collided with " + col.gameObject.name);
 
     if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
     {
-      // TODO (Roman): this should be somewhere else - this is just test code
-      var deathParticles = ObjectPoolingManager.Instance.GetObject(
-        GameManager.Instance.GameSettings.PooledObjects.DefaultEnemyDeathParticlePrefab.Prefab.name);
-
-      deathParticles.transform.position = col.gameObject.transform.position;
-
       ObjectPoolingManager.Instance.Deactivate(col.gameObject);
-
-      Debug.Log("Collided with enemy " + col.gameObject.name);
     }
   }
 }

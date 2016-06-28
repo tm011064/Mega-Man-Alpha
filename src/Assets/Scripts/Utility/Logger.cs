@@ -23,9 +23,59 @@ public class Logger : IDisposable
 
   private readonly object _messagesToWriteLock = new object();
 
+  private Logger(LogSettings logSettings)
+  {
+    _loggerSettings = CloneAndFormat(logSettings);
+
+    _enabledTraceTags = new HashSet<string>(_loggerSettings.EnabledTraceTags);
+
+#if !FINAL
+    _writeTimer = new Timer(WriteToDisk, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+
+    var fileInfo = new FileInfo(logSettings.LogFile);
+    if (!fileInfo.Exists)
+    {
+      if (!fileInfo.Directory.Exists)
+      {
+        fileInfo.Directory.Create();
+      }
+
+      if (fileInfo.Exists)
+      {
+        fileInfo.Create();
+      }
+    }
+
+    UnityEngine.Debug.Log(
+      "Logger initialized. File location: " + fileInfo.FullName
+      + ", Time: " + DateTime.Now.ToString());
+
+    _outputStream = new StreamWriter(logSettings.LogFile.Replace("\\", "/"), false);
+#endif
+  }
+
   public bool BreakOnError { get { return _loggerSettings.BreakOnError; } }
 
   public bool BreakOnAssert { get { return _loggerSettings.BreakOnAssert; } }
+
+  public static void Initialize(LogSettings logSettings)
+  {
+    if (_logger != null)
+    {
+      _logger.Dispose();
+    }
+
+    _logger = new Logger(logSettings);
+  }
+
+  private LogSettings CloneAndFormat(LogSettings logSettings)
+  {
+    var clone = logSettings.Clone();
+
+    clone.LogFile = clone.LogFile.Replace("\\", "/");
+
+    return clone;
+  }
 
   private void Write(string traceTag, LogLevel type, string message)
   {
@@ -331,44 +381,6 @@ public class Logger : IDisposable
     {
       _logger.Dispose();
     }
-  }
-
-  public static void Initialize(LogSettings logSettings)
-  {
-    if (_logger != null)
-    {
-      _logger.Dispose();
-    }
-
-    _logger = new Logger(logSettings);
-  }
-
-  private Logger(LogSettings logSettings)
-  {
-    _loggerSettings = logSettings;
-    _enabledTraceTags = new HashSet<string>(_loggerSettings.EnabledTraceTags);
-
-#if !FINAL
-    _writeTimer = new Timer(WriteToDisk, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
-
-    var fileInfo = new FileInfo(logSettings.LogFile);
-    if (!fileInfo.Exists)
-    {
-      if (!fileInfo.Directory.Exists)
-      {
-        fileInfo.Directory.Create();
-      }
-
-      if (fileInfo.Exists)
-      {
-        fileInfo.Create();
-      }
-    }
-
-    UnityEngine.Debug.Log("Logger initialized. File location: " + fileInfo.FullName + ", Time: " + DateTime.Now.ToString());
-
-    _outputStream = new StreamWriter(logSettings.LogFile.Replace("\\", "/"), false);
-#endif
   }
 
   private enum LogLevel
