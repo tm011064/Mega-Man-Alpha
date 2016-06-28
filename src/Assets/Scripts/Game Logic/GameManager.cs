@@ -152,11 +152,6 @@ public class GameManager : MonoBehaviour
       int.MaxValue);
 
     objectPoolingManager.RegisterPool(
-      GameSettings.PooledObjects.BasicBullet.Prefab,
-      GameSettings.PooledObjects.BasicBullet.InitialSize,
-      int.MaxValue);
-
-    objectPoolingManager.RegisterPool(
       GameSettings.PooledObjects.DefaultEnemyDeathParticlePrefab.Prefab,
       GameSettings.PooledObjects.DefaultEnemyDeathParticlePrefab.InitialSize,
       int.MaxValue);

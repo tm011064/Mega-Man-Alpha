@@ -17,6 +17,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &194140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 430768}
+  - 114: {fileID: 11498930}
+  m_Layer: 8
+  m_Name: Weapons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &195970
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,6 +54,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &430768
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 486980}
+  m_RootOrder: 1
 --- !u!4 &431318
 Transform:
   m_ObjectHideFlags: 1
@@ -58,11 +87,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 544, y: 400, z: 0}
+  m_LocalPosition: {x: 258.12024, y: 85.06328, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 431318}
+  - {fileID: 430768}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &5059884
@@ -245,6 +275,25 @@ MonoBehaviour:
   EnableEdgeSlideUpHelp: 1
   EdgeSlideUpCornerWidth: 33
   _skinWidth: 2
+--- !u!114 &11498930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8585d7845dcefff4585bf8709e46e8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings:
+    EnableAutomaticFire: 0
+    AutomaticFireProjectilesPerSecond: 1
+    MaximumSimultaneouslyActiveProjectiles: 3
+    MaxSpeed: 200
+    ProjectilePrefab: {fileID: 191186, guid: dbfc9cb7f1393554fa85461762c4d1f5, type: 2}
+    SpawnLocation: {x: 12, y: 2}
+    InputButtonName: Attack
 --- !u!212 &21258044
 SpriteRenderer:
   m_ObjectHideFlags: 1
