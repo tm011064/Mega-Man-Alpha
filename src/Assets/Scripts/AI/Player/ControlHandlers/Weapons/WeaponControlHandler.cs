@@ -13,12 +13,10 @@ public abstract class WeaponControlHandler
     GameManager = GameManager.Instance;
   }
 
-  public abstract void Update();
+  public abstract PlayerStateUpdateResult Update(XYAxisState axisState);
 
-  protected Vector2 GetDirectionVector()
+  protected Vector2 GetDirectionVector(XYAxisState axisState)
   {
-    var axisState = GetAxisState();
-
     return (
                 axisState.IsInHorizontalSensitivityDeadZone()
              && PlayerController.IsFacingRight()
@@ -26,18 +24,5 @@ public abstract class WeaponControlHandler
            || axisState.XAxis > 0f
       ? Vector2.right
       : -Vector2.right;
-  }
-
-  protected XYAxisState GetAxisState()
-  {
-    XYAxisState axisState;
-
-    axisState.XAxis = GameManager.InputStateManager.GetHorizontalAxisState().Value;
-
-    axisState.YAxis = GameManager.InputStateManager.GetVerticalAxisState().Value;
-
-    axisState.SensitivityThreshold = PlayerController.InputSettings.AxisSensitivityThreshold;
-
-    return axisState;
   }
 }

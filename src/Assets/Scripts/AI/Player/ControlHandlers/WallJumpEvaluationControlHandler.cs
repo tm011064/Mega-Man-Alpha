@@ -36,7 +36,7 @@ public class WallJumpEvaluationControlHandler : DefaultPlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    if (PlayerController.IsGrounded())
     {
       _hasDetached = true;
 

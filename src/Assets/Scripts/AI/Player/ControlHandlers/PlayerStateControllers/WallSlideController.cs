@@ -25,7 +25,7 @@ public class WallSlideController : PlayerStateController
     }
   }
 
-  public override AnimationPlayResult PlayAnimation(XYAxisState axisState)
+  public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
     if (
       IsSlidingDownWall(
@@ -36,12 +36,10 @@ public class WallSlideController : PlayerStateController
         () => (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.CharacterWallState & CharacterWallState.OnLeftWall) != 0,
         () => PlayerController.Sprite.transform.localScale.x > -1f))
     {
-      PlayerController.Animator.Play(Animator.StringToHash("PlayerWallAttached"));
-
-      return AnimationPlayResult.Played;
+      return PlayerStateUpdateResult.CreateHandled("PlayerWallAttached");
     }
 
-    return AnimationPlayResult.NotPlayed;
+    return PlayerStateUpdateResult.Unhandled;
   }
 
   private bool IsSlidingDownWall(Func<bool> isOnWall, Func<bool> flipScaleX)

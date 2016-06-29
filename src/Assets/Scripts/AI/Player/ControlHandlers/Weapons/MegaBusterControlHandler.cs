@@ -7,7 +7,9 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private readonly ObjectPoolingManager _objectPoolingManager;
 
-  private float _lastBulletTime;
+  private float _lastBulletTime = float.MinValue;
+
+  private string _lastAnimationName;
 
   public MegaBusterControlHandler(PlayerController playerController, ProjectileWeaponSettings projectileWeaponSettings)
     : base(playerController)
@@ -68,18 +70,24 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private Vector2 GetSpawnLocation(Vector2 direction)
   {
+    var spawnLocation = PlayerController.IsGrounded()
+      ? _projectileWeaponSettings.GroundedSpawnLocation
+      : ((PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0)
+        ? _projectileWeaponSettings.LadderSpawnLocation
+        : _projectileWeaponSettings.AirborneSpawnLocation;
+
     return new Vector2(
       direction.x > 0f
-        ? PlayerController.transform.position.x + _projectileWeaponSettings.SpawnLocation.x
-        : PlayerController.transform.position.x - _projectileWeaponSettings.SpawnLocation.x
-      , PlayerController.transform.position.y + _projectileWeaponSettings.SpawnLocation.y);
+        ? PlayerController.transform.position.x + spawnLocation.x
+        : PlayerController.transform.position.x - spawnLocation.x
+      , PlayerController.transform.position.y + spawnLocation.y);
   }
 
-  public override void Update()
+  public override PlayerStateUpdateResult Update(XYAxisState axisState)
   {
     if (CanFire())
     {
-      var direction = GetDirectionVector();
+      var direction = GetDirectionVector(axisState);
 
       var spawnLocation = GetSpawnLocation(direction);
 
@@ -96,7 +104,47 @@ public class MegaBusterControlHandler : WeaponControlHandler
           direction * _projectileWeaponSettings.MaxSpeed);
 
         _lastBulletTime = Time.time;
+
+        _lastAnimationName = GetAnimationName(axisState);
+
+        return PlayerStateUpdateResult.CreateHandled(
+          _lastAnimationName,
+          1);
       }
     }
+
+    if (!HasShootAnimationFinished())
+    {
+      return PlayerStateUpdateResult.CreateHandled(_lastAnimationName, 1);
+    }
+
+    return PlayerStateUpdateResult.Unhandled;
+  }
+
+  private bool HasShootAnimationFinished()
+  {
+    return _lastBulletTime + _projectileWeaponSettings.AnimationClipLength < Time.time
+      || (_lastAnimationName == "Airborne And Shoot" && PlayerController.IsGrounded())
+      || (_lastAnimationName == "Climb And Shoot" && ((PlayerController.PlayerState & PlayerState.ClimbingLadder) == 0));
+  }
+
+  private string GetAnimationName(XYAxisState axisState)
+  {
+    if ((PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0)
+    {
+      return "Climb And Shoot";
+    }
+
+    if (PlayerController.IsAirborne())
+    {
+      return "Airborne And Shoot";
+    }
+
+    if (axisState.IsInHorizontalSensitivityDeadZone())
+    {
+      return "Stand And Shoot";
+    }
+
+    return "Run And Shoot";
   }
 }

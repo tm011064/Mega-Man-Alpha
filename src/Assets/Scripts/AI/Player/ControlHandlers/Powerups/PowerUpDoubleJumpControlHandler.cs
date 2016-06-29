@@ -32,7 +32,7 @@ public class PowerUpDoubleJumpControlHandler : PlayerControlHandler
 
     velocity.y = GetJumpVerticalVelocity(velocity);
 
-    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    if (PlayerController.IsGrounded())
     {
       velocity.y = 0f;
     }

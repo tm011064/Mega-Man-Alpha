@@ -292,8 +292,11 @@ MonoBehaviour:
     MaximumSimultaneouslyActiveProjectiles: 3
     MaxSpeed: 200
     ProjectilePrefab: {fileID: 191186, guid: dbfc9cb7f1393554fa85461762c4d1f5, type: 2}
-    SpawnLocation: {x: 12, y: 2}
+    GroundedSpawnLocation: {x: 12, y: 2}
+    AirborneSpawnLocation: {x: 12, y: 6}
+    LadderSpawnLocation: {x: 12, y: 6}
     InputButtonName: Attack
+    AnimationClipLength: 0.2
 --- !u!212 &21258044
 SpriteRenderer:
   m_ObjectHideFlags: 1

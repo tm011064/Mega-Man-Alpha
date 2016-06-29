@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 public class CrouchController : PlayerStateController
 {
   private const float CROUCH_STANDUP_COLLISION_FUDGE_FACTOR = .0001f;
@@ -21,7 +20,7 @@ public class CrouchController : PlayerStateController
 
   public override void UpdateState(XYAxisState axisState)
   {
-    if (!PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
+    if (!PlayerController.IsGrounded()
       || !PlayerController.CrouchSettings.EnableCrouching)
     {
       return;
@@ -61,22 +60,18 @@ public class CrouchController : PlayerStateController
     }
   }
 
-  public override AnimationPlayResult PlayAnimation(XYAxisState axisState)
+  public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
     if ((PlayerController.PlayerState & PlayerState.Crouching) == 0)
     {
-      return AnimationPlayResult.NotPlayed;
+      return PlayerStateUpdateResult.Unhandled;
     }
 
     if (axisState.IsInHorizontalSensitivityDeadZone())
     {
-      PlayerController.Animator.Play(Animator.StringToHash("PlayerCrouchIdle"));
-    }
-    else
-    {
-      PlayerController.Animator.Play(Animator.StringToHash("PlayerCrouchRun"));
+      return PlayerStateUpdateResult.CreateHandled("PlayerCrouchIdle");
     }
 
-    return AnimationPlayResult.Played;
+    return PlayerStateUpdateResult.CreateHandled("PlayerCrouchRun");
   }
 }

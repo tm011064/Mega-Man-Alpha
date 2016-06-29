@@ -12,30 +12,28 @@ public class GroundedController : PlayerStateController
     }
   }
 
-  public override AnimationPlayResult PlayAnimation(XYAxisState axisState)
+  public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
-    if (!PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    if (!PlayerController.IsGrounded())
     {
-      return AnimationPlayResult.NotPlayed;
+      return PlayerStateUpdateResult.Unhandled;
     }
 
-    if (PlayerController.CrouchSettings.EnableCrouching
-      && _crouchController.UpdateStateAndPlayAnimation(axisState) == AnimationPlayResult.Played)
+    if (PlayerController.CrouchSettings.EnableCrouching)
     {
-      return AnimationPlayResult.Played;
+      var result = _crouchController.UpdatePlayerState(axisState);
+
+      if (result.IsHandled)
+      {
+        return result;
+      }
     }
 
     if (axisState.IsInHorizontalSensitivityDeadZone())
     {
-      StartAnimationIfNotAlreadyStarted("Idle");
-    }
-    else
-    {
-      AdjustSpriteScale(axisState);
-
-      StartAnimationIfNotAlreadyStarted("Run Start", "Run");
+      return PlayerStateUpdateResult.CreateHandled("Idle");
     }
 
-    return AnimationPlayResult.Played;
+    return PlayerStateUpdateResult.CreateHandled("Run Start", linkedAnimationNames: new string[] { "Run" });
   }
 }

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 public class ClimbController : PlayerStateController
 {
   public ClimbController(PlayerController playerController)
@@ -7,33 +6,24 @@ public class ClimbController : PlayerStateController
   {
   }
 
-  public override AnimationPlayResult PlayAnimation(XYAxisState axisState)
+  public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
     if ((PlayerController.PlayerState & PlayerState.ClimbingLadder) == 0
       && (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0)
     {
       PlayerController.Animator.speed = 1;
 
-      return AnimationPlayResult.NotPlayed;
-    }
-
-    var animatorState = PlayerController.Animator.GetCurrentAnimatorStateInfo(0);
-
-    var animationName = (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) != 0
-      ? "Climb Laddertop"
-      : "Climb";
-
-    if (!animatorState.IsName(animationName))
-    {
-      PlayerController.Animator.Play(Animator.StringToHash(animationName));
+      return PlayerStateUpdateResult.Unhandled;
     }
 
     PlayerController.Animator.speed =
       (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0
       && axisState.IsInVerticalSensitivityDeadZone()
         ? 0
-        : 1;
+        : 1; // TODO (Roman): maybe move this to result as well
 
-    return AnimationPlayResult.Played;
+    return (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) != 0
+      ? PlayerStateUpdateResult.CreateHandled("Climb Laddertop")
+      : PlayerStateUpdateResult.CreateHandled("Climb");
   }
 }

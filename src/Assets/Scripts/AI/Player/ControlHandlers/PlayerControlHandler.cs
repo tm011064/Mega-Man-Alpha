@@ -23,20 +23,20 @@ public class PlayerControlHandler : BaseControlHandler
 
   protected float JumpHeightMultiplier = 1f;
 
-  private readonly PlayerStateController[] _animationStateControllers;
+  private readonly PlayerStateController[] _playerStateControllers;
 
   public PlayerControlHandler(
     PlayerController playerController,
-    PlayerStateController[] animationStateControllers = null,
+    PlayerStateController[] playerStateControllers = null,
     float duration = -1f)
     : base(playerController.CharacterPhysicsManager, duration)
   {
     PlayerController = playerController;
     PlayerMetricSettings = GameManager.Instance.GameSettings.PlayerMetricSettings;
 
-    _animationStateControllers = animationStateControllers == null
+    _playerStateControllers = playerStateControllers == null
       ? BuildPlayerStateControllers(playerController)
-      : animationStateControllers;
+      : playerStateControllers;
   }
 
   private PlayerStateController[] BuildPlayerStateControllers(PlayerController playerController)
@@ -51,8 +51,19 @@ public class PlayerControlHandler : BaseControlHandler
 
   protected override void OnAfterUpdate()
   {
-    Logger.Trace(TRACE_TAG, "OnAfterUpdate -> Velocity: " + CharacterPhysicsManager.Velocity);
+    var axisState = GetAxisState();
 
+    var playerStateUpdateResult = PlayerStateUpdateResult.Max(
+        UpdatePlayerStateControllers(axisState),
+        UpdateWeaponControllers(axisState));
+
+    AdjustSpriteScale(axisState);
+
+    PlayAnimation(playerStateUpdateResult);
+  }
+
+  private XYAxisState GetAxisState()
+  {
     XYAxisState axisState;
 
     axisState.XAxis = HorizontalAxisOverride == null
@@ -65,13 +76,72 @@ public class PlayerControlHandler : BaseControlHandler
 
     axisState.SensitivityThreshold = PlayerController.InputSettings.AxisSensitivityThreshold;
 
-    for (var i = 0; i < _animationStateControllers.Length; i++)
+    return axisState;
+  }
+
+  private PlayerStateUpdateResult UpdateWeaponControllers(XYAxisState axisState)
+  {
+    foreach (var weaponControlHandler in PlayerController.WeaponControlHandlers)
     {
-      if (_animationStateControllers[i].UpdateStateAndPlayAnimation(axisState) == AnimationPlayResult.Played)
+      var playerStateUpdateResult = weaponControlHandler.Update(axisState);
+
+      if (playerStateUpdateResult.IsHandled)
       {
-        return;
+        return playerStateUpdateResult;
       }
     }
+
+    return PlayerStateUpdateResult.Unhandled;
+  }
+
+  private PlayerStateUpdateResult UpdatePlayerStateControllers(XYAxisState axisState)
+  {
+    for (var i = 0; i < _playerStateControllers.Length; i++)
+    {
+      var playerStateUpdateResult = _playerStateControllers[i].UpdatePlayerState(axisState);
+
+      if (playerStateUpdateResult.IsHandled)
+      {
+        return playerStateUpdateResult;
+      }
+    }
+
+    return PlayerStateUpdateResult.Unhandled;
+  }
+
+  private void AdjustSpriteScale(XYAxisState axisState)
+  {
+    if ((axisState.XAxis > 0f && PlayerController.Sprite.transform.localScale.x < 1f)
+      || (axisState.XAxis < 0f && PlayerController.Sprite.transform.localScale.x > -1f))
+    {
+      PlayerController.Sprite.transform.localScale = new Vector3(
+        PlayerController.Sprite.transform.localScale.x * -1,
+        PlayerController.Sprite.transform.localScale.y,
+        PlayerController.Sprite.transform.localScale.z);
+    }
+  }
+
+  private void PlayAnimation(PlayerStateUpdateResult playerStateUpdateResult)
+  {
+    var animationInfo = PlayerController.Animator.GetCurrentAnimatorStateInfo(0);
+
+    if (animationInfo.shortNameHash == playerStateUpdateResult.AnimationInfo.ShortNameHash)
+    {
+      return;
+    }
+
+    if (playerStateUpdateResult.AnimationInfo.LinkedShortNameHashes != null)
+    {
+      foreach (var hash in playerStateUpdateResult.AnimationInfo.LinkedShortNameHashes)
+      {
+        if (animationInfo.shortNameHash == hash)
+        {
+          return;
+        }
+      }
+    }
+
+    PlayerController.Animator.Play(playerStateUpdateResult.AnimationInfo.ShortNameHash);
   }
 
   protected float GetGravityAdjustedVerticalVelocity(Vector3 velocity, float gravity, bool canBreakUpMovement)
@@ -133,7 +203,7 @@ public class PlayerControlHandler : BaseControlHandler
 
     HasPerformedGroundJumpThisFrame = false;
 
-    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    if (PlayerController.IsGrounded())
     {
       HadDashPressedWhileJumpOff = false; // we set this to false here as the value is only used when player jumps off, not when he is grounded
 
@@ -212,7 +282,7 @@ public class PlayerControlHandler : BaseControlHandler
 
     float smoothedMovementFactor;
 
-    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    if (PlayerController.IsGrounded())
     {
       if (normalizedHorizontalSpeed == 0f)
       {
@@ -233,7 +303,7 @@ public class PlayerControlHandler : BaseControlHandler
       smoothedMovementFactor = PlayerController.JumpSettings.InAirDamping;
     }
 
-    var groundedAdjustmentFactor = PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
+    var groundedAdjustmentFactor = PlayerController.IsGrounded()
       ? Mathf.Abs(hAxis)
       : 1f;
 
@@ -275,7 +345,7 @@ public class PlayerControlHandler : BaseControlHandler
       return false;
     }
 
-    return (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
+    return (PlayerController.IsGrounded()
         || Time.time - PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.LastTimeGrounded < PlayerController.JumpSettings.AllowJumpAfterGroundLostThreashold);
   }
 
