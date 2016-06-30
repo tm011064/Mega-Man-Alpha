@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,8 +9,6 @@ public class BaseCharacterController : BaseMonoBehaviour
 {
   [HideInInspector]
   public CharacterPhysicsManager CharacterPhysicsManager;
-
-  protected IEnumerable<WeaponControlHandler> WeaponControlHandlers = new WeaponControlHandler[0];
 
   private CustomStack<BaseControlHandler> _controlHandlers = new CustomStack<BaseControlHandler>();
 
@@ -37,13 +34,6 @@ public class BaseCharacterController : BaseMonoBehaviour
   }
 
   protected virtual void Update()
-  {
-    UpdateControlHandlers();
-
-    UpdateWeapons();
-  }
-
-  private void UpdateControlHandlers()
   {
     try
     {
@@ -73,14 +63,6 @@ public class BaseCharacterController : BaseMonoBehaviour
       Logger.Error("Game object " + name + " misses default control handler.", err);
 
       throw;
-    }
-  }
-
-  private void UpdateWeapons()
-  {
-    foreach (var weaponControlHandler in WeaponControlHandlers)
-    {
-      weaponControlHandler.Update();
     }
   }
 

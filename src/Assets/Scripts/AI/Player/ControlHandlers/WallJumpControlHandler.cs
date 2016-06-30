@@ -71,7 +71,7 @@ public class WallJumpControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    if (PlayerController.IsGrounded())
     {
       Logger.Info("Popped wall jump because player is grounded.");
 

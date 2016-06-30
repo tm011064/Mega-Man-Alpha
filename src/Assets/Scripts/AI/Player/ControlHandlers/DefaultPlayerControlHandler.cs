@@ -8,8 +8,8 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
   }
 
   public DefaultPlayerControlHandler(
-    PlayerController playerController, 
-    PlayerStateController[] animationStateControllers, 
+    PlayerController playerController,
+    PlayerStateController[] animationStateControllers,
     float duration)
     : base(playerController, animationStateControllers, duration)
   {
@@ -30,9 +30,6 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    Logger.Trace("PlayerMetricsDebug", "Position: " + PlayerController.transform.position + ", Velocity: " + velocity);
-
     return ControlHandlerAfterUpdateStatus.KeepAlive;
   }
 }
-

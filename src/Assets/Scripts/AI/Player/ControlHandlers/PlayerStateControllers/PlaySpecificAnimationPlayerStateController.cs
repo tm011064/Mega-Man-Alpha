@@ -1,22 +1,20 @@
 ﻿public class PlaySpecificAnimationPlayerStateController : PlayerStateController
 {
-  private int _animationStateNameHash;
+  private readonly int _animationStateName;
 
-  public PlaySpecificAnimationPlayerStateController(PlayerController playerController, int animationStateNameHash)
+  public PlaySpecificAnimationPlayerStateController(PlayerController playerController, int animationStateName)
     : base(playerController)
   {
-    _animationStateNameHash = animationStateNameHash;
+    _animationStateName = animationStateName;
   }
 
-  public override AnimationPlayResult PlayAnimation(XYAxisState axisState)
+  public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
     if ((PlayerController.PlayerState & PlayerState.Locked) == 0)
     {
-      return AnimationPlayResult.NotPlayed;
+      return PlayerStateUpdateResult.Unhandled;
     }
 
-    PlayerController.Animator.Play(_animationStateNameHash);
-
-    return AnimationPlayResult.Played;
+    return PlayerStateUpdateResult.CreateHandled(_animationStateName);
   }
 }

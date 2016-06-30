@@ -1,21 +1,17 @@
-﻿using UnityEngine;
-
-public class IsTakingDamageController : PlayerStateController
+﻿public class IsTakingDamageController : PlayerStateController
 {
   public IsTakingDamageController(PlayerController playerController)
     : base(playerController)
   {
   }
 
-  public override AnimationPlayResult PlayAnimation(XYAxisState axisState)
+  public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
     if ((PlayerController.PlayerState & PlayerState.TakingDamage) == 0)
     {
-      return AnimationPlayResult.NotPlayed;
+      return PlayerStateUpdateResult.Unhandled;
     }
-
-    PlayerController.Animator.Play(Animator.StringToHash("Taking Damage"));
-
-    return AnimationPlayResult.Played;
+    
+    return PlayerStateUpdateResult.CreateHandled("Taking Damage");
   }
 }

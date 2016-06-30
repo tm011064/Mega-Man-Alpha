@@ -53,7 +53,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
 
     PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    if (PlayerController.IsGrounded())
     {
       PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
 

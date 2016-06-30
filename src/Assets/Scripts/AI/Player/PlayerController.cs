@@ -52,6 +52,9 @@ public partial class PlayerController : BaseCharacterController
   [HideInInspector]
   public PlayerState PlayerState;
 
+  [HideInInspector]
+  public WeaponControlHandler[] WeaponControlHandlers = new WeaponControlHandler[0];
+
   private RaycastHit2D _lastControllerColliderHit;
 
   private Vector3 _velocity;
@@ -144,6 +147,16 @@ public partial class PlayerController : BaseCharacterController
   public bool IsFacingRight()
   {
     return Sprite.transform.localScale.x > 0f;
+  }
+
+  public bool IsGrounded()
+  {
+    return CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below == true;
+  }
+
+  public bool IsAirborne()
+  {
+    return CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below == false;
   }
 
   public void OnFellFromClimb()

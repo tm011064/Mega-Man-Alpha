@@ -23,20 +23,23 @@ public class PlayerControlHandler : BaseControlHandler
 
   protected float JumpHeightMultiplier = 1f;
 
-  private readonly PlayerStateController[] _animationStateControllers;
+  private readonly PlayerStateUpdateController _playerUpdateController;
 
   public PlayerControlHandler(
     PlayerController playerController,
-    PlayerStateController[] animationStateControllers = null,
+    PlayerStateController[] playerStateControllers = null,
     float duration = -1f)
     : base(playerController.CharacterPhysicsManager, duration)
   {
     PlayerController = playerController;
-    PlayerMetricSettings = GameManager.Instance.GameSettings.PlayerMetricSettings;
 
-    _animationStateControllers = animationStateControllers == null
-      ? BuildPlayerStateControllers(playerController)
-      : animationStateControllers;
+    PlayerMetricSettings = GameManager.GameSettings.PlayerMetricSettings;
+
+    _playerUpdateController = new PlayerStateUpdateController(
+      PlayerController,
+      playerStateControllers == null
+        ? BuildPlayerStateControllers(playerController)
+        : playerStateControllers);
   }
 
   private PlayerStateController[] BuildPlayerStateControllers(PlayerController playerController)
@@ -51,8 +54,13 @@ public class PlayerControlHandler : BaseControlHandler
 
   protected override void OnAfterUpdate()
   {
-    Logger.Trace(TRACE_TAG, "OnAfterUpdate -> Velocity: " + CharacterPhysicsManager.Velocity);
+    var axisState = GetAxisState();
 
+    _playerUpdateController.UpdatePlayerState(axisState);
+  }
+
+  private XYAxisState GetAxisState()
+  {
     XYAxisState axisState;
 
     axisState.XAxis = HorizontalAxisOverride == null
@@ -65,19 +73,14 @@ public class PlayerControlHandler : BaseControlHandler
 
     axisState.SensitivityThreshold = PlayerController.InputSettings.AxisSensitivityThreshold;
 
-    for (var i = 0; i < _animationStateControllers.Length; i++)
-    {
-      if (_animationStateControllers[i].UpdateStateAndPlayAnimation(axisState) == AnimationPlayResult.Played)
-      {
-        return;
-      }
-    }
+    return axisState;
   }
 
   protected float GetGravityAdjustedVerticalVelocity(Vector3 velocity, float gravity, bool canBreakUpMovement)
   {
     // apply gravity before moving
-    if (canBreakUpMovement && velocity.y > 0f
+    if (canBreakUpMovement
+      && velocity.y > 0f
       && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsUp) != 0)
     {
       return (velocity.y + gravity * Time.deltaTime) * PlayerMetricSettings.JumpReleaseUpVelocityMultiplier;
@@ -86,6 +89,111 @@ public class PlayerControlHandler : BaseControlHandler
     {
       return velocity.y + gravity * Time.deltaTime;
     }
+  }
+
+  protected float GetNormalizedHorizontalSpeed(AxisState hAxis)
+  {
+    float normalizedHorizontalSpeed;
+
+    if (hAxis.Value > 0f && hAxis.Value >= hAxis.LastValue)
+    {
+      normalizedHorizontalSpeed = 1;
+    }
+    else if (hAxis.Value < 0f && hAxis.Value <= hAxis.LastValue)
+    {
+      normalizedHorizontalSpeed = -1;
+    }
+    else
+    {
+      normalizedHorizontalSpeed = 0;
+    }
+
+    return normalizedHorizontalSpeed;
+  }
+
+  protected float GetHorizontalVelocityWithDamping(Vector3 velocity, float hAxis, float normalizedHorizontalSpeed)
+  {
+    var speed = PlayerController.RunSettings.WalkSpeed;
+    if ((GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0)
+    {
+      if ( // allow dash speed if
+          PlayerController.RunSettings.EnableRunning // running is enabled
+          && (CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below // either the player is grounded
+              || velocity.x > PlayerController.RunSettings.WalkSpeed   // or the current horizontal velocity is higher than the walkspeed, meaning that the player jumped while running
+              || velocity.x < -PlayerController.RunSettings.WalkSpeed
+              || HadDashPressedWhileJumpOff))
+      {
+        speed = PlayerController.RunSettings.RunSpeed;
+      }
+    }
+
+    float smoothedMovementFactor;
+
+    if (PlayerController.IsGrounded())
+    {
+      if (normalizedHorizontalSpeed == 0f)
+      {
+        smoothedMovementFactor = PlayerController.RunSettings.DecelerationGroundDamping;
+      }
+      else if (Mathf.Sign(normalizedHorizontalSpeed) == Mathf.Sign(velocity.x))
+      {
+        // accelerating...
+        smoothedMovementFactor = PlayerController.RunSettings.AccelerationGroundDamping;
+      }
+      else
+      {
+        smoothedMovementFactor = PlayerController.RunSettings.DecelerationGroundDamping;
+      }
+    }
+    else
+    {
+      smoothedMovementFactor = PlayerController.JumpSettings.InAirDamping;
+    }
+
+    var groundedAdjustmentFactor = PlayerController.IsGrounded()
+      ? Mathf.Abs(hAxis)
+      : 1f;
+
+    var newVelocity = normalizedHorizontalSpeed * speed * groundedAdjustmentFactor;
+
+    if (PlayerController.JumpSettings.EnableBackflipOnDirectionChange
+      && HasPerformedGroundJumpThisFrame
+      && Mathf.Sign(newVelocity) != Mathf.Sign(velocity.x))
+    {
+      // Note: this only works if the jump velocity calculation is done before the horizontal calculation!
+      return normalizedHorizontalSpeed * PlayerController.JumpSettings.BackflipOnDirectionChangeSpeed;
+    }
+
+    return Mathf.Lerp(velocity.x, newVelocity, Time.deltaTime * smoothedMovementFactor);
+  }
+
+  protected float GetDefaultHorizontalVelocity(Vector3 velocity)
+  {
+    var horizontalAxis = HorizontalAxisOverride == null
+      ? GameManager.InputStateManager.GetHorizontalAxisState()
+      : HorizontalAxisOverride;
+
+    var normalizedHorizontalSpeed = GetNormalizedHorizontalSpeed(horizontalAxis);
+
+    return GetHorizontalVelocityWithDamping(velocity, horizontalAxis.Value, normalizedHorizontalSpeed);
+  }
+
+  protected virtual bool CanJump()
+  {
+    var verticalRayDistance = (PlayerController.PlayerState & PlayerState.Crouching) != 0
+      ? PlayerController.BoxColliderSizeDefault.y - PlayerController.CrouchSettings.BoxColliderSizeCrouched.y
+      : VERTICAL_COLLISION_FUDGE_FACTOR;
+
+    if (!CharacterPhysicsManager.CanMoveVertically(
+      verticalRayDistance,
+      (PlayerController.PlayerState & PlayerState.Crouching) == 0))
+    {
+      // if we crouch we don't allow edge slide up to simplify things
+      return false;
+    }
+
+    return PlayerController.IsGrounded()
+        || Time.time - PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.LastTimeGrounded < PlayerController.JumpSettings.AllowJumpAfterGroundLostThreashold;
   }
 
   protected float CalculateJumpHeight(Vector2 velocity)
@@ -133,7 +241,7 @@ public class PlayerControlHandler : BaseControlHandler
 
     HasPerformedGroundJumpThisFrame = false;
 
-    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
+    if (PlayerController.IsGrounded())
     {
       HadDashPressedWhileJumpOff = false; // we set this to false here as the value is only used when player jumps off, not when he is grounded
 
@@ -172,111 +280,6 @@ public class PlayerControlHandler : BaseControlHandler
     bool hasJumped;
 
     return GetJumpVerticalVelocity(velocity, true, out hasJumped);
-  }
-
-  protected float GetNormalizedHorizontalSpeed(AxisState hAxis)
-  {
-    float normalizedHorizontalSpeed;
-
-    if (hAxis.Value > 0f && hAxis.Value >= hAxis.LastValue)
-    {
-      normalizedHorizontalSpeed = 1;
-    }
-    else if (hAxis.Value < 0f && hAxis.Value <= hAxis.LastValue)
-    {
-      normalizedHorizontalSpeed = -1;
-    }
-    else
-    {
-      normalizedHorizontalSpeed = 0;
-    }
-
-    return normalizedHorizontalSpeed;
-  }
-
-  protected float GetHorizontalVelocityWithDamping(Vector3 velocity, float hAxis, float normalizedHorizontalSpeed)
-  {
-    var speed = PlayerController.RunSettings.WalkSpeed;
-    if ((GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0)
-    {
-      if ( // allow dash speed if
-          PlayerController.RunSettings.EnableRunning // running is enabled
-          && (CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below // either the player is grounded
-              || velocity.x > PlayerController.RunSettings.WalkSpeed   // or the current horizontal velocity is higher than the walkspeed, meaning that the player jumped while running
-              || velocity.x < -PlayerController.RunSettings.WalkSpeed
-              || HadDashPressedWhileJumpOff))
-      {
-        speed = PlayerController.RunSettings.RunSpeed;
-      }
-    }
-
-    float smoothedMovementFactor;
-
-    if (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below)
-    {
-      if (normalizedHorizontalSpeed == 0f)
-      {
-        smoothedMovementFactor = PlayerController.RunSettings.DecelerationGroundDamping;
-      }
-      else if (Mathf.Sign(normalizedHorizontalSpeed) == Mathf.Sign(velocity.x))
-      {
-        // accelerating...
-        smoothedMovementFactor = PlayerController.RunSettings.AccelerationGroundDamping;
-      }
-      else
-      {
-        smoothedMovementFactor = PlayerController.RunSettings.DecelerationGroundDamping;
-      }
-    }
-    else
-    {
-      smoothedMovementFactor = PlayerController.JumpSettings.InAirDamping;
-    }
-
-    var groundedAdjustmentFactor = PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
-      ? Mathf.Abs(hAxis)
-      : 1f;
-
-    var newVelocity = normalizedHorizontalSpeed * speed * groundedAdjustmentFactor;
-
-    if (PlayerController.JumpSettings.EnableBackflipOnDirectionChange
-      && HasPerformedGroundJumpThisFrame
-      && Mathf.Sign(newVelocity) != Mathf.Sign(velocity.x))
-    {
-      // Note: this only works if the jump velocity calculation is done before the horizontal calculation!
-      return normalizedHorizontalSpeed * PlayerController.JumpSettings.BackflipOnDirectionChangeSpeed;
-    }
-
-    return Mathf.Lerp(velocity.x, newVelocity, Time.deltaTime * smoothedMovementFactor);
-  }
-
-  protected float GetDefaultHorizontalVelocity(Vector3 velocity)
-  {
-    var horizontalAxis = HorizontalAxisOverride == null
-      ? GameManager.InputStateManager.GetHorizontalAxisState()
-      : HorizontalAxisOverride;
-
-    var normalizedHorizontalSpeed = GetNormalizedHorizontalSpeed(horizontalAxis);
-
-    return GetHorizontalVelocityWithDamping(velocity, horizontalAxis.Value, normalizedHorizontalSpeed);
-  }
-
-  protected virtual bool CanJump()
-  {
-    var verticalRayDistance = (PlayerController.PlayerState & PlayerState.Crouching) != 0
-      ? PlayerController.BoxColliderSizeDefault.y - PlayerController.CrouchSettings.BoxColliderSizeCrouched.y
-      : VERTICAL_COLLISION_FUDGE_FACTOR;
-
-    if (!CharacterPhysicsManager.CanMoveVertically(
-      verticalRayDistance,
-      (PlayerController.PlayerState & PlayerState.Crouching) == 0))
-    {
-      // if we crouch we don't allow edge slide up to simplify things
-      return false;
-    }
-
-    return (PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
-        || Time.time - PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.LastTimeGrounded < PlayerController.JumpSettings.AllowJumpAfterGroundLostThreashold);
   }
 
   protected void CheckOneWayPlatformFallThrough()
