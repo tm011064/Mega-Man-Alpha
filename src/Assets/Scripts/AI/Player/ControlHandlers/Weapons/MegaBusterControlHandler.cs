@@ -18,7 +18,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
     _projectileWeaponSettings = projectileWeaponSettings;
 
-    if (_projectileWeaponSettings.AutomaticFireProjectilesPerSecond <= 0f)
+    if (_projectileWeaponSettings.MaxProjectilesPerSecond <= 0f)
     {
       throw new ArgumentException("ProjectileWeaponSettings.AutomaticFireBulletsPerSecond value must be greater than 0");
     }
@@ -52,20 +52,24 @@ public class MegaBusterControlHandler : WeaponControlHandler
         .ButtonPressState & ButtonPressState.IsUp) != 0;
   }
 
-  private bool IsWithinAutomaticFireRate()
+  private bool IsWithinFireRate()
   {
-    return _lastBulletTime + (1f / _projectileWeaponSettings.AutomaticFireProjectilesPerSecond) <= Time.time;
+    return _lastBulletTime + (1f / _projectileWeaponSettings.MaxProjectilesPerSecond) <= Time.time;
   }
 
-  private bool CanFire()
+  private bool IsClimbingLadder(XYAxisState axisState)
   {
-    if (_projectileWeaponSettings.EnableAutomaticFire)
-    {
-      return IsFireButtonPressed()
-        && IsWithinAutomaticFireRate();
-    }
+    return (PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0
+      && !axisState.IsInVerticalSensitivityDeadZone();
+  }
 
-    return IsFireButtonUp();
+  private bool CanFire(XYAxisState axisState)
+  {
+    return (_projectileWeaponSettings.EnableAutomaticFire
+      ? IsFireButtonPressed()
+      : IsFireButtonUp())
+        && IsWithinFireRate()
+        && !IsClimbingLadder(axisState);
   }
 
   private Vector2 GetSpawnLocation(Vector2 direction)
@@ -85,7 +89,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   public override PlayerStateUpdateResult Update(XYAxisState axisState)
   {
-    if (CanFire())
+    if (CanFire(axisState))
     {
       var direction = GetDirectionVector(axisState);
 

@@ -8,7 +8,7 @@ public class PlayerStateUpdateResult : IComparable<PlayerStateUpdateResult>
 
   public bool IsHandled;
 
-  public AnimationClipInfo AnimationInfo;
+  public AnimationClipInfo AnimationClipInfo;
 
   private PlayerStateUpdateResult()
   {
@@ -17,13 +17,15 @@ public class PlayerStateUpdateResult : IComparable<PlayerStateUpdateResult>
   private PlayerStateUpdateResult(
     int animationHash,
     int animationWeight = 0,
+    float animationSpeed = 1f,
     int[] linkedShortNameHashes = null)
   {
-    AnimationInfo = new AnimationClipInfo
+    AnimationClipInfo = new AnimationClipInfo
     {
       ShortNameHash = animationHash,
       Weight = animationWeight,
-      LinkedShortNameHashes = linkedShortNameHashes
+      LinkedShortNameHashes = linkedShortNameHashes,
+      Speed = animationSpeed
     };
 
     IsHandled = true;
@@ -32,11 +34,13 @@ public class PlayerStateUpdateResult : IComparable<PlayerStateUpdateResult>
   public static PlayerStateUpdateResult CreateHandled(
     string animationName,
     int animationWeight = 0,
+    float animationSpeed = 1f,
     string[] linkedAnimationNames = null)
   {
     return new PlayerStateUpdateResult(
       Animator.StringToHash(animationName),
       animationWeight,
+      animationSpeed,
       linkedAnimationNames == null
         ? null
         : linkedAnimationNames.Select(name => Animator.StringToHash(name)).ToArray());
@@ -45,9 +49,10 @@ public class PlayerStateUpdateResult : IComparable<PlayerStateUpdateResult>
   public static PlayerStateUpdateResult CreateHandled(
     int animationHash,
     int animationWeight = 0,
+    float animationSpeed = 1f,
     int[] linkedShortNameHashes = null)
   {
-    return new PlayerStateUpdateResult(animationHash, animationWeight, linkedShortNameHashes);
+    return new PlayerStateUpdateResult(animationHash, animationWeight, animationSpeed, linkedShortNameHashes);
   }
 
   public static PlayerStateUpdateResult Max(
@@ -76,19 +81,10 @@ public class PlayerStateUpdateResult : IComparable<PlayerStateUpdateResult>
     if (IsHandled)
     {
       return other.IsHandled
-        ? AnimationInfo.Weight.CompareTo(other.AnimationInfo.Weight)
+        ? AnimationClipInfo.Weight.CompareTo(other.AnimationClipInfo.Weight)
         : 1;
     }
 
     return other.IsHandled ? -1 : 0;
-  }
-
-  public class AnimationClipInfo
-  {
-    public int ShortNameHash;
-
-    public int[] LinkedShortNameHashes;
-
-    public int Weight;
   }
 }

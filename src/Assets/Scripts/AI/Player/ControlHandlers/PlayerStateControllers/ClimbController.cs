@@ -11,19 +11,16 @@ public class ClimbController : PlayerStateController
     if ((PlayerController.PlayerState & PlayerState.ClimbingLadder) == 0
       && (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0)
     {
-      PlayerController.Animator.speed = 1;
-
       return PlayerStateUpdateResult.Unhandled;
     }
 
-    PlayerController.Animator.speed =
-      (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0
+    var animationSpeed = (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0
       && axisState.IsInVerticalSensitivityDeadZone()
-        ? 0
-        : 1; // TODO (Roman): maybe move this to result as well
+        ? 0f
+        : 1f;
 
     return (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) != 0
-      ? PlayerStateUpdateResult.CreateHandled("Climb Laddertop")
-      : PlayerStateUpdateResult.CreateHandled("Climb");
+      ? PlayerStateUpdateResult.CreateHandled("Climb Laddertop", animationSpeed: animationSpeed)
+      : PlayerStateUpdateResult.CreateHandled("Climb", animationSpeed: animationSpeed);
   }
 }

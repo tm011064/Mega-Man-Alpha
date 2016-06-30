@@ -23,7 +23,7 @@ public class PlayerControlHandler : BaseControlHandler
 
   protected float JumpHeightMultiplier = 1f;
 
-  private readonly PlayerStateController[] _playerStateControllers;
+  private readonly PlayerStateUpdateController _playerUpdateController;
 
   public PlayerControlHandler(
     PlayerController playerController,
@@ -32,11 +32,14 @@ public class PlayerControlHandler : BaseControlHandler
     : base(playerController.CharacterPhysicsManager, duration)
   {
     PlayerController = playerController;
-    PlayerMetricSettings = GameManager.Instance.GameSettings.PlayerMetricSettings;
 
-    _playerStateControllers = playerStateControllers == null
-      ? BuildPlayerStateControllers(playerController)
-      : playerStateControllers;
+    PlayerMetricSettings = GameManager.GameSettings.PlayerMetricSettings;
+
+    _playerUpdateController = new PlayerStateUpdateController(
+      PlayerController,
+      playerStateControllers == null
+        ? BuildPlayerStateControllers(playerController)
+        : playerStateControllers);
   }
 
   private PlayerStateController[] BuildPlayerStateControllers(PlayerController playerController)
@@ -53,13 +56,7 @@ public class PlayerControlHandler : BaseControlHandler
   {
     var axisState = GetAxisState();
 
-    var playerStateUpdateResult = PlayerStateUpdateResult.Max(
-        UpdatePlayerStateControllers(axisState),
-        UpdateWeaponControllers(axisState));
-
-    AdjustSpriteScale(axisState);
-
-    PlayAnimation(playerStateUpdateResult);
+    _playerUpdateController.UpdatePlayerState(axisState);
   }
 
   private XYAxisState GetAxisState()
@@ -79,75 +76,11 @@ public class PlayerControlHandler : BaseControlHandler
     return axisState;
   }
 
-  private PlayerStateUpdateResult UpdateWeaponControllers(XYAxisState axisState)
-  {
-    foreach (var weaponControlHandler in PlayerController.WeaponControlHandlers)
-    {
-      var playerStateUpdateResult = weaponControlHandler.Update(axisState);
-
-      if (playerStateUpdateResult.IsHandled)
-      {
-        return playerStateUpdateResult;
-      }
-    }
-
-    return PlayerStateUpdateResult.Unhandled;
-  }
-
-  private PlayerStateUpdateResult UpdatePlayerStateControllers(XYAxisState axisState)
-  {
-    for (var i = 0; i < _playerStateControllers.Length; i++)
-    {
-      var playerStateUpdateResult = _playerStateControllers[i].UpdatePlayerState(axisState);
-
-      if (playerStateUpdateResult.IsHandled)
-      {
-        return playerStateUpdateResult;
-      }
-    }
-
-    return PlayerStateUpdateResult.Unhandled;
-  }
-
-  private void AdjustSpriteScale(XYAxisState axisState)
-  {
-    if ((axisState.XAxis > 0f && PlayerController.Sprite.transform.localScale.x < 1f)
-      || (axisState.XAxis < 0f && PlayerController.Sprite.transform.localScale.x > -1f))
-    {
-      PlayerController.Sprite.transform.localScale = new Vector3(
-        PlayerController.Sprite.transform.localScale.x * -1,
-        PlayerController.Sprite.transform.localScale.y,
-        PlayerController.Sprite.transform.localScale.z);
-    }
-  }
-
-  private void PlayAnimation(PlayerStateUpdateResult playerStateUpdateResult)
-  {
-    var animationInfo = PlayerController.Animator.GetCurrentAnimatorStateInfo(0);
-
-    if (animationInfo.shortNameHash == playerStateUpdateResult.AnimationInfo.ShortNameHash)
-    {
-      return;
-    }
-
-    if (playerStateUpdateResult.AnimationInfo.LinkedShortNameHashes != null)
-    {
-      foreach (var hash in playerStateUpdateResult.AnimationInfo.LinkedShortNameHashes)
-      {
-        if (animationInfo.shortNameHash == hash)
-        {
-          return;
-        }
-      }
-    }
-
-    PlayerController.Animator.Play(playerStateUpdateResult.AnimationInfo.ShortNameHash);
-  }
-
   protected float GetGravityAdjustedVerticalVelocity(Vector3 velocity, float gravity, bool canBreakUpMovement)
   {
     // apply gravity before moving
-    if (canBreakUpMovement && velocity.y > 0f
+    if (canBreakUpMovement
+      && velocity.y > 0f
       && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsUp) != 0)
     {
       return (velocity.y + gravity * Time.deltaTime) * PlayerMetricSettings.JumpReleaseUpVelocityMultiplier;
@@ -156,92 +89,6 @@ public class PlayerControlHandler : BaseControlHandler
     {
       return velocity.y + gravity * Time.deltaTime;
     }
-  }
-
-  protected float CalculateJumpHeight(Vector2 velocity)
-  {
-    if (FixedJumpHeight.HasValue)
-    {
-      return Mathf.Sqrt(2f * -PlayerController.JumpSettings.Gravity * FixedJumpHeight.Value);
-    }
-    else
-    {
-      var absVelocity = Mathf.Abs(velocity.x);
-
-      float jumpHeight;
-
-      if (absVelocity >= PlayerController.JumpSettings.RunJumpHeightSpeedTrigger)
-      {
-        jumpHeight = PlayerController.JumpSettings.RunJumpHeight;
-      }
-      else if (absVelocity >= PlayerController.JumpSettings.WalkJumpHeightSpeedTrigger)
-      {
-        jumpHeight = PlayerController.JumpSettings.WalkJumpHeight;
-      }
-      else
-      {
-        jumpHeight = PlayerController.JumpSettings.StandJumpHeight;
-      }
-
-      return Mathf.Sqrt(
-        2f
-        * JumpHeightMultiplier
-        * -PlayerController.JumpSettings.Gravity
-        * jumpHeight);
-    }
-  }
-
-  protected float GetJumpVerticalVelocity(
-    Vector3 velocity,
-    bool canJump,
-    out bool hasJumped,
-    ButtonPressState allowedJumpButtonPressState = ButtonPressState.IsDown)
-  {
-    var value = velocity.y;
-
-    hasJumped = false;
-
-    HasPerformedGroundJumpThisFrame = false;
-
-    if (PlayerController.IsGrounded())
-    {
-      HadDashPressedWhileJumpOff = false; // we set this to false here as the value is only used when player jumps off, not when he is grounded
-
-      value = 0f;
-    }
-
-    if (canJump
-      && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & allowedJumpButtonPressState) != 0)
-    {
-      if (CanJump())
-      {
-        value = CalculateJumpHeight(velocity);
-
-        hasJumped = true;
-
-        HasPerformedGroundJumpThisFrame = true;
-
-        HadDashPressedWhileJumpOff = (GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0;
-
-        PlayerController.OnJumpedThisFrame();
-      }
-    }
-
-    return value;
-  }
-
-  protected float GetJumpVerticalVelocity(Vector3 velocity, bool canJump)
-  {
-    bool hasJumped;
-
-    return GetJumpVerticalVelocity(velocity, canJump, out hasJumped);
-  }
-
-  protected float GetJumpVerticalVelocity(Vector3 velocity)
-  {
-    bool hasJumped;
-
-    return GetJumpVerticalVelocity(velocity, true, out hasJumped);
   }
 
   protected float GetNormalizedHorizontalSpeed(AxisState hAxis)
@@ -345,8 +192,94 @@ public class PlayerControlHandler : BaseControlHandler
       return false;
     }
 
-    return (PlayerController.IsGrounded()
-        || Time.time - PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.LastTimeGrounded < PlayerController.JumpSettings.AllowJumpAfterGroundLostThreashold);
+    return PlayerController.IsGrounded()
+        || Time.time - PlayerController.CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.LastTimeGrounded < PlayerController.JumpSettings.AllowJumpAfterGroundLostThreashold;
+  }
+
+  protected float CalculateJumpHeight(Vector2 velocity)
+  {
+    if (FixedJumpHeight.HasValue)
+    {
+      return Mathf.Sqrt(2f * -PlayerController.JumpSettings.Gravity * FixedJumpHeight.Value);
+    }
+    else
+    {
+      var absVelocity = Mathf.Abs(velocity.x);
+
+      float jumpHeight;
+
+      if (absVelocity >= PlayerController.JumpSettings.RunJumpHeightSpeedTrigger)
+      {
+        jumpHeight = PlayerController.JumpSettings.RunJumpHeight;
+      }
+      else if (absVelocity >= PlayerController.JumpSettings.WalkJumpHeightSpeedTrigger)
+      {
+        jumpHeight = PlayerController.JumpSettings.WalkJumpHeight;
+      }
+      else
+      {
+        jumpHeight = PlayerController.JumpSettings.StandJumpHeight;
+      }
+
+      return Mathf.Sqrt(
+        2f
+        * JumpHeightMultiplier
+        * -PlayerController.JumpSettings.Gravity
+        * jumpHeight);
+    }
+  }
+
+  protected float GetJumpVerticalVelocity(
+    Vector3 velocity,
+    bool canJump,
+    out bool hasJumped,
+    ButtonPressState allowedJumpButtonPressState = ButtonPressState.IsDown)
+  {
+    var value = velocity.y;
+
+    hasJumped = false;
+
+    HasPerformedGroundJumpThisFrame = false;
+
+    if (PlayerController.IsGrounded())
+    {
+      HadDashPressedWhileJumpOff = false; // we set this to false here as the value is only used when player jumps off, not when he is grounded
+
+      value = 0f;
+    }
+
+    if (canJump
+      && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & allowedJumpButtonPressState) != 0)
+    {
+      if (CanJump())
+      {
+        value = CalculateJumpHeight(velocity);
+
+        hasJumped = true;
+
+        HasPerformedGroundJumpThisFrame = true;
+
+        HadDashPressedWhileJumpOff = (GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0;
+
+        PlayerController.OnJumpedThisFrame();
+      }
+    }
+
+    return value;
+  }
+
+  protected float GetJumpVerticalVelocity(Vector3 velocity, bool canJump)
+  {
+    bool hasJumped;
+
+    return GetJumpVerticalVelocity(velocity, canJump, out hasJumped);
+  }
+
+  protected float GetJumpVerticalVelocity(Vector3 velocity)
+  {
+    bool hasJumped;
+
+    return GetJumpVerticalVelocity(velocity, true, out hasJumped);
   }
 
   protected void CheckOneWayPlatformFallThrough()

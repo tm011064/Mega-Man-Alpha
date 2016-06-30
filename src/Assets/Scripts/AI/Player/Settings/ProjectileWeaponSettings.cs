@@ -6,7 +6,7 @@ public class ProjectileWeaponSettings
 {
   public bool EnableAutomaticFire = false;
 
-  public float AutomaticFireProjectilesPerSecond = 10f;
+  public float MaxProjectilesPerSecond = 10f;
 
   public int MaximumSimultaneouslyActiveProjectiles = 3;
 

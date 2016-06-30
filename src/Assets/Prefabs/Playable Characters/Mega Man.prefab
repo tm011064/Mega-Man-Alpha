@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Settings:
     EnableAutomaticFire: 0
-    AutomaticFireProjectilesPerSecond: 1
+    MaxProjectilesPerSecond: 5
     MaximumSimultaneouslyActiveProjectiles: 3
     MaxSpeed: 200
     ProjectilePrefab: {fileID: 191186, guid: dbfc9cb7f1393554fa85461762c4d1f5, type: 2}
