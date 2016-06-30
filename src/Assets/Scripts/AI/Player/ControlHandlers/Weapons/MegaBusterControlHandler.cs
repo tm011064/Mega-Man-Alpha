@@ -52,7 +52,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
         .ButtonPressState & ButtonPressState.IsUp) != 0;
   }
 
-  private bool IsWithinFireRate()
+  private bool IsWithinRateOfFire()
   {
     return _lastBulletTime + (1f / _projectileWeaponSettings.MaxProjectilesPerSecond) <= Time.time;
   }
@@ -68,7 +68,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
     return (_projectileWeaponSettings.EnableAutomaticFire
       ? IsFireButtonPressed()
       : IsFireButtonUp())
-        && IsWithinFireRate()
+        && IsWithinRateOfFire()
         && !IsClimbingLadder(axisState);
   }
 
