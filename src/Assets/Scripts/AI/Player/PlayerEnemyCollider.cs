@@ -11,8 +11,6 @@ public class PlayerEnemyCollider : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D collider)
   {
-    Debug.Log("COLL");
-
     if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
     {
       var enemyController = collider.gameObject.GetComponent<EnemyController>();
