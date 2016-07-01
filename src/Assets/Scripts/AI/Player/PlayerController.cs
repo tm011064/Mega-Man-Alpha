@@ -26,12 +26,6 @@ public partial class PlayerController : BaseCharacterController
   public Vector2 BoxColliderSizeWallAttached = Vector2.zero;
 
   [HideInInspector]
-  public Vector2 BoxColliderOffsetDefault = Vector2.zero;
-
-  [HideInInspector]
-  public Vector2 BoxColliderSizeDefault = Vector2.zero;
-
-  [HideInInspector]
   public float AdjustedGravity;
 
   [HideInInspector]
@@ -115,20 +109,16 @@ public partial class PlayerController : BaseCharacterController
   {
     CharacterPhysicsManager = GetComponent<CharacterPhysicsManager>();
 
-    CharacterPhysicsManager.ControllerCollided += OnControllerCollided;
+    CharacterPhysicsManager.BoxCollider = GetEnvironmentCollider();
 
-    CharacterPhysicsManager.TriggerEnterEvent += OnTriggerEnterEvent;
+    CharacterPhysicsManager.ControllerCollided += OnControllerCollided;
 
     CharacterPhysicsManager.ControllerLostGround += OnControllerLostGround;
   }
 
   private void InitializeBoxCollider()
   {
-    BoxCollider = GetComponent<BoxCollider2D>();
-
-    BoxColliderOffsetDefault = BoxCollider.offset;
-
-    BoxColliderSizeDefault = BoxCollider.size;
+    BoxCollider = GetEnvironmentCollider();
   }
 
   private void InitializeSpriteAndAnimator()
@@ -142,6 +132,26 @@ public partial class PlayerController : BaseCharacterController
     Sprite = childTransform.gameObject;
 
     Animator = childTransform.gameObject.GetComponent<Animator>();
+  }
+
+  private BoxCollider2D GetEnvironmentCollider()
+  {
+    var spriteAndAnimator = transform.FindChild("SpriteAndAnimator");
+
+    var environmentCollider = spriteAndAnimator.FindChild("Environment Collider");
+
+    Logger.Assert(
+      environmentCollider != null,
+      "Player controller is expected to have an Environment Collider child object. If this is no longer needed, remove this line in code.");
+
+    var boxCollider = environmentCollider.GetComponent<BoxCollider2D>();
+
+    if (boxCollider == null)
+    {
+      throw new MissingComponentException("Environment Collider expects a BoxCollider2D");
+    }
+
+    return boxCollider;
   }
 
   public bool IsFacingRight()
@@ -259,19 +269,6 @@ public partial class PlayerController : BaseCharacterController
             PushControlHandler(_reusableWallJumpControlHandler, _reusableWallJumpEvaluationControlHandler);
           }
         }
-      }
-    }
-  }
-
-  void OnTriggerEnterEvent(Collider2D collider)
-  {
-    if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-    {
-      var enemyController = collider.gameObject.GetComponent<EnemyController>();
-
-      if (enemyController != null)
-      {
-        enemyController.OnPlayerCollide(this);
       }
     }
   }

@@ -180,12 +180,8 @@ public class PlayerControlHandler : BaseControlHandler
 
   protected virtual bool CanJump()
   {
-    var verticalRayDistance = (PlayerController.PlayerState & PlayerState.Crouching) != 0
-      ? PlayerController.BoxColliderSizeDefault.y - PlayerController.CrouchSettings.BoxColliderSizeCrouched.y
-      : VERTICAL_COLLISION_FUDGE_FACTOR;
-
     if (!CharacterPhysicsManager.CanMoveVertically(
-      verticalRayDistance,
+      VERTICAL_COLLISION_FUDGE_FACTOR,
       (PlayerController.PlayerState & PlayerState.Crouching) == 0))
     {
       // if we crouch we don't allow edge slide up to simplify things
