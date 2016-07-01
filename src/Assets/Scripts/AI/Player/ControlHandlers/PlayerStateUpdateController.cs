@@ -22,7 +22,11 @@ public class PlayerStateUpdateController
 
     AdjustSpriteScale(axisState);
 
-    PlayAnimation(playerStateUpdateResult.AnimationClipInfo);
+    if (playerStateUpdateResult.AnimationClipInfo != null)
+    {
+      // TODO (Roman): theoretically this should never be null - ladder fall bottom bug
+      PlayAnimation(playerStateUpdateResult.AnimationClipInfo);
+    }
   }
 
   private PlayerStateUpdateResult UpdateWeaponControllers(XYAxisState axisState)

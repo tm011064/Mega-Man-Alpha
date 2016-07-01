@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class CharacterPhysicsManager : BasePhysicsManager
 {
   private const string TRACE_TAG = "CharacterPhysicsManager";
@@ -19,11 +19,6 @@ public class CharacterPhysicsManager : BasePhysicsManager
   /// mask with all layers that the player should interact with
   /// </summary>
   public LayerMask PlatformMask = 0;
-
-  /// <summary>
-  /// mask with all layers that trigger events should fire when intersected
-  /// </summary>
-  public LayerMask TriggerMask = 0;
 
   /// <summary>
   /// mask with all layers that should act as one-way platforms. Note that one-way platforms should always be EdgeCollider2Ds. This is private because it does not support being
@@ -130,12 +125,6 @@ public class CharacterPhysicsManager : BasePhysicsManager
 
   public event Action ControllerLostGround;
 
-  public event Action<Collider2D> TriggerEnterEvent;
-
-  public event Action<Collider2D> TriggerStayEvent;
-
-  public event Action<Collider2D> TriggerExitEvent;
-
   /// <summary>
   /// defines how far in from the edges of the collider rays are cast from. If cast with a 0 extent it will often result in ray hits that are
   /// not desired (for example a foot collider casting horizontally from directly on the surface can result in a hit)
@@ -158,22 +147,10 @@ public class CharacterPhysicsManager : BasePhysicsManager
 
     Transform = GetComponent<Transform>();
 
-    BoxCollider = GetComponent<BoxCollider2D>();
-
     RigidBody2D = GetComponent<Rigidbody2D>();
 
     // here, we trigger our properties that have setters with bodies
     SkinWidth = _skinWidth;
-
-    // we want to set our CC2D to ignore all collision layers except what is in our triggerMask
-    for (var i = 0; i < 32; i++)
-    {
-      // see if our triggerMask contains this layer and if not ignore it
-      if ((TriggerMask.value & 1 << i) == 0)
-      {
-        Physics2D.IgnoreLayerCollision(gameObject.layer, i);
-      }
-    }
 
     _platformMaskWithoutOneWay = PlatformMask;
 
@@ -191,30 +168,6 @@ public class CharacterPhysicsManager : BasePhysicsManager
     Transform.position = position;
 
     _raycastHitsThisFrame.Clear();
-  }
-
-  public void OnTriggerEnter2D(Collider2D col)
-  {
-    if (TriggerEnterEvent != null)
-    {
-      TriggerEnterEvent(col);
-    }
-  }
-
-  public void OnTriggerStay2D(Collider2D col)
-  {
-    if (TriggerStayEvent != null)
-    {
-      TriggerStayEvent(col);
-    }
-  }
-
-  public void OnTriggerExit2D(Collider2D col)
-  {
-    if (TriggerExitEvent != null)
-    {
-      TriggerExitEvent(col);
-    }
   }
 
   public void AddHorizontalForce(float x)

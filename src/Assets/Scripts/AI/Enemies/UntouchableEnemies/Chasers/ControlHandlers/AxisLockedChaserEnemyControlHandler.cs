@@ -42,13 +42,13 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
             (
               _enemyController.transform.position.y
               + _boxCollider2D.size.y * .5f - _boxCollider2D.offset.y
-              + _playerController.BoxColliderSizeDefault.y - _playerController.BoxColliderOffsetDefault.y
+              + _playerController.BoxCollider.size.y - _playerController.BoxCollider.offset.y
             )
           || _playerController.transform.position.y <
             (
               _enemyController.transform.position.y
               - _boxCollider2D.size.y * .5f - _boxCollider2D.offset.y
-              - _playerController.BoxColliderSizeDefault.y - _playerController.BoxColliderOffsetDefault.y
+              - _playerController.BoxCollider.size.y - _playerController.BoxCollider.offset.y
             ))
       {
         decelerationFactor = Mathf.Min(Mathf.Abs(direction.x)
@@ -90,13 +90,13 @@ public class AxisLockedChaserEnemyControlHandler : EnemyControlHandler<AxisLocke
             (
               _enemyController.transform.position.x
               + _boxCollider2D.size.x * .5f - _boxCollider2D.offset.x
-              + _playerController.BoxColliderSizeDefault.x - _playerController.BoxColliderOffsetDefault.x
+              + _playerController.BoxCollider.size.x - _playerController.BoxCollider.offset.x
             )
           || _playerController.transform.position.x <
             (
               _enemyController.transform.position.x
               - _boxCollider2D.size.x * .5f - _boxCollider2D.offset.x
-              - _playerController.BoxColliderSizeDefault.x - _playerController.BoxColliderOffsetDefault.x
+              - _playerController.BoxCollider.size.x - _playerController.BoxCollider.offset.x
             ))
       {
         decelerationFactor = Mathf.Min(Mathf.Abs(direction.y) * _enemyController.DecelerationDistanceMultiplicationFactor, 1f);

@@ -10,9 +10,6 @@ public class CrouchController : PlayerStateController
 
   private void GetUp()
   {
-    PlayerController.CharacterPhysicsManager.BoxCollider.offset = PlayerController.BoxColliderOffsetDefault;
-    PlayerController.CharacterPhysicsManager.BoxCollider.size = PlayerController.BoxColliderSizeDefault;
-
     PlayerController.CharacterPhysicsManager.RecalculateDistanceBetweenRays();
 
     Logger.Info("Crouch ended, box collider size set to: " + PlayerController.CharacterPhysicsManager.BoxCollider.size + ", offset: " + PlayerController.CharacterPhysicsManager.BoxCollider.offset);
@@ -30,7 +27,7 @@ public class CrouchController : PlayerStateController
     {
       if (axisState.YAxis >= 0f
         && PlayerController.CharacterPhysicsManager.CanMoveVertically(
-          PlayerController.BoxColliderSizeDefault.y
+          PlayerController.BoxCollider.size.y
           - PlayerController.CrouchSettings.BoxColliderSizeCrouched.y
           - CROUCH_STANDUP_COLLISION_FUDGE_FACTOR, false))
       {
@@ -45,10 +42,6 @@ public class CrouchController : PlayerStateController
     {
       if (axisState.YAxis < 0f)
       {
-        // TODO (Roman): do this via mecanim
-        PlayerController.CharacterPhysicsManager.BoxCollider.offset = PlayerController.CrouchSettings.BoxColliderOffsetCrouched;
-        PlayerController.CharacterPhysicsManager.BoxCollider.size = PlayerController.CrouchSettings.BoxColliderSizeCrouched;
-
         PlayerController.CharacterPhysicsManager.RecalculateDistanceBetweenRays();
 
         PlayerController.PlayerState |= PlayerState.Crouching;
