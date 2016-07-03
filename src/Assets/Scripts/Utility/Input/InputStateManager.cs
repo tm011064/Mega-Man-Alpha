@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class InputStateManager
 {
@@ -14,7 +15,70 @@ public class InputStateManager
 
   public ButtonsState GetButtonState(string buttonName)
   {
-    return _buttonStates[buttonName];
+    try
+    {
+      return _buttonStates[buttonName];
+    }
+    catch (KeyNotFoundException)
+    {
+      Debug.Log("Button " + buttonName + " not found");
+
+      throw;
+    }
+  }
+
+  public bool IsButtonPressed(string buttonName)
+  {
+    return (_buttonStates[buttonName].ButtonPressState & ButtonPressState.IsPressed) != 0;
+  }
+
+  /// <summary>
+  /// You can pass in any button name as well as the following axis directions: Down, Up, Left, Right
+  /// </summary>
+  public bool AreButtonsPressed(string[] buttonAndAxisNames, InputSettings inputSettings)
+  {
+    for (var i = 0; i < buttonAndAxisNames.Length; i++)
+    {
+      switch (buttonAndAxisNames[i])
+      {
+        case "Down":
+          if (_axisStates["Vertical"].Value > -inputSettings.AxisSensitivityThreshold)
+          {
+            return false;
+          }
+          break;
+
+        case "Up":
+          if (_axisStates["Vertical"].Value < inputSettings.AxisSensitivityThreshold)
+          {
+            return false;
+          }
+          break;
+
+        case "Left":
+          if (_axisStates["Horizontal"].Value > -inputSettings.AxisSensitivityThreshold)
+          {
+            return false;
+          }
+          break;
+
+        case "Right":
+          if (_axisStates["Horizontal"].Value < inputSettings.AxisSensitivityThreshold)
+          {
+            return false;
+          }
+          break;
+
+        default:
+          if ((_buttonStates[buttonAndAxisNames[i]].ButtonPressState & ButtonPressState.IsPressed) == 0)
+          {
+            return false;
+          }
+          break;
+      }
+    }
+
+    return true;
   }
 
   public AxisState GetVerticalAxisState()
@@ -53,11 +117,11 @@ public class InputStateManager
     }
   }
 
-  public void InitializeAxes(params string[] azisNames)
+  public void InitializeAxes(params string[] axisNames)
   {
-    for (var i = 0; i < azisNames.Length; i++)
+    for (var i = 0; i < axisNames.Length; i++)
     {
-      _axisStates[azisNames[i]] = new AxisState(azisNames[i]);
+      _axisStates[axisNames[i]] = new AxisState(axisNames[i]);
     }
   }
 }

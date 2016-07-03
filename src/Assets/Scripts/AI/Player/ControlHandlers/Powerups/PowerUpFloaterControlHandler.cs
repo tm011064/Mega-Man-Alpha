@@ -32,7 +32,7 @@ public class PowerUpFloaterControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    CheckOneWayPlatformFallThrough();
+    HandleOneWayPlatformFallThrough();
 
     var velocity = PlayerController.CharacterPhysicsManager.Velocity;
     velocity.y = GetJumpVerticalVelocity(velocity);

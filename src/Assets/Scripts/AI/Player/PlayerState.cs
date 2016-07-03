@@ -12,5 +12,7 @@
 
   ClimbingLadderTop = 32,
 
-  Locked = 64
+  Locked = 64,
+
+  Sliding = 128
 }

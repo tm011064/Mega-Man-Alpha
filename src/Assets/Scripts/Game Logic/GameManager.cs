@@ -233,7 +233,7 @@ public class GameManager : MonoBehaviour
 
     InputStateManager = new InputStateManager();
 
-    InputStateManager.InitializeButtons("Jump", "Dash", "Fall", "SwitchPowerUp", "Attack", "Aim");
+    InputStateManager.InitializeButtons("Jump", "Dash", "Fall", "Attack");
     InputStateManager.InitializeAxes("Horizontal", "Vertical");
 
     Easing = new Easing();

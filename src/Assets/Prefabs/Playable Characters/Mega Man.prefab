@@ -290,6 +290,14 @@ MonoBehaviour:
     ClimbUpVelocity: 80
     ClimbDownVelocity: -80
     MinFallDuration: 0.2
+  SlideSettings:
+    EnableSliding: 1
+    Duration: 0.42
+    EasingType: 0
+    Distance: 62
+    InputButtonNames:
+    - Jump
+    - Down
   CrouchSettings:
     EnableCrouching: 0
     BoxColliderOffsetCrouched: {x: 0, y: -38}
@@ -321,9 +329,6 @@ MonoBehaviour:
   PlatformMask:
     serializedVersion: 2
     m_Bits: 4096
-  TriggerMask:
-    serializedVersion: 2
-    m_Bits: 295936
   OneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 512

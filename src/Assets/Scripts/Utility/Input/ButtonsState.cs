@@ -2,14 +2,12 @@
 
 public class ButtonsState
 {
-  private const string TRACE_TAG = "ButtonsState";
-
   public ButtonPressState ButtonPressState;
 
   private string _buttonName;
 
   private float _pressStarted;
-  
+
   public void Update()
   {
     ButtonPressState state = ButtonPressState.Idle;
@@ -25,8 +23,6 @@ public class ButtonsState
       _pressStarted = Time.time;
 
       state |= ButtonPressState.IsDown;
-
-      Logger.Trace(TRACE_TAG, "Button " + _buttonName + " is down.");
     }
 
     if (((state & ButtonPressState.IsPressed) == 0)               // IF   currently not pressed

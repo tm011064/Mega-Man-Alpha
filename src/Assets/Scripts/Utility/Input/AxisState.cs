@@ -12,7 +12,7 @@ public class AxisState
   {
     LastValue = Value;
 
-    Value = Input.GetAxis(_axisName);
+    Value = Input.GetAxisRaw(_axisName);
   }
 
   public AxisState Clone()
