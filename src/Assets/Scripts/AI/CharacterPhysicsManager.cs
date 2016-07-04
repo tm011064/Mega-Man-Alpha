@@ -117,6 +117,9 @@ public class CharacterPhysicsManager : BasePhysicsManager
   [Range(0.001f, 10.3f)]
   private float _skinWidth = 0.02f;
 
+  [SerializeField]
+  private float _doubleSkinWidth = .04f;
+
   private TopEdgeCollisionTestContainer[] _topEdgeCollisionTestContainers;
 
   public event Action<RaycastHit2D> ControllerCollided;
@@ -135,8 +138,7 @@ public class CharacterPhysicsManager : BasePhysicsManager
     set
     {
       _skinWidth = value;
-
-      RecalculateDistanceBetweenRays();
+      _doubleSkinWidth = _skinWidth * 2f;
     }
   }
 
@@ -185,7 +187,7 @@ public class CharacterPhysicsManager : BasePhysicsManager
     Velocity.Set(Velocity.x + x, Velocity.y + y, Velocity.z);
   }
 
-  public bool CanMoveVertically(float verticalRayDistance, bool allowEdgeSlideUp)
+  public bool CanMoveVertically(float verticalRayDistance, bool allowEdgeSlideUp = false)
   {
     verticalRayDistance += _skinWidth;
 
@@ -626,7 +628,11 @@ public class CharacterPhysicsManager : BasePhysicsManager
   /// </summary>
   public void Move(Vector3 deltaMovement)
   {
-    PerformMove(CalculateMove(deltaMovement));
+    RecalculateDistanceBetweenRays();
+
+    var moveCalculationResult = CalculateMove(deltaMovement);
+
+    PerformMove(moveCalculationResult);
   }
 
   public void WarpToGrounded()
@@ -643,23 +649,9 @@ public class CharacterPhysicsManager : BasePhysicsManager
   /// </summary>
   public void RecalculateDistanceBetweenRays()
   {
-    RecalculateHorizontalDistanceBetweenRays();
+    _horizontalDistanceBetweenRays = (BoxCollider.size.x - _doubleSkinWidth) / (TotalVerticalRays - 1);
 
-    RecalculateVerticalDistanceBetweenRays();
-  }
-
-  private void RecalculateHorizontalDistanceBetweenRays()
-  {
-    var colliderUseableHeight = BoxCollider.size.y * Mathf.Abs(Transform.localScale.y) - (2f * _skinWidth);
-
-    _verticalDistanceBetweenRays = colliderUseableHeight / (TotalHorizontalRays - 1);
-  }
-
-  private void RecalculateVerticalDistanceBetweenRays()
-  {
-    var colliderUseableWidth = BoxCollider.size.x * Mathf.Abs(Transform.localScale.x) - (2f * _skinWidth);
-
-    _horizontalDistanceBetweenRays = colliderUseableWidth / (TotalVerticalRays - 1);
+    _verticalDistanceBetweenRays = (BoxCollider.size.y - _doubleSkinWidth) / (TotalHorizontalRays - 1);
   }
 
   public bool IsFloorWithinDistance(float rayDistance)

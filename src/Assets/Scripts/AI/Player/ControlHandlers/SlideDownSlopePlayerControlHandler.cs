@@ -18,7 +18,7 @@ public class SlideDownSlopePlayerControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    CheckOneWayPlatformFallThrough();
+    HandleOneWayPlatformFallThrough();
 
     var velocity = PlayerController.CharacterPhysicsManager.Velocity;
 

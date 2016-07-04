@@ -278,7 +278,7 @@ public class PlayerControlHandler : BaseControlHandler
     return GetJumpVerticalVelocity(velocity, true, out hasJumped);
   }
 
-  protected void CheckOneWayPlatformFallThrough()
+  protected void HandleOneWayPlatformFallThrough()
   {
     if (CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
       && (GameManager.InputStateManager.GetButtonState("Fall").ButtonPressState & ButtonPressState.IsPressed) != 0

@@ -15,6 +15,8 @@ public partial class PlayerController : BaseCharacterController
 
   public ClimbSettings ClimbSettings = new ClimbSettings();
 
+  public SlideSettings SlideSettings = new SlideSettings();
+
   public CrouchSettings CrouchSettings = new CrouchSettings();
 
   public IsTakingDamageSettings IsTakingDamageSettings = new IsTakingDamageSettings();
@@ -48,6 +50,9 @@ public partial class PlayerController : BaseCharacterController
 
   [HideInInspector]
   public WeaponControlHandler[] WeaponControlHandlers = new WeaponControlHandler[0];
+
+  [HideInInspector]
+  public Vector2 StandIdleEnvironmentBoxColliderSize;
 
   private RaycastHit2D _lastControllerColliderHit;
 
@@ -119,6 +124,8 @@ public partial class PlayerController : BaseCharacterController
   private void InitializeBoxCollider()
   {
     BoxCollider = GetEnvironmentCollider();
+
+    StandIdleEnvironmentBoxColliderSize = BoxCollider.size;
   }
 
   private void InitializeSpriteAndAnimator()
@@ -296,16 +303,6 @@ public partial class PlayerController : BaseCharacterController
     _gameManager.PowerUpManager.PowerMeter = 1;
 
     transform.parent = null; // just in case we were still attached
-  }
-
-  protected override void Update()
-  {
-    if ((_gameManager.InputStateManager.GetButtonState("SwitchPowerUp").ButtonPressState & ButtonPressState.IsUp) != 0)
-    {
-      _gameManager.PowerUpManager.ApplyNextInventoryPowerUpItem();
-    }
-
-    base.Update();
   }
 
   private void EnableClimbing()

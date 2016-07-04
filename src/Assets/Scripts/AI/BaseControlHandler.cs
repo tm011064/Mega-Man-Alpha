@@ -48,6 +48,11 @@ public class BaseControlHandler : IDisposable
   {
   }
 
+  public virtual BaseControlHandler Clone()
+  {
+    return MemberwiseClone() as BaseControlHandler;
+  }
+
   protected void ResetOverrideEndTime()
   {
     OverrideEndTime = Duration >= 0f
