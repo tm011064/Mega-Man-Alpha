@@ -52,14 +52,15 @@ public class SlidePlayerControlHandler : PlayerControlHandler
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    var deltaMovement = PlayerController.CharacterPhysicsManager.Velocity;
-
-    deltaMovement.y = Mathf.Max(
-      GetGravityAdjustedVerticalVelocity(deltaMovement, PlayerController.AdjustedGravity, true),
-      PlayerController.JumpSettings.MaxDownwardSpeed)
-      * Time.deltaTime;
-
-    deltaMovement.x = Time.deltaTime * _distancePerSecond;
+    var deltaMovement = new Vector2(
+      Time.deltaTime * _distancePerSecond,
+      Mathf.Max(
+        GetGravityAdjustedVerticalVelocity(
+          PlayerController.CharacterPhysicsManager.Velocity,
+          PlayerController.AdjustedGravity,
+          true),
+        PlayerController.JumpSettings.MaxDownwardSpeed)
+      * Time.deltaTime);
 
     PlayerController.CharacterPhysicsManager.Move(deltaMovement);
 

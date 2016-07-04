@@ -15,7 +15,7 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
   {
   }
 
-  private bool DoStartSlide()
+  private bool DoTriggerSlide()
   {
     return PlayerController.SlideSettings.EnableSliding
       && PlayerController.IsGrounded()
@@ -28,7 +28,7 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
   {
     HandleOneWayPlatformFallThrough();
 
-    if (DoStartSlide())
+    if (DoTriggerSlide())
     {
       PlayerController.InsertControlHandlerBeforeCurrent(Clone());
       PlayerController.InsertControlHandlerBeforeCurrent(new SlidePlayerControlHandler(PlayerController));
