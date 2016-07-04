@@ -139,8 +139,6 @@ public class CharacterPhysicsManager : BasePhysicsManager
     {
       _skinWidth = value;
       _doubleSkinWidth = _skinWidth * 2f;
-
-      RecalculateDistanceBetweenRays();
     }
   }
 
@@ -189,7 +187,7 @@ public class CharacterPhysicsManager : BasePhysicsManager
     Velocity.Set(Velocity.x + x, Velocity.y + y, Velocity.z);
   }
 
-  public bool CanMoveVertically(float verticalRayDistance, bool allowEdgeSlideUp)
+  public bool CanMoveVertically(float verticalRayDistance, bool allowEdgeSlideUp = false)
   {
     verticalRayDistance += _skinWidth;
 

@@ -8,8 +8,6 @@ public class SlideSettings
 
   public float Duration = 1f;
 
-  public EasingType EasingType = EasingType.Linear;
-
   public float Distance = 200f;
 
   [Tooltip("You can pass in any button name as well as the following axis directions: Left, Right, Up, Down")]

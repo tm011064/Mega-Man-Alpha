@@ -51,6 +51,9 @@ public partial class PlayerController : BaseCharacterController
   [HideInInspector]
   public WeaponControlHandler[] WeaponControlHandlers = new WeaponControlHandler[0];
 
+  [HideInInspector]
+  public Vector2 StandIdleEnvironmentBoxColliderSize;
+
   private RaycastHit2D _lastControllerColliderHit;
 
   private Vector3 _velocity;
@@ -121,6 +124,8 @@ public partial class PlayerController : BaseCharacterController
   private void InitializeBoxCollider()
   {
     BoxCollider = GetEnvironmentCollider();
+
+    StandIdleEnvironmentBoxColliderSize = BoxCollider.size;
   }
 
   private void InitializeSpriteAndAnimator()

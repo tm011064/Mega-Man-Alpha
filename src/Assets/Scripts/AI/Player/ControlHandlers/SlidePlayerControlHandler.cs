@@ -4,9 +4,7 @@ public class SlidePlayerControlHandler : PlayerControlHandler
 {
   private float _startTime;
 
-  private float _directionMultiplier;
-
-  private float _startPosX;
+  private float _distancePerSecond;
 
   public SlidePlayerControlHandler(PlayerController playerController)
     : base(playerController, new PlayerStateController[] { new SlideController(playerController) })
@@ -20,11 +18,13 @@ public class SlidePlayerControlHandler : PlayerControlHandler
 
     _startTime = Time.time;
 
-    _directionMultiplier = PlayerController.IsFacingRight()
-      ? 1f
-      : -1f;
+    _distancePerSecond = (1f / PlayerController.SlideSettings.Duration)
+      * PlayerController.SlideSettings.Distance;
 
-    _startPosX = PlayerController.transform.position.x;
+    if (!PlayerController.IsFacingRight())
+    {
+      _distancePerSecond *= -1f;
+    }
 
     return true;
   }
@@ -36,17 +36,21 @@ public class SlidePlayerControlHandler : PlayerControlHandler
     PlayerController.PlayerState &= ~PlayerState.Sliding;
   }
 
+  private bool PlayerHasEnoughVerticalSpaceToGetUp()
+  {
+    var currentHeightToStandUprightHeightDelta =
+      PlayerController.StandIdleEnvironmentBoxColliderSize.y - PlayerController.BoxCollider.size.y;
+
+    return CharacterPhysicsManager.CanMoveVertically(currentHeightToStandUprightHeightDelta);
+  }
+
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (_startTime + PlayerController.SlideSettings.Duration < Time.time)
+    if (_startTime + PlayerController.SlideSettings.Duration < Time.time
+      && PlayerHasEnoughVerticalSpaceToGetUp())
     {
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
-
-    var percentage = GameManager.Easing.GetValue(
-      PlayerController.SlideSettings.EasingType,
-      Time.time - _startTime,
-      PlayerController.SlideSettings.Duration);
 
     var deltaMovement = PlayerController.CharacterPhysicsManager.Velocity;
 
@@ -55,10 +59,7 @@ public class SlidePlayerControlHandler : PlayerControlHandler
       PlayerController.JumpSettings.MaxDownwardSpeed)
       * Time.deltaTime;
 
-    var targetPosX = _startPosX
-      + PlayerController.SlideSettings.Distance * percentage * _directionMultiplier;
-
-    deltaMovement.x = targetPosX - PlayerController.transform.position.x;
+    deltaMovement.x = Time.deltaTime * _distancePerSecond;
 
     PlayerController.CharacterPhysicsManager.Move(deltaMovement);
 
