@@ -1,21 +1,20 @@
 ﻿using UnityEngine;
 
 public class EnemyControlHandler<TEnemyController> : BaseControlHandler
-  where TEnemyController : EnemyController
+  where TEnemyController : MovingEnemyController
 {
   protected TEnemyController _enemyController;
 
   protected float? _pauseAtEdgeEndTime = null;
 
-  public EnemyControlHandler(TEnemyController enemyController)
-    : this(enemyController, -1f)
-  {
-  }
+  private Animator _animator;
 
-  public EnemyControlHandler(TEnemyController enemyController, float duration)
+  public EnemyControlHandler(TEnemyController enemyController, float duration = -1f, Animator animator = null)
     : base(enemyController.CharacterPhysicsManager, duration)
   {
     _enemyController = enemyController;
+
+    _animator = animator;
   }
 
   [System.Diagnostics.Conditional("DEBUG")]
@@ -134,6 +133,18 @@ public class EnemyControlHandler<TEnemyController> : BaseControlHandler
 
         break;
     }
+  }
+
+  protected void PlayAnimation(int shortNameHash)
+  {
+    var animatorStateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+
+    if (animatorStateInfo.shortNameHash == shortNameHash)
+    {
+      return;
+    }
+
+    _animator.Play(shortNameHash);
   }
 
   protected enum PlatformEdgeMoveMode

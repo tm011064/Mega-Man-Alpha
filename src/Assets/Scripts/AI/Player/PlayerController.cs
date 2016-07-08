@@ -19,7 +19,9 @@ public partial class PlayerController : BaseCharacterController
 
   public CrouchSettings CrouchSettings = new CrouchSettings();
 
-  public IsTakingDamageSettings IsTakingDamageSettings = new IsTakingDamageSettings();
+  public PlayerHealthSettings PlayerHealthSettings = new PlayerHealthSettings();
+
+  public DamageSettings DamageSettings = new DamageSettings();
 
   public InputSettings InputSettings = new InputSettings();
 
@@ -35,6 +37,9 @@ public partial class PlayerController : BaseCharacterController
 
   [HideInInspector]
   public GameObject Sprite;
+
+  [HideInInspector]
+  public SpriteRenderer SpriteRenderer;
 
   [HideInInspector]
   public BoxCollider2D BoxCollider;
@@ -53,6 +58,9 @@ public partial class PlayerController : BaseCharacterController
 
   [HideInInspector]
   public Vector2 StandIdleEnvironmentBoxColliderSize;
+
+  [HideInInspector]
+  public PlayerHealth PlayerHealth;
 
   private RaycastHit2D _lastControllerColliderHit;
 
@@ -73,7 +81,7 @@ public partial class PlayerController : BaseCharacterController
     // register with game context so this game object can be accessed everywhere
     _gameManager = GameManager.Instance;
 
-    Logger.Info("Playercontroller awoke and added to game context instance.");
+    PlayerHealth = new PlayerHealth(this);
 
     InitializeBoxCollider();
 
@@ -87,9 +95,7 @@ public partial class PlayerController : BaseCharacterController
 
     _reusableWallJumpEvaluationControlHandler = new WallJumpEvaluationControlHandler(this);
 
-    PushControlHandler(new GoodHealthPlayerControlHandler(this));
-
-    _gameManager.PowerUpManager.PowerMeter = 1;
+    PushControlHandler(new DefaultPlayerControlHandler(this));
 
     AdjustedGravity = JumpSettings.Gravity;
   }
@@ -137,6 +143,8 @@ public partial class PlayerController : BaseCharacterController
       "Player controller is expected to have a SpriteAndAnimator child object. If this is no longer needed, remove this line in code.");
 
     Sprite = childTransform.gameObject;
+
+    SpriteRenderer = childTransform.gameObject.GetComponent<SpriteRenderer>();
 
     Animator = childTransform.gameObject.GetComponent<Animator>();
   }
@@ -265,7 +273,7 @@ public partial class PlayerController : BaseCharacterController
 
             _reusableWallJumpEvaluationControlHandler.Reset(WallJumpSettings.WallJumpWallEvaluationDuration, Direction.Left, WallJumpSettings);
 
-            PushControlHandler(_reusableWallJumpControlHandler, _reusableWallJumpEvaluationControlHandler);
+            PushControlHandlers(_reusableWallJumpControlHandler, _reusableWallJumpEvaluationControlHandler);
           }
           else if (CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Right)
           {
@@ -273,7 +281,7 @@ public partial class PlayerController : BaseCharacterController
 
             _reusableWallJumpEvaluationControlHandler.Reset(WallJumpSettings.WallJumpWallEvaluationDuration, Direction.Right, WallJumpSettings);
 
-            PushControlHandler(_reusableWallJumpControlHandler, _reusableWallJumpEvaluationControlHandler);
+            PushControlHandlers(_reusableWallJumpControlHandler, _reusableWallJumpEvaluationControlHandler);
           }
         }
       }
@@ -298,9 +306,9 @@ public partial class PlayerController : BaseCharacterController
 
     AdjustedGravity = JumpSettings.Gravity;
 
-    ResetControlHandlers(new GoodHealthPlayerControlHandler(this));
+    ResetControlHandlers(new DefaultPlayerControlHandler(this));
 
-    _gameManager.PowerUpManager.PowerMeter = 1;
+    PlayerHealth.Reset();
 
     transform.parent = null; // just in case we were still attached
   }

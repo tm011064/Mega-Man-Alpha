@@ -84,7 +84,7 @@ public class BaseCharacterController : BaseMonoBehaviour
     PushControlHandler(controlHandler);
   }
 
-  public void PushControlHandler(params BaseControlHandler[] controlHandlers)
+  public void PushControlHandlers(params BaseControlHandler[] controlHandlers)
   {
     for (var i = 0; i < controlHandlers.Length; i++)
     {

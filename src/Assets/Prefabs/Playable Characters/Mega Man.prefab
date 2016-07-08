@@ -293,17 +293,21 @@ MonoBehaviour:
   SlideSettings:
     EnableSliding: 1
     Duration: 0.42
-    EasingType: 0
     Distance: 62
     InputButtonNames:
     - Jump
     - Down
   CrouchSettings:
     EnableCrouching: 0
-    BoxColliderOffsetCrouched: {x: 0, y: -38}
-    BoxColliderSizeCrouched: {x: 88, y: 44}
-  IsTakingDamageSettings:
-    EnableTakingDamage: 1
+  PlayerHealthSettings:
+    HealthUnits: 28
+    DeathAnimationPrefab: {fileID: 0}
+    DeathAnimationPrefabOffset: {x: 0, y: 0}
+  DamageSettings:
+    SpriteBlinkInterval: 0.033
+    KnockbackDuration: 0.5
+    KnockbackDistance: 15
+    InvincibleDurationAfterKnockback: 1
   InputSettings:
     AxisSensitivityThreshold: 0.2
   BoxColliderOffsetWallAttached: {x: 0, y: -15}
@@ -311,10 +315,12 @@ MonoBehaviour:
   AdjustedGravity: 0
   Animator: {fileID: 0}
   Sprite: {fileID: 0}
+  SpriteRenderer: {fileID: 0}
   BoxCollider: {fileID: 0}
   SpawnLocation: {x: 0, y: 0, z: 0}
   CurrentPlatform: {fileID: 0}
   PlayerState: 0
+  StandIdleEnvironmentBoxColliderSize: {x: 0, y: 0}
 --- !u!114 &11466334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -377,13 +383,13 @@ MonoBehaviour:
     EnableAutomaticFire: 0
     MaxProjectilesPerSecond: 5
     MaximumSimultaneouslyActiveProjectiles: 3
-    MaxSpeed: 200
+    DistancePerSecond: 240
     ProjectilePrefab: {fileID: 191186, guid: dbfc9cb7f1393554fa85461762c4d1f5, type: 2}
     GroundedSpawnLocation: {x: 12, y: 2}
     AirborneSpawnLocation: {x: 12, y: 6}
     LadderSpawnLocation: {x: 12, y: 6}
     InputButtonName: Attack
-    AnimationClipLength: 0.2
+    AnimationClipLength: 0.266
 --- !u!212 &21258044
 SpriteRenderer:
   m_ObjectHideFlags: 1

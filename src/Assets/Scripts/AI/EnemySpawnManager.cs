@@ -31,7 +31,7 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
   {
     var spawnedEnemy = _objectPoolingManager.GetObject(EnemyToSpawn.name, transform.position);
 
-    var enemyController = spawnedEnemy.GetComponent<EnemyController>();
+    var enemyController = spawnedEnemy.GetComponent<MovingEnemyController>();
 
     if (enemyController == null)
     {

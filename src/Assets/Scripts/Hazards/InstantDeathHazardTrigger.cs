@@ -4,6 +4,6 @@ public class InstantDeathHazardTrigger : MonoBehaviour
 {
   void OnTriggerEnter2D(Collider2D col)
   {
-    GameManager.Instance.PowerUpManager.KillPlayer();
+    GameManager.Instance.Player.PlayerHealth.KillPlayer();
   }
 }

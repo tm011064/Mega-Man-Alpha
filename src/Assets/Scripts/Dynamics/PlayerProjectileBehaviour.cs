@@ -2,6 +2,8 @@
 
 public class PlayerProjectileBehaviour : MonoBehaviour
 {
+  public int DamageUnits = 1;
+
   private Vector3 _velocity;
 
   public void StartMove(Vector2 startPosition, Vector2 velocity)
@@ -21,13 +23,20 @@ public class PlayerProjectileBehaviour : MonoBehaviour
     ObjectPoolingManager.Instance.Deactivate(gameObject);
   }
 
-  void OnTriggerEnter2D(Collider2D col)
+  void OnTriggerEnter2D(Collider2D collider)
   {
     ObjectPoolingManager.Instance.Deactivate(gameObject);
 
-    if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+    if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
     {
-      ObjectPoolingManager.Instance.Deactivate(col.gameObject);
+      var enemyHealthBehaviour = collider.GetComponent<EnemyHealthBehaviour>();
+
+      if (enemyHealthBehaviour == null)
+      {
+        throw new MissingComponentException("Object " + name + " has no 'Enemy Health Behaviour' script component");
+      }
+
+      enemyHealthBehaviour.ApplyDamage(DamageUnits);
     }
   }
 }
