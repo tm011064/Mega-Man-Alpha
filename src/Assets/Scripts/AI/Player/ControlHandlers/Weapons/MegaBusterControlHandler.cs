@@ -65,11 +65,12 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private bool CanFire(XYAxisState axisState)
   {
-    return (_projectileWeaponSettings.EnableAutomaticFire
-      ? IsFireButtonPressed()
-      : IsFireButtonUp())
-        && IsWithinRateOfFire()
-        && !IsClimbingLadder(axisState);
+    return (PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
+      && (_projectileWeaponSettings.EnableAutomaticFire
+        ? IsFireButtonPressed()
+        : IsFireButtonUp())
+      && IsWithinRateOfFire()
+      && !IsClimbingLadder(axisState);
   }
 
   private Vector2 GetSpawnLocation(Vector2 direction)
@@ -105,7 +106,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
         projectileBehaviour.StartMove(
           spawnLocation,
-          direction * _projectileWeaponSettings.MaxSpeed);
+          direction * _projectileWeaponSettings.DistancePerSecond);
 
         _lastBulletTime = Time.time;
 
@@ -117,7 +118,8 @@ public class MegaBusterControlHandler : WeaponControlHandler
       }
     }
 
-    if (!HasShootAnimationFinished())
+    if ((PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
+      && !HasShootAnimationFinished())
     {
       return PlayerStateUpdateResult.CreateHandled(_lastAnimationName, 1);
     }

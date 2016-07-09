@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ApplyDamageHazard : MonoBehaviour
 {
@@ -20,16 +21,8 @@ public class ApplyDamageHazard : MonoBehaviour
         ObjectPoolingManager.Instance.Deactivate(gameObject);
       }
 
-      switch (_gameManager.PowerUpManager.AddDamage())
-      {
-        case PowerUpManager.DamageResult.IsDead: return;
-
-        default:
-
-          _gameManager.Player.PushControlHandler(new DamageTakenPlayerControlHandler());
-
-          break;
-      }
+      // TODO (Roman): add player damage logic here
+      throw new NotImplementedException("Player damage not implemented");
     }
   }
 
@@ -48,16 +41,8 @@ public class ApplyDamageHazard : MonoBehaviour
         ObjectPoolingManager.Instance.Deactivate(gameObject);
       }
 
-      switch (_gameManager.PowerUpManager.AddDamage())
-      {
-        case PowerUpManager.DamageResult.IsDead: return;
-
-        default:
-
-          _gameManager.Player.PushControlHandler(new DamageTakenPlayerControlHandler());
-
-          break;
-      }
+      // TODO (Roman): add player damage logic here
+      throw new NotImplementedException("Player damage not implemented");
     }
   }
 

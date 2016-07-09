@@ -1,0 +1,2167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+SceneSettings:
+  m_ObjectHideFlags: 0
+  m_PVSData: 
+  m_PVSObjectsArray: []
+  m_PVSPortalsArray: []
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 6
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 3
+  m_SkyboxMaterial: {fileID: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 6
+  m_GIWorkflowMode: 1
+  m_LightmapsMode: 1
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_TemporalCoherenceThreshold: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 3
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_TextureWidth: 1024
+    m_TextureHeight: 1024
+    m_AOMaxDistance: 1
+    m_Padding: 2
+    m_CompAOExponent: 0
+    m_LightmapParameters: {fileID: 0}
+    m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
+  m_LightingDataAsset: {fileID: 0}
+  m_RuntimeCPUUsage: 25
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 2
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    accuratePlacement: 0
+    minRegionArea: 2
+    cellSize: 0.16666667
+    manualCellSize: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &55684616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 55684617}
+  - 23: {fileID: 55684621}
+  - 33: {fileID: 55684620}
+  - 114: {fileID: 55684619}
+  - 61: {fileID: 55684618}
+  m_Layer: 12
+  m_Name: Platform Mesh (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &55684617
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55684616}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 232, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 6
+--- !u!61 &55684618
+BoxCollider2D:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55684616}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 128, y: 4}
+  serializedVersion: 2
+  m_Size: {x: 256, y: 8}
+--- !u!114 &55684619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55684616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisibilityCheckInterval: 0.2
+  Width: 256
+  Height: 8
+  createTiles: 1
+  TileWidth: 8
+  TileHeight: 8
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
+--- !u!33 &55684620
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55684616}
+  m_Mesh: {fileID: 458011050}
+--- !u!23 &55684621
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55684616}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0d5d0f221b3f43a4e8c0d58e3202429a, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -2063158589
+  m_SortingOrder: 0
+--- !u!43 &133399924
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 48
+    topology: 0
+    firstVertex: 0
+    vertexCount: 32
+    localAABB:
+      m_Center: {x: 32, y: 4, z: 0}
+      m_Extent: {x: 32, y: 4, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 0200010000000000030002000600050004000400070006000a000900080008000b000a000e000d000c000c000f000e001200110010001000130012001600150014001400170016001a001900180018001b001a001e001d001c001c001f001e00
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 11
+    m_VertexCount: 32
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 1024
+    _typelessdata: 0000000000000000000000000000000000000000000080bf00000000000000000000004100000000000000000000000000000000000080bf0000803f000000000000004100000041000000000000000000000000000080bf0000803f0000803f0000000000000041000000000000000000000000000080bf000000000000803f0000004100000000000000000000000000000000000080bf00000000000000000000804100000000000000000000000000000000000080bf0000803f000000000000804100000041000000000000000000000000000080bf0000803f0000803f0000004100000041000000000000000000000000000080bf000000000000803f0000804100000000000000000000000000000000000080bf00000000000000000000c04100000000000000000000000000000000000080bf0000803f000000000000c04100000041000000000000000000000000000080bf0000803f0000803f0000804100000041000000000000000000000000000080bf000000000000803f0000c04100000000000000000000000000000000000080bf00000000000000000000004200000000000000000000000000000000000080bf0000803f000000000000004200000041000000000000000000000000000080bf0000803f0000803f0000c04100000041000000000000000000000000000080bf000000000000803f0000004200000000000000000000000000000000000080bf00000000000000000000204200000000000000000000000000000000000080bf0000803f000000000000204200000041000000000000000000000000000080bf0000803f0000803f0000004200000041000000000000000000000000000080bf000000000000803f0000204200000000000000000000000000000000000080bf00000000000000000000404200000000000000000000000000000000000080bf0000803f000000000000404200000041000000000000000000000000000080bf0000803f0000803f0000204200000041000000000000000000000000000080bf000000000000803f0000404200000000000000000000000000000000000080bf00000000000000000000604200000000000000000000000000000000000080bf0000803f000000000000604200000041000000000000000000000000000080bf0000803f0000803f0000404200000041000000000000000000000000000080bf000000000000803f0000604200000000000000000000000000000000000080bf00000000000000000000804200000000000000000000000000000000000080bf0000803f000000000000804200000041000000000000000000000000000080bf0000803f0000803f0000604200000041000000000000000000000000000080bf000000000000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 32, y: 4, z: 0}
+    m_Extent: {x: 32, y: 4, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
+--- !u!1 &206343347
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 206343350}
+  - 61: {fileID: 206343349}
+  - 114: {fileID: 206343348}
+  m_Layer: 15
+  m_Name: Room Camera Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &206343348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 206343347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2ef088543486044bbfd10d05cc920b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ZoomSettings:
+    ZoomPercentage: 1
+    ZoomTime: 0
+    ZoomEasingType: 0
+  SmoothDampMoveSettings:
+    HorizontalSmoothDampTime: 0.02
+    VerticalSmoothDampTime: 0.02
+    VerticalRapidDescentSmoothDampTime: 0.01
+    VerticalAboveRapidAcsentSmoothDampTime: 0.2
+  FullScreenScrollSettings:
+    TransitionTime: 0.6
+    CameraScrollEasingType: 15
+    PlayerTranslationDistance: 56
+    PlayerTranslationEasingType: 0
+    StartScrollFreezeTime: 0.3
+    EndScrollFreezeTime: 0.4
+  EnableDefaultVerticalLockPosition: 1
+  DefaultVerticalLockPosition: 120
+  RelativePositioningParentObject: {fileID: 0}
+  Offset: {x: 0, y: 0}
+  HorizontalOffsetDeltaMovementFactor: 40
+  VerticalCameraFollowMode: 0
+--- !u!61 &206343349
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 206343347}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 128, y: 120}
+  serializedVersion: 2
+  m_Size: {x: 256, y: 240}
+--- !u!4 &206343350
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 206343347}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 1
+--- !u!1 &263550832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 263550833}
+  - 23: {fileID: 263550837}
+  - 33: {fileID: 263550836}
+  - 114: {fileID: 263550835}
+  - 61: {fileID: 263550834}
+  m_Layer: 12
+  m_Name: Platform Mesh (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &263550833
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263550832}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 248, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 5
+--- !u!61 &263550834
+BoxCollider2D:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263550832}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 4, y: 120}
+  serializedVersion: 2
+  m_Size: {x: 8, y: 240}
+--- !u!114 &263550835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263550832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisibilityCheckInterval: 0.2
+  Width: 8
+  Height: 240
+  createTiles: 1
+  TileWidth: 8
+  TileHeight: 8
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
+--- !u!33 &263550836
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263550832}
+  m_Mesh: {fileID: 1604426727}
+--- !u!23 &263550837
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263550832}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0d5d0f221b3f43a4e8c0d58e3202429a, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -2063158589
+  m_SortingOrder: 0
+--- !u!43 &388946010
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 30
+    topology: 0
+    firstVertex: 0
+    vertexCount: 20
+    localAABB:
+      m_Center: {x: 40, y: 8, z: 0}
+      m_Extent: {x: 40, y: 8, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 0200010000000000030002000600050004000400070006000a000900080008000b000a000e000d000c000c000f000e00120011001000100013001200
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 11
+    m_VertexCount: 20
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 640
+    _typelessdata: 0000000000000000000000000000000000000000000080bf00000000000000000000804100000000000000000000000000000000000080bf0000803f000000000000804100008041000000000000000000000000000080bf0000803f0000803f0000000000008041000000000000000000000000000080bf000000000000803f0000804100000000000000000000000000000000000080bf00000000000000000000004200000000000000000000000000000000000080bf0000803f000000000000004200008041000000000000000000000000000080bf0000803f0000803f0000804100008041000000000000000000000000000080bf000000000000803f0000004200000000000000000000000000000000000080bf00000000000000000000404200000000000000000000000000000000000080bf0000803f000000000000404200008041000000000000000000000000000080bf0000803f0000803f0000004200008041000000000000000000000000000080bf000000000000803f0000404200000000000000000000000000000000000080bf00000000000000000000804200000000000000000000000000000000000080bf0000803f000000000000804200008041000000000000000000000000000080bf0000803f0000803f0000404200008041000000000000000000000000000080bf000000000000803f0000804200000000000000000000000000000000000080bf00000000000000000000a04200000000000000000000000000000000000080bf0000803f000000000000a04200008041000000000000000000000000000080bf0000803f0000803f0000804200008041000000000000000000000000000080bf000000000000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 40, y: 8, z: 0}
+    m_Extent: {x: 40, y: 8, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
+--- !u!1 &431044465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 431044466}
+  - 23: {fileID: 431044470}
+  - 33: {fileID: 431044469}
+  - 114: {fileID: 431044468}
+  - 61: {fileID: 431044467}
+  m_Layer: 12
+  m_Name: Platform Mesh (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &431044466
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431044465}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24, y: 56, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 7
+--- !u!61 &431044467
+BoxCollider2D:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431044465}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 32, y: 4}
+  serializedVersion: 2
+  m_Size: {x: 64, y: 8}
+--- !u!114 &431044468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431044465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisibilityCheckInterval: 0.2
+  Width: 64
+  Height: 8
+  createTiles: 1
+  TileWidth: 8
+  TileHeight: 8
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
+--- !u!33 &431044469
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431044465}
+  m_Mesh: {fileID: 133399924}
+--- !u!23 &431044470
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431044465}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0d5d0f221b3f43a4e8c0d58e3202429a, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -2063158589
+  m_SortingOrder: 0
+--- !u!43 &458011050
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 192
+    topology: 0
+    firstVertex: 0
+    vertexCount: 128
+    localAABB:
+      m_Center: {x: 128, y: 4, z: 0}
+      m_Extent: {x: 128, y: 4, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 0200010000000000030002000600050004000400070006000a000900080008000b000a000e000d000c000c000f000e001200110010001000130012001600150014001400170016001a001900180018001b001a001e001d001c001c001f001e002200210020002000230022002600250024002400270026002a002900280028002b002a002e002d002c002c002f002e003200310030003000330032003600350034003400370036003a003900380038003b003a003e003d003c003c003f003e004200410040004000430042004600450044004400470046004a004900480048004b004a004e004d004c004c004f004e005200510050005000530052005600550054005400570056005a005900580058005b005a005e005d005c005c005f005e006200610060006000630062006600650064006400670066006a006900680068006b006a006e006d006c006c006f006e007200710070007000730072007600750074007400770076007a007900780078007b007a007e007d007c007c007f007e00
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 11
+    m_VertexCount: 128
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 4096
+    _typelessdata: 0000000000000000000000000000000000000000000080bf00000000000000000000004100000000000000000000000000000000000080bf0000803f000000000000004100000041000000000000000000000000000080bf0000803f0000803f0000000000000041000000000000000000000000000080bf000000000000803f0000004100000000000000000000000000000000000080bf00000000000000000000804100000000000000000000000000000000000080bf0000803f000000000000804100000041000000000000000000000000000080bf0000803f0000803f0000004100000041000000000000000000000000000080bf000000000000803f0000804100000000000000000000000000000000000080bf00000000000000000000c04100000000000000000000000000000000000080bf0000803f000000000000c04100000041000000000000000000000000000080bf0000803f0000803f0000804100000041000000000000000000000000000080bf000000000000803f0000c04100000000000000000000000000000000000080bf00000000000000000000004200000000000000000000000000000000000080bf0000803f000000000000004200000041000000000000000000000000000080bf0000803f0000803f0000c04100000041000000000000000000000000000080bf000000000000803f0000004200000000000000000000000000000000000080bf00000000000000000000204200000000000000000000000000000000000080bf0000803f000000000000204200000041000000000000000000000000000080bf0000803f0000803f0000004200000041000000000000000000000000000080bf000000000000803f0000204200000000000000000000000000000000000080bf00000000000000000000404200000000000000000000000000000000000080bf0000803f000000000000404200000041000000000000000000000000000080bf0000803f0000803f0000204200000041000000000000000000000000000080bf000000000000803f0000404200000000000000000000000000000000000080bf00000000000000000000604200000000000000000000000000000000000080bf0000803f000000000000604200000041000000000000000000000000000080bf0000803f0000803f0000404200000041000000000000000000000000000080bf000000000000803f0000604200000000000000000000000000000000000080bf00000000000000000000804200000000000000000000000000000000000080bf0000803f000000000000804200000041000000000000000000000000000080bf0000803f0000803f0000604200000041000000000000000000000000000080bf000000000000803f0000804200000000000000000000000000000000000080bf00000000000000000000904200000000000000000000000000000000000080bf0000803f000000000000904200000041000000000000000000000000000080bf0000803f0000803f0000804200000041000000000000000000000000000080bf000000000000803f0000904200000000000000000000000000000000000080bf00000000000000000000a04200000000000000000000000000000000000080bf0000803f000000000000a04200000041000000000000000000000000000080bf0000803f0000803f0000904200000041000000000000000000000000000080bf000000000000803f0000a04200000000000000000000000000000000000080bf00000000000000000000b04200000000000000000000000000000000000080bf0000803f000000000000b04200000041000000000000000000000000000080bf0000803f0000803f0000a04200000041000000000000000000000000000080bf000000000000803f0000b04200000000000000000000000000000000000080bf00000000000000000000c04200000000000000000000000000000000000080bf0000803f000000000000c04200000041000000000000000000000000000080bf0000803f0000803f0000b04200000041000000000000000000000000000080bf000000000000803f0000c04200000000000000000000000000000000000080bf00000000000000000000d04200000000000000000000000000000000000080bf0000803f000000000000d04200000041000000000000000000000000000080bf0000803f0000803f0000c04200000041000000000000000000000000000080bf000000000000803f0000d04200000000000000000000000000000000000080bf00000000000000000000e04200000000000000000000000000000000000080bf0000803f000000000000e04200000041000000000000000000000000000080bf0000803f0000803f0000d04200000041000000000000000000000000000080bf000000000000803f0000e04200000000000000000000000000000000000080bf00000000000000000000f04200000000000000000000000000000000000080bf0000803f000000000000f04200000041000000000000000000000000000080bf0000803f0000803f0000e04200000041000000000000000000000000000080bf000000000000803f0000f04200000000000000000000000000000000000080bf00000000000000000000004300000000000000000000000000000000000080bf0000803f000000000000004300000041000000000000000000000000000080bf0000803f0000803f0000f04200000041000000000000000000000000000080bf000000000000803f0000004300000000000000000000000000000000000080bf00000000000000000000084300000000000000000000000000000000000080bf0000803f000000000000084300000041000000000000000000000000000080bf0000803f0000803f0000004300000041000000000000000000000000000080bf000000000000803f0000084300000000000000000000000000000000000080bf00000000000000000000104300000000000000000000000000000000000080bf0000803f000000000000104300000041000000000000000000000000000080bf0000803f0000803f0000084300000041000000000000000000000000000080bf000000000000803f0000104300000000000000000000000000000000000080bf00000000000000000000184300000000000000000000000000000000000080bf0000803f000000000000184300000041000000000000000000000000000080bf0000803f0000803f0000104300000041000000000000000000000000000080bf000000000000803f0000184300000000000000000000000000000000000080bf00000000000000000000204300000000000000000000000000000000000080bf0000803f000000000000204300000041000000000000000000000000000080bf0000803f0000803f0000184300000041000000000000000000000000000080bf000000000000803f0000204300000000000000000000000000000000000080bf00000000000000000000284300000000000000000000000000000000000080bf0000803f000000000000284300000041000000000000000000000000000080bf0000803f0000803f0000204300000041000000000000000000000000000080bf000000000000803f0000284300000000000000000000000000000000000080bf00000000000000000000304300000000000000000000000000000000000080bf0000803f000000000000304300000041000000000000000000000000000080bf0000803f0000803f0000284300000041000000000000000000000000000080bf000000000000803f0000304300000000000000000000000000000000000080bf00000000000000000000384300000000000000000000000000000000000080bf0000803f000000000000384300000041000000000000000000000000000080bf0000803f0000803f0000304300000041000000000000000000000000000080bf000000000000803f0000384300000000000000000000000000000000000080bf00000000000000000000404300000000000000000000000000000000000080bf0000803f000000000000404300000041000000000000000000000000000080bf0000803f0000803f0000384300000041000000000000000000000000000080bf000000000000803f0000404300000000000000000000000000000000000080bf00000000000000000000484300000000000000000000000000000000000080bf0000803f000000000000484300000041000000000000000000000000000080bf0000803f0000803f0000404300000041000000000000000000000000000080bf000000000000803f0000484300000000000000000000000000000000000080bf00000000000000000000504300000000000000000000000000000000000080bf0000803f000000000000504300000041000000000000000000000000000080bf0000803f0000803f0000484300000041000000000000000000000000000080bf000000000000803f0000504300000000000000000000000000000000000080bf00000000000000000000584300000000000000000000000000000000000080bf0000803f000000000000584300000041000000000000000000000000000080bf0000803f0000803f0000504300000041000000000000000000000000000080bf000000000000803f0000584300000000000000000000000000000000000080bf00000000000000000000604300000000000000000000000000000000000080bf0000803f000000000000604300000041000000000000000000000000000080bf0000803f0000803f0000584300000041000000000000000000000000000080bf000000000000803f0000604300000000000000000000000000000000000080bf00000000000000000000684300000000000000000000000000000000000080bf0000803f000000000000684300000041000000000000000000000000000080bf0000803f0000803f0000604300000041000000000000000000000000000080bf000000000000803f0000684300000000000000000000000000000000000080bf00000000000000000000704300000000000000000000000000000000000080bf0000803f000000000000704300000041000000000000000000000000000080bf0000803f0000803f0000684300000041000000000000000000000000000080bf000000000000803f0000704300000000000000000000000000000000000080bf00000000000000000000784300000000000000000000000000000000000080bf0000803f000000000000784300000041000000000000000000000000000080bf0000803f0000803f0000704300000041000000000000000000000000000080bf000000000000803f0000784300000000000000000000000000000000000080bf00000000000000000000804300000000000000000000000000000000000080bf0000803f000000000000804300000041000000000000000000000000000080bf0000803f0000803f0000784300000041000000000000000000000000000080bf000000000000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 128, y: 4, z: 0}
+    m_Extent: {x: 128, y: 4, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
+--- !u!1001 &651407189
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2103039389}
+    m_Modifications:
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Size.x
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Size.y
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: RespawnMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: DestroySpawnedEnemiesWhenGettingDisabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: RespawnOnDestroyDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: EnemyToSpawn
+      value: 
+      objectReference: {fileID: 195402, guid: aea3d3082227de64a93dc5d0e7f35f2e, type: 2}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: ShowGizmoOutline
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195444, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Name
+      value: Barrel Met Spawn Location 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: EnemyToSpawnPrefab
+      value: 
+      objectReference: {fileID: 195402, guid: aea3d3082227de64a93dc5d0e7f35f2e, type: 2}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: SpawnedPrefabScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &651407190 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+  m_PrefabInternal: {fileID: 651407189}
+--- !u!1 &697067681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 697067686}
+  - 20: {fileID: 697067685}
+  - 124: {fileID: 697067684}
+  - 92: {fileID: 697067683}
+  - 81: {fileID: 697067682}
+  m_Layer: 0
+  m_Name: Black Bar Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &697067682
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 697067681}
+  m_Enabled: 0
+--- !u!92 &697067683
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 697067681}
+  m_Enabled: 0
+--- !u!124 &697067684
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 697067681}
+  m_Enabled: 0
+--- !u!20 &697067685
+Camera:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 697067681}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0.019607844}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -3
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
+--- !u!4 &697067686
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 697067681}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 624, y: 64, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+--- !u!1 &1006191051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1006191052}
+  - 23: {fileID: 1006191055}
+  - 33: {fileID: 1006191054}
+  - 114: {fileID: 1006191053}
+  m_Layer: 11
+  m_Name: Background Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1006191052
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1006191051}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 3
+--- !u!114 &1006191053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1006191051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisibilityCheckInterval: 0.2
+  Width: 256
+  Height: 240
+  createTiles: 1
+  TileWidth: 16
+  TileHeight: 16
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 0
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
+--- !u!33 &1006191054
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1006191051}
+  m_Mesh: {fileID: 1168922393}
+--- !u!23 &1006191055
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1006191051}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7aaf48e5944328943be6de39b1239879, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1133856149
+  m_SortingOrder: 0
+--- !u!43 &1168922393
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 1440
+    topology: 0
+    firstVertex: 0
+    vertexCount: 960
+    localAABB:
+      m_Center: {x: 128, y: 120, z: 0}
+      m_Extent: {x: 128, y: 120, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 0
+  m_KeepIndices: 0
+  m_IndexBuffer: 0200010000000000030002000600050004000400070006000a000900080008000b000a000e000d000c000c000f000e001200110010001000130012001600150014001400170016001a001900180018001b001a001e001d001c001c001f001e002200210020002000230022002600250024002400270026002a002900280028002b002a002e002d002c002c002f002e003200310030003000330032003600350034003400370036003a003900380038003b003a003e003d003c003c003f003e004200410040004000430042004600450044004400470046004a004900480048004b004a004e004d004c004c004f004e005200510050005000530052005600550054005400570056005a005900580058005b005a005e005d005c005c005f005e006200610060006000630062006600650064006400670066006a006900680068006b006a006e006d006c006c006f006e007200710070007000730072007600750074007400770076007a007900780078007b007a007e007d007c007c007f007e008200810080008000830082008600850084008400870086008a008900880088008b008a008e008d008c008c008f008e009200910090009000930092009600950094009400970096009a009900980098009b009a009e009d009c009c009f009e00a200a100a000a000a300a200a600a500a400a400a700a600aa00a900a800a800ab00aa00ae00ad00ac00ac00af00ae00b200b100b000b000b300b200b600b500b400b400b700b600ba00b900b800b800bb00ba00be00bd00bc00bc00bf00be00c200c100c000c000c300c200c600c500c400c400c700c600ca00c900c800c800cb00ca00ce00cd00cc00cc00cf00ce00d200d100d000d000d300d200d600d500d400d400d700d600da00d900d800d800db00da00de00dd00dc00dc00df00de00e200e100e000e000e300e200e600e500e400e400e700e600ea00e900e800e800eb00ea00ee00ed00ec00ec00ef00ee00f200f100f000f000f300f200f600f500f400f400f700f600fa00f900f800f800fb00fa00fe00fd00fc00fc00ff00fe000201010100010001030102010601050104010401070106010a010901080108010b010a010e010d010c010c010f010e011201110110011001130112011601150114011401170116011a011901180118011b011a011e011d011c011c011f011e012201210120012001230122012601250124012401270126012a012901280128012b012a012e012d012c012c012f012e013201310130013001330132013601350134013401370136013a013901380138013b013a013e013d013c013c013f013e014201410140014001430142014601450144014401470146014a014901480148014b014a014e014d014c014c014f014e015201510150015001530152015601550154015401570156015a015901580158015b015a015e015d015c015c015f015e016201610160016001630162016601650164016401670166016a016901680168016b016a016e016d016c016c016f016e017201710170017001730172017601750174017401770176017a017901780178017b017a017e017d017c017c017f017e018201810180018001830182018601850184018401870186018a018901880188018b018a018e018d018c018c018f018e019201910190019001930192019601950194019401970196019a019901980198019b019a019e019d019c019c019f019e01a201a101a001a001a301a201a601a501a401a401a701a601aa01a901a801a801ab01aa01ae01ad01ac01ac01af01ae01b201b101b001b001b301b201b601b501b401b401b701b601ba01b901b801b801bb01ba01be01bd01bc01bc01bf01be01c201c101c001c001c301c201c601c501c401c401c701c601ca01c901c801c801cb01ca01ce01cd01cc01cc01cf01ce01d201d101d001d001d301d201d601d501d401d401d701d601da01d901d801d801db01da01de01dd01dc01dc01df01de01e201e101e001e001e301e201e601e501e401e401e701e601ea01e901e801e801eb01ea01ee01ed01ec01ec01ef01ee01f201f101f001f001f301f201f601f501f401f401f701f601fa01f901f801f801fb01fa01fe01fd01fc01fc01ff01fe010202010200020002030202020602050204020402070206020a020902080208020b020a020e020d020c020c020f020e021202110210021002130212021602150214021402170216021a021902180218021b021a021e021d021c021c021f021e022202210220022002230222022602250224022402270226022a022902280228022b022a022e022d022c022c022f022e023202310230023002330232023602350234023402370236023a023902380238023b023a023e023d023c023c023f023e024202410240024002430242024602450244024402470246024a024902480248024b024a024e024d024c024c024f024e025202510250025002530252025602550254025402570256025a025902580258025b025a025e025d025c025c025f025e026202610260026002630262026602650264026402670266026a026902680268026b026a026e026d026c026c026f026e027202710270027002730272027602750274027402770276027a027902780278027b027a027e027d027c027c027f027e028202810280028002830282028602850284028402870286028a028902880288028b028a028e028d028c028c028f028e029202910290029002930292029602950294029402970296029a029902980298029b029a029e029d029c029c029f029e02a202a102a002a002a302a202a602a502a402a402a702a602aa02a902a802a802ab02aa02ae02ad02ac02ac02af02ae02b202b102b002b002b302b202b602b502b402b402b702b602ba02b902b802b802bb02ba02be02bd02bc02bc02bf02be02c202c102c002c002c302c202c602c502c402c402c702c602ca02c902c802c802cb02ca02ce02cd02cc02cc02cf02ce02d202d102d002d002d302d202d602d502d402d402d702d602da02d902d802d802db02da02de02dd02dc02dc02df02de02e202e102e002e002e302e202e602e502e402e402e702e602ea02e902e802e802eb02ea02ee02ed02ec02ec02ef02ee02f202f102f002f002f302f202f602f502f402f402f702f602fa02f902f802f802fb02fa02fe02fd02fc02fc02ff02fe020203010300030003030302030603050304030403070306030a030903080308030b030a030e030d030c030c030f030e031203110310031003130312031603150314031403170316031a031903180318031b031a031e031d031c031c031f031e032203210320032003230322032603250324032403270326032a032903280328032b032a032e032d032c032c032f032e033203310330033003330332033603350334033403370336033a033903380338033b033a033e033d033c033c033f033e034203410340034003430342034603450344034403470346034a034903480348034b034a034e034d034c034c034f034e035203510350035003530352035603550354035403570356035a035903580358035b035a035e035d035c035c035f035e036203610360036003630362036603650364036403670366036a036903680368036b036a036e036d036c036c036f036e037203710370037003730372037603750374037403770376037a037903780378037b037a037e037d037c037c037f037e038203810380038003830382038603850384038403870386038a038903880388038b038a038e038d038c038c038f038e039203910390039003930392039603950394039403970396039a039903980398039b039a039e039d039c039c039f039e03a203a103a003a003a303a203a603a503a403a403a703a603aa03a903a803a803ab03aa03ae03ad03ac03ac03af03ae03b203b103b003b003b303b203b603b503b403b403b703b603ba03b903b803b803bb03ba03be03bd03bc03bc03bf03be03
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 11
+    m_VertexCount: 960
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 30720
+    _typelessdata: 0000000000000000000000000000000000000000000080bf00000000000000000000804100000000000000000000000000000000000080bf0000803f000000000000804100008041000000000000000000000000000080bf0000803f0000803f0000000000008041000000000000000000000000000080bf000000000000803f0000000000008041000000000000000000000000000080bf00000000000000000000804100008041000000000000000000000000000080bf0000803f000000000000804100000042000000000000000000000000000080bf0000803f0000803f0000000000000042000000000000000000000000000080bf000000000000803f0000000000000042000000000000000000000000000080bf00000000000000000000804100000042000000000000000000000000000080bf0000803f000000000000804100004042000000000000000000000000000080bf0000803f0000803f0000000000004042000000000000000000000000000080bf000000000000803f0000000000004042000000000000000000000000000080bf00000000000000000000804100004042000000000000000000000000000080bf0000803f000000000000804100008042000000000000000000000000000080bf0000803f0000803f0000000000008042000000000000000000000000000080bf000000000000803f0000000000008042000000000000000000000000000080bf00000000000000000000804100008042000000000000000000000000000080bf0000803f00000000000080410000a042000000000000000000000000000080bf0000803f0000803f000000000000a042000000000000000000000000000080bf000000000000803f000000000000a042000000000000000000000000000080bf0000000000000000000080410000a042000000000000000000000000000080bf0000803f00000000000080410000c042000000000000000000000000000080bf0000803f0000803f000000000000c042000000000000000000000000000080bf000000000000803f000000000000c042000000000000000000000000000080bf0000000000000000000080410000c042000000000000000000000000000080bf0000803f00000000000080410000e042000000000000000000000000000080bf0000803f0000803f000000000000e042000000000000000000000000000080bf000000000000803f000000000000e042000000000000000000000000000080bf0000000000000000000080410000e042000000000000000000000000000080bf0000803f000000000000804100000043000000000000000000000000000080bf0000803f0000803f0000000000000043000000000000000000000000000080bf000000000000803f0000000000000043000000000000000000000000000080bf00000000000000000000804100000043000000000000000000000000000080bf0000803f000000000000804100001043000000000000000000000000000080bf0000803f0000803f0000000000001043000000000000000000000000000080bf000000000000803f0000000000001043000000000000000000000000000080bf00000000000000000000804100001043000000000000000000000000000080bf0000803f000000000000804100002043000000000000000000000000000080bf0000803f0000803f0000000000002043000000000000000000000000000080bf000000000000803f0000000000002043000000000000000000000000000080bf00000000000000000000804100002043000000000000000000000000000080bf0000803f000000000000804100003043000000000000000000000000000080bf0000803f0000803f0000000000003043000000000000000000000000000080bf000000000000803f0000000000003043000000000000000000000000000080bf00000000000000000000804100003043000000000000000000000000000080bf0000803f000000000000804100004043000000000000000000000000000080bf0000803f0000803f0000000000004043000000000000000000000000000080bf000000000000803f0000000000004043000000000000000000000000000080bf00000000000000000000804100004043000000000000000000000000000080bf0000803f000000000000804100005043000000000000000000000000000080bf0000803f0000803f0000000000005043000000000000000000000000000080bf000000000000803f0000000000005043000000000000000000000000000080bf00000000000000000000804100005043000000000000000000000000000080bf0000803f000000000000804100006043000000000000000000000000000080bf0000803f0000803f0000000000006043000000000000000000000000000080bf000000000000803f0000000000006043000000000000000000000000000080bf00000000000000000000804100006043000000000000000000000000000080bf0000803f000000000000804100007043000000000000000000000000000080bf0000803f0000803f0000000000007043000000000000000000000000000080bf000000000000803f0000804100000000000000000000000000000000000080bf00000000000000000000004200000000000000000000000000000000000080bf0000803f000000000000004200008041000000000000000000000000000080bf0000803f0000803f0000804100008041000000000000000000000000000080bf000000000000803f0000804100008041000000000000000000000000000080bf00000000000000000000004200008041000000000000000000000000000080bf0000803f000000000000004200000042000000000000000000000000000080bf0000803f0000803f0000804100000042000000000000000000000000000080bf000000000000803f0000804100000042000000000000000000000000000080bf00000000000000000000004200000042000000000000000000000000000080bf0000803f000000000000004200004042000000000000000000000000000080bf0000803f0000803f0000804100004042000000000000000000000000000080bf000000000000803f0000804100004042000000000000000000000000000080bf00000000000000000000004200004042000000000000000000000000000080bf0000803f000000000000004200008042000000000000000000000000000080bf0000803f0000803f0000804100008042000000000000000000000000000080bf000000000000803f0000804100008042000000000000000000000000000080bf00000000000000000000004200008042000000000000000000000000000080bf0000803f00000000000000420000a042000000000000000000000000000080bf0000803f0000803f000080410000a042000000000000000000000000000080bf000000000000803f000080410000a042000000000000000000000000000080bf0000000000000000000000420000a042000000000000000000000000000080bf0000803f00000000000000420000c042000000000000000000000000000080bf0000803f0000803f000080410000c042000000000000000000000000000080bf000000000000803f000080410000c042000000000000000000000000000080bf0000000000000000000000420000c042000000000000000000000000000080bf0000803f00000000000000420000e042000000000000000000000000000080bf0000803f0000803f000080410000e042000000000000000000000000000080bf000000000000803f000080410000e042000000000000000000000000000080bf0000000000000000000000420000e042000000000000000000000000000080bf0000803f000000000000004200000043000000000000000000000000000080bf0000803f0000803f0000804100000043000000000000000000000000000080bf000000000000803f0000804100000043000000000000000000000000000080bf00000000000000000000004200000043000000000000000000000000000080bf0000803f000000000000004200001043000000000000000000000000000080bf0000803f0000803f0000804100001043000000000000000000000000000080bf000000000000803f0000804100001043000000000000000000000000000080bf00000000000000000000004200001043000000000000000000000000000080bf0000803f000000000000004200002043000000000000000000000000000080bf0000803f0000803f0000804100002043000000000000000000000000000080bf000000000000803f0000804100002043000000000000000000000000000080bf00000000000000000000004200002043000000000000000000000000000080bf0000803f000000000000004200003043000000000000000000000000000080bf0000803f0000803f0000804100003043000000000000000000000000000080bf000000000000803f0000804100003043000000000000000000000000000080bf00000000000000000000004200003043000000000000000000000000000080bf0000803f000000000000004200004043000000000000000000000000000080bf0000803f0000803f0000804100004043000000000000000000000000000080bf000000000000803f0000804100004043000000000000000000000000000080bf00000000000000000000004200004043000000000000000000000000000080bf0000803f000000000000004200005043000000000000000000000000000080bf0000803f0000803f0000804100005043000000000000000000000000000080bf000000000000803f0000804100005043000000000000000000000000000080bf00000000000000000000004200005043000000000000000000000000000080bf0000803f000000000000004200006043000000000000000000000000000080bf0000803f0000803f0000804100006043000000000000000000000000000080bf000000000000803f0000804100006043000000000000000000000000000080bf00000000000000000000004200006043000000000000000000000000000080bf0000803f000000000000004200007043000000000000000000000000000080bf0000803f0000803f0000804100007043000000000000000000000000000080bf000000000000803f0000004200000000000000000000000000000000000080bf00000000000000000000404200000000000000000000000000000000000080bf0000803f000000000000404200008041000000000000000000000000000080bf0000803f0000803f0000004200008041000000000000000000000000000080bf000000000000803f0000004200008041000000000000000000000000000080bf00000000000000000000404200008041000000000000000000000000000080bf0000803f000000000000404200000042000000000000000000000000000080bf0000803f0000803f0000004200000042000000000000000000000000000080bf000000000000803f0000004200000042000000000000000000000000000080bf00000000000000000000404200000042000000000000000000000000000080bf0000803f000000000000404200004042000000000000000000000000000080bf0000803f0000803f0000004200004042000000000000000000000000000080bf000000000000803f0000004200004042000000000000000000000000000080bf00000000000000000000404200004042000000000000000000000000000080bf0000803f000000000000404200008042000000000000000000000000000080bf0000803f0000803f0000004200008042000000000000000000000000000080bf000000000000803f0000004200008042000000000000000000000000000080bf00000000000000000000404200008042000000000000000000000000000080bf0000803f00000000000040420000a042000000000000000000000000000080bf0000803f0000803f000000420000a042000000000000000000000000000080bf000000000000803f000000420000a042000000000000000000000000000080bf0000000000000000000040420000a042000000000000000000000000000080bf0000803f00000000000040420000c042000000000000000000000000000080bf0000803f0000803f000000420000c042000000000000000000000000000080bf000000000000803f000000420000c042000000000000000000000000000080bf0000000000000000000040420000c042000000000000000000000000000080bf0000803f00000000000040420000e042000000000000000000000000000080bf0000803f0000803f000000420000e042000000000000000000000000000080bf000000000000803f000000420000e042000000000000000000000000000080bf0000000000000000000040420000e042000000000000000000000000000080bf0000803f000000000000404200000043000000000000000000000000000080bf0000803f0000803f0000004200000043000000000000000000000000000080bf000000000000803f0000004200000043000000000000000000000000000080bf00000000000000000000404200000043000000000000000000000000000080bf0000803f000000000000404200001043000000000000000000000000000080bf0000803f0000803f0000004200001043000000000000000000000000000080bf000000000000803f0000004200001043000000000000000000000000000080bf00000000000000000000404200001043000000000000000000000000000080bf0000803f000000000000404200002043000000000000000000000000000080bf0000803f0000803f0000004200002043000000000000000000000000000080bf000000000000803f0000004200002043000000000000000000000000000080bf00000000000000000000404200002043000000000000000000000000000080bf0000803f000000000000404200003043000000000000000000000000000080bf0000803f0000803f0000004200003043000000000000000000000000000080bf000000000000803f0000004200003043000000000000000000000000000080bf00000000000000000000404200003043000000000000000000000000000080bf0000803f000000000000404200004043000000000000000000000000000080bf0000803f0000803f0000004200004043000000000000000000000000000080bf000000000000803f0000004200004043000000000000000000000000000080bf00000000000000000000404200004043000000000000000000000000000080bf0000803f000000000000404200005043000000000000000000000000000080bf0000803f0000803f0000004200005043000000000000000000000000000080bf000000000000803f0000004200005043000000000000000000000000000080bf00000000000000000000404200005043000000000000000000000000000080bf0000803f000000000000404200006043000000000000000000000000000080bf0000803f0000803f0000004200006043000000000000000000000000000080bf000000000000803f0000004200006043000000000000000000000000000080bf00000000000000000000404200006043000000000000000000000000000080bf0000803f000000000000404200007043000000000000000000000000000080bf0000803f0000803f0000004200007043000000000000000000000000000080bf000000000000803f0000404200000000000000000000000000000000000080bf00000000000000000000804200000000000000000000000000000000000080bf0000803f000000000000804200008041000000000000000000000000000080bf0000803f0000803f0000404200008041000000000000000000000000000080bf000000000000803f0000404200008041000000000000000000000000000080bf00000000000000000000804200008041000000000000000000000000000080bf0000803f000000000000804200000042000000000000000000000000000080bf0000803f0000803f0000404200000042000000000000000000000000000080bf000000000000803f0000404200000042000000000000000000000000000080bf00000000000000000000804200000042000000000000000000000000000080bf0000803f000000000000804200004042000000000000000000000000000080bf0000803f0000803f0000404200004042000000000000000000000000000080bf000000000000803f0000404200004042000000000000000000000000000080bf00000000000000000000804200004042000000000000000000000000000080bf0000803f000000000000804200008042000000000000000000000000000080bf0000803f0000803f0000404200008042000000000000000000000000000080bf000000000000803f0000404200008042000000000000000000000000000080bf00000000000000000000804200008042000000000000000000000000000080bf0000803f00000000000080420000a042000000000000000000000000000080bf0000803f0000803f000040420000a042000000000000000000000000000080bf000000000000803f000040420000a042000000000000000000000000000080bf0000000000000000000080420000a042000000000000000000000000000080bf0000803f00000000000080420000c042000000000000000000000000000080bf0000803f0000803f000040420000c042000000000000000000000000000080bf000000000000803f000040420000c042000000000000000000000000000080bf0000000000000000000080420000c042000000000000000000000000000080bf0000803f00000000000080420000e042000000000000000000000000000080bf0000803f0000803f000040420000e042000000000000000000000000000080bf000000000000803f000040420000e042000000000000000000000000000080bf0000000000000000000080420000e042000000000000000000000000000080bf0000803f000000000000804200000043000000000000000000000000000080bf0000803f0000803f0000404200000043000000000000000000000000000080bf000000000000803f0000404200000043000000000000000000000000000080bf00000000000000000000804200000043000000000000000000000000000080bf0000803f000000000000804200001043000000000000000000000000000080bf0000803f0000803f0000404200001043000000000000000000000000000080bf000000000000803f0000404200001043000000000000000000000000000080bf00000000000000000000804200001043000000000000000000000000000080bf0000803f000000000000804200002043000000000000000000000000000080bf0000803f0000803f0000404200002043000000000000000000000000000080bf000000000000803f0000404200002043000000000000000000000000000080bf00000000000000000000804200002043000000000000000000000000000080bf0000803f000000000000804200003043000000000000000000000000000080bf0000803f0000803f0000404200003043000000000000000000000000000080bf000000000000803f0000404200003043000000000000000000000000000080bf00000000000000000000804200003043000000000000000000000000000080bf0000803f000000000000804200004043000000000000000000000000000080bf0000803f0000803f0000404200004043000000000000000000000000000080bf000000000000803f0000404200004043000000000000000000000000000080bf00000000000000000000804200004043000000000000000000000000000080bf0000803f000000000000804200005043000000000000000000000000000080bf0000803f0000803f0000404200005043000000000000000000000000000080bf000000000000803f0000404200005043000000000000000000000000000080bf00000000000000000000804200005043000000000000000000000000000080bf0000803f000000000000804200006043000000000000000000000000000080bf0000803f0000803f0000404200006043000000000000000000000000000080bf000000000000803f0000404200006043000000000000000000000000000080bf00000000000000000000804200006043000000000000000000000000000080bf0000803f000000000000804200007043000000000000000000000000000080bf0000803f0000803f0000404200007043000000000000000000000000000080bf000000000000803f0000804200000000000000000000000000000000000080bf00000000000000000000a04200000000000000000000000000000000000080bf0000803f000000000000a04200008041000000000000000000000000000080bf0000803f0000803f0000804200008041000000000000000000000000000080bf000000000000803f0000804200008041000000000000000000000000000080bf00000000000000000000a04200008041000000000000000000000000000080bf0000803f000000000000a04200000042000000000000000000000000000080bf0000803f0000803f0000804200000042000000000000000000000000000080bf000000000000803f0000804200000042000000000000000000000000000080bf00000000000000000000a04200000042000000000000000000000000000080bf0000803f000000000000a04200004042000000000000000000000000000080bf0000803f0000803f0000804200004042000000000000000000000000000080bf000000000000803f0000804200004042000000000000000000000000000080bf00000000000000000000a04200004042000000000000000000000000000080bf0000803f000000000000a04200008042000000000000000000000000000080bf0000803f0000803f0000804200008042000000000000000000000000000080bf000000000000803f0000804200008042000000000000000000000000000080bf00000000000000000000a04200008042000000000000000000000000000080bf0000803f000000000000a0420000a042000000000000000000000000000080bf0000803f0000803f000080420000a042000000000000000000000000000080bf000000000000803f000080420000a042000000000000000000000000000080bf00000000000000000000a0420000a042000000000000000000000000000080bf0000803f000000000000a0420000c042000000000000000000000000000080bf0000803f0000803f000080420000c042000000000000000000000000000080bf000000000000803f000080420000c042000000000000000000000000000080bf00000000000000000000a0420000c042000000000000000000000000000080bf0000803f000000000000a0420000e042000000000000000000000000000080bf0000803f0000803f000080420000e042000000000000000000000000000080bf000000000000803f000080420000e042000000000000000000000000000080bf00000000000000000000a0420000e042000000000000000000000000000080bf0000803f000000000000a04200000043000000000000000000000000000080bf0000803f0000803f0000804200000043000000000000000000000000000080bf000000000000803f0000804200000043000000000000000000000000000080bf00000000000000000000a04200000043000000000000000000000000000080bf0000803f000000000000a04200001043000000000000000000000000000080bf0000803f0000803f0000804200001043000000000000000000000000000080bf000000000000803f0000804200001043000000000000000000000000000080bf00000000000000000000a04200001043000000000000000000000000000080bf0000803f000000000000a04200002043000000000000000000000000000080bf0000803f0000803f0000804200002043000000000000000000000000000080bf000000000000803f0000804200002043000000000000000000000000000080bf00000000000000000000a04200002043000000000000000000000000000080bf0000803f000000000000a04200003043000000000000000000000000000080bf0000803f0000803f0000804200003043000000000000000000000000000080bf000000000000803f0000804200003043000000000000000000000000000080bf00000000000000000000a04200003043000000000000000000000000000080bf0000803f000000000000a04200004043000000000000000000000000000080bf0000803f0000803f0000804200004043000000000000000000000000000080bf000000000000803f0000804200004043000000000000000000000000000080bf00000000000000000000a04200004043000000000000000000000000000080bf0000803f000000000000a04200005043000000000000000000000000000080bf0000803f0000803f0000804200005043000000000000000000000000000080bf000000000000803f0000804200005043000000000000000000000000000080bf00000000000000000000a04200005043000000000000000000000000000080bf0000803f000000000000a04200006043000000000000000000000000000080bf0000803f0000803f0000804200006043000000000000000000000000000080bf000000000000803f0000804200006043000000000000000000000000000080bf00000000000000000000a04200006043000000000000000000000000000080bf0000803f000000000000a04200007043000000000000000000000000000080bf0000803f0000803f0000804200007043000000000000000000000000000080bf000000000000803f0000a04200000000000000000000000000000000000080bf00000000000000000000c04200000000000000000000000000000000000080bf0000803f000000000000c04200008041000000000000000000000000000080bf0000803f0000803f0000a04200008041000000000000000000000000000080bf000000000000803f0000a04200008041000000000000000000000000000080bf00000000000000000000c04200008041000000000000000000000000000080bf0000803f000000000000c04200000042000000000000000000000000000080bf0000803f0000803f0000a04200000042000000000000000000000000000080bf000000000000803f0000a04200000042000000000000000000000000000080bf00000000000000000000c04200000042000000000000000000000000000080bf0000803f000000000000c04200004042000000000000000000000000000080bf0000803f0000803f0000a04200004042000000000000000000000000000080bf000000000000803f0000a04200004042000000000000000000000000000080bf00000000000000000000c04200004042000000000000000000000000000080bf0000803f000000000000c04200008042000000000000000000000000000080bf0000803f0000803f0000a04200008042000000000000000000000000000080bf000000000000803f0000a04200008042000000000000000000000000000080bf00000000000000000000c04200008042000000000000000000000000000080bf0000803f000000000000c0420000a042000000000000000000000000000080bf0000803f0000803f0000a0420000a042000000000000000000000000000080bf000000000000803f0000a0420000a042000000000000000000000000000080bf00000000000000000000c0420000a042000000000000000000000000000080bf0000803f000000000000c0420000c042000000000000000000000000000080bf0000803f0000803f0000a0420000c042000000000000000000000000000080bf000000000000803f0000a0420000c042000000000000000000000000000080bf00000000000000000000c0420000c042000000000000000000000000000080bf0000803f000000000000c0420000e042000000000000000000000000000080bf0000803f0000803f0000a0420000e042000000000000000000000000000080bf000000000000803f0000a0420000e042000000000000000000000000000080bf00000000000000000000c0420000e042000000000000000000000000000080bf0000803f000000000000c04200000043000000000000000000000000000080bf0000803f0000803f0000a04200000043000000000000000000000000000080bf000000000000803f0000a04200000043000000000000000000000000000080bf00000000000000000000c04200000043000000000000000000000000000080bf0000803f000000000000c04200001043000000000000000000000000000080bf0000803f0000803f0000a04200001043000000000000000000000000000080bf000000000000803f0000a04200001043000000000000000000000000000080bf00000000000000000000c04200001043000000000000000000000000000080bf0000803f000000000000c04200002043000000000000000000000000000080bf0000803f0000803f0000a04200002043000000000000000000000000000080bf000000000000803f0000a04200002043000000000000000000000000000080bf00000000000000000000c04200002043000000000000000000000000000080bf0000803f000000000000c04200003043000000000000000000000000000080bf0000803f0000803f0000a04200003043000000000000000000000000000080bf000000000000803f0000a04200003043000000000000000000000000000080bf00000000000000000000c04200003043000000000000000000000000000080bf0000803f000000000000c04200004043000000000000000000000000000080bf0000803f0000803f0000a04200004043000000000000000000000000000080bf000000000000803f0000a04200004043000000000000000000000000000080bf00000000000000000000c04200004043000000000000000000000000000080bf0000803f000000000000c04200005043000000000000000000000000000080bf0000803f0000803f0000a04200005043000000000000000000000000000080bf000000000000803f0000a04200005043000000000000000000000000000080bf00000000000000000000c04200005043000000000000000000000000000080bf0000803f000000000000c04200006043000000000000000000000000000080bf0000803f0000803f0000a04200006043000000000000000000000000000080bf000000000000803f0000a04200006043000000000000000000000000000080bf00000000000000000000c04200006043000000000000000000000000000080bf0000803f000000000000c04200007043000000000000000000000000000080bf0000803f0000803f0000a04200007043000000000000000000000000000080bf000000000000803f0000c04200000000000000000000000000000000000080bf00000000000000000000e04200000000000000000000000000000000000080bf0000803f000000000000e04200008041000000000000000000000000000080bf0000803f0000803f0000c04200008041000000000000000000000000000080bf000000000000803f0000c04200008041000000000000000000000000000080bf00000000000000000000e04200008041000000000000000000000000000080bf0000803f000000000000e04200000042000000000000000000000000000080bf0000803f0000803f0000c04200000042000000000000000000000000000080bf000000000000803f0000c04200000042000000000000000000000000000080bf00000000000000000000e04200000042000000000000000000000000000080bf0000803f000000000000e04200004042000000000000000000000000000080bf0000803f0000803f0000c04200004042000000000000000000000000000080bf000000000000803f0000c04200004042000000000000000000000000000080bf00000000000000000000e04200004042000000000000000000000000000080bf0000803f000000000000e04200008042000000000000000000000000000080bf0000803f0000803f0000c04200008042000000000000000000000000000080bf000000000000803f0000c04200008042000000000000000000000000000080bf00000000000000000000e04200008042000000000000000000000000000080bf0000803f000000000000e0420000a042000000000000000000000000000080bf0000803f0000803f0000c0420000a042000000000000000000000000000080bf000000000000803f0000c0420000a042000000000000000000000000000080bf00000000000000000000e0420000a042000000000000000000000000000080bf0000803f000000000000e0420000c042000000000000000000000000000080bf0000803f0000803f0000c0420000c042000000000000000000000000000080bf000000000000803f0000c0420000c042000000000000000000000000000080bf00000000000000000000e0420000c042000000000000000000000000000080bf0000803f000000000000e0420000e042000000000000000000000000000080bf0000803f0000803f0000c0420000e042000000000000000000000000000080bf000000000000803f0000c0420000e042000000000000000000000000000080bf00000000000000000000e0420000e042000000000000000000000000000080bf0000803f000000000000e04200000043000000000000000000000000000080bf0000803f0000803f0000c04200000043000000000000000000000000000080bf000000000000803f0000c04200000043000000000000000000000000000080bf00000000000000000000e04200000043000000000000000000000000000080bf0000803f000000000000e04200001043000000000000000000000000000080bf0000803f0000803f0000c04200001043000000000000000000000000000080bf000000000000803f0000c04200001043000000000000000000000000000080bf00000000000000000000e04200001043000000000000000000000000000080bf0000803f000000000000e04200002043000000000000000000000000000080bf0000803f0000803f0000c04200002043000000000000000000000000000080bf000000000000803f0000c04200002043000000000000000000000000000080bf00000000000000000000e04200002043000000000000000000000000000080bf0000803f000000000000e04200003043000000000000000000000000000080bf0000803f0000803f0000c04200003043000000000000000000000000000080bf000000000000803f0000c04200003043000000000000000000000000000080bf00000000000000000000e04200003043000000000000000000000000000080bf0000803f000000000000e04200004043000000000000000000000000000080bf0000803f0000803f0000c04200004043000000000000000000000000000080bf000000000000803f0000c04200004043000000000000000000000000000080bf00000000000000000000e04200004043000000000000000000000000000080bf0000803f000000000000e04200005043000000000000000000000000000080bf0000803f0000803f0000c04200005043000000000000000000000000000080bf000000000000803f0000c04200005043000000000000000000000000000080bf00000000000000000000e04200005043000000000000000000000000000080bf0000803f000000000000e04200006043000000000000000000000000000080bf0000803f0000803f0000c04200006043000000000000000000000000000080bf000000000000803f0000c04200006043000000000000000000000000000080bf00000000000000000000e04200006043000000000000000000000000000080bf0000803f000000000000e04200007043000000000000000000000000000080bf0000803f0000803f0000c04200007043000000000000000000000000000080bf000000000000803f0000e04200000000000000000000000000000000000080bf00000000000000000000004300000000000000000000000000000000000080bf0000803f000000000000004300008041000000000000000000000000000080bf0000803f0000803f0000e04200008041000000000000000000000000000080bf000000000000803f0000e04200008041000000000000000000000000000080bf00000000000000000000004300008041000000000000000000000000000080bf0000803f000000000000004300000042000000000000000000000000000080bf0000803f0000803f0000e04200000042000000000000000000000000000080bf000000000000803f0000e04200000042000000000000000000000000000080bf00000000000000000000004300000042000000000000000000000000000080bf0000803f000000000000004300004042000000000000000000000000000080bf0000803f0000803f0000e04200004042000000000000000000000000000080bf000000000000803f0000e04200004042000000000000000000000000000080bf00000000000000000000004300004042000000000000000000000000000080bf0000803f000000000000004300008042000000000000000000000000000080bf0000803f0000803f0000e04200008042000000000000000000000000000080bf000000000000803f0000e04200008042000000000000000000000000000080bf00000000000000000000004300008042000000000000000000000000000080bf0000803f00000000000000430000a042000000000000000000000000000080bf0000803f0000803f0000e0420000a042000000000000000000000000000080bf000000000000803f0000e0420000a042000000000000000000000000000080bf0000000000000000000000430000a042000000000000000000000000000080bf0000803f00000000000000430000c042000000000000000000000000000080bf0000803f0000803f0000e0420000c042000000000000000000000000000080bf000000000000803f0000e0420000c042000000000000000000000000000080bf0000000000000000000000430000c042000000000000000000000000000080bf0000803f00000000000000430000e042000000000000000000000000000080bf0000803f0000803f0000e0420000e042000000000000000000000000000080bf000000000000803f0000e0420000e042000000000000000000000000000080bf0000000000000000000000430000e042000000000000000000000000000080bf0000803f000000000000004300000043000000000000000000000000000080bf0000803f0000803f0000e04200000043000000000000000000000000000080bf000000000000803f0000e04200000043000000000000000000000000000080bf00000000000000000000004300000043000000000000000000000000000080bf0000803f000000000000004300001043000000000000000000000000000080bf0000803f0000803f0000e04200001043000000000000000000000000000080bf000000000000803f0000e04200001043000000000000000000000000000080bf00000000000000000000004300001043000000000000000000000000000080bf0000803f000000000000004300002043000000000000000000000000000080bf0000803f0000803f0000e04200002043000000000000000000000000000080bf000000000000803f0000e04200002043000000000000000000000000000080bf00000000000000000000004300002043000000000000000000000000000080bf0000803f000000000000004300003043000000000000000000000000000080bf0000803f0000803f0000e04200003043000000000000000000000000000080bf000000000000803f0000e04200003043000000000000000000000000000080bf00000000000000000000004300003043000000000000000000000000000080bf0000803f000000000000004300004043000000000000000000000000000080bf0000803f0000803f0000e04200004043000000000000000000000000000080bf000000000000803f0000e04200004043000000000000000000000000000080bf00000000000000000000004300004043000000000000000000000000000080bf0000803f000000000000004300005043000000000000000000000000000080bf0000803f0000803f0000e04200005043000000000000000000000000000080bf000000000000803f0000e04200005043000000000000000000000000000080bf00000000000000000000004300005043000000000000000000000000000080bf0000803f000000000000004300006043000000000000000000000000000080bf0000803f0000803f0000e04200006043000000000000000000000000000080bf000000000000803f0000e04200006043000000000000000000000000000080bf00000000000000000000004300006043000000000000000000000000000080bf0000803f000000000000004300007043000000000000000000000000000080bf0000803f0000803f0000e04200007043000000000000000000000000000080bf000000000000803f0000004300000000000000000000000000000000000080bf00000000000000000000104300000000000000000000000000000000000080bf0000803f000000000000104300008041000000000000000000000000000080bf0000803f0000803f0000004300008041000000000000000000000000000080bf000000000000803f0000004300008041000000000000000000000000000080bf00000000000000000000104300008041000000000000000000000000000080bf0000803f000000000000104300000042000000000000000000000000000080bf0000803f0000803f0000004300000042000000000000000000000000000080bf000000000000803f0000004300000042000000000000000000000000000080bf00000000000000000000104300000042000000000000000000000000000080bf0000803f000000000000104300004042000000000000000000000000000080bf0000803f0000803f0000004300004042000000000000000000000000000080bf000000000000803f0000004300004042000000000000000000000000000080bf00000000000000000000104300004042000000000000000000000000000080bf0000803f000000000000104300008042000000000000000000000000000080bf0000803f0000803f0000004300008042000000000000000000000000000080bf000000000000803f0000004300008042000000000000000000000000000080bf00000000000000000000104300008042000000000000000000000000000080bf0000803f00000000000010430000a042000000000000000000000000000080bf0000803f0000803f000000430000a042000000000000000000000000000080bf000000000000803f000000430000a042000000000000000000000000000080bf0000000000000000000010430000a042000000000000000000000000000080bf0000803f00000000000010430000c042000000000000000000000000000080bf0000803f0000803f000000430000c042000000000000000000000000000080bf000000000000803f000000430000c042000000000000000000000000000080bf0000000000000000000010430000c042000000000000000000000000000080bf0000803f00000000000010430000e042000000000000000000000000000080bf0000803f0000803f000000430000e042000000000000000000000000000080bf000000000000803f000000430000e042000000000000000000000000000080bf0000000000000000000010430000e042000000000000000000000000000080bf0000803f000000000000104300000043000000000000000000000000000080bf0000803f0000803f0000004300000043000000000000000000000000000080bf000000000000803f0000004300000043000000000000000000000000000080bf00000000000000000000104300000043000000000000000000000000000080bf0000803f000000000000104300001043000000000000000000000000000080bf0000803f0000803f0000004300001043000000000000000000000000000080bf000000000000803f0000004300001043000000000000000000000000000080bf00000000000000000000104300001043000000000000000000000000000080bf0000803f000000000000104300002043000000000000000000000000000080bf0000803f0000803f0000004300002043000000000000000000000000000080bf000000000000803f0000004300002043000000000000000000000000000080bf00000000000000000000104300002043000000000000000000000000000080bf0000803f000000000000104300003043000000000000000000000000000080bf0000803f0000803f0000004300003043000000000000000000000000000080bf000000000000803f0000004300003043000000000000000000000000000080bf00000000000000000000104300003043000000000000000000000000000080bf0000803f000000000000104300004043000000000000000000000000000080bf0000803f0000803f0000004300004043000000000000000000000000000080bf000000000000803f0000004300004043000000000000000000000000000080bf00000000000000000000104300004043000000000000000000000000000080bf0000803f000000000000104300005043000000000000000000000000000080bf0000803f0000803f0000004300005043000000000000000000000000000080bf000000000000803f0000004300005043000000000000000000000000000080bf00000000000000000000104300005043000000000000000000000000000080bf0000803f000000000000104300006043000000000000000000000000000080bf0000803f0000803f0000004300006043000000000000000000000000000080bf000000000000803f0000004300006043000000000000000000000000000080bf00000000000000000000104300006043000000000000000000000000000080bf0000803f000000000000104300007043000000000000000000000000000080bf0000803f0000803f0000004300007043000000000000000000000000000080bf000000000000803f0000104300000000000000000000000000000000000080bf00000000000000000000204300000000000000000000000000000000000080bf0000803f000000000000204300008041000000000000000000000000000080bf0000803f0000803f0000104300008041000000000000000000000000000080bf000000000000803f0000104300008041000000000000000000000000000080bf00000000000000000000204300008041000000000000000000000000000080bf0000803f000000000000204300000042000000000000000000000000000080bf0000803f0000803f0000104300000042000000000000000000000000000080bf000000000000803f0000104300000042000000000000000000000000000080bf00000000000000000000204300000042000000000000000000000000000080bf0000803f000000000000204300004042000000000000000000000000000080bf0000803f0000803f0000104300004042000000000000000000000000000080bf000000000000803f0000104300004042000000000000000000000000000080bf00000000000000000000204300004042000000000000000000000000000080bf0000803f000000000000204300008042000000000000000000000000000080bf0000803f0000803f0000104300008042000000000000000000000000000080bf000000000000803f0000104300008042000000000000000000000000000080bf00000000000000000000204300008042000000000000000000000000000080bf0000803f00000000000020430000a042000000000000000000000000000080bf0000803f0000803f000010430000a042000000000000000000000000000080bf000000000000803f000010430000a042000000000000000000000000000080bf0000000000000000000020430000a042000000000000000000000000000080bf0000803f00000000000020430000c042000000000000000000000000000080bf0000803f0000803f000010430000c042000000000000000000000000000080bf000000000000803f000010430000c042000000000000000000000000000080bf0000000000000000000020430000c042000000000000000000000000000080bf0000803f00000000000020430000e042000000000000000000000000000080bf0000803f0000803f000010430000e042000000000000000000000000000080bf000000000000803f000010430000e042000000000000000000000000000080bf0000000000000000000020430000e042000000000000000000000000000080bf0000803f000000000000204300000043000000000000000000000000000080bf0000803f0000803f0000104300000043000000000000000000000000000080bf000000000000803f0000104300000043000000000000000000000000000080bf00000000000000000000204300000043000000000000000000000000000080bf0000803f000000000000204300001043000000000000000000000000000080bf0000803f0000803f0000104300001043000000000000000000000000000080bf000000000000803f0000104300001043000000000000000000000000000080bf00000000000000000000204300001043000000000000000000000000000080bf0000803f000000000000204300002043000000000000000000000000000080bf0000803f0000803f0000104300002043000000000000000000000000000080bf000000000000803f0000104300002043000000000000000000000000000080bf00000000000000000000204300002043000000000000000000000000000080bf0000803f000000000000204300003043000000000000000000000000000080bf0000803f0000803f0000104300003043000000000000000000000000000080bf000000000000803f0000104300003043000000000000000000000000000080bf00000000000000000000204300003043000000000000000000000000000080bf0000803f000000000000204300004043000000000000000000000000000080bf0000803f0000803f0000104300004043000000000000000000000000000080bf000000000000803f0000104300004043000000000000000000000000000080bf00000000000000000000204300004043000000000000000000000000000080bf0000803f000000000000204300005043000000000000000000000000000080bf0000803f0000803f0000104300005043000000000000000000000000000080bf000000000000803f0000104300005043000000000000000000000000000080bf00000000000000000000204300005043000000000000000000000000000080bf0000803f000000000000204300006043000000000000000000000000000080bf0000803f0000803f0000104300006043000000000000000000000000000080bf000000000000803f0000104300006043000000000000000000000000000080bf00000000000000000000204300006043000000000000000000000000000080bf0000803f000000000000204300007043000000000000000000000000000080bf0000803f0000803f0000104300007043000000000000000000000000000080bf000000000000803f0000204300000000000000000000000000000000000080bf00000000000000000000304300000000000000000000000000000000000080bf0000803f000000000000304300008041000000000000000000000000000080bf0000803f0000803f0000204300008041000000000000000000000000000080bf000000000000803f0000204300008041000000000000000000000000000080bf00000000000000000000304300008041000000000000000000000000000080bf0000803f000000000000304300000042000000000000000000000000000080bf0000803f0000803f0000204300000042000000000000000000000000000080bf000000000000803f0000204300000042000000000000000000000000000080bf00000000000000000000304300000042000000000000000000000000000080bf0000803f000000000000304300004042000000000000000000000000000080bf0000803f0000803f0000204300004042000000000000000000000000000080bf000000000000803f0000204300004042000000000000000000000000000080bf00000000000000000000304300004042000000000000000000000000000080bf0000803f000000000000304300008042000000000000000000000000000080bf0000803f0000803f0000204300008042000000000000000000000000000080bf000000000000803f0000204300008042000000000000000000000000000080bf00000000000000000000304300008042000000000000000000000000000080bf0000803f00000000000030430000a042000000000000000000000000000080bf0000803f0000803f000020430000a042000000000000000000000000000080bf000000000000803f000020430000a042000000000000000000000000000080bf0000000000000000000030430000a042000000000000000000000000000080bf0000803f00000000000030430000c042000000000000000000000000000080bf0000803f0000803f000020430000c042000000000000000000000000000080bf000000000000803f000020430000c042000000000000000000000000000080bf0000000000000000000030430000c042000000000000000000000000000080bf0000803f00000000000030430000e042000000000000000000000000000080bf0000803f0000803f000020430000e042000000000000000000000000000080bf000000000000803f000020430000e042000000000000000000000000000080bf0000000000000000000030430000e042000000000000000000000000000080bf0000803f000000000000304300000043000000000000000000000000000080bf0000803f0000803f0000204300000043000000000000000000000000000080bf000000000000803f0000204300000043000000000000000000000000000080bf00000000000000000000304300000043000000000000000000000000000080bf0000803f000000000000304300001043000000000000000000000000000080bf0000803f0000803f0000204300001043000000000000000000000000000080bf000000000000803f0000204300001043000000000000000000000000000080bf00000000000000000000304300001043000000000000000000000000000080bf0000803f000000000000304300002043000000000000000000000000000080bf0000803f0000803f0000204300002043000000000000000000000000000080bf000000000000803f0000204300002043000000000000000000000000000080bf00000000000000000000304300002043000000000000000000000000000080bf0000803f000000000000304300003043000000000000000000000000000080bf0000803f0000803f0000204300003043000000000000000000000000000080bf000000000000803f0000204300003043000000000000000000000000000080bf00000000000000000000304300003043000000000000000000000000000080bf0000803f000000000000304300004043000000000000000000000000000080bf0000803f0000803f0000204300004043000000000000000000000000000080bf000000000000803f0000204300004043000000000000000000000000000080bf00000000000000000000304300004043000000000000000000000000000080bf0000803f000000000000304300005043000000000000000000000000000080bf0000803f0000803f0000204300005043000000000000000000000000000080bf000000000000803f0000204300005043000000000000000000000000000080bf00000000000000000000304300005043000000000000000000000000000080bf0000803f000000000000304300006043000000000000000000000000000080bf0000803f0000803f0000204300006043000000000000000000000000000080bf000000000000803f0000204300006043000000000000000000000000000080bf00000000000000000000304300006043000000000000000000000000000080bf0000803f000000000000304300007043000000000000000000000000000080bf0000803f0000803f0000204300007043000000000000000000000000000080bf000000000000803f0000304300000000000000000000000000000000000080bf00000000000000000000404300000000000000000000000000000000000080bf0000803f000000000000404300008041000000000000000000000000000080bf0000803f0000803f0000304300008041000000000000000000000000000080bf000000000000803f0000304300008041000000000000000000000000000080bf00000000000000000000404300008041000000000000000000000000000080bf0000803f000000000000404300000042000000000000000000000000000080bf0000803f0000803f0000304300000042000000000000000000000000000080bf000000000000803f0000304300000042000000000000000000000000000080bf00000000000000000000404300000042000000000000000000000000000080bf0000803f000000000000404300004042000000000000000000000000000080bf0000803f0000803f0000304300004042000000000000000000000000000080bf000000000000803f0000304300004042000000000000000000000000000080bf00000000000000000000404300004042000000000000000000000000000080bf0000803f000000000000404300008042000000000000000000000000000080bf0000803f0000803f0000304300008042000000000000000000000000000080bf000000000000803f0000304300008042000000000000000000000000000080bf00000000000000000000404300008042000000000000000000000000000080bf0000803f00000000000040430000a042000000000000000000000000000080bf0000803f0000803f000030430000a042000000000000000000000000000080bf000000000000803f000030430000a042000000000000000000000000000080bf0000000000000000000040430000a042000000000000000000000000000080bf0000803f00000000000040430000c042000000000000000000000000000080bf0000803f0000803f000030430000c042000000000000000000000000000080bf000000000000803f000030430000c042000000000000000000000000000080bf0000000000000000000040430000c042000000000000000000000000000080bf0000803f00000000000040430000e042000000000000000000000000000080bf0000803f0000803f000030430000e042000000000000000000000000000080bf000000000000803f000030430000e042000000000000000000000000000080bf0000000000000000000040430000e042000000000000000000000000000080bf0000803f000000000000404300000043000000000000000000000000000080bf0000803f0000803f0000304300000043000000000000000000000000000080bf000000000000803f0000304300000043000000000000000000000000000080bf00000000000000000000404300000043000000000000000000000000000080bf0000803f000000000000404300001043000000000000000000000000000080bf0000803f0000803f0000304300001043000000000000000000000000000080bf000000000000803f0000304300001043000000000000000000000000000080bf00000000000000000000404300001043000000000000000000000000000080bf0000803f000000000000404300002043000000000000000000000000000080bf0000803f0000803f0000304300002043000000000000000000000000000080bf000000000000803f0000304300002043000000000000000000000000000080bf00000000000000000000404300002043000000000000000000000000000080bf0000803f000000000000404300003043000000000000000000000000000080bf0000803f0000803f0000304300003043000000000000000000000000000080bf000000000000803f0000304300003043000000000000000000000000000080bf00000000000000000000404300003043000000000000000000000000000080bf0000803f000000000000404300004043000000000000000000000000000080bf0000803f0000803f0000304300004043000000000000000000000000000080bf000000000000803f0000304300004043000000000000000000000000000080bf00000000000000000000404300004043000000000000000000000000000080bf0000803f000000000000404300005043000000000000000000000000000080bf0000803f0000803f0000304300005043000000000000000000000000000080bf000000000000803f0000304300005043000000000000000000000000000080bf00000000000000000000404300005043000000000000000000000000000080bf0000803f000000000000404300006043000000000000000000000000000080bf0000803f0000803f0000304300006043000000000000000000000000000080bf000000000000803f0000304300006043000000000000000000000000000080bf00000000000000000000404300006043000000000000000000000000000080bf0000803f000000000000404300007043000000000000000000000000000080bf0000803f0000803f0000304300007043000000000000000000000000000080bf000000000000803f0000404300000000000000000000000000000000000080bf00000000000000000000504300000000000000000000000000000000000080bf0000803f000000000000504300008041000000000000000000000000000080bf0000803f0000803f0000404300008041000000000000000000000000000080bf000000000000803f0000404300008041000000000000000000000000000080bf00000000000000000000504300008041000000000000000000000000000080bf0000803f000000000000504300000042000000000000000000000000000080bf0000803f0000803f0000404300000042000000000000000000000000000080bf000000000000803f0000404300000042000000000000000000000000000080bf00000000000000000000504300000042000000000000000000000000000080bf0000803f000000000000504300004042000000000000000000000000000080bf0000803f0000803f0000404300004042000000000000000000000000000080bf000000000000803f0000404300004042000000000000000000000000000080bf00000000000000000000504300004042000000000000000000000000000080bf0000803f000000000000504300008042000000000000000000000000000080bf0000803f0000803f0000404300008042000000000000000000000000000080bf000000000000803f0000404300008042000000000000000000000000000080bf00000000000000000000504300008042000000000000000000000000000080bf0000803f00000000000050430000a042000000000000000000000000000080bf0000803f0000803f000040430000a042000000000000000000000000000080bf000000000000803f000040430000a042000000000000000000000000000080bf0000000000000000000050430000a042000000000000000000000000000080bf0000803f00000000000050430000c042000000000000000000000000000080bf0000803f0000803f000040430000c042000000000000000000000000000080bf000000000000803f000040430000c042000000000000000000000000000080bf0000000000000000000050430000c042000000000000000000000000000080bf0000803f00000000000050430000e042000000000000000000000000000080bf0000803f0000803f000040430000e042000000000000000000000000000080bf000000000000803f000040430000e042000000000000000000000000000080bf0000000000000000000050430000e042000000000000000000000000000080bf0000803f000000000000504300000043000000000000000000000000000080bf0000803f0000803f0000404300000043000000000000000000000000000080bf000000000000803f0000404300000043000000000000000000000000000080bf00000000000000000000504300000043000000000000000000000000000080bf0000803f000000000000504300001043000000000000000000000000000080bf0000803f0000803f0000404300001043000000000000000000000000000080bf000000000000803f0000404300001043000000000000000000000000000080bf00000000000000000000504300001043000000000000000000000000000080bf0000803f000000000000504300002043000000000000000000000000000080bf0000803f0000803f0000404300002043000000000000000000000000000080bf000000000000803f0000404300002043000000000000000000000000000080bf00000000000000000000504300002043000000000000000000000000000080bf0000803f000000000000504300003043000000000000000000000000000080bf0000803f0000803f0000404300003043000000000000000000000000000080bf000000000000803f0000404300003043000000000000000000000000000080bf00000000000000000000504300003043000000000000000000000000000080bf0000803f000000000000504300004043000000000000000000000000000080bf0000803f0000803f0000404300004043000000000000000000000000000080bf000000000000803f0000404300004043000000000000000000000000000080bf00000000000000000000504300004043000000000000000000000000000080bf0000803f000000000000504300005043000000000000000000000000000080bf0000803f0000803f0000404300005043000000000000000000000000000080bf000000000000803f0000404300005043000000000000000000000000000080bf00000000000000000000504300005043000000000000000000000000000080bf0000803f000000000000504300006043000000000000000000000000000080bf0000803f0000803f0000404300006043000000000000000000000000000080bf000000000000803f0000404300006043000000000000000000000000000080bf00000000000000000000504300006043000000000000000000000000000080bf0000803f000000000000504300007043000000000000000000000000000080bf0000803f0000803f0000404300007043000000000000000000000000000080bf000000000000803f0000504300000000000000000000000000000000000080bf00000000000000000000604300000000000000000000000000000000000080bf0000803f000000000000604300008041000000000000000000000000000080bf0000803f0000803f0000504300008041000000000000000000000000000080bf000000000000803f0000504300008041000000000000000000000000000080bf00000000000000000000604300008041000000000000000000000000000080bf0000803f000000000000604300000042000000000000000000000000000080bf0000803f0000803f0000504300000042000000000000000000000000000080bf000000000000803f0000504300000042000000000000000000000000000080bf00000000000000000000604300000042000000000000000000000000000080bf0000803f000000000000604300004042000000000000000000000000000080bf0000803f0000803f0000504300004042000000000000000000000000000080bf000000000000803f0000504300004042000000000000000000000000000080bf00000000000000000000604300004042000000000000000000000000000080bf0000803f000000000000604300008042000000000000000000000000000080bf0000803f0000803f0000504300008042000000000000000000000000000080bf000000000000803f0000504300008042000000000000000000000000000080bf00000000000000000000604300008042000000000000000000000000000080bf0000803f00000000000060430000a042000000000000000000000000000080bf0000803f0000803f000050430000a042000000000000000000000000000080bf000000000000803f000050430000a042000000000000000000000000000080bf0000000000000000000060430000a042000000000000000000000000000080bf0000803f00000000000060430000c042000000000000000000000000000080bf0000803f0000803f000050430000c042000000000000000000000000000080bf000000000000803f000050430000c042000000000000000000000000000080bf0000000000000000000060430000c042000000000000000000000000000080bf0000803f00000000000060430000e042000000000000000000000000000080bf0000803f0000803f000050430000e042000000000000000000000000000080bf000000000000803f000050430000e042000000000000000000000000000080bf0000000000000000000060430000e042000000000000000000000000000080bf0000803f000000000000604300000043000000000000000000000000000080bf0000803f0000803f0000504300000043000000000000000000000000000080bf000000000000803f0000504300000043000000000000000000000000000080bf00000000000000000000604300000043000000000000000000000000000080bf0000803f000000000000604300001043000000000000000000000000000080bf0000803f0000803f0000504300001043000000000000000000000000000080bf000000000000803f0000504300001043000000000000000000000000000080bf00000000000000000000604300001043000000000000000000000000000080bf0000803f000000000000604300002043000000000000000000000000000080bf0000803f0000803f0000504300002043000000000000000000000000000080bf000000000000803f0000504300002043000000000000000000000000000080bf00000000000000000000604300002043000000000000000000000000000080bf0000803f000000000000604300003043000000000000000000000000000080bf0000803f0000803f0000504300003043000000000000000000000000000080bf000000000000803f0000504300003043000000000000000000000000000080bf00000000000000000000604300003043000000000000000000000000000080bf0000803f000000000000604300004043000000000000000000000000000080bf0000803f0000803f0000504300004043000000000000000000000000000080bf000000000000803f0000504300004043000000000000000000000000000080bf00000000000000000000604300004043000000000000000000000000000080bf0000803f000000000000604300005043000000000000000000000000000080bf0000803f0000803f0000504300005043000000000000000000000000000080bf000000000000803f0000504300005043000000000000000000000000000080bf00000000000000000000604300005043000000000000000000000000000080bf0000803f000000000000604300006043000000000000000000000000000080bf0000803f0000803f0000504300006043000000000000000000000000000080bf000000000000803f0000504300006043000000000000000000000000000080bf00000000000000000000604300006043000000000000000000000000000080bf0000803f000000000000604300007043000000000000000000000000000080bf0000803f0000803f0000504300007043000000000000000000000000000080bf000000000000803f0000604300000000000000000000000000000000000080bf00000000000000000000704300000000000000000000000000000000000080bf0000803f000000000000704300008041000000000000000000000000000080bf0000803f0000803f0000604300008041000000000000000000000000000080bf000000000000803f0000604300008041000000000000000000000000000080bf00000000000000000000704300008041000000000000000000000000000080bf0000803f000000000000704300000042000000000000000000000000000080bf0000803f0000803f0000604300000042000000000000000000000000000080bf000000000000803f0000604300000042000000000000000000000000000080bf00000000000000000000704300000042000000000000000000000000000080bf0000803f000000000000704300004042000000000000000000000000000080bf0000803f0000803f0000604300004042000000000000000000000000000080bf000000000000803f0000604300004042000000000000000000000000000080bf00000000000000000000704300004042000000000000000000000000000080bf0000803f000000000000704300008042000000000000000000000000000080bf0000803f0000803f0000604300008042000000000000000000000000000080bf000000000000803f0000604300008042000000000000000000000000000080bf00000000000000000000704300008042000000000000000000000000000080bf0000803f00000000000070430000a042000000000000000000000000000080bf0000803f0000803f000060430000a042000000000000000000000000000080bf000000000000803f000060430000a042000000000000000000000000000080bf0000000000000000000070430000a042000000000000000000000000000080bf0000803f00000000000070430000c042000000000000000000000000000080bf0000803f0000803f000060430000c042000000000000000000000000000080bf000000000000803f000060430000c042000000000000000000000000000080bf0000000000000000000070430000c042000000000000000000000000000080bf0000803f00000000000070430000e042000000000000000000000000000080bf0000803f0000803f000060430000e042000000000000000000000000000080bf000000000000803f000060430000e042000000000000000000000000000080bf0000000000000000000070430000e042000000000000000000000000000080bf0000803f000000000000704300000043000000000000000000000000000080bf0000803f0000803f0000604300000043000000000000000000000000000080bf000000000000803f0000604300000043000000000000000000000000000080bf00000000000000000000704300000043000000000000000000000000000080bf0000803f000000000000704300001043000000000000000000000000000080bf0000803f0000803f0000604300001043000000000000000000000000000080bf000000000000803f0000604300001043000000000000000000000000000080bf00000000000000000000704300001043000000000000000000000000000080bf0000803f000000000000704300002043000000000000000000000000000080bf0000803f0000803f0000604300002043000000000000000000000000000080bf000000000000803f0000604300002043000000000000000000000000000080bf00000000000000000000704300002043000000000000000000000000000080bf0000803f000000000000704300003043000000000000000000000000000080bf0000803f0000803f0000604300003043000000000000000000000000000080bf000000000000803f0000604300003043000000000000000000000000000080bf00000000000000000000704300003043000000000000000000000000000080bf0000803f000000000000704300004043000000000000000000000000000080bf0000803f0000803f0000604300004043000000000000000000000000000080bf000000000000803f0000604300004043000000000000000000000000000080bf00000000000000000000704300004043000000000000000000000000000080bf0000803f000000000000704300005043000000000000000000000000000080bf0000803f0000803f0000604300005043000000000000000000000000000080bf000000000000803f0000604300005043000000000000000000000000000080bf00000000000000000000704300005043000000000000000000000000000080bf0000803f000000000000704300006043000000000000000000000000000080bf0000803f0000803f0000604300006043000000000000000000000000000080bf000000000000803f0000604300006043000000000000000000000000000080bf00000000000000000000704300006043000000000000000000000000000080bf0000803f000000000000704300007043000000000000000000000000000080bf0000803f0000803f0000604300007043000000000000000000000000000080bf000000000000803f0000704300000000000000000000000000000000000080bf00000000000000000000804300000000000000000000000000000000000080bf0000803f000000000000804300008041000000000000000000000000000080bf0000803f0000803f0000704300008041000000000000000000000000000080bf000000000000803f0000704300008041000000000000000000000000000080bf00000000000000000000804300008041000000000000000000000000000080bf0000803f000000000000804300000042000000000000000000000000000080bf0000803f0000803f0000704300000042000000000000000000000000000080bf000000000000803f0000704300000042000000000000000000000000000080bf00000000000000000000804300000042000000000000000000000000000080bf0000803f000000000000804300004042000000000000000000000000000080bf0000803f0000803f0000704300004042000000000000000000000000000080bf000000000000803f0000704300004042000000000000000000000000000080bf00000000000000000000804300004042000000000000000000000000000080bf0000803f000000000000804300008042000000000000000000000000000080bf0000803f0000803f0000704300008042000000000000000000000000000080bf000000000000803f0000704300008042000000000000000000000000000080bf00000000000000000000804300008042000000000000000000000000000080bf0000803f00000000000080430000a042000000000000000000000000000080bf0000803f0000803f000070430000a042000000000000000000000000000080bf000000000000803f000070430000a042000000000000000000000000000080bf0000000000000000000080430000a042000000000000000000000000000080bf0000803f00000000000080430000c042000000000000000000000000000080bf0000803f0000803f000070430000c042000000000000000000000000000080bf000000000000803f000070430000c042000000000000000000000000000080bf0000000000000000000080430000c042000000000000000000000000000080bf0000803f00000000000080430000e042000000000000000000000000000080bf0000803f0000803f000070430000e042000000000000000000000000000080bf000000000000803f000070430000e042000000000000000000000000000080bf0000000000000000000080430000e042000000000000000000000000000080bf0000803f000000000000804300000043000000000000000000000000000080bf0000803f0000803f0000704300000043000000000000000000000000000080bf000000000000803f0000704300000043000000000000000000000000000080bf00000000000000000000804300000043000000000000000000000000000080bf0000803f000000000000804300001043000000000000000000000000000080bf0000803f0000803f0000704300001043000000000000000000000000000080bf000000000000803f0000704300001043000000000000000000000000000080bf00000000000000000000804300001043000000000000000000000000000080bf0000803f000000000000804300002043000000000000000000000000000080bf0000803f0000803f0000704300002043000000000000000000000000000080bf000000000000803f0000704300002043000000000000000000000000000080bf00000000000000000000804300002043000000000000000000000000000080bf0000803f000000000000804300003043000000000000000000000000000080bf0000803f0000803f0000704300003043000000000000000000000000000080bf000000000000803f0000704300003043000000000000000000000000000080bf00000000000000000000804300003043000000000000000000000000000080bf0000803f000000000000804300004043000000000000000000000000000080bf0000803f0000803f0000704300004043000000000000000000000000000080bf000000000000803f0000704300004043000000000000000000000000000080bf00000000000000000000804300004043000000000000000000000000000080bf0000803f000000000000804300005043000000000000000000000000000080bf0000803f0000803f0000704300005043000000000000000000000000000080bf000000000000803f0000704300005043000000000000000000000000000080bf00000000000000000000804300005043000000000000000000000000000080bf0000803f000000000000804300006043000000000000000000000000000080bf0000803f0000803f0000704300006043000000000000000000000000000080bf000000000000803f0000704300006043000000000000000000000000000080bf00000000000000000000804300006043000000000000000000000000000080bf0000803f000000000000804300007043000000000000000000000000000080bf0000803f0000803f0000704300007043000000000000000000000000000080bf000000000000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 128, y: 120, z: 0}
+    m_Extent: {x: 128, y: 120, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
+--- !u!114 &1201264485 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1640594078}
+  m_Script: {fileID: 11500000, guid: aa09f85b9517ec9459a432afb9ee8c1f, type: 3}
+--- !u!4 &1201264486 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+  m_PrefabInternal: {fileID: 1640594078}
+--- !u!1001 &1240245207
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 440896, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492740, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: UseFixedAspectRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492740, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: FixedAspectRatio.x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492740, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: FixedAspectRatio.y
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046632, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046632, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046632, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046632, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046632, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046632, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+      propertyPath: m_Depth
+      value: -2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9906e1dd519a54140b221ea7bd753884, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1368281077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1368281078}
+  - 23: {fileID: 1368281082}
+  - 33: {fileID: 1368281081}
+  - 114: {fileID: 1368281080}
+  - 61: {fileID: 1368281079}
+  m_Layer: 12
+  m_Name: Platform Mesh (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1368281078
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1368281077}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 4
+--- !u!61 &1368281079
+BoxCollider2D:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1368281077}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 4, y: 120}
+  serializedVersion: 2
+  m_Size: {x: 8, y: 240}
+--- !u!114 &1368281080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1368281077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisibilityCheckInterval: 0.2
+  Width: 8
+  Height: 240
+  createTiles: 1
+  TileWidth: 8
+  TileHeight: 8
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
+--- !u!33 &1368281081
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1368281077}
+  m_Mesh: {fileID: 1604426727}
+--- !u!23 &1368281082
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1368281077}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0d5d0f221b3f43a4e8c0d58e3202429a, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -2063158589
+  m_SortingOrder: 0
+--- !u!1 &1374022057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1374022058}
+  - 23: {fileID: 1374022063}
+  - 33: {fileID: 1374022062}
+  - 114: {fileID: 1374022061}
+  - 61: {fileID: 1374022060}
+  - 114: {fileID: 1374022059}
+  m_Layer: 15
+  m_Name: Spike Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1374022058
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374022057}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8, y: -7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 8
+--- !u!114 &1374022059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374022057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552d99c3ae4c0be499133e6e63e8ff73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &1374022060
+BoxCollider2D:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374022057}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 40, y: 8}
+  serializedVersion: 2
+  m_Size: {x: 80, y: 16}
+--- !u!114 &1374022061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374022057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisibilityCheckInterval: 0.2
+  Width: 80
+  Height: 16
+  createTiles: 1
+  TileWidth: 16
+  TileHeight: 16
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
+--- !u!33 &1374022062
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374022057}
+  m_Mesh: {fileID: 388946010}
+--- !u!23 &1374022063
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374022057}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: c4a267328f8180c46976ddd681b0b404, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -2063158589
+  m_SortingOrder: 0
+--- !u!1 &1499252397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1499252398}
+  m_Layer: 0
+  m_Name: Platforms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1499252398
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1499252397}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 2023586989}
+  - {fileID: 206343350}
+  - {fileID: 1532933914}
+  - {fileID: 1006191052}
+  - {fileID: 1368281078}
+  - {fileID: 263550833}
+  - {fileID: 55684617}
+  - {fileID: 431044466}
+  - {fileID: 1374022058}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!1 &1532933913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1532933914}
+  - 23: {fileID: 1532933915}
+  - 33: {fileID: 1532933918}
+  - 114: {fileID: 1532933917}
+  - 61: {fileID: 1532933916}
+  m_Layer: 12
+  m_Name: Platform Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1532933914
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1532933913}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 88, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 2
+--- !u!23 &1532933915
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1532933913}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0d5d0f221b3f43a4e8c0d58e3202429a, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -2063158589
+  m_SortingOrder: 0
+--- !u!61 &1532933916
+BoxCollider2D:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1532933913}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 80, y: 8}
+  serializedVersion: 2
+  m_Size: {x: 160, y: 16}
+--- !u!114 &1532933917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1532933913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d735ad4fae8f42e4d9868b2ef5bfd610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisibilityCheckInterval: 0.2
+  Width: 160
+  Height: 16
+  createTiles: 1
+  TileWidth: 8
+  TileHeight: 8
+  Anchor: 6
+  IsTrigger: 0
+  ColliderSides: 15
+  PrefabMeshFolder: Assets/Meshes/
+  PrefabObjectFolder: Assets/Prefabs/TestBlocks/
+--- !u!33 &1532933918
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1532933913}
+  m_Mesh: {fileID: 1591947392}
+--- !u!43 &1591947392
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 240
+    topology: 0
+    firstVertex: 0
+    vertexCount: 160
+    localAABB:
+      m_Center: {x: 80, y: 8, z: 0}
+      m_Extent: {x: 80, y: 8, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 0200010000000000030002000600050004000400070006000a000900080008000b000a000e000d000c000c000f000e001200110010001000130012001600150014001400170016001a001900180018001b001a001e001d001c001c001f001e002200210020002000230022002600250024002400270026002a002900280028002b002a002e002d002c002c002f002e003200310030003000330032003600350034003400370036003a003900380038003b003a003e003d003c003c003f003e004200410040004000430042004600450044004400470046004a004900480048004b004a004e004d004c004c004f004e005200510050005000530052005600550054005400570056005a005900580058005b005a005e005d005c005c005f005e006200610060006000630062006600650064006400670066006a006900680068006b006a006e006d006c006c006f006e007200710070007000730072007600750074007400770076007a007900780078007b007a007e007d007c007c007f007e008200810080008000830082008600850084008400870086008a008900880088008b008a008e008d008c008c008f008e009200910090009000930092009600950094009400970096009a009900980098009b009a009e009d009c009c009f009e00
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 11
+    m_VertexCount: 160
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 5120
+    _typelessdata: 0000000000000000000000000000000000000000000080bf00000000000000000000004100000000000000000000000000000000000080bf0000803f000000000000004100000041000000000000000000000000000080bf0000803f0000803f0000000000000041000000000000000000000000000080bf000000000000803f0000000000000041000000000000000000000000000080bf00000000000000000000004100000041000000000000000000000000000080bf0000803f000000000000004100008041000000000000000000000000000080bf0000803f0000803f0000000000008041000000000000000000000000000080bf000000000000803f0000004100000000000000000000000000000000000080bf00000000000000000000804100000000000000000000000000000000000080bf0000803f000000000000804100000041000000000000000000000000000080bf0000803f0000803f0000004100000041000000000000000000000000000080bf000000000000803f0000004100000041000000000000000000000000000080bf00000000000000000000804100000041000000000000000000000000000080bf0000803f000000000000804100008041000000000000000000000000000080bf0000803f0000803f0000004100008041000000000000000000000000000080bf000000000000803f0000804100000000000000000000000000000000000080bf00000000000000000000c04100000000000000000000000000000000000080bf0000803f000000000000c04100000041000000000000000000000000000080bf0000803f0000803f0000804100000041000000000000000000000000000080bf000000000000803f0000804100000041000000000000000000000000000080bf00000000000000000000c04100000041000000000000000000000000000080bf0000803f000000000000c04100008041000000000000000000000000000080bf0000803f0000803f0000804100008041000000000000000000000000000080bf000000000000803f0000c04100000000000000000000000000000000000080bf00000000000000000000004200000000000000000000000000000000000080bf0000803f000000000000004200000041000000000000000000000000000080bf0000803f0000803f0000c04100000041000000000000000000000000000080bf000000000000803f0000c04100000041000000000000000000000000000080bf00000000000000000000004200000041000000000000000000000000000080bf0000803f000000000000004200008041000000000000000000000000000080bf0000803f0000803f0000c04100008041000000000000000000000000000080bf000000000000803f0000004200000000000000000000000000000000000080bf00000000000000000000204200000000000000000000000000000000000080bf0000803f000000000000204200000041000000000000000000000000000080bf0000803f0000803f0000004200000041000000000000000000000000000080bf000000000000803f0000004200000041000000000000000000000000000080bf00000000000000000000204200000041000000000000000000000000000080bf0000803f000000000000204200008041000000000000000000000000000080bf0000803f0000803f0000004200008041000000000000000000000000000080bf000000000000803f0000204200000000000000000000000000000000000080bf00000000000000000000404200000000000000000000000000000000000080bf0000803f000000000000404200000041000000000000000000000000000080bf0000803f0000803f0000204200000041000000000000000000000000000080bf000000000000803f0000204200000041000000000000000000000000000080bf00000000000000000000404200000041000000000000000000000000000080bf0000803f000000000000404200008041000000000000000000000000000080bf0000803f0000803f0000204200008041000000000000000000000000000080bf000000000000803f0000404200000000000000000000000000000000000080bf00000000000000000000604200000000000000000000000000000000000080bf0000803f000000000000604200000041000000000000000000000000000080bf0000803f0000803f0000404200000041000000000000000000000000000080bf000000000000803f0000404200000041000000000000000000000000000080bf00000000000000000000604200000041000000000000000000000000000080bf0000803f000000000000604200008041000000000000000000000000000080bf0000803f0000803f0000404200008041000000000000000000000000000080bf000000000000803f0000604200000000000000000000000000000000000080bf00000000000000000000804200000000000000000000000000000000000080bf0000803f000000000000804200000041000000000000000000000000000080bf0000803f0000803f0000604200000041000000000000000000000000000080bf000000000000803f0000604200000041000000000000000000000000000080bf00000000000000000000804200000041000000000000000000000000000080bf0000803f000000000000804200008041000000000000000000000000000080bf0000803f0000803f0000604200008041000000000000000000000000000080bf000000000000803f0000804200000000000000000000000000000000000080bf00000000000000000000904200000000000000000000000000000000000080bf0000803f000000000000904200000041000000000000000000000000000080bf0000803f0000803f0000804200000041000000000000000000000000000080bf000000000000803f0000804200000041000000000000000000000000000080bf00000000000000000000904200000041000000000000000000000000000080bf0000803f000000000000904200008041000000000000000000000000000080bf0000803f0000803f0000804200008041000000000000000000000000000080bf000000000000803f0000904200000000000000000000000000000000000080bf00000000000000000000a04200000000000000000000000000000000000080bf0000803f000000000000a04200000041000000000000000000000000000080bf0000803f0000803f0000904200000041000000000000000000000000000080bf000000000000803f0000904200000041000000000000000000000000000080bf00000000000000000000a04200000041000000000000000000000000000080bf0000803f000000000000a04200008041000000000000000000000000000080bf0000803f0000803f0000904200008041000000000000000000000000000080bf000000000000803f0000a04200000000000000000000000000000000000080bf00000000000000000000b04200000000000000000000000000000000000080bf0000803f000000000000b04200000041000000000000000000000000000080bf0000803f0000803f0000a04200000041000000000000000000000000000080bf000000000000803f0000a04200000041000000000000000000000000000080bf00000000000000000000b04200000041000000000000000000000000000080bf0000803f000000000000b04200008041000000000000000000000000000080bf0000803f0000803f0000a04200008041000000000000000000000000000080bf000000000000803f0000b04200000000000000000000000000000000000080bf00000000000000000000c04200000000000000000000000000000000000080bf0000803f000000000000c04200000041000000000000000000000000000080bf0000803f0000803f0000b04200000041000000000000000000000000000080bf000000000000803f0000b04200000041000000000000000000000000000080bf00000000000000000000c04200000041000000000000000000000000000080bf0000803f000000000000c04200008041000000000000000000000000000080bf0000803f0000803f0000b04200008041000000000000000000000000000080bf000000000000803f0000c04200000000000000000000000000000000000080bf00000000000000000000d04200000000000000000000000000000000000080bf0000803f000000000000d04200000041000000000000000000000000000080bf0000803f0000803f0000c04200000041000000000000000000000000000080bf000000000000803f0000c04200000041000000000000000000000000000080bf00000000000000000000d04200000041000000000000000000000000000080bf0000803f000000000000d04200008041000000000000000000000000000080bf0000803f0000803f0000c04200008041000000000000000000000000000080bf000000000000803f0000d04200000000000000000000000000000000000080bf00000000000000000000e04200000000000000000000000000000000000080bf0000803f000000000000e04200000041000000000000000000000000000080bf0000803f0000803f0000d04200000041000000000000000000000000000080bf000000000000803f0000d04200000041000000000000000000000000000080bf00000000000000000000e04200000041000000000000000000000000000080bf0000803f000000000000e04200008041000000000000000000000000000080bf0000803f0000803f0000d04200008041000000000000000000000000000080bf000000000000803f0000e04200000000000000000000000000000000000080bf00000000000000000000f04200000000000000000000000000000000000080bf0000803f000000000000f04200000041000000000000000000000000000080bf0000803f0000803f0000e04200000041000000000000000000000000000080bf000000000000803f0000e04200000041000000000000000000000000000080bf00000000000000000000f04200000041000000000000000000000000000080bf0000803f000000000000f04200008041000000000000000000000000000080bf0000803f0000803f0000e04200008041000000000000000000000000000080bf000000000000803f0000f04200000000000000000000000000000000000080bf00000000000000000000004300000000000000000000000000000000000080bf0000803f000000000000004300000041000000000000000000000000000080bf0000803f0000803f0000f04200000041000000000000000000000000000080bf000000000000803f0000f04200000041000000000000000000000000000080bf00000000000000000000004300000041000000000000000000000000000080bf0000803f000000000000004300008041000000000000000000000000000080bf0000803f0000803f0000f04200008041000000000000000000000000000080bf000000000000803f0000004300000000000000000000000000000000000080bf00000000000000000000084300000000000000000000000000000000000080bf0000803f000000000000084300000041000000000000000000000000000080bf0000803f0000803f0000004300000041000000000000000000000000000080bf000000000000803f0000004300000041000000000000000000000000000080bf00000000000000000000084300000041000000000000000000000000000080bf0000803f000000000000084300008041000000000000000000000000000080bf0000803f0000803f0000004300008041000000000000000000000000000080bf000000000000803f0000084300000000000000000000000000000000000080bf00000000000000000000104300000000000000000000000000000000000080bf0000803f000000000000104300000041000000000000000000000000000080bf0000803f0000803f0000084300000041000000000000000000000000000080bf000000000000803f0000084300000041000000000000000000000000000080bf00000000000000000000104300000041000000000000000000000000000080bf0000803f000000000000104300008041000000000000000000000000000080bf0000803f0000803f0000084300008041000000000000000000000000000080bf000000000000803f0000104300000000000000000000000000000000000080bf00000000000000000000184300000000000000000000000000000000000080bf0000803f000000000000184300000041000000000000000000000000000080bf0000803f0000803f0000104300000041000000000000000000000000000080bf000000000000803f0000104300000041000000000000000000000000000080bf00000000000000000000184300000041000000000000000000000000000080bf0000803f000000000000184300008041000000000000000000000000000080bf0000803f0000803f0000104300008041000000000000000000000000000080bf000000000000803f0000184300000000000000000000000000000000000080bf00000000000000000000204300000000000000000000000000000000000080bf0000803f000000000000204300000041000000000000000000000000000080bf0000803f0000803f0000184300000041000000000000000000000000000080bf000000000000803f0000184300000041000000000000000000000000000080bf00000000000000000000204300000041000000000000000000000000000080bf0000803f000000000000204300008041000000000000000000000000000080bf0000803f0000803f0000184300008041000000000000000000000000000080bf000000000000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 80, y: 8, z: 0}
+    m_Extent: {x: 80, y: 8, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
+--- !u!43 &1604426727
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 180
+    topology: 0
+    firstVertex: 0
+    vertexCount: 120
+    localAABB:
+      m_Center: {x: 4, y: 120, z: 0}
+      m_Extent: {x: 4, y: 120, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 0200010000000000030002000600050004000400070006000a000900080008000b000a000e000d000c000c000f000e001200110010001000130012001600150014001400170016001a001900180018001b001a001e001d001c001c001f001e002200210020002000230022002600250024002400270026002a002900280028002b002a002e002d002c002c002f002e003200310030003000330032003600350034003400370036003a003900380038003b003a003e003d003c003c003f003e004200410040004000430042004600450044004400470046004a004900480048004b004a004e004d004c004c004f004e005200510050005000530052005600550054005400570056005a005900580058005b005a005e005d005c005c005f005e006200610060006000630062006600650064006400670066006a006900680068006b006a006e006d006c006c006f006e00720071007000700073007200760075007400740077007600
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 11
+    m_VertexCount: 120
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 3840
+    _typelessdata: 0000000000000000000000000000000000000000000080bf00000000000000000000004100000000000000000000000000000000000080bf0000803f000000000000004100000041000000000000000000000000000080bf0000803f0000803f0000000000000041000000000000000000000000000080bf000000000000803f0000000000000041000000000000000000000000000080bf00000000000000000000004100000041000000000000000000000000000080bf0000803f000000000000004100008041000000000000000000000000000080bf0000803f0000803f0000000000008041000000000000000000000000000080bf000000000000803f0000000000008041000000000000000000000000000080bf00000000000000000000004100008041000000000000000000000000000080bf0000803f00000000000000410000c041000000000000000000000000000080bf0000803f0000803f000000000000c041000000000000000000000000000080bf000000000000803f000000000000c041000000000000000000000000000080bf0000000000000000000000410000c041000000000000000000000000000080bf0000803f000000000000004100000042000000000000000000000000000080bf0000803f0000803f0000000000000042000000000000000000000000000080bf000000000000803f0000000000000042000000000000000000000000000080bf00000000000000000000004100000042000000000000000000000000000080bf0000803f000000000000004100002042000000000000000000000000000080bf0000803f0000803f0000000000002042000000000000000000000000000080bf000000000000803f0000000000002042000000000000000000000000000080bf00000000000000000000004100002042000000000000000000000000000080bf0000803f000000000000004100004042000000000000000000000000000080bf0000803f0000803f0000000000004042000000000000000000000000000080bf000000000000803f0000000000004042000000000000000000000000000080bf00000000000000000000004100004042000000000000000000000000000080bf0000803f000000000000004100006042000000000000000000000000000080bf0000803f0000803f0000000000006042000000000000000000000000000080bf000000000000803f0000000000006042000000000000000000000000000080bf00000000000000000000004100006042000000000000000000000000000080bf0000803f000000000000004100008042000000000000000000000000000080bf0000803f0000803f0000000000008042000000000000000000000000000080bf000000000000803f0000000000008042000000000000000000000000000080bf00000000000000000000004100008042000000000000000000000000000080bf0000803f000000000000004100009042000000000000000000000000000080bf0000803f0000803f0000000000009042000000000000000000000000000080bf000000000000803f0000000000009042000000000000000000000000000080bf00000000000000000000004100009042000000000000000000000000000080bf0000803f00000000000000410000a042000000000000000000000000000080bf0000803f0000803f000000000000a042000000000000000000000000000080bf000000000000803f000000000000a042000000000000000000000000000080bf0000000000000000000000410000a042000000000000000000000000000080bf0000803f00000000000000410000b042000000000000000000000000000080bf0000803f0000803f000000000000b042000000000000000000000000000080bf000000000000803f000000000000b042000000000000000000000000000080bf0000000000000000000000410000b042000000000000000000000000000080bf0000803f00000000000000410000c042000000000000000000000000000080bf0000803f0000803f000000000000c042000000000000000000000000000080bf000000000000803f000000000000c042000000000000000000000000000080bf0000000000000000000000410000c042000000000000000000000000000080bf0000803f00000000000000410000d042000000000000000000000000000080bf0000803f0000803f000000000000d042000000000000000000000000000080bf000000000000803f000000000000d042000000000000000000000000000080bf0000000000000000000000410000d042000000000000000000000000000080bf0000803f00000000000000410000e042000000000000000000000000000080bf0000803f0000803f000000000000e042000000000000000000000000000080bf000000000000803f000000000000e042000000000000000000000000000080bf0000000000000000000000410000e042000000000000000000000000000080bf0000803f00000000000000410000f042000000000000000000000000000080bf0000803f0000803f000000000000f042000000000000000000000000000080bf000000000000803f000000000000f042000000000000000000000000000080bf0000000000000000000000410000f042000000000000000000000000000080bf0000803f000000000000004100000043000000000000000000000000000080bf0000803f0000803f0000000000000043000000000000000000000000000080bf000000000000803f0000000000000043000000000000000000000000000080bf00000000000000000000004100000043000000000000000000000000000080bf0000803f000000000000004100000843000000000000000000000000000080bf0000803f0000803f0000000000000843000000000000000000000000000080bf000000000000803f0000000000000843000000000000000000000000000080bf00000000000000000000004100000843000000000000000000000000000080bf0000803f000000000000004100001043000000000000000000000000000080bf0000803f0000803f0000000000001043000000000000000000000000000080bf000000000000803f0000000000001043000000000000000000000000000080bf00000000000000000000004100001043000000000000000000000000000080bf0000803f000000000000004100001843000000000000000000000000000080bf0000803f0000803f0000000000001843000000000000000000000000000080bf000000000000803f0000000000001843000000000000000000000000000080bf00000000000000000000004100001843000000000000000000000000000080bf0000803f000000000000004100002043000000000000000000000000000080bf0000803f0000803f0000000000002043000000000000000000000000000080bf000000000000803f0000000000002043000000000000000000000000000080bf00000000000000000000004100002043000000000000000000000000000080bf0000803f000000000000004100002843000000000000000000000000000080bf0000803f0000803f0000000000002843000000000000000000000000000080bf000000000000803f0000000000002843000000000000000000000000000080bf00000000000000000000004100002843000000000000000000000000000080bf0000803f000000000000004100003043000000000000000000000000000080bf0000803f0000803f0000000000003043000000000000000000000000000080bf000000000000803f0000000000003043000000000000000000000000000080bf00000000000000000000004100003043000000000000000000000000000080bf0000803f000000000000004100003843000000000000000000000000000080bf0000803f0000803f0000000000003843000000000000000000000000000080bf000000000000803f0000000000003843000000000000000000000000000080bf00000000000000000000004100003843000000000000000000000000000080bf0000803f000000000000004100004043000000000000000000000000000080bf0000803f0000803f0000000000004043000000000000000000000000000080bf000000000000803f0000000000004043000000000000000000000000000080bf00000000000000000000004100004043000000000000000000000000000080bf0000803f000000000000004100004843000000000000000000000000000080bf0000803f0000803f0000000000004843000000000000000000000000000080bf000000000000803f0000000000004843000000000000000000000000000080bf00000000000000000000004100004843000000000000000000000000000080bf0000803f000000000000004100005043000000000000000000000000000080bf0000803f0000803f0000000000005043000000000000000000000000000080bf000000000000803f0000000000005043000000000000000000000000000080bf00000000000000000000004100005043000000000000000000000000000080bf0000803f000000000000004100005843000000000000000000000000000080bf0000803f0000803f0000000000005843000000000000000000000000000080bf000000000000803f0000000000005843000000000000000000000000000080bf00000000000000000000004100005843000000000000000000000000000080bf0000803f000000000000004100006043000000000000000000000000000080bf0000803f0000803f0000000000006043000000000000000000000000000080bf000000000000803f0000000000006043000000000000000000000000000080bf00000000000000000000004100006043000000000000000000000000000080bf0000803f000000000000004100006843000000000000000000000000000080bf0000803f0000803f0000000000006843000000000000000000000000000080bf000000000000803f0000000000006843000000000000000000000000000080bf00000000000000000000004100006843000000000000000000000000000080bf0000803f000000000000004100007043000000000000000000000000000080bf0000803f0000803f0000000000007043000000000000000000000000000080bf000000000000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 4, y: 120, z: 0}
+    m_Extent: {x: 4, y: 120, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
+--- !u!1001 &1640594078
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2103039389}
+    m_Modifications:
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 210
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Size.x
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Size.y
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: RespawnMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: DestroySpawnedEnemiesWhenGettingDisabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: RespawnOnDestroyDelay
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: EnemyToSpawn
+      value: 
+      objectReference: {fileID: 195402, guid: aea3d3082227de64a93dc5d0e7f35f2e, type: 2}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: ShowGizmoOutline
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195444, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: m_Name
+      value: Barrel Met Spawn Location 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: EnemyToSpawnPrefab
+      value: 
+      objectReference: {fileID: 195402, guid: aea3d3082227de64a93dc5d0e7f35f2e, type: 2}
+    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+      propertyPath: SpawnedPrefabScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1698148593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1698148594}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1698148594
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1698148593}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+--- !u!1 &2023586986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2023586989}
+  - 114: {fileID: 2023586988}
+  m_Layer: 0
+  m_Name: Checkpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2023586988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2023586986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab4454e9c6253ab47a2348e06e1ebacf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Index: 1
+--- !u!4 &2023586989
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2023586986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 105, y: 32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1499252398}
+  m_RootOrder: 0
+--- !u!1 &2103039386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2103039389}
+  - 114: {fileID: 2103039388}
+  - 61: {fileID: 2103039387}
+  m_Layer: 15
+  m_Name: Enemy Spawn Bucket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &2103039387
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2103039386}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 128, y: 120}
+  serializedVersion: 2
+  m_Size: {x: 256, y: 240}
+--- !u!114 &2103039388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2103039386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66044a8247feae4e8540fe3fff0b2d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineGizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ShowGizmoOutline: 1
+  _children:
+  - {fileID: 1201264485}
+  VisibiltyCheckInterval: 0.1
+--- !u!4 &2103039389
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2103039386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1201264486}
+  - {fileID: 651407190}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3

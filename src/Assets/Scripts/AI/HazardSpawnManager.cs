@@ -77,9 +77,7 @@ public partial class HazardSpawnManager : SpawnBucketItemBehaviour, IObjectPoolB
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    var list = new List<ObjectPoolRegistrationInfo>();
-
-    list.Add(new ObjectPoolRegistrationInfo(ProjectileToSpawn, 1));
+    yield return new ObjectPoolRegistrationInfo(ProjectileToSpawn, 1);
 
     var objectPoolBehaviours = ProjectileToSpawn.GetComponentsInChildren<IObjectPoolBehaviour>(true);
 
@@ -87,10 +85,11 @@ public partial class HazardSpawnManager : SpawnBucketItemBehaviour, IObjectPoolB
     {
       for (var i = 0; i < objectPoolBehaviours.Length; i++)
       {
-        list.AddRange(objectPoolBehaviours[i].GetObjectPoolRegistrationInfos());
+        foreach (var registrationInfo in objectPoolBehaviours[i].GetObjectPoolRegistrationInfos())
+        {
+          yield return registrationInfo;
+        }
       }
     }
-
-    return list;
   }
 }

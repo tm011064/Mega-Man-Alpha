@@ -269,7 +269,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Taking Damage
+  m_Name: Enemy Contact Knockback
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -402,7 +402,7 @@ AnimatorStateMachine:
     m_Position: {x: 492, y: 252, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110216308}
-    m_Position: {x: 264, y: 384, z: 0}
+    m_Position: {x: 264, y: 396, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

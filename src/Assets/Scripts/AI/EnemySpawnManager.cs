@@ -4,17 +4,15 @@ using UnityEngine;
 public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
   [SpawnableItemAttribute]
-  public GameObject EnemyToSpawn;
+  public GameObject EnemyToSpawnPrefab;
 
   public RespawnMode RespawnMode = RespawnMode.SpawnOnce;
 
   public bool DestroySpawnedEnemiesWhenGettingDisabled = false;
 
+  public Vector3 SpawnedPrefabScale = new Vector3(1f, 1f, 1f);
+
   public float ContinuousSpawnInterval = 10f;
-
-  public Direction StartDirection = Direction.Right;
-
-  public BallisticTrajectorySettings BallisticTrajectorySettings = new BallisticTrajectorySettings();
 
   [Range(1f / 30.0f, float.MaxValue)]
   public float RespawnOnDestroyDelay = .1f;
@@ -29,39 +27,22 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
   private void Spawn()
   {
-    var spawnedEnemy = _objectPoolingManager.GetObject(EnemyToSpawn.name, transform.position);
+    var spawnedEnemy = _objectPoolingManager.GetObject(EnemyToSpawnPrefab.name, transform.position);
 
-    var enemyController = spawnedEnemy.GetComponent<EnemyController>();
+    var enemyController = spawnedEnemy.GetComponent<ISpawnable>();
 
     if (enemyController == null)
     {
       throw new MissingComponentException("Enemies spawned by an enemy spawn manager must contain an EnemyController component.");
     }
 
-    enemyController.Reset(StartDirection);
+    enemyController.Reset(SpawnedPrefabScale);
 
     Logger.Trace("Spawning enemy from {0} at {1}, active: {2}, layer: {3}",
       gameObject.name,
       spawnedEnemy.transform.position,
       spawnedEnemy.activeSelf,
       LayerMask.LayerToName(spawnedEnemy.layer));
-
-    if (BallisticTrajectorySettings.IsEnabled)
-    {
-      var endPosition = transform.position
-        + new Vector3(
-          BallisticTrajectorySettings.EndPosition.x,
-          BallisticTrajectorySettings.EndPosition.y,
-          transform.position.z);
-
-      enemyController.PushControlHandler(
-        new BallisticTrajectoryControlHandler(
-          enemyController.CharacterPhysicsManager,
-          transform.position,
-          endPosition,
-          BallisticTrajectorySettings.ProjectileGravity,
-          BallisticTrajectorySettings.Angle));
-    }
 
     enemyController.GotDisabled += OnEnemyControllerGotDisabled;
 
@@ -75,7 +56,6 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
     if (!_isDisabling)
     {
       // while we are disabling this object we don't want to touch the spawned enemies list nor respawn
-
       _spawnedEnemies.Remove(obj.gameObject);
 
       try
@@ -156,20 +136,19 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    var list = new List<ObjectPoolRegistrationInfo>();
+    yield return new ObjectPoolRegistrationInfo(EnemyToSpawnPrefab, 1);
 
-    list.Add(new ObjectPoolRegistrationInfo(EnemyToSpawn, 1));
-
-    var objectPoolBehaviours = EnemyToSpawn.GetComponentsInChildren<IObjectPoolBehaviour>(true);
+    var objectPoolBehaviours = EnemyToSpawnPrefab.GetComponentsInChildren<IObjectPoolBehaviour>(true);
 
     if (objectPoolBehaviours != null)
     {
       for (var i = 0; i < objectPoolBehaviours.Length; i++)
       {
-        list.AddRange(objectPoolBehaviours[i].GetObjectPoolRegistrationInfos());
+        foreach (var registrationInfo in objectPoolBehaviours[i].GetObjectPoolRegistrationInfos())
+        {
+          yield return registrationInfo;
+        }
       }
     }
-
-    return list;
   }
 }

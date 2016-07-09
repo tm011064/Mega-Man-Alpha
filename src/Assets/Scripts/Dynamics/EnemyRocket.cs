@@ -19,16 +19,11 @@ public class EnemyRocket : MonoBehaviour, IEnemyProjectile
 
   void OnTriggerEnter2D(Collider2D col)
   {
-    // TODO (Roman): this should be somewhere else - this is just test code
-    var deathParticles = ObjectPoolingManager.Instance.GetObject(GameManager.Instance.GameSettings.PooledObjects.DefaultEnemyDeathParticlePrefab.Prefab.name);
-
-    deathParticles.transform.position = gameObject.transform.position;
-
     ObjectPoolingManager.Instance.Deactivate(gameObject);
 
     if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
     {
-      GameManager.Instance.PowerUpManager.KillPlayer();
+      GameManager.Instance.Player.OnPlayerDied();
     }
   }
 

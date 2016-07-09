@@ -2,15 +2,10 @@
 
 public class DefaultPlayerControlHandler : PlayerControlHandler
 {
-  public DefaultPlayerControlHandler(PlayerController playerController)
-    : base(playerController)
-  {
-  }
-
   public DefaultPlayerControlHandler(
     PlayerController playerController,
-    PlayerStateController[] animationStateControllers,
-    float duration)
+    PlayerStateController[] animationStateControllers = null,
+    float duration = -1f)
     : base(playerController, animationStateControllers, duration)
   {
   }

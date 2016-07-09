@@ -10,7 +10,7 @@ public class ProjectileWeaponSettings
 
   public int MaximumSimultaneouslyActiveProjectiles = 3;
 
-  public float MaxSpeed = 1000f;
+  public float DistancePerSecond = 1000f;
 
   public GameObject ProjectilePrefab;
 

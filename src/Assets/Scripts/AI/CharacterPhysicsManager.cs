@@ -117,7 +117,6 @@ public class CharacterPhysicsManager : BasePhysicsManager
   [Range(0.001f, 10.3f)]
   private float _skinWidth = 0.02f;
 
-  [SerializeField]
   private float _doubleSkinWidth = .04f;
 
   private TopEdgeCollisionTestContainer[] _topEdgeCollisionTestContainers;
@@ -359,9 +358,7 @@ public class CharacterPhysicsManager : BasePhysicsManager
 
     _raycastHitsThisFrame.Clear();
 
-    var desiredPosition = Transform.position + moveCalculationResult.DeltaMovement;
-
-    PrimeRaycastOrigins(desiredPosition, moveCalculationResult.DeltaMovement);
+    PrimeRaycastOrigins();
 
     var rayDistance = Mathf.Abs(BoxCollider.size.x) + _skinWidth; // we use the width of the character, this is arbitrary but it works
 
@@ -492,9 +489,7 @@ public class CharacterPhysicsManager : BasePhysicsManager
 
     _raycastHitsThisFrame.Clear();
 
-    var desiredPosition = Transform.position + moveCalculationResult.DeltaMovement;
-
-    PrimeRaycastOrigins(desiredPosition, moveCalculationResult.DeltaMovement);
+    PrimeRaycastOrigins();
 
     // first, we check for a slope below us before moving
     // only check slopes if we are going down and grounded
@@ -660,11 +655,13 @@ public class CharacterPhysicsManager : BasePhysicsManager
 
     for (var i = 0; i < TotalVerticalRays; i++)
     {
-      if (Physics2D.Raycast(
+      var raycastHit = Physics2D.Raycast(
         new Vector2(_raycastOrigins.BottomLeft.x + i * _horizontalDistanceBetweenRays, _raycastOrigins.BottomLeft.y),
         -Vector2.up,
         rayDistance,
-        PlatformMask))
+        PlatformMask);
+
+      if (raycastHit)
       {
         return true;
       }
@@ -698,9 +695,8 @@ public class CharacterPhysicsManager : BasePhysicsManager
   /// resets the raycastOrigins to the current extents of the box collider inset by the skinWidth. It is inset
   /// to avoid casting a ray from a position directly touching another collider which results in wonky normal data.
   /// </summary>
-  private void PrimeRaycastOrigins(Vector3 futurePosition, Vector3 deltaMovement)
+  public void PrimeRaycastOrigins()
   {
-    // our raycasts need to be fired from the bounds inset by the skinWidth
     var modifiedBounds = BoxCollider.bounds;
 
     modifiedBounds.Expand(-2f * _skinWidth);

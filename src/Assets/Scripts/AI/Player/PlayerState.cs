@@ -2,7 +2,7 @@
 {
   Invincible = 1,
 
-  TakingDamage = 2,
+  EnemyContactKnockback = 2,
 
   AttachedToWall = 4,
 

@@ -121,6 +121,8 @@ public class FullScreenScroller : MonoBehaviour
 
       SetCameraMovementSettings();
 
+      _cameraController.MoveCameraToTargetPosition(GameManager.Instance.Player.transform.position);
+
       return;
     }
 

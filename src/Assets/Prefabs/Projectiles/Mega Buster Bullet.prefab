@@ -57,6 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b007a957c5d029448f1f067adf6083b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageUnits: 1
+  ProjectileBlockedBehaviour: 1
 --- !u!114 &11433442
 MonoBehaviour:
   m_ObjectHideFlags: 1
