@@ -53,8 +53,6 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
   {
     obj.GotDisabled -= OnEnemyControllerGotDisabled; // unsubscribed cause this could belong to a pooled object
 
-    Debug.Log("DISABLED ON");
-
     if (!_isDisabling)
     {
       // while we are disabling this object we don't want to touch the spawned enemies list nor respawn
