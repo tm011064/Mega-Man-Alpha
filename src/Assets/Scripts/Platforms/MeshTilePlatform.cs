@@ -34,9 +34,11 @@ public class MeshTilePlatform : BasePlatform
     }
   }
 
-  void OnEnable()
+  protected override void OnEnable()
   {
     CreatePlane(TileWidth, TileHeight, TileGridWidth, TileGridHeight);
+
+    base.OnEnable();
   }
 
   public void UpdateGrid(Vector2 gridIndex, Vector2 tileIndex, int tileWidth, int tileHeight, int gridWidth)
@@ -58,6 +60,7 @@ public class MeshTilePlatform : BasePlatform
 
     mesh.uv = uvs;
   }
+
   void CreatePlane(int tileWidth, int tileHeight, int gridWidth, int gridHeight)
   {
     var mesh = new Mesh();

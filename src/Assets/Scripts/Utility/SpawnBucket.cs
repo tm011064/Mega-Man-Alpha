@@ -25,7 +25,7 @@ public partial class SpawnBucket : BaseMonoBehaviour
     }
   }
 
-  void OnEnable()
+  protected override void OnEnable()
   {
     for (var i = 0; i < _children.Length; i++)
     {
@@ -34,6 +34,8 @@ public partial class SpawnBucket : BaseMonoBehaviour
         _children[i].gameObject.SetActive(false);
       }
     }
+
+    base.OnEnable();
   }
 
   public void Reload()

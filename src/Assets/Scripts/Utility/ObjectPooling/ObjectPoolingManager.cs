@@ -8,7 +8,7 @@ public class ObjectPoolingManager
 
   private static ObjectPoolingManager _instance;
 
-  private Dictionary<String, ObjectPool> _objectPools;
+  private Dictionary<string, ObjectPool> _objectPools;
 
   public event Action<GameObject> BeforeDeactivated;
 

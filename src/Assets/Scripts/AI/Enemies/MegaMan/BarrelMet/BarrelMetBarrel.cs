@@ -19,17 +19,29 @@ public class BarrelMetBarrel : MovingEnemyController
     CharacterPhysicsManager.RecalculateDistanceBetweenRays();
   }
 
-  void OnEnable()
+  protected override void OnEnable()
   {
     if (ObjectDestructionSettings.DestroyWhenOffScreen)
     {
       StartVisibilityChecks(ObjectDestructionSettings.VisibilityCheckInterval, CharacterPhysicsManager.BoxCollider);
     }
+
+    base.OnEnable();
+  }
+
+  protected override void OnDisable()
+  {
+    ResetControlHandlers();
+
+    base.OnDisable();
   }
 
   protected override void OnGotHidden()
   {
-    ObjectPoolingManager.Instance.Deactivate(gameObject);
+    if (ObjectDestructionSettings.DestroyWhenOffScreen)
+    {
+      ObjectPoolingManager.Instance.Deactivate(gameObject);
+    }
   }
 
   public override void OnPlayerCollide(PlayerController playerController)

@@ -298,6 +298,11 @@ public partial class PlayerController : BaseCharacterController
   }
 #endif
 
+  public void OnPlayerDied()
+  {
+    Respawn();
+  }
+
   public void Respawn()
   {
     _gameManager.RefreshScene(SpawnLocation);

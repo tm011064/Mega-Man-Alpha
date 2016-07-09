@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
   [HideInInspector]
   public Easing Easing;
-  
+
   private Checkpoint[] _orderedSceneCheckpoints;
 
   private int _currentCheckpointIndex = 0;
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 #if !FINAL
   private readonly FPSRenderer _fpsRenderer = new FPSRenderer();
 #endif
-  
+
   public void SpawnPlayerAtNextCheckpoint(bool doCycle)
   {
     if (_currentCheckpointIndex >= _orderedSceneCheckpoints.Length - 1)
@@ -88,15 +88,20 @@ public class GameManager : MonoBehaviour
       spawnBucket.Reload();
     }
 
-    // TODO (Roman): have a flag for pooled objects that need to be deactivated
+    ObjectPoolingManager.Instance.DeactivateAll();
 
-    var cameraController = Camera.main.GetComponent<CameraController>();
-
-    cameraController.SetPosition(cameraPosition);
+    ResetCameraPosition(cameraPosition);
 
 #if !FINAL
     _fpsRenderer.SceneStartTime = Time.time;
 #endif
+  }
+
+  private void ResetCameraPosition(Vector3 position)
+  {
+    var cameraController = Camera.main.GetComponent<CameraController>();
+
+    cameraController.MoveCameraToTargetPosition(position);
   }
 
   public void LoadScene()
@@ -131,6 +136,24 @@ public class GameManager : MonoBehaviour
         break;
     }
 
+    ResetPooledObjects();
+
+    var playerController = Instantiate(
+      GameManager.Instance.Player,
+      checkpoint.transform.position,
+      Quaternion.identity) as PlayerController;
+
+    playerController.SpawnLocation = checkpoint.transform.position;
+
+    Player = playerController;
+
+#if !FINAL
+    _fpsRenderer.SceneStartTime = Time.time;
+#endif
+  }
+
+  private void ResetPooledObjects()
+  {
     var objectPoolingManager = ObjectPoolingManager.Instance;
 
     objectPoolingManager.DeactivateAndClearAll();
@@ -171,19 +194,6 @@ public class GameManager : MonoBehaviour
         objectPoolRegistrationInfo.TotalInstances,
         int.MaxValue);
     }
-
-    var playerController = Instantiate(
-      GameManager.Instance.Player,
-      checkpoint.transform.position,
-      Quaternion.identity) as PlayerController;
-
-    playerController.SpawnLocation = checkpoint.transform.position;
-
-    Player = playerController;
-
-#if !FINAL
-    _fpsRenderer.SceneStartTime = Time.time;
-#endif
   }
 
   void Awake()
@@ -202,7 +212,7 @@ public class GameManager : MonoBehaviour
 
       Destroy(gameObject);
     }
-    
+
     InputStateManager = new InputStateManager();
 
     InputStateManager.InitializeButtons("Jump", "Dash", "Fall", "Attack");
@@ -216,7 +226,7 @@ public class GameManager : MonoBehaviour
   void Update()
   {
     InputStateManager.Update();
-    
+
     // TODO (Roman): this must not make it into release
     if (Input.GetKey("escape"))
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BarrelMet : SpawnBucketItemBehaviour, IObjectPoolBehaviour, IPlayerCollidable
+public class BarrelMet : BaseMonoBehaviour, IObjectPoolBehaviour, IPlayerCollidable, ISpawnable
 {
   public Vector2 BarrelSpawnLocation;
 
@@ -23,11 +23,18 @@ public class BarrelMet : SpawnBucketItemBehaviour, IObjectPoolBehaviour, IPlayer
 
   public void ShootBarrel()
   {
+    if (_loadedBarrelMetBarrel == null)
+    {
+      return;
+    }
+
     var direction = GetFacingDirection();
 
     _loadedBarrelMetBarrel.TriggerBarrelThrow(
       BarrelThrowTrajectorySettings,
       direction);
+
+    _loadedBarrelMetBarrel = null;
   }
 
   public void BarrelLoaded()
@@ -39,16 +46,32 @@ public class BarrelMet : SpawnBucketItemBehaviour, IObjectPoolBehaviour, IPlayer
     _loadedBarrelMetBarrel = barrelPrefab.GetComponent<BarrelMetBarrel>();
   }
 
+  protected override void OnDisable()
+  {
+    if (_loadedBarrelMetBarrel != null)
+    {
+      ObjectPoolingManager.Instance.Deactivate(_loadedBarrelMetBarrel.gameObject);
+
+      _loadedBarrelMetBarrel = null;
+    }
+
+    base.OnDisable();
+  }
+
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[] 
-    { 
-      new ObjectPoolRegistrationInfo(BarrelMetBarrelPrefab, BarrelMetBarrelPrefabObjectPoolSize)
-    };
+    yield return new ObjectPoolRegistrationInfo(BarrelMetBarrelPrefab, BarrelMetBarrelPrefabObjectPoolSize);
   }
 
   public void OnPlayerCollide(PlayerController playerController)
   {
     playerController.PlayerHealth.ApplyDamage(PlayerDamageUnits);
+  }
+
+  public void Reset(Vector3 scale)
+  {
+    transform.localScale = scale;
+
+    _loadedBarrelMetBarrel = null;
   }
 }

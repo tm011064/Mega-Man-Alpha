@@ -17,14 +17,7 @@ public class PlayerHealth
   {
     _currentHealthUnits = _playerController.PlayerHealthSettings.HealthUnits;
   }
-
-  public void KillPlayer()
-  {
-    _currentHealthUnits = 0;
-
-    _playerController.Respawn();
-  }
-
+  
   public DamageResult ApplyDamage(int healthUnitsToDeduct)
   {
     if ((_playerController.PlayerState & PlayerState.Invincible) != 0)
@@ -36,7 +29,7 @@ public class PlayerHealth
 
     if (_currentHealthUnits <= 0)
     {
-      KillPlayer();
+      _playerController.OnPlayerDied();
 
       return DamageResult.Destroyed;
     }

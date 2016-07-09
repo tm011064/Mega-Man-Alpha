@@ -66,7 +66,7 @@ public class BaseCharacterController : BaseMonoBehaviour
     }
   }
 
-  public void ResetControlHandlers(BaseControlHandler controlHandler)
+  public void ResetControlHandlers(BaseControlHandler controlHandler = null)
   {
     Logger.Info("Resetting character control handlers.");
 
@@ -81,7 +81,10 @@ public class BaseCharacterController : BaseMonoBehaviour
 
     _currentBaseControlHandler = null;
 
-    PushControlHandler(controlHandler);
+    if (controlHandler != null)
+    {
+      PushControlHandler(controlHandler);
+    }
   }
 
   public void PushControlHandlers(params BaseControlHandler[] controlHandlers)

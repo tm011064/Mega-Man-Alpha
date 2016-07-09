@@ -30,7 +30,7 @@ public class BaseMonoBehaviour : MonoBehaviour
   {
   }
 
-  void OnEnable()
+  protected virtual void OnEnable()
   {
     var handler = GotEnabled;
 
@@ -40,7 +40,7 @@ public class BaseMonoBehaviour : MonoBehaviour
     }
   }
 
-  void OnDisable()
+  protected virtual void OnDisable()
   {
     IsVisible = false;
 

@@ -48,6 +48,19 @@ public class CameraController : MonoBehaviour
   {
     _scrollActions.Enqueue(scrollAction);
   }
+  
+  /// <summary>
+  /// This method takes the requested target position and moves the camera to the according coordinates based
+  /// on the current camera move settings.
+  /// </summary>
+  public void MoveCameraToTargetPosition(Vector3 targetPosition)
+  {
+    SetPosition(targetPosition);
+
+    var calculatedPosition = CalculateTargetPosition();
+
+    SetPosition(calculatedPosition);
+  }
 
   public void SetPosition(Vector3 position)
   {

@@ -1,11 +1,13 @@
-﻿public class MovingEnemyController : BaseCharacterController, IPlayerCollidable
+﻿using UnityEngine;
+
+public class MovingEnemyController : BaseCharacterController, IPlayerCollidable, ISpawnable
 {
   void Awake()
   {
     CharacterPhysicsManager = GetComponent<CharacterPhysicsManager>();
   }
 
-  public virtual void Reset(Direction startDirection)
+  public virtual void Reset(Vector3 scale)
   {
   }
 

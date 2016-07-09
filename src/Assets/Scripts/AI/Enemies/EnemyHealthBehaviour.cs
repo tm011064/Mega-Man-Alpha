@@ -1,15 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum DamageResult
-{
-  Invincible,
-
-  HealthReduced,
-
-  Destroyed
-}
-
 public class EnemyHealthBehaviour : MonoBehaviour, IObjectPoolBehaviour
 {
   public int HealthUnits = 1;
@@ -69,23 +60,28 @@ public class EnemyHealthBehaviour : MonoBehaviour, IObjectPoolBehaviour
       DeathAnimationPrefab.name,
       gameObject.transform.position + (Vector3)DeathAnimationPrefabOffset);
 
-    var animator = deathAnimation.GetComponent<Animator>();
-
-    if (animator == null)
+    if (deathAnimation == null)
     {
-      throw new MissingComponentException(
-        "Death animation prefab " + DeathAnimationPrefab.name
-        + " must contain an Animator component to be able to play the death animation");
+      return;
     }
 
-    animator.Play(Animator.StringToHash("Enemy Death")); // TODO (Roman): this being hardcoded is flimsy    
+    var animator = deathAnimation.GetComponent<Animator>();
+
+    Logger.Assert(
+      animator != null,
+      "Death animation prefab " + DeathAnimationPrefab.name
+      + " must contain an Animator component to be able to play the death animation");
+
+    animator.Play(Animator.StringToHash("Enemy Death"));
   }
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
     return new ObjectPoolRegistrationInfo[]
     {
-      new ObjectPoolRegistrationInfo(DeathAnimationPrefab, 24) // TODO (Roman): make this a setting value at game manager
+      new ObjectPoolRegistrationInfo(
+        DeathAnimationPrefab, 
+        GameManager.Instance.GameSettings.ObjectPoolSettings.TotalEnemyDeathAnimations)
     };
   }
 }

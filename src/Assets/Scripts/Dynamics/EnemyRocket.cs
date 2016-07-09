@@ -23,7 +23,7 @@ public class EnemyRocket : MonoBehaviour, IEnemyProjectile
 
     if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
     {
-      GameManager.Instance.Player.PlayerHealth.KillPlayer();
+      GameManager.Instance.Player.OnPlayerDied();
     }
   }
 
