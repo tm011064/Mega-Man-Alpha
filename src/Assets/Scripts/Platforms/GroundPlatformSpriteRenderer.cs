@@ -37,7 +37,7 @@ public partial class GroundPlatformSpriteRenderer : BasePlatform
 
   void Awake()
   {
-    var groundPlatformVisibilityMaskTransform = transform.FindChild("GroundPlatformVisibilityMask");
+    var groundPlatformVisibilityMaskTransform = transform.GetChildGameObject("GroundPlatformVisibilityMask");
 
     GameObject visibilityMaskGameObject;
 

@@ -102,7 +102,7 @@ public partial class PlayerController : BaseCharacterController
 
   private void InitializeWeapons()
   {
-    var childTransform = transform.FindChild("Weapons");
+    var childTransform = this.GetChildGameObject("Weapons");
 
     var weapons = childTransform.GetComponents(typeof(IWeapon)).Cast<IWeapon>();
 
@@ -136,11 +136,7 @@ public partial class PlayerController : BaseCharacterController
 
   private void InitializeSpriteAndAnimator()
   {
-    var childTransform = transform.FindChild("SpriteAndAnimator");
-
-    Logger.Assert(
-      childTransform != null,
-      "Player controller is expected to have a SpriteAndAnimator child object. If this is no longer needed, remove this line in code.");
+    var childTransform = this.GetChildGameObject("SpriteAndAnimator");
 
     Sprite = childTransform.gameObject;
 
@@ -151,13 +147,9 @@ public partial class PlayerController : BaseCharacterController
 
   private BoxCollider2D GetEnvironmentCollider()
   {
-    var spriteAndAnimator = transform.FindChild("SpriteAndAnimator");
+    var spriteAndAnimator = transform.GetChildGameObject("SpriteAndAnimator");
 
-    var environmentCollider = spriteAndAnimator.FindChild("Environment Collider");
-
-    Logger.Assert(
-      environmentCollider != null,
-      "Player controller is expected to have an Environment Collider child object. If this is no longer needed, remove this line in code.");
+    var environmentCollider = spriteAndAnimator.transform.GetChildGameObject("Environment Collider");
 
     var boxCollider = environmentCollider.GetComponent<BoxCollider2D>();
 
