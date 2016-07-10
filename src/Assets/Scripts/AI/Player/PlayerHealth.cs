@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 public class PlayerHealth
 {
@@ -13,11 +14,25 @@ public class PlayerHealth
     Reset();
   }
 
+  public event Action<int> HealthChanged;
+
   public void Reset()
   {
-    _currentHealthUnits = _playerController.PlayerHealthSettings.HealthUnits;
+    SetHealthUnits(_playerController.PlayerHealthSettings.HealthUnits);
   }
-  
+
+  private void SetHealthUnits(int healthUnits)
+  {
+    _currentHealthUnits = healthUnits;
+
+    var handler = HealthChanged;
+
+    if (handler != null)
+    {
+      handler(_currentHealthUnits);
+    }
+  }
+
   public DamageResult ApplyDamage(int healthUnitsToDeduct)
   {
     if ((_playerController.PlayerState & PlayerState.Invincible) != 0)
@@ -25,7 +40,7 @@ public class PlayerHealth
       return DamageResult.Invincible;
     }
 
-    _currentHealthUnits -= healthUnitsToDeduct;
+    SetHealthUnits(_currentHealthUnits - healthUnitsToDeduct);
 
     if (_currentHealthUnits <= 0)
     {
