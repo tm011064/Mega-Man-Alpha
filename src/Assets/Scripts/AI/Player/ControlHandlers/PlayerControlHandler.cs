@@ -59,7 +59,7 @@ public class PlayerControlHandler : BaseControlHandler
     _playerUpdateController.UpdatePlayerState(axisState);
   }
 
-  private XYAxisState GetAxisState()
+  protected XYAxisState GetAxisState()
   {
     XYAxisState axisState;
 
@@ -78,17 +78,16 @@ public class PlayerControlHandler : BaseControlHandler
 
   protected float GetGravityAdjustedVerticalVelocity(Vector3 velocity, float gravity, bool canBreakUpMovement)
   {
-    // apply gravity before moving
+    var calculatedVelocity = velocity.y + gravity * Time.deltaTime;
+
     if (canBreakUpMovement
       && velocity.y > 0f
       && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsUp) != 0)
     {
-      return (velocity.y + gravity * Time.deltaTime) * PlayerMetricSettings.JumpReleaseUpVelocityMultiplier;
+      calculatedVelocity *= PlayerMetricSettings.JumpReleaseUpVelocityMultiplier;
     }
-    else
-    {
-      return velocity.y + gravity * Time.deltaTime;
-    }
+
+    return calculatedVelocity;
   }
 
   protected float GetNormalizedHorizontalSpeed(AxisState hAxis)

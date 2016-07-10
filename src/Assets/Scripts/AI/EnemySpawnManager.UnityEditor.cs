@@ -15,9 +15,9 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour
   {
     if (ShowGizmoOutline)
     {
-      if (EnemyToSpawnPrefab != null)
+      if (_enemyToSpawnPrefab != null)
       {
-        var boxCollider2D = EnemyToSpawnPrefab.GetComponent<BoxCollider2D>();
+        var boxCollider2D = _enemyToSpawnPrefab.GetComponent<BoxCollider2D>();
 
         if (boxCollider2D != null)
         {

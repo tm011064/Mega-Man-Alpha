@@ -86,7 +86,7 @@ public partial class WheelEllipse : SpawnBucketItemBehaviour, IObjectPoolBehavio
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(FloatingAttachedPlatform, (int)TotalPlatforms) };
+    yield return new ObjectPoolRegistrationInfo(FloatingAttachedPlatform, (int)TotalPlatforms);
   }
 
   private class GameObjectContainer

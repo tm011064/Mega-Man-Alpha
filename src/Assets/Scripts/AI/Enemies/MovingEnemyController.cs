@@ -7,7 +7,7 @@ public class MovingEnemyController : BaseCharacterController, IPlayerCollidable,
     CharacterPhysicsManager = GetComponent<CharacterPhysicsManager>();
   }
 
-  public virtual void Reset(Vector3 scale)
+  public virtual void Reset()
   {
   }
 

@@ -77,11 +77,8 @@ public class EnemyHealthBehaviour : MonoBehaviour, IObjectPoolBehaviour
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[]
-    {
-      new ObjectPoolRegistrationInfo(
-        DeathAnimationPrefab, 
-        GameManager.Instance.GameSettings.ObjectPoolSettings.TotalEnemyDeathAnimations)
-    };
+    yield return new ObjectPoolRegistrationInfo(
+        DeathAnimationPrefab,
+        GameManager.Instance.GameSettings.ObjectPoolSettings.TotalEnemyDeathAnimations);
   }
 }

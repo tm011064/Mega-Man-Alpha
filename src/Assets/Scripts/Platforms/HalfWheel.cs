@@ -127,6 +127,6 @@ public partial class HalfWheel : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(FloatingAttachedPlatform, 1) };
+    yield return new ObjectPoolRegistrationInfo(FloatingAttachedPlatform);
   }
 }

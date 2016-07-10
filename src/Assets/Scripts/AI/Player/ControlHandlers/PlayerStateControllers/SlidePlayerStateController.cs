@@ -1,6 +1,6 @@
-﻿public class SlideController : PlayerStateController
+﻿public class SlidePlayerStateController : PlayerStateController
 {
-  public SlideController(PlayerController playerController)
+  public SlidePlayerStateController(PlayerController playerController)
     : base(playerController)
   {
   }

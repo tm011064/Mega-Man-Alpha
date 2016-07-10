@@ -106,7 +106,7 @@ public partial class BreakablePlatform : SpawnBucketItemBehaviour, IObjectPoolBe
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(PlatformPrefab, 1) };
+    yield return new ObjectPoolRegistrationInfo(PlatformPrefab);
   }
 
   public enum PlatformBreakMode

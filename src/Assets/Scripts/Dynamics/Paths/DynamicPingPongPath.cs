@@ -167,7 +167,7 @@ public partial class DynamicPingPongPath : SpawnBucketItemBehaviour, IObjectPool
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(ObjectToAttach, 1) };
+    yield return new ObjectPoolRegistrationInfo(ObjectToAttach, 1);
   }
 
   [Serializable]

@@ -68,10 +68,8 @@ public class BarrelMet : BaseMonoBehaviour, IObjectPoolBehaviour, IPlayerCollida
     playerController.PlayerHealth.ApplyDamage(PlayerDamageUnits);
   }
 
-  public void Reset(Vector3 scale)
+  public void Reset()
   {
-    transform.localScale = scale;
-
     _loadedBarrelMetBarrel = null;
   }
 }
