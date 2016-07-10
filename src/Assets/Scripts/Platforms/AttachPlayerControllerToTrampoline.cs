@@ -185,7 +185,7 @@ public partial class AttachPlayerControllerToTrampoline : MonoBehaviour, IAttach
       }
 
       _playerController.PushControlHandler(new TrampolineAutoBounceControlHandler(_playerController, AutoBounceFixedJumpHeight));
-      
+
       _hasBounced = true;
     }
 
@@ -194,7 +194,6 @@ public partial class AttachPlayerControllerToTrampoline : MonoBehaviour, IAttach
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    // TODO (Roman): can we yield those?
-    return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(trampolinePrefab, 1) };
+    yield return new ObjectPoolRegistrationInfo(trampolinePrefab);
   }
 }

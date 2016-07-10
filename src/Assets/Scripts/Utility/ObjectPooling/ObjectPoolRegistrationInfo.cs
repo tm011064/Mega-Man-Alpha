@@ -6,7 +6,7 @@ public class ObjectPoolRegistrationInfo
 
   public int TotalInstances;
 
-  public ObjectPoolRegistrationInfo(GameObject gameObject, int totalInstances)
+  public ObjectPoolRegistrationInfo(GameObject gameObject, int totalInstances = 1)
   {
     GameObject = gameObject;
     TotalInstances = totalInstances;

@@ -154,6 +154,6 @@ public class SplineWalker : MonoBehaviour, IObjectPoolBehaviour
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(MovingObjectPrefab, 1) };
+    yield return new ObjectPoolRegistrationInfo(MovingObjectPrefab);
   }
 }

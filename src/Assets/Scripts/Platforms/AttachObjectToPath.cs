@@ -164,6 +164,6 @@ public class AttachObjectToPath : BaseMonoBehaviour, IObjectPoolBehaviour
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(AttachedObject, 5) };
+    yield return new ObjectPoolRegistrationInfo(AttachedObject, 5);
   }
 }

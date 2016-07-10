@@ -3,14 +3,9 @@ using UnityEngine;
 
 public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 {
-  [SpawnableItemAttribute]
-  public GameObject EnemyToSpawnPrefab;
-
   public RespawnMode RespawnMode = RespawnMode.SpawnOnce;
 
   public bool DestroySpawnedEnemiesWhenGettingDisabled = false;
-
-  public Vector3 SpawnedPrefabScale = new Vector3(1f, 1f, 1f);
 
   public float ContinuousSpawnInterval = 10f;
 
@@ -25,18 +20,38 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
   private float _nextSpawnTime;
 
-  private void Spawn()
+  private GameObject _enemyToSpawnPrefab;
+
+  private bool _isEnemyToSpawnPrefabLoaded;
+
+  void Awake()
   {
-    var spawnedEnemy = _objectPoolingManager.GetObject(EnemyToSpawnPrefab.name, transform.position);
-
-    var enemyController = spawnedEnemy.GetComponent<ISpawnable>();
-
-    if (enemyController == null)
+    if (!_isEnemyToSpawnPrefabLoaded)
     {
-      throw new MissingComponentException("Enemies spawned by an enemy spawn manager must contain an EnemyController component.");
+      LoadEnemyToSpawnPrefab();
+    }
+  }
+
+  private void LoadEnemyToSpawnPrefab()
+  {
+    var spawnable = gameObject.GetComponentInChildren<ISpawnable>(true);
+
+    if (spawnable == null)
+    {
+      throw new MissingReferenceException("Enemy spawn manager '" + name
+        + "' does not contain a child object that inmplements an ISpawnable interface");
     }
 
-    enemyController.Reset(SpawnedPrefabScale);
+    _enemyToSpawnPrefab = (spawnable as MonoBehaviour).gameObject;
+
+    _enemyToSpawnPrefab.SetActive(false);
+
+    _isEnemyToSpawnPrefabLoaded = true;
+  }
+
+  private void Spawn()
+  {
+    var spawnedEnemy = _objectPoolingManager.GetObject(_enemyToSpawnPrefab.name, transform.position);
 
     Logger.Trace("Spawning enemy from {0} at {1}, active: {2}, layer: {3}",
       gameObject.name,
@@ -44,7 +59,13 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
       spawnedEnemy.activeSelf,
       LayerMask.LayerToName(spawnedEnemy.layer));
 
-    enemyController.GotDisabled += OnEnemyControllerGotDisabled;
+    spawnedEnemy.transform.localScale = _enemyToSpawnPrefab.transform.localScale;
+
+    var spawnable = spawnedEnemy.GetComponent<ISpawnable>();
+
+    spawnable.Reset();
+
+    spawnable.GotDisabled += OnEnemyControllerGotDisabled;
 
     _spawnedEnemies.Add(spawnedEnemy);
   }
@@ -123,6 +144,8 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
       _isDisabling = false;
     }
+
+    CancelInvoke("Spawn");
   }
 
   void OnEnable()
@@ -136,19 +159,11 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    yield return new ObjectPoolRegistrationInfo(EnemyToSpawnPrefab, 1);
-
-    var objectPoolBehaviours = EnemyToSpawnPrefab.GetComponentsInChildren<IObjectPoolBehaviour>(true);
-
-    if (objectPoolBehaviours != null)
+    if (!_isEnemyToSpawnPrefabLoaded)
     {
-      for (var i = 0; i < objectPoolBehaviours.Length; i++)
-      {
-        foreach (var registrationInfo in objectPoolBehaviours[i].GetObjectPoolRegistrationInfos())
-        {
-          yield return registrationInfo;
-        }
-      }
+      LoadEnemyToSpawnPrefab();
     }
+
+    return GetObjectPoolRegistrationInfos(_enemyToSpawnPrefab);
   }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface ISpawnable
 {
-  void Reset(Vector3 scale);
+  void Reset();
 
   event Action<BaseMonoBehaviour> GotDisabled;
 }

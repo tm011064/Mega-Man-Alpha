@@ -7,7 +7,7 @@ public class SlidePlayerControlHandler : PlayerControlHandler
   private float _distancePerSecond;
 
   public SlidePlayerControlHandler(PlayerController playerController)
-    : base(playerController, new PlayerStateController[] { new SlideController(playerController) })
+    : base(playerController, new PlayerStateController[] { new SlidePlayerStateController(playerController) })
   {
     SetDebugDraw(Color.gray, true);
   }
@@ -21,8 +21,12 @@ public class SlidePlayerControlHandler : PlayerControlHandler
     _distancePerSecond = (1f / PlayerController.SlideSettings.Duration)
       * PlayerController.SlideSettings.Distance;
 
+    HorizontalAxisOverride = new AxisState(1f);
+
     if (!PlayerController.IsFacingRight())
     {
+      HorizontalAxisOverride.Value = -1f;
+
       _distancePerSecond *= -1f;
     }
 
@@ -44,15 +48,25 @@ public class SlidePlayerControlHandler : PlayerControlHandler
     return CharacterPhysicsManager.CanMoveVertically(currentHeightToStandUprightHeightDelta);
   }
 
-  protected override ControlHandlerAfterUpdateStatus DoUpdate()
+  private void HandleDirectionChange()
   {
-    if (_startTime + PlayerController.SlideSettings.Duration < Time.time
-      && PlayerHasEnoughVerticalSpaceToGetUp())
-    {
-      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
-    }
+    HorizontalAxisOverride = null;
 
-    var deltaMovement = new Vector2(
+    var axisState = GetAxisState();
+
+    if (!axisState.IsInHorizontalSensitivityDeadZone())
+    {
+      if (_distancePerSecond > 0f && axisState.XAxis < 0f
+        || _distancePerSecond < 0f && axisState.XAxis > 0f)
+      {
+        _distancePerSecond = -_distancePerSecond;
+      }
+    }
+  }
+
+  private Vector2 CalculateDeltaMovement()
+  {
+    return new Vector2(
       Time.deltaTime * _distancePerSecond,
       Mathf.Max(
         GetGravityAdjustedVerticalVelocity(
@@ -61,6 +75,26 @@ public class SlidePlayerControlHandler : PlayerControlHandler
           true),
         PlayerController.JumpSettings.MaxDownwardSpeed)
       * Time.deltaTime);
+  }
+
+  protected override ControlHandlerAfterUpdateStatus DoUpdate()
+  {
+    if (_startTime + PlayerController.SlideSettings.Duration < Time.time)
+    {
+      if (PlayerHasEnoughVerticalSpaceToGetUp())
+      {
+        return ControlHandlerAfterUpdateStatus.CanBeDisposed;
+      }
+
+      HandleDirectionChange();
+    }
+
+    if (!PlayerController.IsGrounded())
+    {
+      return ControlHandlerAfterUpdateStatus.CanBeDisposed;
+    }
+
+    var deltaMovement = CalculateDeltaMovement();
 
     PlayerController.CharacterPhysicsManager.Move(deltaMovement);
 

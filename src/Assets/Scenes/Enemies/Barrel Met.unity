@@ -849,104 +849,6 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
---- !u!1001 &651407189
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2103039389}
-    m_Modifications:
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 39
-      objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Size.x
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Size.y
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Offset.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: RespawnMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: DestroySpawnedEnemiesWhenGettingDisabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: RespawnOnDestroyDelay
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: EnemyToSpawn
-      value: 
-      objectReference: {fileID: 195402, guid: aea3d3082227de64a93dc5d0e7f35f2e, type: 2}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: ShowGizmoOutline
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195444, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Name
-      value: Barrel Met Spawn Location 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: EnemyToSpawnPrefab
-      value: 
-      objectReference: {fileID: 195402, guid: aea3d3082227de64a93dc5d0e7f35f2e, type: 2}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: SpawnedPrefabScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &651407190 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-  m_PrefabInternal: {fileID: 651407189}
 --- !u!1 &697067681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,13 +1152,13 @@ Mesh:
   m_MeshOptimized: 0
 --- !u!114 &1201264485 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3,
+  m_PrefabParentObject: {fileID: 11444066, guid: b90cfaaa6fcf211489108b605d0e1917,
     type: 2}
   m_PrefabInternal: {fileID: 1640594078}
   m_Script: {fileID: 11500000, guid: aa09f85b9517ec9459a432afb9ee8c1f, type: 3}
 --- !u!4 &1201264486 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+  m_PrefabParentObject: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
   m_PrefabInternal: {fileID: 1640594078}
 --- !u!1001 &1240245207
 Prefab:
@@ -1951,88 +1853,44 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 2103039389}
     m_Modifications:
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_LocalPosition.x
       value: 210
       objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_LocalPosition.y
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 404724, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Size.x
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Size.y
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6196360, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Offset.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: RespawnMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: DestroySpawnedEnemiesWhenGettingDisabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: RespawnOnDestroyDelay
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: EnemyToSpawn
-      value: 
-      objectReference: {fileID: 195402, guid: aea3d3082227de64a93dc5d0e7f35f2e, type: 2}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: ShowGizmoOutline
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195444, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: m_Name
-      value: Barrel Met Spawn Location 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: EnemyToSpawnPrefab
-      value: 
-      objectReference: {fileID: 195402, guid: aea3d3082227de64a93dc5d0e7f35f2e, type: 2}
-    - target: {fileID: 11473106, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
-      propertyPath: SpawnedPrefabScale.x
+    - target: {fileID: 428048, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b604ccf5b9ef4b749b414c642d2b4fe3, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1698148593
 GameObject:
@@ -2162,6 +2020,56 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1201264486}
-  - {fileID: 651407190}
+  - {fileID: 2113524480}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!1001 &2113524479
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2103039389}
+    m_Modifications:
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 111046, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: m_Name
+      value: Barrel Met Spawn Location (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &2113524480 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 466284, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+  m_PrefabInternal: {fileID: 2113524479}

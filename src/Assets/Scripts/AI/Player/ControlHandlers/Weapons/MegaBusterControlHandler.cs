@@ -66,6 +66,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
   private bool CanFire(XYAxisState axisState)
   {
     return (PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
+      && (PlayerController.PlayerState & PlayerState.Sliding) == 0
       && (_projectileWeaponSettings.EnableAutomaticFire
         ? IsFireButtonPressed()
         : IsFireButtonUp())
@@ -121,7 +122,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
     if ((PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
       && !HasShootAnimationFinished())
     {
-      return PlayerStateUpdateResult.CreateHandled(_lastAnimationName, 1);
+      return PlayerStateUpdateResult.CreateHandled(GetAnimationName(axisState), 1);
     }
 
     return PlayerStateUpdateResult.Unhandled;

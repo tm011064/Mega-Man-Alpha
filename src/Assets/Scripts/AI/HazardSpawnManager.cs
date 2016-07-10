@@ -77,19 +77,6 @@ public partial class HazardSpawnManager : SpawnBucketItemBehaviour, IObjectPoolB
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    yield return new ObjectPoolRegistrationInfo(ProjectileToSpawn, 1);
-
-    var objectPoolBehaviours = ProjectileToSpawn.GetComponentsInChildren<IObjectPoolBehaviour>(true);
-
-    if (objectPoolBehaviours != null)
-    {
-      for (var i = 0; i < objectPoolBehaviours.Length; i++)
-      {
-        foreach (var registrationInfo in objectPoolBehaviours[i].GetObjectPoolRegistrationInfos())
-        {
-          yield return registrationInfo;
-        }
-      }
-    }
+    return GetObjectPoolRegistrationInfos(ProjectileToSpawn);
   }
 }

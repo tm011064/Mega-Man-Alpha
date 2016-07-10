@@ -211,7 +211,7 @@ public partial class JumpControlledDisappearingPlatformGroup : MonoBehaviour, IO
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    return new ObjectPoolRegistrationInfo[] { new ObjectPoolRegistrationInfo(PlatformPrefab, TotalVisiblePlatforms) };
+    yield return new ObjectPoolRegistrationInfo(PlatformPrefab, TotalVisiblePlatforms);
   }
 
   public enum JumpControlledDisappearingPlatformMode

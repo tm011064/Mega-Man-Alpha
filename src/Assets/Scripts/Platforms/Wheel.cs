@@ -82,23 +82,7 @@ public partial class Wheel : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    Debug.Log("WHEEL " + FloatingAttachedPlatform.name);
-
-    var objectPoolRegistrationInfos = new List<ObjectPoolRegistrationInfo>();
-
-    objectPoolRegistrationInfos.Add(new ObjectPoolRegistrationInfo(FloatingAttachedPlatform, (int)TotalPlatforms));
-
-    var objectPoolBehaviours = FloatingAttachedPlatform.GetComponentsInChildren<IObjectPoolBehaviour>(true);
-
-    if (objectPoolBehaviours != null)
-    {
-      for (var i = 0; i < objectPoolBehaviours.Length; i++)
-      {
-        objectPoolRegistrationInfos.AddRange(objectPoolBehaviours[i].GetObjectPoolRegistrationInfos());
-      }
-    }
-
-    return objectPoolRegistrationInfos;
+    return GetObjectPoolRegistrationInfos(FloatingAttachedPlatform, (int)TotalPlatforms);
   }
 
   private class GameObjectContainer

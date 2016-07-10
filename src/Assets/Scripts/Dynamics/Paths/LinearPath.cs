@@ -461,25 +461,7 @@ public partial class LinearPath : SpawnBucketItemBehaviour, IObjectPoolBehaviour
 
   public IEnumerable<ObjectPoolRegistrationInfo> GetObjectPoolRegistrationInfos()
   {
-    Debug.Log("LINEAR PATH " + ObjectToAttach.name);
-
-    var objectPoolRegistrationInfos = new List<ObjectPoolRegistrationInfo>();
-
-    objectPoolRegistrationInfos.Add(new ObjectPoolRegistrationInfo(ObjectToAttach, TotalObjectsOnPath));
-
-    var objectPoolBehaviours = ObjectToAttach.GetComponentsInChildren<IObjectPoolBehaviour>(true);
-
-    if (objectPoolBehaviours != null)
-    {
-      for (var i = 0; i < objectPoolBehaviours.Length; i++)
-      {
-        Debug.Log("LINEAR PATH has behaviour " + ObjectToAttach.name);
-
-        objectPoolRegistrationInfos.AddRange(objectPoolBehaviours[i].GetObjectPoolRegistrationInfos());
-      }
-    }
-
-    return objectPoolRegistrationInfos;
+    return GetObjectPoolRegistrationInfos(ObjectToAttach, TotalObjectsOnPath);
   }
 
   public enum StartPosition
