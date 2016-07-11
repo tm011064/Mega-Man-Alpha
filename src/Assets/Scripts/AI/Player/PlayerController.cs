@@ -42,7 +42,10 @@ public partial class PlayerController : BaseCharacterController
   public SpriteRenderer SpriteRenderer;
 
   [HideInInspector]
-  public BoxCollider2D BoxCollider;
+  public BoxCollider2D EnvironmentBoxCollider;
+
+  [HideInInspector]
+  public BoxCollider2D EnemyBoxCollider;
 
   [HideInInspector]
   public Vector3 SpawnLocation;
@@ -120,7 +123,7 @@ public partial class PlayerController : BaseCharacterController
   {
     CharacterPhysicsManager = GetComponent<CharacterPhysicsManager>();
 
-    CharacterPhysicsManager.BoxCollider = GetEnvironmentCollider();
+    CharacterPhysicsManager.BoxCollider = EnvironmentBoxCollider;
 
     CharacterPhysicsManager.ControllerCollided += OnControllerCollided;
 
@@ -129,9 +132,11 @@ public partial class PlayerController : BaseCharacterController
 
   private void InitializeBoxCollider()
   {
-    BoxCollider = GetEnvironmentCollider();
+    EnvironmentBoxCollider = GetEnvironmentCollider();
 
-    StandIdleEnvironmentBoxColliderSize = BoxCollider.size;
+    StandIdleEnvironmentBoxColliderSize = EnvironmentBoxCollider.size;
+
+    EnemyBoxCollider = GetEnemyCollider();
   }
 
   private void InitializeSpriteAndAnimator()
@@ -156,6 +161,22 @@ public partial class PlayerController : BaseCharacterController
     if (boxCollider == null)
     {
       throw new MissingComponentException("Environment Collider expects a BoxCollider2D");
+    }
+
+    return boxCollider;
+  }
+
+  private BoxCollider2D GetEnemyCollider()
+  {
+    var spriteAndAnimator = transform.GetChildGameObject("SpriteAndAnimator");
+
+    var environmentCollider = spriteAndAnimator.transform.GetChildGameObject("Enemy Collider");
+
+    var boxCollider = environmentCollider.GetComponent<BoxCollider2D>();
+
+    if (boxCollider == null)
+    {
+      throw new MissingComponentException("Enemy Collider expects a BoxCollider2D");
     }
 
     return boxCollider;
@@ -297,17 +318,17 @@ public partial class PlayerController : BaseCharacterController
 
   public void Respawn()
   {
-    _gameManager.RefreshScene(SpawnLocation);
-
-    CharacterPhysicsManager.Reset(SpawnLocation);
-
+    transform.parent = null; // just in case we were still attached
+    
     AdjustedGravity = JumpSettings.Gravity;
 
+    CharacterPhysicsManager.Reset(SpawnLocation);
+    
     ResetControlHandlers(new DefaultPlayerControlHandler(this));
+    
+    _gameManager.RefreshScene(SpawnLocation);
 
     PlayerHealth.Reset();
-
-    transform.parent = null; // just in case we were still attached
   }
 
   private void EnableClimbing()

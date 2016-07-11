@@ -1,8 +1,9 @@
 ﻿using System;
-using UnityEngine;
 
 public interface ISpawnable
 {
+  bool CanSpawn();
+
   void Reset();
 
   event Action<BaseMonoBehaviour> GotDisabled;

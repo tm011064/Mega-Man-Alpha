@@ -21,7 +21,7 @@ public class ClimbOverLadderTopControlHandler : PlayerControlHandler
 
     PlayerController.transform.position = new Vector3(
       PlayerController.transform.position.x,
-      _ladderTopEdgePosY + PlayerController.transform.position.y - PlayerController.BoxCollider.bounds.min.y,
+      _ladderTopEdgePosY + PlayerController.transform.position.y - PlayerController.EnvironmentBoxCollider.bounds.min.y,
       PlayerController.transform.position.z);
   }
 
@@ -34,7 +34,7 @@ public class ClimbOverLadderTopControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (PlayerController.BoxCollider.bounds.min.y > _ladderTopEdgePosY)
+    if (PlayerController.EnvironmentBoxCollider.bounds.min.y > _ladderTopEdgePosY)
     {
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }

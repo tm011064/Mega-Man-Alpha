@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FullScreenScroller : MonoBehaviour
+public class FullScreenScroller : MonoBehaviour, ISceneResetable
 {
   public ZoomSettings ZoomSettings;
 
@@ -36,6 +36,8 @@ public class FullScreenScroller : MonoBehaviour
 
   private int _animationShortNameHash;
 
+  private BoxCollider2D _boxCollider;
+
   void Awake()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
@@ -50,6 +52,13 @@ public class FullScreenScroller : MonoBehaviour
     _horizontalLockSettings = CreateHorizontalLockSettings(boxCollider.bounds);
 
     _verticalLockSettings = CreateVerticalLockSettings(boxCollider.bounds);
+
+    OnSceneReset();
+  }
+
+  public void OnSceneReset()
+  {
+    var boxCollider = GetComponent<BoxCollider2D>();
 
     _skipEnter = boxCollider.bounds.Contains(GameManager.Instance.Player.transform.position);
   }

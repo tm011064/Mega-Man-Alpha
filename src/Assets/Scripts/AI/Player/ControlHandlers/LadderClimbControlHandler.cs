@@ -26,7 +26,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    if (GameManager.Player.BoxCollider.bounds.AreAbove(_ladderArea))
+    if (GameManager.Player.EnvironmentBoxCollider.bounds.AreAbove(_ladderArea))
     {
       GameManager.Player.InsertControlHandlerBeforeCurrent(
         new ClimbOverLadderTopControlHandler(PlayerController, _ladderTopEdgePosY));
@@ -34,7 +34,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    if (GameManager.Player.BoxCollider.bounds.AreBelow(_ladderArea))
+    if (GameManager.Player.EnvironmentBoxCollider.bounds.AreBelow(_ladderArea))
     {
       PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
 

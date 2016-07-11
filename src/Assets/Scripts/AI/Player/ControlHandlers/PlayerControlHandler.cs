@@ -302,8 +302,8 @@ public class PlayerControlHandler : BaseControlHandler
     if (DoDrawDebugBoundingBox)
     {
       GizmoUtility.DrawBoundingBox(
-        PlayerController.transform.position + PlayerController.BoxCollider.offset.ToVector3(),
-        PlayerController.BoxCollider.bounds.extents, DebugBoundingBoxColor);
+        PlayerController.transform.position + PlayerController.EnvironmentBoxCollider.offset.ToVector3(),
+        PlayerController.EnvironmentBoxCollider.bounds.extents, DebugBoundingBoxColor);
     }
   }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBehaviour
+public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBehaviour, ISceneResetable
 {
   public RespawnMode RespawnMode = RespawnMode.SpawnOnce;
 
@@ -53,12 +53,6 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
   {
     var spawnedEnemy = _objectPoolingManager.GetObject(_enemyToSpawnPrefab.name, transform.position);
 
-    Logger.Trace("Spawning enemy from {0} at {1}, active: {2}, layer: {3}",
-      gameObject.name,
-      spawnedEnemy.transform.position,
-      spawnedEnemy.activeSelf,
-      LayerMask.LayerToName(spawnedEnemy.layer));
-
     spawnedEnemy.transform.localScale = _enemyToSpawnPrefab.transform.localScale;
 
     var spawnable = spawnedEnemy.GetComponent<ISpawnable>();
@@ -68,6 +62,11 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
     spawnable.GotDisabled += OnEnemyControllerGotDisabled;
 
     _spawnedEnemies.Add(spawnedEnemy);
+
+    if (!spawnable.CanSpawn())
+    {
+      _objectPoolingManager.Deactivate(spawnedEnemy);
+    }
   }
 
   void OnEnemyControllerGotDisabled(BaseMonoBehaviour obj)
@@ -110,6 +109,14 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
       {
         _nextSpawnTime = -1f;
       }
+    }
+  }
+
+  public void OnSceneReset()
+  {
+    if (!DestroySpawnedEnemiesWhenGettingDisabled)
+    {
+      DeactivateSpawnedObjects();
     }
   }
 
