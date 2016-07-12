@@ -23,7 +23,15 @@ public class BarrelMetBarrel : MovingEnemyController
   {
     if (ObjectDestructionSettings.DestroyWhenOffScreen)
     {
-      StartVisibilityChecks(ObjectDestructionSettings.VisibilityCheckInterval, CharacterPhysicsManager.BoxCollider);
+      // it might happen that the barrel spawn location is not visible when the barrel met is visible. In such a 
+      // case, the GotHidden method would not fire as it never was visible in first place. This is why we have to check
+      // here whether the barrel is visible
+      if (!IsColliderVisible(CharacterPhysicsManager.BoxCollider))
+      {
+        OnBecameInvisible();
+
+        return;
+      }
     }
 
     base.OnEnable();
@@ -36,7 +44,7 @@ public class BarrelMetBarrel : MovingEnemyController
     base.OnDisable();
   }
 
-  protected override void OnGotHidden()
+  void OnBecameInvisible()
   {
     if (ObjectDestructionSettings.DestroyWhenOffScreen)
     {

@@ -1145,6 +1145,10 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 11444066, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: RespawnOnDestroyDelay
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
   m_IsPrefabParent: 0
@@ -2402,6 +2406,10 @@ Prefab:
     - target: {fileID: 428048, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
       propertyPath: m_LocalScale.x
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444066, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}
+      propertyPath: RespawnOnDestroyDelay
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b90cfaaa6fcf211489108b605d0e1917, type: 2}

@@ -70,9 +70,9 @@ public class BarrelMet : BaseMonoBehaviour, IObjectPoolBehaviour, IPlayerCollida
 
   public bool CanSpawn()
   {
-    var collider = GetComponent<BoxCollider2D>();
+    var bounds = GetBounds(GetComponent<BoxCollider2D>());
 
-    return !collider.bounds.Intersects(GameManager.Instance.Player.EnemyBoxCollider.bounds);
+    return !bounds.Intersects(GameManager.Instance.Player.EnemyBoxCollider.bounds);
   }
 
   public void Reset()

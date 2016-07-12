@@ -22,6 +22,8 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
   private GameObject _enemyToSpawnPrefab;
 
+  private ISpawnable _spawnablePrefabComponent;
+
   private bool _isEnemyToSpawnPrefabLoaded;
 
   void Awake()
@@ -34,15 +36,15 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
   private void LoadEnemyToSpawnPrefab()
   {
-    var spawnable = gameObject.GetComponentInChildren<ISpawnable>(true);
+    _spawnablePrefabComponent = gameObject.GetComponentInChildren<ISpawnable>(true);
 
-    if (spawnable == null)
+    if (_spawnablePrefabComponent == null)
     {
       throw new MissingReferenceException("Enemy spawn manager '" + name
         + "' does not contain a child object that inmplements an ISpawnable interface");
     }
 
-    _enemyToSpawnPrefab = (spawnable as MonoBehaviour).gameObject;
+    _enemyToSpawnPrefab = (_spawnablePrefabComponent as MonoBehaviour).gameObject;
 
     _enemyToSpawnPrefab.SetActive(false);
 
@@ -51,6 +53,15 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
   private void Spawn()
   {
+    _enemyToSpawnPrefab.transform.position = transform.position;
+
+    if (!_spawnablePrefabComponent.CanSpawn())
+    {
+      ScheduleSpawn();
+
+      return;
+    }
+    
     var spawnedEnemy = _objectPoolingManager.GetObject(_enemyToSpawnPrefab.name, transform.position);
 
     spawnedEnemy.transform.localScale = _enemyToSpawnPrefab.transform.localScale;
@@ -63,9 +74,25 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
     _spawnedEnemies.Add(spawnedEnemy);
 
-    if (!spawnable.CanSpawn())
+    //if (!spawnable.CanSpawn())
+    //{
+    //  _objectPoolingManager.Deactivate(spawnedEnemy);
+    //}
+  }
+
+  private void ScheduleSpawn()
+  {
+    try
     {
-      _objectPoolingManager.Deactivate(spawnedEnemy);
+      if (isActiveAndEnabled
+        && RespawnMode == RespawnMode.SpawnWhenDestroyed)
+      {
+        Invoke("Spawn", RespawnOnDestroyDelay);
+      }
+    }
+    catch (MissingReferenceException)
+    {
+      // we swallow that one, it happens on scene unload when an enemy disables after this object has been finalized
     }
   }
 
@@ -78,18 +105,7 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
       // while we are disabling this object we don't want to touch the spawned enemies list nor respawn
       _spawnedEnemies.Remove(obj.gameObject);
 
-      try
-      {
-        if (isActiveAndEnabled
-          && RespawnMode == RespawnMode.SpawnWhenDestroyed)
-        {
-          Invoke("Spawn", RespawnOnDestroyDelay);
-        }
-      }
-      catch (MissingReferenceException)
-      {
-        // we swallow that one, it happens on scene unload when an enemy disables after this object has been finalized
-      }
+      ScheduleSpawn();
     }
   }
 
