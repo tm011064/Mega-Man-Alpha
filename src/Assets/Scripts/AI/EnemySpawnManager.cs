@@ -61,7 +61,7 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
 
       return;
     }
-    
+
     var spawnedEnemy = _objectPoolingManager.GetObject(_enemyToSpawnPrefab.name, transform.position);
 
     spawnedEnemy.transform.localScale = _enemyToSpawnPrefab.transform.localScale;
@@ -73,11 +73,6 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IObjectPoolBe
     spawnable.GotDisabled += OnEnemyControllerGotDisabled;
 
     _spawnedEnemies.Add(spawnedEnemy);
-
-    //if (!spawnable.CanSpawn())
-    //{
-    //  _objectPoolingManager.Deactivate(spawnedEnemy);
-    //}
   }
 
   private void ScheduleSpawn()
