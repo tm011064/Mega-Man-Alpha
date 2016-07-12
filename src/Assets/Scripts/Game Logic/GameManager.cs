@@ -75,22 +75,14 @@ public class GameManager : MonoBehaviour
 
   public void RefreshScene(Vector3 cameraPosition)
   {
-    foreach (EnemySpawnManager enemySpawnManager in FindObjectsOfType<EnemySpawnManager>())
-    {
-      if (!enemySpawnManager.DestroySpawnedEnemiesWhenGettingDisabled)
-      {
-        enemySpawnManager.DeactivateSpawnedObjects();
-      }
-    }
-
-    foreach (SpawnBucket spawnBucket in FindObjectsOfType<SpawnBucket>())
-    {
-      spawnBucket.Reload();
-    }
-
     ObjectPoolingManager.Instance.DeactivateAll();
 
     ResetCameraPosition(cameraPosition);
+    
+    foreach (ISceneResetable sceneResetable in FindComponents<ISceneResetable>())
+    {
+      sceneResetable.OnSceneReset();
+    }
 
 #if !FINAL
     _fpsRenderer.SceneStartTime = Time.time;
@@ -150,6 +142,22 @@ public class GameManager : MonoBehaviour
 #if !FINAL
     _fpsRenderer.SceneStartTime = Time.time;
 #endif
+  }
+
+  private IEnumerable<T> FindComponents<T>()
+    where T : class
+  {
+    var monoBehaviours = GameObject.FindObjectsOfType<MonoBehaviour>();
+
+    for (var i = 0; i < monoBehaviours.Length; i++)
+    {
+      var component = monoBehaviours[i] as T;
+
+      if (component != null)
+      {
+        yield return component;
+      }
+    }
   }
 
   private void ResetPooledObjects()

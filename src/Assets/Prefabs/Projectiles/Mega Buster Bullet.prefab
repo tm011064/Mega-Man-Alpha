@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 435620}
   - 212: {fileID: 21292788}
   - 114: {fileID: 11401434}
+  - 114: {fileID: 11427120}
   - 61: {fileID: 6188392}
   - 114: {fileID: 11433442}
   m_Layer: 11
@@ -59,6 +60,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageUnits: 1
   ProjectileBlockedBehaviour: 1
+--- !u!114 &11427120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbfb04a3527da04bb41c1cea82ad0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11433442
 MonoBehaviour:
   m_ObjectHideFlags: 1

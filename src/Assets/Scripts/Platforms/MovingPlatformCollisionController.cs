@@ -18,7 +18,7 @@ public class MovingPlatformCollisionController : MonoBehaviour
   {
     _playerController = GameManager.Instance.Player;
     _boxCollider = GetComponent<BoxCollider2D>();
-    _playerBoxCollider = _playerController.BoxCollider;
+    _playerBoxCollider = _playerController.EnvironmentBoxCollider;
   }
 
   void LateUpdate()
@@ -50,7 +50,7 @@ public class MovingPlatformCollisionController : MonoBehaviour
 
           _playerController.transform.position = new Vector3(
             (_boxCollider.gameObject.transform.position).x
-            - _playerController.BoxCollider.size.x / 2
+            - _playerController.EnvironmentBoxCollider.size.x / 2
             - FUDGE_FACTOR,
             _playerController.transform.position.y,
             _playerController.transform.position.z);
@@ -68,7 +68,7 @@ public class MovingPlatformCollisionController : MonoBehaviour
 
           _playerController.transform.position = new Vector3(
             (_boxCollider.gameObject.transform.position + _boxCollider.offset.ToVector3() + _boxCollider.offset.ToVector3()).x
-            + _playerController.BoxCollider.size.x / 2
+            + _playerController.EnvironmentBoxCollider.size.x / 2
             + FUDGE_FACTOR,
             _playerController.transform.position.y,
             _playerController.transform.position.z);

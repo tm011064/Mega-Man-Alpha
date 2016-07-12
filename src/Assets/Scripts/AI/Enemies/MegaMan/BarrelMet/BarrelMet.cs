@@ -68,6 +68,13 @@ public class BarrelMet : BaseMonoBehaviour, IObjectPoolBehaviour, IPlayerCollida
     playerController.PlayerHealth.ApplyDamage(PlayerDamageUnits);
   }
 
+  public bool CanSpawn()
+  {
+    var bounds = GetBounds(GetComponent<BoxCollider2D>());
+
+    return !bounds.Intersects(GameManager.Instance.Player.EnemyBoxCollider.bounds);
+  }
+
   public void Reset()
   {
     _loadedBarrelMetBarrel = null;

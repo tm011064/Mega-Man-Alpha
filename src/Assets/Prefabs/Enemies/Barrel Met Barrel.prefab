@@ -143,6 +143,7 @@ MonoBehaviour:
   CharacterPhysicsManager: {fileID: 0}
   Speed: 40
   Gravity: -200
+  PlayerDamageUnits: 2
   ObjectDestructionSettings:
     DestroyWhenOffScreen: 1
     VisibilityCheckInterval: 0.2

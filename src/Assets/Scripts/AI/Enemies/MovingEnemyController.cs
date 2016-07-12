@@ -14,4 +14,9 @@ public class MovingEnemyController : BaseCharacterController, IPlayerCollidable,
   public virtual void OnPlayerCollide(PlayerController playerController)
   {
   }
+
+  public virtual bool CanSpawn()
+  {
+    return true;
+  }
 }

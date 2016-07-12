@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public partial class SpawnBucket : BaseMonoBehaviour
+public partial class SpawnBucket : BaseMonoBehaviour, ISceneResetable
 {
   [SerializeField]
   [InspectorReadOnlyAttribute]
@@ -38,7 +38,7 @@ public partial class SpawnBucket : BaseMonoBehaviour
     base.OnEnable();
   }
 
-  public void Reload()
+  public void OnSceneReset()
   {
     for (var i = 0; i < _children.Length; i++)
     {

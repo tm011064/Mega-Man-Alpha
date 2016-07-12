@@ -14,10 +14,6 @@ public class BaseMonoBehaviour : MonoBehaviour
 
   protected bool IsVisible;
 
-  private Collider2D _visibilityCheckCollider;
-
-  private Renderer _visibilityCheckRenderer;
-
   private Func<bool> _testVisibility;
 
   private float _visibiltyCheckInterval = 0f;
@@ -52,15 +48,18 @@ public class BaseMonoBehaviour : MonoBehaviour
     }
   }
 
+  protected bool IsColliderVisible(Collider2D collider)
+  {
+    return collider.IsVisibleFrom(Camera.main);
+  }
+
   protected void StartVisibilityChecks(float visibiltyCheckInterval, Collider2D collider)
   {
     if (visibiltyCheckInterval > 0f)
     {
       _visibiltyCheckInterval = visibiltyCheckInterval;
 
-      _visibilityCheckCollider = collider;
-
-      _testVisibility = (() => { return _visibilityCheckCollider.IsVisibleFrom(Camera.main); });
+      _testVisibility = () => IsColliderVisible(collider);
 
       StartCoroutine(CheckVisibility());
     }
@@ -72,9 +71,7 @@ public class BaseMonoBehaviour : MonoBehaviour
     {
       _visibiltyCheckInterval = visibiltyCheckInterval;
 
-      _visibilityCheckRenderer = renderer;
-
-      _testVisibility = (() => { return _visibilityCheckRenderer.IsVisibleFrom(Camera.main); });
+      _testVisibility = () => renderer.IsVisibleFrom(Camera.main);
 
       StartCoroutine(CheckVisibility());
     }
@@ -113,5 +110,23 @@ public class BaseMonoBehaviour : MonoBehaviour
 
       yield return new WaitForSeconds(_visibiltyCheckInterval);
     }
+  }
+
+  /// <summary>
+  /// Unity seems to set the bounds extents of a disabled game object's box collider to zero. This method
+  /// returns the actual extents of the collider as if it was enabled.
+  /// </summary>
+  protected Bounds GetBounds(BoxCollider2D collider)
+  {
+    if (isActiveAndEnabled)
+    {
+      return collider.bounds;
+    }
+
+    var bounds = collider.bounds;
+
+    bounds.size = collider.size;
+
+    return bounds;
   }
 }

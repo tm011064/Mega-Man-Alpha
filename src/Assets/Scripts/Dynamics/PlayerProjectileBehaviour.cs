@@ -9,6 +9,21 @@ public class PlayerProjectileBehaviour : MonoBehaviour
 
   private Vector3 _velocity;
 
+  private IProjectileReboundBehaviour _projectileReboundBehaviour;
+
+  void Awake()
+  {
+    if (ProjectileBlockedBehaviour == ProjectileBlockedBehaviour.Rebound)
+    {
+      _projectileReboundBehaviour = GetComponent<IProjectileReboundBehaviour>();
+
+      if (_projectileReboundBehaviour == null)
+      {
+        throw new MissingComponentException(typeof(IProjectileReboundBehaviour).ToString());
+      }
+    }
+  }
+
   public void StartMove(Vector2 startPosition, Vector2 velocity)
   {
     transform.position = startPosition;
@@ -52,21 +67,14 @@ public class PlayerProjectileBehaviour : MonoBehaviour
     if (damageResult == DamageResult.Invincible
       && ProjectileBlockedBehaviour == ProjectileBlockedBehaviour.Rebound)
     {
-      HandleProjectileRebound();
+      _velocity = _projectileReboundBehaviour.HandleRebound(
+        GetComponent<BoxCollider2D>(),
+        collider,
+        _velocity);
 
       return;
     }
 
     ObjectPoolingManager.Instance.Deactivate(gameObject);
-  }
-
-  private void HandleProjectileRebound()
-  {
-    // first undo the last translation so we are outside the bounding box
-    transform.Translate(_velocity * -Time.deltaTime, Space.World);
-
-    var zRotationAngle = (_velocity.x > 0f) ? 135f : -135f;
-
-    _velocity = Quaternion.Euler(0, 0, zRotationAngle) * _velocity;
   }
 }

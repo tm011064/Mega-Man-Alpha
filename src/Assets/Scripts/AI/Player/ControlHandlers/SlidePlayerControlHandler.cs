@@ -43,7 +43,7 @@ public class SlidePlayerControlHandler : PlayerControlHandler
   private bool PlayerHasEnoughVerticalSpaceToGetUp()
   {
     var currentHeightToStandUprightHeightDelta =
-      PlayerController.StandIdleEnvironmentBoxColliderSize.y - PlayerController.BoxCollider.size.y;
+      PlayerController.StandIdleEnvironmentBoxColliderSize.y - PlayerController.EnvironmentBoxCollider.size.y;
 
     return CharacterPhysicsManager.CanMoveVertically(currentHeightToStandUprightHeightDelta);
   }

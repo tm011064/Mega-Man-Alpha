@@ -19,7 +19,7 @@
     {
       if (axisState.YAxis >= 0f
         && PlayerController.CharacterPhysicsManager.CanMoveVertically(
-          PlayerController.BoxCollider.size.y
+          PlayerController.EnvironmentBoxCollider.size.y
           - CROUCH_STANDUP_COLLISION_FUDGE_FACTOR, false))
       {
         PlayerController.PlayerState &= ~PlayerState.Crouching;
