@@ -23,7 +23,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
   public bool IsTrigger = false;
 
   [EnumFlag]
-  public Direction ColliderSides = Direction.Left | Direction.Top | Direction.Right | Direction.Bottom;
+  public Direction ColliderSides = Direction.Left | Direction.Up | Direction.Right | Direction.Down;
 
 #if UNITY_EDITOR
   public string PrefabMeshFolder = "Assets/Meshes/";
@@ -152,7 +152,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
       collider.hideFlags = HideFlags.HideInInspector;
     }
 
-    if (ColliderSides == (Direction.Left | Direction.Top | Direction.Right | Direction.Bottom))
+    if (ColliderSides == (Direction.Left | Direction.Up | Direction.Right | Direction.Down))
     {
       Debug.Log("Rectangle Mesh Builder: Creating box collider.");
 
@@ -213,7 +213,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
         collider.points = vectors.ToArray();
         collider.isTrigger = IsTrigger;
       }
-      else if (ColliderSides == (Direction.Top | Direction.Bottom))
+      else if (ColliderSides == (Direction.Up | Direction.Down))
       {
         Debug.Log("Rectangle Mesh Builder: Creating Top and Bottom edge colliders.");
 
@@ -251,7 +251,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
 
         currentListNode = linkedDirections.AddAfter(
           currentListNode,
-          ((ColliderSides & Direction.Top) != 0) ? (Direction?)Direction.Top : null);
+          ((ColliderSides & Direction.Up) != 0) ? (Direction?)Direction.Up : null);
 
         currentListNode = linkedDirections.AddAfter(
           currentListNode,
@@ -259,7 +259,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
 
         currentListNode = linkedDirections.AddAfter(
           currentListNode,
-          ((ColliderSides & Direction.Bottom) != 0) ? (Direction?)Direction.Bottom : null);
+          ((ColliderSides & Direction.Down) != 0) ? (Direction?)Direction.Down : null);
 
         while (true)
         {
@@ -281,7 +281,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
             vectors.Add(GetBottomLeftVector2());
             break;
 
-          case Direction.Top:
+          case Direction.Up:
             vectors.Add(GetTopLeftVector2());
             break;
 
@@ -289,7 +289,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
             vectors.Add(GetTopRightVector2());
             break;
 
-          case Direction.Bottom:
+          case Direction.Down:
             vectors.Add(GetBottomRightVector2());
             break;
         }
@@ -303,7 +303,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
               vectors.Add(GetTopLeftVector2());
               break;
 
-            case Direction.Top:
+            case Direction.Up:
               vectors.Add(GetTopRightVector2());
               break;
 
@@ -311,7 +311,7 @@ public partial class RectangleMeshBuildScript : BasePlatform
               vectors.Add(GetBottomRightVector2());
               break;
 
-            case Direction.Bottom:
+            case Direction.Down:
               vectors.Add(GetBottomLeftVector2());
               break;
           }

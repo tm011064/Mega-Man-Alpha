@@ -9,7 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Experimental/Camera Scrolling.unity
   - enabled: 0
     path: Assets/Scenes/Empty Level.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experimental/Sample Level.unity
   - enabled: 0
     path: Assets/Scenes/Enemies/Barrel Met.unity
+  - enabled: 1
+    path: Assets/Scenes/Experimental/Ladders.unity

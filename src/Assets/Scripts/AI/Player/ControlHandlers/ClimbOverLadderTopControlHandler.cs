@@ -19,10 +19,7 @@ public class ClimbOverLadderTopControlHandler : PlayerControlHandler
     PlayerController.PlayerState &= ~PlayerState.ClimbingLadderTop;
     PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
 
-    PlayerController.transform.position = new Vector3(
-      PlayerController.transform.position.x,
-      _ladderTopEdgePosY + PlayerController.transform.position.y - PlayerController.EnvironmentBoxCollider.bounds.min.y,
-      PlayerController.transform.position.z);
+    CharacterPhysicsManager.WarpToGrounded();
   }
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
