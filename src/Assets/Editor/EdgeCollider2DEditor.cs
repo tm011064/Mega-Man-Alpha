@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EdgeCollider2DEditor : EditorWindow
 {
-  [MenuItem("Window/EdgeCollider2D Snap")]
+  [MenuItem("Tools/EdgeCollider2D Snap")]
   public static void ShowWindow()
   {
     EditorWindow.GetWindow(typeof(EdgeCollider2DEditor));

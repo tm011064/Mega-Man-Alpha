@@ -36,7 +36,7 @@ public class Ladder : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D col)
   {
-    if (col.gameObject == _gameManager.Player.gameObject)
+    if (col == _gameManager.Player.EnvironmentBoxCollider)
     {
       _hasPlayerEntered = true;
     }
@@ -44,7 +44,7 @@ public class Ladder : MonoBehaviour
 
   void OnTriggerExit2D(Collider2D col)
   {
-    if (col.gameObject == _gameManager.Player.gameObject)
+    if (col == _gameManager.Player.EnvironmentBoxCollider)
     {
       _hasPlayerEntered = false;
     }
@@ -62,7 +62,8 @@ public class Ladder : MonoBehaviour
     if (_gameManager.Player.CurrentPlatform != null
       && _gameManager.Player.CurrentPlatform == _topEdge
       && verticalAxisState.Value < 0f
-      && _gameManager.Player.EnvironmentBoxCollider.bounds.AreWithinVerticalShaftOf(_boxCollider.bounds))
+      && _gameManager.Player.EnvironmentBoxCollider.bounds.AreWithinVerticalShaftOf(_boxCollider.bounds)
+      && (_gameManager.Player.PlayerState & PlayerState.Sliding) == 0)
     {
       _topEdgeCollider.enabled = false;
 
