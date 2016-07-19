@@ -2,16 +2,22 @@
 
 public class ClimbOverLadderTopControlHandler : PlayerControlHandler
 {
-  private readonly float _ladderTopEdgePosY;
+  private readonly Vector2 _collisionExtents;
 
-  public ClimbOverLadderTopControlHandler(PlayerController playerController, float ladderTopEdgePosY)
+  private readonly Transform _transform;
+
+  public ClimbOverLadderTopControlHandler(
+    PlayerController playerController,
+    Transform transform,
+    Vector2 collisionExtents)
     : base(
       playerController,
       new PlayerStateController[] { new ClimbController(playerController) })
   {
     SetDebugDraw(Color.green, true);
 
-    _ladderTopEdgePosY = ladderTopEdgePosY;
+    _collisionExtents = collisionExtents;
+    _transform = transform;
   }
 
   public override void Dispose()
@@ -31,7 +37,7 @@ public class ClimbOverLadderTopControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (PlayerController.EnvironmentBoxCollider.bounds.min.y > _ladderTopEdgePosY)
+    if (PlayerController.EnvironmentBoxCollider.bounds.min.y > _transform.position.y + _collisionExtents.y + .1f)
     {
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
