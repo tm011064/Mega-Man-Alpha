@@ -34,7 +34,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
     }
 
     if (GameManager.Player.EnvironmentBoxCollider.bounds.max.y
-      > _transform.position.y + _collisionExtents.y - _ladderTopAnimationDistance)
+      > _transform.position.y + _collisionExtents.y + _ladderTopAnimationDistance)
     {
       GameManager.Player.InsertControlHandlerBeforeCurrent(
         new ClimbOverLadderTopControlHandler(PlayerController, _transform, _collisionExtents));

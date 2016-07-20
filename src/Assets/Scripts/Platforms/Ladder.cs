@@ -62,7 +62,7 @@ public class Ladder : MonoBehaviour
   private bool IsPlayerTopBelowTopBoundary()
   {
     return _gameManager.Player.EnvironmentBoxCollider.bounds.max.y <
-      transform.position.y - LadderTopAnimationStartDistance + _extents.y;
+      transform.position.y + LadderTopAnimationStartDistance + _extents.y;
   }
 
   void Update()

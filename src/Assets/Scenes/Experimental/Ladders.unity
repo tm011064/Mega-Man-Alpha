@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Size: {x: 24, y: 80}
-  LadderTopAnimationStartDistance: -8
+  LadderTopAnimationStartDistance: 8
 --- !u!4 &1458967176
 Transform:
   m_ObjectHideFlags: 0
@@ -1602,7 +1602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Size: {x: 24, y: 80}
-  LadderTopAnimationStartDistance: -8
+  LadderTopAnimationStartDistance: 8
 --- !u!4 &1466780227
 Transform:
   m_ObjectHideFlags: 0

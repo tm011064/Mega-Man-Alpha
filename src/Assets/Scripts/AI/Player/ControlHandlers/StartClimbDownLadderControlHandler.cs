@@ -37,7 +37,7 @@ public class StartClimbDownLadderControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if (PlayerController.EnvironmentBoxCollider.bounds.max.y < _transform.position.y + _collisionExtents.y - _ladderTopAnimationDistance)
+    if (PlayerController.EnvironmentBoxCollider.bounds.max.y < _transform.position.y + _collisionExtents.y + _ladderTopAnimationDistance)
     {
       GameManager.Player.InsertControlHandlerBeforeCurrent(
         new LadderClimbControlHandler(
