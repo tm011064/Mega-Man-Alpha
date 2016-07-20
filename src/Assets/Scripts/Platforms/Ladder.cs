@@ -2,52 +2,67 @@
 
 public class Ladder : MonoBehaviour
 {
+  [Tooltip("The width acts as a shaft that the player needs to be within so he can trigger the climb state while pressing the up button")]
+  public Vector2 Size;
+
+  [Tooltip("When climbing up, this is the distance threshold which triggers the player over ladder top pull up and animation")]
+  public float LadderTopAnimationStartDistance = 16f;
+
   private GameManager _gameManager;
-
-  private bool _hasPlayerEntered;
-
-  private BoxCollider2D _boxCollider;
 
   private GameObject _topEdge;
 
-  private Collider2D _topEdgeCollider;
+  private EdgeCollider2D _topEdgeCollider;
+
+  private Vector2 _extents;
+
+  public void Build()
+  {
+    _extents = new Vector2(Size.x * .5f, Size.y * .5f);
+
+    _topEdge = this.GetOrCreateChildGameObject("Top Collider", "OneWayPlatform");
+
+    _topEdge.hideFlags = HideFlags.NotEditable;
+
+    _topEdgeCollider = _topEdge.GetComponent<EdgeCollider2D>();
+
+    if (_topEdgeCollider == null)
+    {
+      _topEdgeCollider = _topEdge.AddComponent<EdgeCollider2D>();
+    }
+
+    _topEdgeCollider.hideFlags = HideFlags.NotEditable;
+    _topEdgeCollider.isTrigger = true;
+    _topEdgeCollider.enabled = true;
+    _topEdgeCollider.points = new Vector2[]
+      {
+        new Vector2(-_extents.x, _extents.y),
+        new Vector2(_extents.x, _extents.y)
+      };
+  }
 
   void Awake()
   {
     _gameManager = GameManager.Instance;
 
-    _boxCollider = GetComponent<BoxCollider2D>();
-
-    var topEdgeTransform = transform.FindChild("TopEdge");
-
-    if (topEdgeTransform != null)
-    {
-      _topEdge = topEdgeTransform.gameObject;
-
-      _topEdgeCollider = _topEdge.GetComponent<EdgeCollider2D>();
-
-      if (_topEdgeCollider == null)
-      {
-        throw new MissingComponentException("A " + typeof(Ladder).Name + " game object's TopEdge object must contain a "
-          + typeof(EdgeCollider2D).Name + " component");
-      }
-    }
+    Build();
   }
 
-  void OnTriggerEnter2D(Collider2D col)
+  private bool IsPlayerBetweenVerticalColliders()
   {
-    if (col == _gameManager.Player.EnvironmentBoxCollider)
-    {
-      _hasPlayerEntered = true;
-    }
+    return _gameManager.Player.EnvironmentBoxCollider.bounds.min.x >= transform.position.x - _extents.x
+      && _gameManager.Player.EnvironmentBoxCollider.bounds.max.x <= transform.position.x + _extents.x;
   }
 
-  void OnTriggerExit2D(Collider2D col)
+  private bool IsPlayerTopAboveBottomCollider()
   {
-    if (col == _gameManager.Player.EnvironmentBoxCollider)
-    {
-      _hasPlayerEntered = false;
-    }
+    return _gameManager.Player.EnvironmentBoxCollider.bounds.max.y > transform.position.y - _extents.y;
+  }
+
+  private bool IsPlayerTopBelowTopBoundary()
+  {
+    return _gameManager.Player.EnvironmentBoxCollider.bounds.max.y <
+      transform.position.y + LadderTopAnimationStartDistance + _extents.y;
   }
 
   void Update()
@@ -59,11 +74,12 @@ public class Ladder : MonoBehaviour
 
     var verticalAxisState = _gameManager.InputStateManager.GetVerticalAxisState();
 
-    if (_gameManager.Player.CurrentPlatform != null
+    if ((_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
+      && (_gameManager.Player.PlayerState & PlayerState.Sliding) == 0
+      && _gameManager.Player.CurrentPlatform != null
       && _gameManager.Player.CurrentPlatform == _topEdge
       && verticalAxisState.Value < 0f
-      && _gameManager.Player.EnvironmentBoxCollider.bounds.AreWithinVerticalShaftOf(_boxCollider.bounds)
-      && (_gameManager.Player.PlayerState & PlayerState.Sliding) == 0)
+      && IsPlayerBetweenVerticalColliders())
     {
       _topEdgeCollider.enabled = false;
 
@@ -74,11 +90,11 @@ public class Ladder : MonoBehaviour
       return;
     }
 
-    if (_hasPlayerEntered
-      && (_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
+    if ((_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
       && verticalAxisState.Value > 0f
-      && _gameManager.Player.EnvironmentBoxCollider.bounds.AreWithinVerticalShaftOf(_boxCollider.bounds)
-      && !_gameManager.Player.EnvironmentBoxCollider.bounds.AreAboveOrOnEdge(_boxCollider.bounds))
+      && IsPlayerBetweenVerticalColliders()
+      && IsPlayerTopAboveBottomCollider()
+      && IsPlayerTopBelowTopBoundary())
     {
       _gameManager.Player.PlayerState |= PlayerState.ClimbingLadder;
 
@@ -95,8 +111,9 @@ public class Ladder : MonoBehaviour
 
     var controlHandler = new StartClimbDownLadderControlHandler(
       _gameManager.Player,
-      _boxCollider.bounds,
-      _topEdge.transform.position.y);
+      transform,
+      _extents,
+      LadderTopAnimationStartDistance);
 
     controlHandler.Disposed += OnStartClimbDownLadderControlHandlerDisposed;
 
@@ -119,10 +136,9 @@ public class Ladder : MonoBehaviour
 
     var ladderClimbControlHandler = new LadderClimbControlHandler(
       _gameManager.Player,
-      _boxCollider.bounds,
-      _topEdge == null
-        ? _boxCollider.bounds.center.y + _boxCollider.bounds.extents.y
-        : _topEdge.transform.position.y);
+      transform,
+      _extents,
+      LadderTopAnimationStartDistance);
 
     _gameManager.Player.PushControlHandler(ladderClimbControlHandler);
   }

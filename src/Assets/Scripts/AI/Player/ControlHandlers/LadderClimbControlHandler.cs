@@ -2,17 +2,24 @@
 
 public class LadderClimbControlHandler : PlayerControlHandler
 {
-  private readonly Bounds _ladderArea;
+  private readonly Vector2 _collisionExtents;
 
-  private readonly float _ladderTopEdgePosY;
+  private readonly float _ladderTopAnimationDistance;
 
-  public LadderClimbControlHandler(PlayerController playerController, Bounds ladderArea, float ladderTopEdgePosY)
+  private readonly Transform _transform;
+
+  public LadderClimbControlHandler(
+    PlayerController playerController,
+    Transform transform,
+    Vector2 collisionExtents,
+    float ladderTopAnimationDistance)
     : base(playerController, new PlayerStateController[] { new ClimbController(playerController) })
   {
     SetDebugDraw(Color.green, true);
 
-    _ladderArea = ladderArea;
-    _ladderTopEdgePosY = ladderTopEdgePosY;
+    _ladderTopAnimationDistance = ladderTopAnimationDistance;
+    _collisionExtents = collisionExtents;
+    _transform = transform;
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
@@ -26,19 +33,26 @@ public class LadderClimbControlHandler : PlayerControlHandler
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    if (GameManager.Player.EnvironmentBoxCollider.bounds.AreAbove(_ladderArea))
+    if (GameManager.Player.EnvironmentBoxCollider.bounds.max.y
+      > _transform.position.y + _collisionExtents.y + _ladderTopAnimationDistance)
     {
       GameManager.Player.InsertControlHandlerBeforeCurrent(
-        new ClimbOverLadderTopControlHandler(PlayerController, _ladderTopEdgePosY));
+        new ClimbOverLadderTopControlHandler(PlayerController, _transform, _collisionExtents));
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
-    if (GameManager.Player.EnvironmentBoxCollider.bounds.AreBelow(_ladderArea))
+    if (GameManager.Player.EnvironmentBoxCollider.bounds.max.y
+      < _transform.position.y - _collisionExtents.y)
     {
       PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
+    }
+
+    if (GameManager.Player.IsAttacking())
+    {
+      return ControlHandlerAfterUpdateStatus.KeepAlive;
     }
 
     var yAxis = GameManager.InputStateManager.GetVerticalAxisState().Value;
