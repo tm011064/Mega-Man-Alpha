@@ -70,8 +70,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
       && (_projectileWeaponSettings.EnableAutomaticFire
         ? IsFireButtonPressed()
         : IsFireButtonUp())
-      && IsWithinRateOfFire()
-      && !IsClimbingLadder(axisState);
+      && IsWithinRateOfFire();
   }
 
   private Vector2 GetSpawnLocation(Vector2 direction)
@@ -87,6 +86,12 @@ public class MegaBusterControlHandler : WeaponControlHandler
         ? PlayerController.transform.position.x + spawnLocation.x
         : PlayerController.transform.position.x - spawnLocation.x
       , PlayerController.transform.position.y + spawnLocation.y);
+  }
+
+  public override bool IsAttacking()
+  {
+    return _lastBulletTime + _projectileWeaponSettings.AnimationClipLength >= Time.time
+      && !((_lastAnimationName == "Airborne And Shoot" && PlayerController.IsGrounded()));
   }
 
   public override PlayerStateUpdateResult Update(XYAxisState axisState)
@@ -120,19 +125,12 @@ public class MegaBusterControlHandler : WeaponControlHandler
     }
 
     if ((PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
-      && !HasShootAnimationFinished())
+      && IsAttacking())
     {
       return PlayerStateUpdateResult.CreateHandled(GetAnimationName(axisState), 1);
     }
 
     return PlayerStateUpdateResult.Unhandled;
-  }
-
-  private bool HasShootAnimationFinished()
-  {
-    return _lastBulletTime + _projectileWeaponSettings.AnimationClipLength < Time.time
-      || (_lastAnimationName == "Airborne And Shoot" && PlayerController.IsGrounded())
-      || (_lastAnimationName == "Climb And Shoot" && ((PlayerController.PlayerState & PlayerState.ClimbingLadder) == 0));
   }
 
   private string GetAnimationName(XYAxisState axisState)

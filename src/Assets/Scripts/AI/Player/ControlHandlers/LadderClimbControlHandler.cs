@@ -50,6 +50,11 @@ public class LadderClimbControlHandler : PlayerControlHandler
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
 
+    if (GameManager.Player.IsAttacking())
+    {
+      return ControlHandlerAfterUpdateStatus.KeepAlive;
+    }
+
     var yAxis = GameManager.InputStateManager.GetVerticalAxisState().Value;
 
     var velocity = new Vector3(

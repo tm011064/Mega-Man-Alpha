@@ -13,6 +13,8 @@ public abstract class WeaponControlHandler
     GameManager = GameManager.Instance;
   }
 
+  public abstract bool IsAttacking();
+
   public abstract PlayerStateUpdateResult Update(XYAxisState axisState);
 
   protected Vector2 GetDirectionVector(XYAxisState axisState)

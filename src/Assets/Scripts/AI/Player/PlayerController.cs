@@ -81,7 +81,6 @@ public partial class PlayerController : BaseCharacterController
 
   void Awake()
   {
-    // register with game context so this game object can be accessed everywhere
     _gameManager = GameManager.Instance;
 
     PlayerHealth = new PlayerHealth(this);
@@ -301,16 +300,6 @@ public partial class PlayerController : BaseCharacterController
     }
   }
 
-#if UNITY_EDITOR
-  void OnDrawGizmos()
-  {
-    if (CurrentControlHandler != null)
-    {
-      CurrentControlHandler.DrawGizmos();
-    }
-  }
-#endif
-
   public void OnPlayerDied()
   {
     Respawn();
@@ -319,13 +308,13 @@ public partial class PlayerController : BaseCharacterController
   public void Respawn()
   {
     transform.parent = null; // just in case we were still attached
-    
+
     AdjustedGravity = JumpSettings.Gravity;
 
     CharacterPhysicsManager.Reset(SpawnLocation);
-    
+
     ResetControlHandlers(new DefaultPlayerControlHandler(this));
-    
+
     _gameManager.RefreshScene(SpawnLocation);
 
     PlayerHealth.Reset();
@@ -334,5 +323,10 @@ public partial class PlayerController : BaseCharacterController
   private void EnableClimbing()
   {
     ClimbSettings.EnableLadderClimbing = true;
+  }
+
+  public bool IsAttacking()
+  {
+    return WeaponControlHandlers.Any(wh => wh.IsAttacking());
   }
 }

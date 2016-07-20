@@ -13,7 +13,7 @@ public class PlayerStateUpdateController
     _playerController = playerController;
     _playerStateControllers = playerStateControllers;
   }
-
+  
   public void UpdatePlayerState(XYAxisState axisState)
   {
     var playerStateUpdateResult = PlayerStateUpdateResult.Max(
