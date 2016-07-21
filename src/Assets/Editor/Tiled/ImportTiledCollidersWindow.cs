@@ -187,6 +187,7 @@ namespace Assets.Editor.Tiled
 
         toolsMenu.AddItem(new GUIContent(ColliderType.Edge.ToString()), false, () => { _colliderType = ColliderType.Edge; });
         toolsMenu.AddItem(new GUIContent(ColliderType.Polygon.ToString()), false, () => { _colliderType = ColliderType.Polygon; });
+        toolsMenu.AddItem(new GUIContent("Top Edges Only"), false, () => { _colliderType = ColliderType.TopEdgesOnly; });
 
         toolsMenu.DropDown(new Rect(LABEL_CELL_WIDTH, 0, 0, 16));
 
@@ -264,12 +265,17 @@ namespace Assets.Editor.Tiled
 
       builder.Build(_map.Tilewidth, _map.Tileheight);
 
-      var colliders = builder.GetColliderEdges();
+      if (_colliderType == ColliderType.TopEdgesOnly)
+      {
+        CreateTopEdgeColliders(builder);
 
-      GameObject collidersGameObject = new GameObject("Poly Colliders");
+        return;
+      }
+
+      GameObject collidersGameObject = new GameObject(GetColliderParentName());
       collidersGameObject.transform.position = Vector3.zero;
 
-      Debug.Log("Created " + collidersGameObject);
+      var colliders = builder.GetColliderEdges();
 
       foreach (var points in colliders)
       {
@@ -293,6 +299,61 @@ namespace Assets.Editor.Tiled
 
         Debug.Log("Created " + obj);
       }
+    }
+
+    private string GetColliderParentName()
+    {
+      switch (_colliderType)
+      {
+        case ColliderType.Edge: return "Edge Colliders";
+        case ColliderType.Polygon: return "Polygon Colliders";
+        case ColliderType.TopEdgesOnly: return "Top Edge Colliders";
+      }
+
+      throw new NotImplementedException();
+    }
+
+    private void CreateTopEdgeColliders(VertexBuilder builder)
+    {
+      GameObject collidersGameObject = new GameObject(GetColliderParentName());
+      collidersGameObject.transform.position = Vector3.zero;
+
+      var edgePoints = builder.GetTopColliderEdges();
+
+      foreach (var edge in edgePoints)
+      {
+        CreateEdgeCollider(
+          collidersGameObject.transform,
+          edge.From,
+          edge.To);
+      }
+    }
+
+    private void CreateEdgeCollider(Transform parentTransform, Vector2 from, Vector2 to)
+    {
+      GameObject obj = new GameObject("Edge Collider");
+
+      var extents = new Vector2(
+        to.x - from.x,
+        to.y - from.y) * .5f;
+
+      obj.transform.position = new Vector3(
+        to.x - extents.x,
+        to.y - extents.y);
+
+      obj.layer = LayerMask.NameToLayer(_selectedUnityLayerName);
+
+      var edgeCollider = obj.AddComponent<EdgeCollider2D>();
+
+      edgeCollider.points = new Vector2[] 
+        { 
+          new Vector2(-extents.x, extents.y),
+          new Vector2(extents.x, extents.y)
+        };
+
+      obj.transform.parent = parentTransform;
+
+      Debug.Log("Created object '" + obj + "' with EdgeCollider2D from " + from + " to " + to);
     }
 
     private void AddPolygonCollider(GameObject parent, Vector2[] points)
@@ -353,7 +414,9 @@ namespace Assets.Editor.Tiled
     {
       Polygon,
 
-      Edge
+      Edge,
+
+      TopEdgesOnly
     }
   }
 }

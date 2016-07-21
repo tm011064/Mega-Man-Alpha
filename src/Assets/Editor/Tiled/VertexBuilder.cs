@@ -179,6 +179,47 @@ namespace Assets.Editor.Tiled
       return GetNextSearchDirectionForConcave(vertex, direction);
     }
 
+    public IEnumerable<TiledEdgePoints> GetTopColliderEdges()
+    {
+      ResetVerticesVisitStatus();
+
+      Vertex startVertex = null;
+
+      while (FindUnvisitedColliderVertex(out startVertex))
+      {
+        var searchDirection = Direction.Right;
+
+        startVertex = FindEdgePoint(startVertex, searchDirection);
+
+        var vertex = startVertex;
+
+        var lastPoint = vertex.Point;
+
+        while (true)
+        {
+          searchDirection = GetNextSearchDirection(vertex, searchDirection);
+
+          var newStartVertex = vertex.Edges[searchDirection].To;
+
+          newStartVertex.IsVisited = true;
+
+          vertex = FindEdgePoint(newStartVertex, searchDirection);
+
+          if (searchDirection == Direction.Left) // left since tiled uses y down coordinates
+          {
+            yield return new TiledEdgePoints { From = lastPoint, To = vertex.Point };
+          }
+
+          if (vertex == startVertex)
+          {
+            break;
+          }
+
+          lastPoint = vertex.Point;
+        }
+      }
+    }
+
     public IEnumerable<Vector2[]> GetColliderEdges()
     {
       ResetVerticesVisitStatus();
