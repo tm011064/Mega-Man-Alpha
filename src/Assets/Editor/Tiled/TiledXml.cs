@@ -53,10 +53,24 @@ namespace Assets.Editor.Tiled
     public string Width { get; set; }
     [XmlAttribute(AttributeName = "height")]
     public string Height { get; set; }
-    [XmlAttribute(AttributeName = "offsetx")]
-    public string Offsetx { get; set; }
-    [XmlAttribute(AttributeName = "offsety")]
-    public string Offsety { get; set; }
+    [XmlElement(ElementName = "properties")]
+    public Properties Properties { get; set; }
+  }
+
+  [XmlRoot(ElementName = "property")]
+  public class Property
+  {
+    [XmlAttribute(AttributeName = "name")]
+    public string Name { get; set; }
+    [XmlAttribute(AttributeName = "value")]
+    public string Value { get; set; }
+  }
+
+  [XmlRoot(ElementName = "properties")]
+  public class Properties
+  {
+    [XmlElement(ElementName = "property")]
+    public List<Property> Property { get; set; }
   }
 
   [XmlRoot(ElementName = "object")]
@@ -64,16 +78,22 @@ namespace Assets.Editor.Tiled
   {
     [XmlAttribute(AttributeName = "id")]
     public string Id { get; set; }
+    [XmlAttribute(AttributeName = "name")]
+    public string Name { get; set; }
     [XmlAttribute(AttributeName = "type")]
     public string Type { get; set; }
     [XmlAttribute(AttributeName = "x")]
-    public string X { get; set; }
+    public int X { get; set; }
     [XmlAttribute(AttributeName = "y")]
-    public string Y { get; set; }
+    public int Y { get; set; }
     [XmlAttribute(AttributeName = "width")]
-    public string Width { get; set; }
+    public int Width { get; set; }
     [XmlAttribute(AttributeName = "height")]
-    public string Height { get; set; }
+    public int Height { get; set; }
+    [XmlAttribute(AttributeName = "gid")]
+    public string Gid { get; set; }
+    [XmlElement(ElementName = "properties")]
+    public Properties Properties { get; set; }
   }
 
   [XmlRoot(ElementName = "objectgroup")]
@@ -91,7 +111,7 @@ namespace Assets.Editor.Tiled
     [XmlElement(ElementName = "tileset")]
     public List<Tileset> Tileset { get; set; }
     [XmlElement(ElementName = "layer")]
-    public List<Layer> Layer { get; set; }
+    public List<Layer> Layers { get; set; }
     [XmlElement(ElementName = "objectgroup")]
     public Objectgroup Objectgroup { get; set; }
     [XmlAttribute(AttributeName = "version")]

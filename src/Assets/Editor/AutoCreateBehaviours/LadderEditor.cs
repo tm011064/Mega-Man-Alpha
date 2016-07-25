@@ -11,7 +11,7 @@ namespace Assets.Editor.AutoCreateBehaviours
 
       var script = (Ladder)target;
 
-      script.Build();
+      script.Instantiate();
     }
   }
 }
