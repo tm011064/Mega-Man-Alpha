@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Tiled2Unity;
 using UnityEditor.SceneManagement;
@@ -15,13 +16,23 @@ namespace Assets.Editor.Tiled
 
     public void CustomizePrefab(GameObject prefab)
     {
-      Destroy(
-        prefab,
-        "Rooms",
-        "Enemies",
-        "Checkpoints");
+      try
+      {
+        Destroy(
+          prefab,
+          "Rooms",
+          "Enemies",
+          "Checkpoints");
 
-      AttachCustomObjects(prefab);
+        if (prefab != null)
+        {
+          AttachCustomObjects(prefab);
+        }
+      }
+      catch (Exception ex)
+      {
+        Debug.LogError(ex.Message);
+      }
     }
 
     private void AttachCustomObjects(GameObject prefab)

@@ -182,7 +182,7 @@ namespace Tiled2Unity
         string msg = String.Format("Layer '{0}' is not defined for '{1}'. Check project settings in Edit->Project Settings->Tags & Layers",
             layerName,
             GetFullGameObjectName(gameObject.transform));
-        Debug.LogError(msg);
+        Debug.LogWarning(msg);
         return;
       }
 

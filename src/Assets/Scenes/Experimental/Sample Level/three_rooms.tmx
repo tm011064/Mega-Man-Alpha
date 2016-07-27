@@ -786,21 +786,27 @@
 </data>
  </layer>
  <objectgroup color="#ffff00" name="Rooms">
-  <properties>
-   <property name="Prefab" value="FullScreenScroller"/>
-  </properties>
-  <object id="1" name="Room 1" type="Room" x="192" y="544" width="256" height="240"/>
-  <object id="4" name="Room 2" type="Room" x="192" y="304" width="512" height="240"/>
-  <object id="5" name="Room 3" type="Room" x="448" y="544" width="256" height="240"/>
+  <object id="1" name="Room 1" type="Room" x="192" y="544" width="256" height="240">
+   <properties>
+    <property name="Open Top" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="4" name="Room 2" type="Room" x="192" y="304" width="512" height="240">
+   <properties>
+    <property name="Open Bottom" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="5" name="Room 3" type="Room" x="448" y="544" width="256" height="240">
+   <properties>
+    <property name="Open Top" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Enemies">
   <object id="17" type="Barrel Met" gid="15" x="528" y="432" width="16" height="16"/>
   <object id="18" type="Barrel Met" gid="15" x="544" y="672" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="Checkpoints">
-  <properties>
-   <property name="Prefab" value="Checkpoint"/>
-  </properties>
   <object id="15" name="Start" type="Checkpoint" gid="12" x="272" y="672" width="16" height="16">
    <properties>
     <property name="Is Level Start" type="bool" value="true"/>

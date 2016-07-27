@@ -50,10 +50,7 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     _horizontalLockSettings = CreateHorizontalLockSettings(boxCollider.bounds);
 
     _verticalLockSettings = CreateVerticalLockSettings(boxCollider.bounds);
-  }
 
-  void Start()
-  {
     OnSceneReset();
   }
 
@@ -174,8 +171,8 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
       Enabled = true,
       EnableDefaultVerticalLockPosition = EnableDefaultVerticalLockPosition,
       DefaultVerticalLockPosition = DefaultVerticalLockPosition,
-      EnableTopVerticalLock = true,
-      EnableBottomVerticalLock = true,
+      EnableTopVerticalLock = false,
+      EnableBottomVerticalLock = false,
       TopVerticalLockPosition = bounds.center.y + bounds.extents.y,
       BottomVerticalLockPosition = bounds.center.y - bounds.extents.y
     };

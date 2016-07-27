@@ -14,6 +14,8 @@ namespace Assets.Editor.Tiled
 
     private readonly Dictionary<string, Objecttype> _objecttypesByName;
 
+    private readonly List<Objecttype> _objecttypesWithPrefabProperty;
+
     private Dictionary<string, string> _prefabLookup = new Dictionary<string, string>();
 
     public static TiledProjectImporter CreateFromFile(string mapFilePath, string objectTypesFilePath = null)
@@ -94,7 +96,11 @@ namespace Assets.Editor.Tiled
       var prefabsParent = new GameObject("Auto created Tiled prefabs");
       prefabsParent.transform.position = Vector3.zero;
 
-      foreach (var gameObject in _map.ForEachObjectWithProperty("Prefab", _objecttypesByName).Get<GameObject>(CreatePrefab))
+      var prefabGameObjects = _map
+        .ForEachObjectWithProperty("Prefab", _objecttypesByName)
+        .Get<GameObject>(CreatePrefab);
+
+      foreach (var gameObject in prefabGameObjects)
       {
         gameObject.transform.parent = prefabsParent.transform;
       }
@@ -121,66 +127,21 @@ namespace Assets.Editor.Tiled
       return parentObject;
     }
 
-    private string GetPrefabName(Object obj)
-    {
-      string prefabName = null;
-
-      if (obj.Properties != null)
-      {
-        prefabName = (obj.Properties)
-          .Property
-          .First(p => string.Compare(p.Name.Trim(), "Prefab", true) == 0)
-          .Value
-          .Trim()
-          .ToLower();
-      }
-
-      if (!string.IsNullOrEmpty(prefabName))
-      {
-        return prefabName;
-      }
-
-      Objecttype objecttype;
-
-      if (!_objecttypesByName.TryGetValue(obj.Type, out objecttype))
-      {
-        var message = "Tiled Object with type '" + obj.Type + "' not found at he object type lookup";
-
-        if (!_objecttypesByName.Any())
-        {
-          message += ". The object type dictionary is empty";
-        }
-
-        throw new InvalidDataException(message);
-      }
-
-      var prefabProperty = objecttype.Properties.FirstOrDefault(p => string.Compare(p.Name, "prefab", true) == 0);
-
-      if (prefabProperty == null)
-      {
-        throw new InvalidDataException("Tiled Object is missing a property named 'Prefab'");
-      }
-
-      return prefabProperty.Default;
-    }
-
     private GameObject CreatePrefab(Object obj)
     {
-      var prefabName = GetPrefabName(obj);
+      var properties = obj.GetProperties(_objecttypesByName);
+
+      var prefabName = properties["prefab"];
 
       var asset = LoadPrefabAsset(prefabName);
-
-      var bounds = new Bounds(
-        new Vector2(obj.X + obj.Width / 2, -(obj.Y + obj.Height / 2)),
-        new Vector2(obj.Width, obj.Height));
 
       return CreateInstantiableObject(
            asset,
            prefabName,
            new InstantiationArguments
            {
-             Bounds = bounds,
-             Arguments = obj.GetProperties(_objecttypesByName)
+             Bounds = obj.GetBounds(),
+             Arguments = properties
            });
     }
 

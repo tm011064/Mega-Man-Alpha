@@ -2,6 +2,6 @@
 public interface IInstantiable
 {
 #if UNITY_EDITOR
-  void Instantiate(InstantiationArguments arguments = null);
+  void Instantiate(InstantiationArguments arguments);
 #endif
 }

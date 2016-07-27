@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Editor.Tiled
 {
@@ -9,17 +10,17 @@ namespace Assets.Editor.Tiled
     public static Dictionary<string, string> GetProperties(this Object obj, Dictionary<string, Objecttype> objecttypesByName)
     {
       var properties = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-      
+
       Objecttype objecttype;
 
-      if (objecttypesByName.TryGetValue(obj.Type, out objecttype ))
+      if (objecttypesByName.TryGetValue(obj.Type, out objecttype))
       {
         foreach (var property in objecttype.Properties)
         {
           properties[property.Name] = property.Default;
         }
       }
-      
+
       if (obj.Properties != null)
       {
         foreach (var property in obj.Properties.Property)
@@ -31,17 +32,46 @@ namespace Assets.Editor.Tiled
       return properties;
     }
 
-    public static IEnumerable<Object> ForEachObjectWithProperty(this Map map, string propertyName, Dictionary<string, Objecttype> objecttypesByName)
+    public static IEnumerable<Object> ForEachObjectWithProperty(
+      this Map map,
+      string propertyName,
+      Dictionary<string, Objecttype> objecttypesByName)
     {
       return map
         .Objectgroup
-        .Object
-        .Where(c =>
-          (
-            c.Properties != null
-            && c.Properties.Property.Any(p => string.Compare(p.Name.Trim(), propertyName, true) == 0)
-          )
-          || objecttypesByName.ContainsKey(c.Type));
+        .SelectMany(og => og
+          .Object
+          .Where(o => o.HasProperty(propertyName, objecttypesByName)));
+    }
+
+    public static bool HasProperty(this Object obj, string propertyName, Dictionary<string, Objecttype> objecttypesByName)
+    {
+      return GetProperties(obj, objecttypesByName)
+        .ContainsKey(propertyName);
+    }
+
+    public static Bounds GetBounds(this Object obj)
+    {
+      if (obj.IsImage())
+      {
+        return new Bounds(
+          new Vector2(obj.X, -(obj.Y - obj.Height)),
+          new Vector2(obj.Width, obj.Height));
+      }
+
+      return new Bounds(
+          new Vector2(obj.X + obj.Width / 2, -(obj.Y + obj.Height / 2)),
+          new Vector2(obj.Width, obj.Height));
+    }
+
+    public static bool IsImage(this Object obj)
+    {
+      return !string.IsNullOrEmpty(obj.Gid);
+    }
+
+    public static bool IsCollider(this Object obj)
+    {
+      return string.IsNullOrEmpty(obj.Gid);
     }
 
     public static IEnumerable<Layer> ForEachLayerWithProperty(this Map map, string propertyName, string propertyValue)

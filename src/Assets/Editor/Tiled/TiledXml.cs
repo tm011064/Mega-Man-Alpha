@@ -101,6 +101,8 @@ namespace Assets.Editor.Tiled
   {
     [XmlElement(ElementName = "object")]
     public List<Object> Object { get; set; }
+    [XmlAttribute(AttributeName = "color")]
+    public string Color { get; set; }
     [XmlAttribute(AttributeName = "name")]
     public string Name { get; set; }
   }
@@ -113,7 +115,7 @@ namespace Assets.Editor.Tiled
     [XmlElement(ElementName = "layer")]
     public List<Layer> Layers { get; set; }
     [XmlElement(ElementName = "objectgroup")]
-    public Objectgroup Objectgroup { get; set; }
+    public List<Objectgroup> Objectgroup { get; set; }
     [XmlAttribute(AttributeName = "version")]
     public string Version { get; set; }
     [XmlAttribute(AttributeName = "orientation")]

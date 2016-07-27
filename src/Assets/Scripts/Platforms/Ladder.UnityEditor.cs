@@ -2,7 +2,7 @@
 
 public partial class Ladder : IInstantiable
 {
-  public void Instantiate(InstantiationArguments arguments = null)
+  public void Instantiate(InstantiationArguments arguments)
   {
     if (arguments != null)
     {
