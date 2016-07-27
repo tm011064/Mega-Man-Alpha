@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Ladder : MonoBehaviour
+public partial class Ladder : MonoBehaviour
 {
   [Tooltip("The width acts as a shaft that the player needs to be within so he can trigger the climb state while pressing the up button")]
   public Vector2 Size;
@@ -16,8 +16,10 @@ public class Ladder : MonoBehaviour
 
   private Vector2 _extents;
 
-  public void Build()
+  void Awake()
   {
+    _gameManager = GameManager.Instance;
+
     _extents = new Vector2(Size.x * .5f, Size.y * .5f);
 
     _topEdge = this.GetOrCreateChildGameObject("Top Collider", "OneWayPlatform");
@@ -39,13 +41,6 @@ public class Ladder : MonoBehaviour
         new Vector2(-_extents.x, _extents.y),
         new Vector2(_extents.x, _extents.y)
       };
-  }
-
-  void Awake()
-  {
-    _gameManager = GameManager.Instance;
-
-    Build();
   }
 
   private bool IsPlayerBetweenVerticalColliders()

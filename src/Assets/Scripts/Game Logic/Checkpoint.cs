@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+public partial class Checkpoint : MonoBehaviour
 {
   public int Index = 0;
 

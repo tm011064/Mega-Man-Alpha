@@ -1,28 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
 namespace Assets.Editor.Tiled
 {
-  public class VertexBuilder
+  public class MatrixVertices
   {
     private Matrix<int> _matrix;
 
     private Vertex[] _vertices;
 
-    public VertexBuilder(Matrix<int> matrix)
+    private int _tileWidth;
+
+    private int _tileHeight;
+
+    public MatrixVertices(Matrix<int> matrix, int tileWidth, int tileHeight)
     {
       _matrix = matrix;
+      _tileWidth = tileWidth;
+      _tileHeight = tileHeight;
 
       var totalVertices = (_matrix.Rows + 1) * (_matrix.Columns + 1);
 
       _vertices = new Vertex[totalVertices];
+
+      Initialize();
     }
 
-    public void Build(int tileWidth, int tileHeight)
+    private void Initialize()
     {
-      InitializeVertices(tileWidth, tileHeight);
+      InitializeVertices();
 
       for (var rowIndex = 0; rowIndex < _matrix.Rows; rowIndex++)
       {
@@ -53,7 +62,7 @@ namespace Assets.Editor.Tiled
       }
     }
 
-    private void InitializeVertices(int tileWidth, int tileHeight)
+    private void InitializeVertices()
     {
       var index = 0;
 
@@ -61,12 +70,22 @@ namespace Assets.Editor.Tiled
       {
         for (var j = 0; j <= _matrix.Columns; j++)
         {
-          _vertices[index++] = new Vertex(
-            new Vector2(
-              tileWidth * j,
-              tileHeight * i));
+          var point = new Vector2(
+              _tileWidth * j,
+              _tileHeight * i);
+
+          point = TranslateToWorldCoordinates(point);
+
+          _vertices[index++] = new Vertex(point);
         }
       }
+    }
+
+    private Vector2 TranslateToWorldCoordinates(Vector2 point)
+    {
+      return new Vector2(
+        point.x,
+        point.y - (_matrix.Rows * _tileHeight));
     }
 
     private bool CanOverwriteColliderEdge(int index, Direction direction)
@@ -218,6 +237,41 @@ namespace Assets.Editor.Tiled
           lastPoint = vertex.Point;
         }
       }
+    }
+
+    private Bounds GetBounds(Vector2[] points)
+    {
+      if (points.Length != 4)
+      {
+        throw new ArgumentException("Point data is not rectangular");
+      }
+
+      var xPositions = points.Select(p => (int)p.x).Distinct().ToArray();
+
+      if (xPositions.Count() != 2)
+      {
+        throw new ArgumentException("Point data is not rectangular");
+      }
+
+      var yPositions = points.Select(p => (int)p.y).Distinct().ToArray();
+
+      if (yPositions.Count() != 2)
+      {
+        throw new ArgumentException("Point data is not rectangular");
+      }
+
+      var size = new Vector2(xPositions.Max() - xPositions.Min(), yPositions.Max() - yPositions.Min());
+      var center = new Vector3(
+        xPositions.Max() - size.x * .5f,
+        yPositions.Max() - size.y * .5f);
+
+      return new Bounds(center, size);
+    }
+
+    public IEnumerable<Bounds> GetRectangleBounds()
+    {
+      return GetColliderEdges()
+        .Select(p => GetBounds(p));
     }
 
     public IEnumerable<Vector2[]> GetColliderEdges()

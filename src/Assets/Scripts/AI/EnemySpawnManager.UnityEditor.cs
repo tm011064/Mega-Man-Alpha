@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
 
-public partial class EnemySpawnManager : SpawnBucketItemBehaviour
+public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IInstantiable
 {
   public Color OutlineGizmoColor = Color.yellow;
 
@@ -29,6 +29,11 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour
 
       GizmoUtility.DrawBoundingBox(transform.TransformPoint(_gizmoCenter), _gizmoExtents, OutlineGizmoColor);
     }
+  }
+
+  public void Instantiate(InstantiationArguments arguments)
+  {
+    transform.position = arguments.Bounds.center;
   }
 }
 #endif

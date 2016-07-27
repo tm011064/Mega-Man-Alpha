@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="Checkpoint" color="#a0a0a4">
+  <property name="Is Level Start" type="bool" default="false"/>
+  <property name="Prefab" type="string" default="Checkpoint"/>
+ </objecttype>
+ <objecttype name="Barrel Met" color="#a0a0a4">
+  <property name="Prefab" type="string" default="Barrel Met Spawn Location"/>
+ </objecttype>
+ <objecttype name="Room" color="#a0a0a4">
+  <property name="Extension Bottom" type="int" default="16"/>
+  <property name="Extension Left" type="int" default="16"/>
+  <property name="Extension Right" type="int" default="16"/>
+  <property name="Extension Top" type="int" default="16"/>
+  <property name="Open Bottom" type="bool" default="false"/>
+  <property name="Open Left" type="bool" default="false"/>
+  <property name="Open Right" type="bool" default="false"/>
+  <property name="Open Top" type="bool" default="false"/>
+  <property name="Prefab" type="string" default="Full Screen Scroller"/>
+ </objecttype>
+</objecttypes>

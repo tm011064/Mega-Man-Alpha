@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FullScreenScroller : MonoBehaviour, ISceneResetable
+public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 {
   public ZoomSettings ZoomSettings;
 
@@ -35,8 +35,6 @@ public class FullScreenScroller : MonoBehaviour, ISceneResetable
   private bool _skipEnter;
 
   private int _animationShortNameHash;
-
-  private BoxCollider2D _boxCollider;
 
   void Awake()
   {
@@ -158,7 +156,9 @@ public class FullScreenScroller : MonoBehaviour, ISceneResetable
   private Vector3 GetTransformPoint()
   {
     return RelativePositioningParentObject == null
-      ? transform.parent.gameObject.transform.TransformPoint(Vector3.zero)
+      ? transform.parent != null
+        ? transform.parent.gameObject.transform.TransformPoint(Vector3.zero)
+        : Vector3.zero
       : RelativePositioningParentObject.transform.TransformPoint(Vector3.zero);
   }
 
@@ -171,8 +171,8 @@ public class FullScreenScroller : MonoBehaviour, ISceneResetable
       Enabled = true,
       EnableDefaultVerticalLockPosition = EnableDefaultVerticalLockPosition,
       DefaultVerticalLockPosition = DefaultVerticalLockPosition,
-      EnableTopVerticalLock = true,
-      EnableBottomVerticalLock = true,
+      EnableTopVerticalLock = false,
+      EnableBottomVerticalLock = false,
       TopVerticalLockPosition = bounds.center.y + bounds.extents.y,
       BottomVerticalLockPosition = bounds.center.y - bounds.extents.y
     };
