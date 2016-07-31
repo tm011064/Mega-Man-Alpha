@@ -36,9 +36,13 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
   private int _animationShortNameHash;
 
+  private Checkpoint _checkpoint;
+
   void Awake()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
+
+    _checkpoint = GetComponentInChildren<Checkpoint>();
 
     var boxCollider = GetComponent<BoxCollider2D>();
 
@@ -122,6 +126,8 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
   void OnTriggerEnter2D(Collider2D col)
   {
+    UpdatePlayerSpawnLocation();
+
     if (_skipEnter)
     {
       _skipEnter = false;
@@ -150,6 +156,14 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     else
     {
       StartScroll();
+    }
+  }
+
+  private void UpdatePlayerSpawnLocation()
+  {
+    if (_checkpoint != null)
+    {
+      GameManager.Instance.Player.SpawnLocation = _checkpoint.transform.position;
     }
   }
 

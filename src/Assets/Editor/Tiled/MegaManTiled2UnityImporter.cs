@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using Tiled2Unity;
@@ -28,10 +29,32 @@ namespace Assets.Editor.Tiled
         {
           AttachCustomObjects(prefab);
         }
+
+        LinkCheckpointsToRooms(prefab);
       }
       catch (Exception ex)
       {
         Debug.LogError(ex.Message);
+      }
+    }
+
+    private void LinkCheckpointsToRooms(GameObject prefab)
+    {
+      var checkpoints = prefab.GetComponentsInChildren<Checkpoint>();
+      var rooms = prefab.GetComponentsInChildren<FullScreenScroller>();
+
+      foreach (var checkpoint in checkpoints)
+      {
+        var room = rooms
+          .Where(r => r.Contains(checkpoint.transform.position))
+          .FirstOrDefault();
+
+        if (room == null)
+        {
+          throw new Exception("Checkpoint " + checkpoint.name + " must be within a room");
+        }
+
+        checkpoint.transform.parent = room.transform;
       }
     }
 

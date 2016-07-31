@@ -54,6 +54,13 @@ public partial class FullScreenScroller : IInstantiable
 
     boxCollider.size = new Vector2(width, height);
   }
+
+  public bool Contains(Vector2 point)
+  {
+    var boxCollider = GetComponent<BoxCollider2D>();
+
+    return boxCollider.bounds.Contains(point);
+  }
 }
 
 #endif
