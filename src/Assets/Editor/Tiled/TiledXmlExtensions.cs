@@ -55,7 +55,7 @@ namespace Assets.Editor.Tiled
       if (obj.IsImage())
       {
         return new Bounds(
-          new Vector2(obj.X, -(obj.Y - obj.Height)),
+          new Vector2(obj.X + obj.Width / 2, -obj.Y),
           new Vector2(obj.Width, obj.Height));
       }
 
@@ -66,12 +66,12 @@ namespace Assets.Editor.Tiled
 
     public static bool IsImage(this Object obj)
     {
-      return !string.IsNullOrEmpty(obj.Gid);
+      return obj.Gid.HasValue;
     }
 
     public static bool IsCollider(this Object obj)
     {
-      return string.IsNullOrEmpty(obj.Gid);
+      return !obj.Gid.HasValue;
     }
 
     public static IEnumerable<Layer> ForEachLayerWithProperty(this Map map, string propertyName, string propertyValue)

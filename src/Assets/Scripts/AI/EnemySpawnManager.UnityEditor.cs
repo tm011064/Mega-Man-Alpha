@@ -34,6 +34,19 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IInstantiable
   public void Instantiate(InstantiationArguments arguments)
   {
     transform.position = arguments.Bounds.center;
+
+    // note: for some reason GetComponent(s)InChildren<T>() crashes here
+    for (var i = 0; i < transform.childCount; i++)
+    {
+      var child = transform.GetChild(i);
+
+      var instantiable = child.GetComponent<IInstantiable>();
+
+      if (instantiable != null)
+      {
+        instantiable.Instantiate(arguments);
+      }
+    }
   }
 }
 #endif

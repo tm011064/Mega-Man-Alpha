@@ -91,7 +91,7 @@ namespace Assets.Editor.Tiled
     [XmlAttribute(AttributeName = "height")]
     public int Height { get; set; }
     [XmlAttribute(AttributeName = "gid")]
-    public string Gid { get; set; }
+    public long? Gid { get; set; }
     [XmlElement(ElementName = "properties")]
     public Properties Properties { get; set; }
   }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BarrelMet : BaseMonoBehaviour, IObjectPoolBehaviour, IPlayerCollidable, ISpawnable
+public partial class BarrelMet : BaseMonoBehaviour, IObjectPoolBehaviour, IPlayerCollidable, ISpawnable
 {
   public Vector2 BarrelSpawnLocation;
 
