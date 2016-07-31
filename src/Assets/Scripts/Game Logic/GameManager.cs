@@ -103,18 +103,6 @@ public class GameManager : MonoBehaviour
     // TODO (Roman): don't hardcode tags
     switch (SceneManager.GetActiveScene().name)
     {
-      case "Platforms And Enemies":
-
-        _orderedSceneCheckpoints = GameObject.FindObjectsOfType<Checkpoint>();
-
-        Array.Sort(_orderedSceneCheckpoints, (a, b) => b.Index.CompareTo(a.Index));
-
-        _currentCheckpointIndex = 0;
-
-        checkpoint = _orderedSceneCheckpoints[_currentCheckpointIndex].gameObject;
-
-        break;
-
       default:
 
         _orderedSceneCheckpoints = GameObject.FindObjectsOfType<Checkpoint>();
