@@ -98,7 +98,7 @@ namespace Assets.Editor.Tiled
 
       var prefabGameObjects = _map
         .ForEachObjectWithProperty("Prefab", _objecttypesByName)
-        .Get<GameObject>(CreatePrefab);
+        .Get<GameObject>(CreatePrefabFromGameObject);
 
       foreach (var gameObject in prefabGameObjects)
       {
@@ -116,7 +116,7 @@ namespace Assets.Editor.Tiled
 
       var createdGameObjects = _map
         .ForEachLayerWithPropertyName("Prefab")
-        .Get<IEnumerable<GameObject>>(CreateGameObjects)
+        .Get<IEnumerable<GameObject>>(CreatePrefabsFromLayer)
         .SelectMany(l => l);
 
       foreach (var gameObject in createdGameObjects)
@@ -127,7 +127,7 @@ namespace Assets.Editor.Tiled
       return parentObject;
     }
 
-    private GameObject CreatePrefab(Object obj)
+    private GameObject CreatePrefabFromGameObject(Object obj)
     {
       var properties = obj.GetProperties(_objecttypesByName);
 
@@ -136,28 +136,18 @@ namespace Assets.Editor.Tiled
       var asset = LoadPrefabAsset(prefabName);
 
       return CreateInstantiableObject(
-           asset,
-           prefabName,
-           new InstantiationArguments
-           {
-             Bounds = obj.GetBounds(),
-             Arguments = properties
-           });
+       asset,
+       prefabName,
+       new InstantiationArguments
+       {
+         Bounds = obj.GetBounds(),
+         Arguments = properties,
+         IsFlippedHorizontally = obj.Gid >= 2000000000,
+         IsFlippedVertically = (obj.Gid >= 1000000000 && obj.Gid < 2000000000) || obj.Gid >= 3000000000
+     });
     }
 
-    private GameObject LoadPrefabAsset(string prefabName)
-    {
-      string assetPath;
-
-      if (!_prefabLookup.TryGetValue(prefabName, out assetPath))
-      {
-        throw new MissingReferenceException("No prefab with name '" + prefabName + "' exists at this project");
-      }
-
-      return AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject)) as GameObject;
-    }
-
-    private IEnumerable<GameObject> CreateGameObjects(Layer layer)
+    private IEnumerable<GameObject> CreatePrefabsFromLayer(Layer layer)
     {
       var prefabName = layer.Properties
         .Property
@@ -184,6 +174,18 @@ namespace Assets.Editor.Tiled
               .ToDictionary(p => p.Name, p => p.Value, StringComparer.InvariantCultureIgnoreCase)
           });
       }
+    }
+
+    private GameObject LoadPrefabAsset(string prefabName)
+    {
+      string assetPath;
+
+      if (!_prefabLookup.TryGetValue(prefabName, out assetPath))
+      {
+        throw new MissingReferenceException("No prefab with name '" + prefabName + "' exists at this project");
+      }
+
+      return AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject)) as GameObject;
     }
 
     private GameObject CreateInstantiableObject(GameObject asset, string prefabName, InstantiationArguments arguments)

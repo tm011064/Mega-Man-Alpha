@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 31/07/2016 07:59:09-->
+<!--Last exported: 31/07/2016 20:24:43-->
 <Tiled2Unity version="1.0.7.5">
   <AssignMaterial mesh="mesh_0001" material="colored_blocks" />
   <AssignMaterial mesh="mesh_0002" material="colored_blocks" />
@@ -45,12 +45,22 @@
       </GameObject>
     </GameObject>
     <GameObject name="Enemies" x="0" y="0" z="0">
-      <GameObject name="TileObject" x="528" y="-432" rotation="0" layer="Barrel Met" scaleX="1" scaleY="1">
-        <GameObject name="TileObject">
+      <GameObject name="TileObject" x="560" y="-432" rotation="0" layer="Barrel Met" scaleX="1" scaleY="1">
+        <GameObject name="TileObject" x="16" flipX="true">
           <GameObject name="tile_obj" copy="mesh_tile_0015" sortingLayerName="" sortingOrder="6" x="0" y="16" />
         </GameObject>
       </GameObject>
       <GameObject name="TileObject" x="544" y="-672" rotation="0" layer="Barrel Met" scaleX="1" scaleY="1">
+        <GameObject name="TileObject" y="16" flipY="true">
+          <GameObject name="tile_obj" copy="mesh_tile_0015" sortingLayerName="" sortingOrder="6" x="0" y="16" />
+        </GameObject>
+      </GameObject>
+      <GameObject name="TileObject" x="400" y="-400" rotation="0" layer="Barrel Met" scaleX="1" scaleY="1">
+        <GameObject name="TileObject" x="16" flipX="true" y="16" flipY="true">
+          <GameObject name="tile_obj" copy="mesh_tile_0015" sortingLayerName="" sortingOrder="6" x="0" y="16" />
+        </GameObject>
+      </GameObject>
+      <GameObject name="TileObject" x="272" y="-464" rotation="0" layer="Barrel Met" scaleX="1" scaleY="1">
         <GameObject name="TileObject">
           <GameObject name="tile_obj" copy="mesh_tile_0015" sortingLayerName="" sortingOrder="6" x="0" y="16" />
         </GameObject>

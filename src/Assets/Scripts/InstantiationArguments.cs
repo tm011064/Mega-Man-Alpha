@@ -7,6 +7,10 @@ public class InstantiationArguments
 
   public Dictionary<string, string> Arguments;
 
+  public bool IsFlippedHorizontally;
+
+  public bool IsFlippedVertically;
+
   public bool GetBool(string name)
   {
     return bool.Parse(Arguments[name]);

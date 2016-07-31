@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="150" tilewidth="16" tileheight="16" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="150" tilewidth="16" tileheight="16" nextobjectid="21">
  <tileset firstgid="1" name="Blocks" tilewidth="16" tileheight="16" tilecount="16" columns="4">
   <image source="colored_blocks.png" width="64" height="64"/>
  </tileset>
@@ -803,8 +803,10 @@
   </object>
  </objectgroup>
  <objectgroup name="Enemies">
-  <object id="17" type="Barrel Met" gid="15" x="528" y="432" width="16" height="16"/>
-  <object id="18" type="Barrel Met" gid="15" x="544" y="672" width="16" height="16"/>
+  <object id="17" type="Barrel Met" gid="2147483663" x="560" y="432" width="16" height="16"/>
+  <object id="18" type="Barrel Met" gid="1073741839" x="544" y="672" width="16" height="16"/>
+  <object id="19" type="Barrel Met" gid="3221225487" x="400" y="400" width="16" height="16"/>
+  <object id="20" type="Barrel Met" gid="15" x="272" y="464" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="Checkpoints">
   <object id="15" name="Start" type="Checkpoint" gid="12" x="272" y="672" width="16" height="16">
