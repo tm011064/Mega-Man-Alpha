@@ -88,17 +88,6 @@ namespace Assets.Editor.Tiled
         objectTypesPath);
 
       importer.Import(prefab);
-
-      //foreach (var tmxFile in tmxFiles)
-      //{
-      //  Debug.Log("Importing file '" + tmxFile + "'");
-
-      //  var importer = TiledProjectImporter.CreateFromFile(
-      //    tmxFile,
-      //    objectTypesPath);
-
-      //  importer.Import(prefab);
-      //}
     }
 
     private void Destroy(GameObject prefab, params string[] names)
