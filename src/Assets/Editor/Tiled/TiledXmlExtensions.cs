@@ -92,6 +92,40 @@ namespace Assets.Editor.Tiled
             p => string.Compare(p.Name.Trim(), propertyName, true) == 0));
     }
 
+    public static bool TryGetProperty(this Layer layer, string propertyName, out int value)
+    {
+      string valueText;
+
+      if (layer.TryGetProperty(propertyName, out valueText))
+      {
+        value = int.Parse(valueText);
+
+        return true;
+      }
+
+      value = 0;
+
+      return false;
+    }
+
+    public static bool TryGetProperty(this Layer layer, string propertyName, out string value)
+    {
+      var property = layer
+        .Properties
+        .Property
+        .FirstOrDefault(p => string.Compare(p.Name, propertyName) == 0);
+
+      if (property != null)
+      {
+        value = property.Value;
+
+        return true;
+      }
+
+      value = null;
+      return false;
+    }
+
     public static void Execute(this IEnumerable<Layer> layers, Action<Layer> action)
     {
       foreach (var layer in layers)

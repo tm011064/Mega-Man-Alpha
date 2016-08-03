@@ -24,7 +24,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 432150}
-  - 114: {fileID: 11448876}
+  - 114: {fileID: 11452046}
   m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
@@ -175,7 +175,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 120
+  orthographic size: 112
   m_Depth: -2
   m_CullingMask:
     serializedVersion: 2
@@ -245,7 +245,7 @@ MonoBehaviour:
       AddTraceTagToMessage: 1
     ObjectPoolSettings:
       TotalEnemyDeathAnimations: 12
---- !u!114 &11448876
+--- !u!114 &11452046
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -253,10 +253,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 117794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a099fb334081d674b8f2c9ad0972aa13, type: 3}
+  m_Script: {fileID: 11500000, guid: 31fb340e407f3eb40b2c8e6d3cedbff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBarHeight: 2
 --- !u!114 &11455698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,9 +280,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraOffset: {x: 0, y: 0, z: 10}
   UseFixedUpdate: 0
-  TargetScreenSize: {x: 256, y: 240}
+  TargetScreenSize: {x: 256, y: 224}
   UseFixedAspectRatio: 1
-  FixedAspectRatio: {x: 256, y: 240}
+  FixedAspectRatio: {x: 256, y: 224}
   Target: {fileID: 0}
   Transform: {fileID: 0}
 --- !u!124 &12498726

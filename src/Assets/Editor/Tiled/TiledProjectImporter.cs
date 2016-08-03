@@ -96,6 +96,8 @@ namespace Assets.Editor.Tiled
       var prefabsParent = new GameObject("Auto created Tiled prefabs");
       prefabsParent.transform.position = Vector3.zero;
 
+      Debug.Log(_objecttypesByName);
+
       var prefabGameObjects = _map
         .ForEachObjectWithProperty("Prefab", _objecttypesByName)
         .Get<GameObject>(CreatePrefabFromGameObject);
@@ -144,7 +146,7 @@ namespace Assets.Editor.Tiled
          Arguments = properties,
          IsFlippedHorizontally = obj.Gid >= 2000000000,
          IsFlippedVertically = (obj.Gid >= 1000000000 && obj.Gid < 2000000000) || obj.Gid >= 3000000000
-     });
+       });
     }
 
     private IEnumerable<GameObject> CreatePrefabsFromLayer(Layer layer)
@@ -208,22 +210,22 @@ namespace Assets.Editor.Tiled
 
     private MatrixVertices CreateMatrixVertices(Layer layer)
     {
-      var tileIntegers = new int[_map.Height * _map.Width];
+      var tileNumbers = new long[_map.Height * _map.Width];
 
-      var tileIntegersFlipped = layer
+      var tileNumbersFlipped = layer
         .Data
         .Text
         .Split(',')
-        .Select(text => int.Parse(text));
+        .Select(text => long.Parse(text));
 
       var rowIndex = _map.Height - 1;
       var columnIndex = 0;
 
-      foreach (var value in tileIntegersFlipped)
+      foreach (var value in tileNumbersFlipped)
       {
         var location = rowIndex * _map.Width + columnIndex;
 
-        tileIntegers[location] = value;
+        tileNumbers[location] = value;
 
         columnIndex++;
 
@@ -234,7 +236,7 @@ namespace Assets.Editor.Tiled
         }
       }
 
-      var matrix = new Matrix<int>(tileIntegers, _map.Height, _map.Width);
+      var matrix = new Matrix<long>(tileNumbers, _map.Height, _map.Width);
 
       return new MatrixVertices(matrix, _map.Tilewidth, _map.Tileheight);
     }
@@ -246,7 +248,10 @@ namespace Assets.Editor.Tiled
       var collidersGameObject = new GameObject("Death Hazard Colliders");
       collidersGameObject.transform.position = Vector3.zero;
 
-      var colliders = vertices.GetColliderEdges();
+      int padding;
+      layer.TryGetProperty("Collider Padding", out padding);
+
+      var colliders = vertices.GetColliderEdges(padding);
 
       foreach (var points in colliders)
       {
@@ -255,7 +260,7 @@ namespace Assets.Editor.Tiled
         obj.transform.position = Vector3.zero;
         obj.layer = LayerMask.NameToLayer("PlayerTriggerMask");
 
-        AddEdgeColliders(obj, points, true);
+        AddEdgeColliders(obj, points, padding, true);
 
         obj.AddComponent<InstantDeathHazardTrigger>();
 
@@ -326,7 +331,7 @@ namespace Assets.Editor.Tiled
       return collidersGameObject;
     }
 
-    private void AddEdgeColliders(GameObject parent, Vector2[] points, bool isTrigger = false)
+    private void AddEdgeColliders(GameObject parent, Vector2[] points, int padding = 0, bool isTrigger = false)
     {
       for (var i = 0; i < points.Length - 1; i++)
       {

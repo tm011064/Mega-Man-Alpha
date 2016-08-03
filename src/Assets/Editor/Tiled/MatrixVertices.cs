@@ -8,7 +8,7 @@ namespace Assets.Editor.Tiled
 {
   public class MatrixVertices
   {
-    private Matrix<int> _matrix;
+    private Matrix<long> _matrix;
 
     private Vertex[] _vertices;
 
@@ -16,7 +16,7 @@ namespace Assets.Editor.Tiled
 
     private int _tileHeight;
 
-    public MatrixVertices(Matrix<int> matrix, int tileWidth, int tileHeight)
+    public MatrixVertices(Matrix<long> matrix, int tileWidth, int tileHeight)
     {
       _matrix = matrix;
       _tileWidth = tileWidth;
@@ -274,7 +274,7 @@ namespace Assets.Editor.Tiled
         .Select(p => GetBounds(p));
     }
 
-    public IEnumerable<Vector2[]> GetColliderEdges()
+    public IEnumerable<Vector2[]> GetColliderEdges(int contraction = 0)
     {
       ResetVerticesVisitStatus();
 
@@ -302,12 +302,58 @@ namespace Assets.Editor.Tiled
 
           vertex = FindEdgePoint(newStartVertex, searchDirection);
 
+          var point = vertex.Point;
+
+          if (contraction != 0)
+          {
+            var lastVertexPoint = vertexPoints.Last();
+
+            switch (searchDirection)
+            {
+              case Direction.Right:
+                vertexPoints[vertexPoints.Count - 1] = new Vector2(lastVertexPoint.x + contraction, lastVertexPoint.y);
+                point = new Vector2(point.x - contraction, point.y);
+                break;
+
+              case Direction.Left:
+                vertexPoints[vertexPoints.Count - 1] = new Vector2(lastVertexPoint.x - contraction, lastVertexPoint.y);
+                point = new Vector2(point.x + contraction, point.y);
+                break;
+
+              case Direction.Up:
+                vertexPoints[vertexPoints.Count - 1] = new Vector2(lastVertexPoint.x, lastVertexPoint.y - contraction);
+                point = new Vector2(point.x, point.y + contraction);
+                break;
+
+              case Direction.Down:
+                vertexPoints[vertexPoints.Count - 1] = new Vector2(lastVertexPoint.x, lastVertexPoint.y + contraction);
+                point = new Vector2(point.x, point.y - contraction);
+                break;
+            }
+          }
+
           if (vertex == startVertex)
           {
+            if (contraction != 0)
+            {
+              switch (searchDirection)
+              {
+                case Direction.Right:
+                case Direction.Left:
+                  vertexPoints[0] = new Vector2(point.x, vertexPoints[0].y);
+                  break;
+
+                case Direction.Up:
+                case Direction.Down:
+                  vertexPoints[0] = new Vector2(vertexPoints[0].x, point.y);
+                  break;
+              }
+            }
+
             break;
           }
 
-          vertexPoints.Add(vertex.Point);
+          vertexPoints.Add(point);
         }
 
         yield return vertexPoints.ToArray();

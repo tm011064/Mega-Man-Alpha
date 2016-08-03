@@ -6,6 +6,13 @@ public partial class FullScreenScroller : IInstantiable
 {
   public void Instantiate(InstantiationArguments arguments)
   {
+    SetPosition(arguments);
+
+    MustBeOnLadderToEnter = arguments.GetBool("Enter On Ladder");
+  }
+
+  private void SetPosition(InstantiationArguments arguments)
+  {
     var xPos = arguments.Bounds.center.x;
     var yPos = arguments.Bounds.center.y;
     var width = arguments.Bounds.size.x;

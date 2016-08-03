@@ -20,6 +20,8 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
   [Tooltip("The (x, y) offset of the camera. This can be used when default vertical locking is disabled and you want the player to be below, above, right or left of the screen center.")]
   public Vector2 Offset;
 
+  public bool MustBeOnLadderToEnter;
+
   public float HorizontalOffsetDeltaMovementFactor = 40f;
 
   public VerticalCameraFollowMode VerticalCameraFollowMode;
@@ -126,6 +128,12 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
   void OnTriggerEnter2D(Collider2D col)
   {
+    if (MustBeOnLadderToEnter
+      && (GameManager.Instance.Player.PlayerState & PlayerState.ClimbingLadder) == 0)
+    {
+      return;
+    }
+
     UpdatePlayerSpawnLocation();
 
     if (_skipEnter)
@@ -167,19 +175,8 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     }
   }
 
-  private Vector3 GetTransformPoint()
-  {
-    return RelativePositioningParentObject == null
-      ? transform.parent != null
-        ? transform.parent.gameObject.transform.TransformPoint(Vector3.zero)
-        : Vector3.zero
-      : RelativePositioningParentObject.transform.TransformPoint(Vector3.zero);
-  }
-
   private VerticalLockSettings CreateVerticalLockSettings(Bounds bounds)
   {
-    var transformPoint = GetTransformPoint();
-
     var verticalLockSettings = new VerticalLockSettings
     {
       Enabled = true,
@@ -192,25 +189,21 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     };
 
     verticalLockSettings.TopBoundary =
-      transformPoint.y
-      + verticalLockSettings.TopVerticalLockPosition
+      verticalLockSettings.TopVerticalLockPosition
       - _cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
 
     verticalLockSettings.BottomBoundary =
-      transformPoint.y
-      + verticalLockSettings.BottomVerticalLockPosition
+      verticalLockSettings.BottomVerticalLockPosition
       + _cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
 
     verticalLockSettings.TranslatedVerticalLockPosition =
-      transformPoint.y + verticalLockSettings.DefaultVerticalLockPosition;
+      verticalLockSettings.DefaultVerticalLockPosition;
 
     return verticalLockSettings;
   }
 
   private HorizontalLockSettings CreateHorizontalLockSettings(Bounds bounds)
   {
-    var transformPoint = GetTransformPoint();
-
     var horizontalLockSettings = new HorizontalLockSettings
     {
       Enabled = true,
@@ -221,13 +214,11 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     };
 
     horizontalLockSettings.LeftBoundary =
-      transformPoint.x
-      + horizontalLockSettings.LeftHorizontalLockPosition
+      horizontalLockSettings.LeftHorizontalLockPosition
       + _cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
 
     horizontalLockSettings.RightBoundary =
-      transformPoint.x
-      + horizontalLockSettings.RightHorizontalLockPosition
+      horizontalLockSettings.RightHorizontalLockPosition
       - _cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
 
     return horizontalLockSettings;

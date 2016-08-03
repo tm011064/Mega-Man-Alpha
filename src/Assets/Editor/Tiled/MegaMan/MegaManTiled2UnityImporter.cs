@@ -17,24 +17,35 @@ namespace Assets.Editor.Tiled
 
     public void CustomizePrefab(GameObject prefab)
     {
+      //Customize(prefab);
+      CustomizeSafe(prefab);
+    }
+
+    private void Customize(GameObject prefab)
+    {
+      Destroy(
+        prefab,
+        "Rooms",
+        "Enemies",
+        "Checkpoints");
+
+      if (prefab != null)
+      {
+        AttachCustomObjects(prefab);
+      }
+
+      LinkCheckpointsToRooms(prefab);
+    }
+
+    private void CustomizeSafe(GameObject prefab)
+    {
       try
       {
-        Destroy(
-          prefab,
-          "Rooms",
-          "Enemies",
-          "Checkpoints");
-
-        if (prefab != null)
-        {
-          AttachCustomObjects(prefab);
-        }
-
-        LinkCheckpointsToRooms(prefab);
+        Customize(prefab);
       }
       catch (Exception ex)
       {
-        Debug.LogError(ex.Message);
+        Debug.LogError(ex.Message + Environment.NewLine + "Stacktrace: " + ex.StackTrace ?? string.Empty);
       }
     }
 
@@ -62,14 +73,18 @@ namespace Assets.Editor.Tiled
     {
       var scene = EditorSceneManager.GetActiveScene();
 
-      var tmxPath = Path.Combine(
-        Path.GetDirectoryName(scene.path),
-        Path.GetFileNameWithoutExtension(scene.path) + ".tmx");
+      var directory = Path.GetDirectoryName(scene.path);
+
+      var tmxFile = Path.Combine(
+        directory,
+        prefab.name + ".tmx");
 
       var objectTypesPath = "Assets/Tiled/objecttypes.xml";
 
+      Debug.Log("Importing file '" + tmxFile + "'");
+
       var importer = TiledProjectImporter.CreateFromFile(
-        tmxPath,
+        tmxFile,
         objectTypesPath);
 
       importer.Import(prefab);
