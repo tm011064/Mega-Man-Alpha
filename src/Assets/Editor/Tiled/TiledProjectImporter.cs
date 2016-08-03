@@ -210,22 +210,22 @@ namespace Assets.Editor.Tiled
 
     private MatrixVertices CreateMatrixVertices(Layer layer)
     {
-      var tileIntegers = new int[_map.Height * _map.Width];
+      var tileNumbers = new long[_map.Height * _map.Width];
 
-      var tileIntegersFlipped = layer
+      var tileNumbersFlipped = layer
         .Data
         .Text
         .Split(',')
-        .Select(text => int.Parse(text));
+        .Select(text => long.Parse(text));
 
       var rowIndex = _map.Height - 1;
       var columnIndex = 0;
 
-      foreach (var value in tileIntegersFlipped)
+      foreach (var value in tileNumbersFlipped)
       {
         var location = rowIndex * _map.Width + columnIndex;
 
-        tileIntegers[location] = value;
+        tileNumbers[location] = value;
 
         columnIndex++;
 
@@ -236,7 +236,7 @@ namespace Assets.Editor.Tiled
         }
       }
 
-      var matrix = new Matrix<int>(tileIntegers, _map.Height, _map.Width);
+      var matrix = new Matrix<long>(tileNumbers, _map.Height, _map.Width);
 
       return new MatrixVertices(matrix, _map.Tilewidth, _map.Tileheight);
     }

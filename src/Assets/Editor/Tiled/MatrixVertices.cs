@@ -8,7 +8,7 @@ namespace Assets.Editor.Tiled
 {
   public class MatrixVertices
   {
-    private Matrix<int> _matrix;
+    private Matrix<long> _matrix;
 
     private Vertex[] _vertices;
 
@@ -16,7 +16,7 @@ namespace Assets.Editor.Tiled
 
     private int _tileHeight;
 
-    public MatrixVertices(Matrix<int> matrix, int tileWidth, int tileHeight)
+    public MatrixVertices(Matrix<long> matrix, int tileWidth, int tileHeight)
     {
       _matrix = matrix;
       _tileWidth = tileWidth;
