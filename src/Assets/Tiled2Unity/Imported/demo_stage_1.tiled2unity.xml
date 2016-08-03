@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 03/08/2016 22:26:58-->
+<!--Last exported: 03/08/2016 22:55:21-->
 <Tiled2Unity version="1.0.7.5">
   <AssignMaterial mesh="mesh_0001" material="ru_tileset_1" />
   <AssignMaterial mesh="mesh_0002" material="ru_tileset_1" />
@@ -43,7 +43,7 @@
       </GameObject>
     </GameObject>
     <GameObject name="Checkpoints" x="0" y="0" z="0">
-      <GameObject name="TileObject" x="116" y="-313" rotation="0" layer="Checkpoint" scaleX="1" scaleY="1">
+      <GameObject name="TileObject" x="48" y="-320" rotation="0" layer="Checkpoint" scaleX="1" scaleY="1">
         <Property name="Is Level Start" value="true" />
         <GameObject name="TileObject">
           <GameObject name="tile_obj" copy="mesh_tile_0016" sortingLayerName="" sortingOrder="5" x="0" y="16" />
