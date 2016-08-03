@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="28" tilewidth="16" tileheight="16" nextobjectid="74">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="28" tilewidth="16" tileheight="16" nextobjectid="75">
  <tileset firstgid="1" name="colored_blocks" tilewidth="16" tileheight="16" tilecount="16" columns="4">
   <image source="colored_blocks.png" width="64" height="64"/>
  </tileset>
@@ -164,7 +164,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Checkpoints">
-  <object id="71" type="Checkpoint" gid="16" x="116" y="313" width="16" height="16">
+  <object id="74" type="Checkpoint" gid="16" x="48" y="320" width="16" height="16">
    <properties>
     <property name="Is Level Start" type="bool" value="true"/>
    </properties>
