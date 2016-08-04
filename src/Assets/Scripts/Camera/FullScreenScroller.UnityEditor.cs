@@ -13,39 +13,23 @@ public partial class FullScreenScroller : IInstantiable
 
   private void SetPosition(InstantiationArguments arguments)
   {
-    var xPos = arguments.Bounds.center.x;
-    var yPos = arguments.Bounds.center.y;
-    var width = arguments.Bounds.size.x;
-    var height = arguments.Bounds.size.y;
-    var verticalLockPositionAdjustment = 0;
-
-    if (arguments.GetBool("Open Left"))
+    BoundaryPadding = new Padding
     {
-      xPos -= arguments.GetInt("Extension Left") / 2;
-      width += arguments.GetInt("Extension Left");
-    }
+      Left = arguments.GetBool("Open Left") ? arguments.GetInt("Extension Left") : 0,
+      Right = arguments.GetBool("Open Right") ? arguments.GetInt("Extension Right") : 0,
+      Top = arguments.GetBool("Open Top") ? arguments.GetInt("Extension Top") : 0,
+      Bottom = arguments.GetBool("Open Bottom") ? arguments.GetInt("Extension Bottom") : 0
+    };
 
-    if (arguments.GetBool("Open Right"))
-    {
-      xPos += arguments.GetInt("Extension Right") / 2;
-      width += arguments.GetInt("Extension Right");
-    }
+    var xPos = arguments.Bounds.center.x + (BoundaryPadding.Right - BoundaryPadding.Left) / 2;
 
-    if (arguments.GetBool("Open Top"))
-    {
-      yPos += arguments.GetInt("Extension Top") / 2;
-      height += arguments.GetInt("Extension Top");
+    var yPos = arguments.Bounds.center.y + (BoundaryPadding.Top - BoundaryPadding.Bottom) / 2;
 
-      verticalLockPositionAdjustment -= arguments.GetInt("Extension Top") / 2;
-    }
+    var width = arguments.Bounds.size.x + BoundaryPadding.Left + BoundaryPadding.Right;
 
-    if (arguments.GetBool("Open Bottom"))
-    {
-      yPos -= arguments.GetInt("Extension Bottom") / 2;
-      height += arguments.GetInt("Extension Bottom");
+    var height = arguments.Bounds.size.y + BoundaryPadding.Bottom + BoundaryPadding.Top;
 
-      verticalLockPositionAdjustment += arguments.GetInt("Extension Bottom") / 2;
-    }
+    var verticalLockPositionAdjustment = (BoundaryPadding.Bottom - BoundaryPadding.Top) / 2;
 
     transform.position = new Vector2(xPos, yPos);
 
