@@ -24,6 +24,9 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
   public float HorizontalOffsetDeltaMovementFactor = 40f;
 
+  [Tooltip("The boundary padding valeus reduce the scroll dimensions for the camera. This is necessary for room transitions where a room's box collider extends into another room which should not be visible once entry has happened")]
+  public Padding BoundaryPadding;
+
   public VerticalCameraFollowMode VerticalCameraFollowMode;
 
   private GameObject _parent;
@@ -184,8 +187,8 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
       DefaultVerticalLockPosition = DefaultVerticalLockPosition,
       EnableTopVerticalLock = false,
       EnableBottomVerticalLock = false,
-      TopVerticalLockPosition = bounds.center.y + bounds.extents.y,
-      BottomVerticalLockPosition = bounds.center.y - bounds.extents.y
+      TopVerticalLockPosition = bounds.center.y + bounds.extents.y - BoundaryPadding.Top,
+      BottomVerticalLockPosition = bounds.center.y - bounds.extents.y + BoundaryPadding.Bottom
     };
 
     verticalLockSettings.TopBoundary =
@@ -209,8 +212,8 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
       Enabled = true,
       EnableLeftHorizontalLock = true,
       EnableRightHorizontalLock = true,
-      LeftHorizontalLockPosition = bounds.center.x - bounds.extents.x,
-      RightHorizontalLockPosition = bounds.center.x + bounds.extents.x
+      LeftHorizontalLockPosition = bounds.center.x - bounds.extents.x + BoundaryPadding.Left,
+      RightHorizontalLockPosition = bounds.center.x + bounds.extents.x - BoundaryPadding.Right
     };
 
     horizontalLockSettings.LeftBoundary =
