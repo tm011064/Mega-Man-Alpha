@@ -130,6 +130,8 @@ namespace Tiled2Unity
             modelImporter.importTangents = ModelImporterTangents.None;
 #endif
 
+            modelImporter.importBlendShapes = false;
+
             // Don't need animations or tangents.
             modelImporter.generateAnimations = ModelImporterGenerateAnimations.None;
             modelImporter.animationType = ModelImporterAnimationType.None;
@@ -170,7 +172,6 @@ namespace Tiled2Unity
 #else
                 //mr.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
 #endif
-
             }
         }
 
