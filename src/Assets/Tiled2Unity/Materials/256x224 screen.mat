@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ru_tileset_1
+  m_Name: 256x224 screen
   m_Shader: {fileID: 4800000, guid: cf5fd84d5967d15429b0d90fb61432f4, type: 3}
   m_ShaderKeywords: PIXELSNAP_ON
   m_LightmapFlags: 5
@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 72a63d80a7fc24ed9a3b30aace16e8a6, type: 3}
+          m_Texture: {fileID: 2800000, guid: e4961dbb5dd4b4d3eadf4b3a98fd660f, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
