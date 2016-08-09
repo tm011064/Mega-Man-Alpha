@@ -269,8 +269,8 @@ MonoBehaviour:
     MinDistanceFromFloor: 64
   JumpSettings:
     Gravity: -900
-    StandJumpHeight: 52
-    WalkJumpHeight: 52
+    StandJumpHeight: 50
+    WalkJumpHeight: 50
     WalkJumpHeightSpeedTrigger: 2000
     RunJumpHeight: 1000
     RunJumpHeightSpeedTrigger: 2000
