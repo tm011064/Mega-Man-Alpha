@@ -36,4 +36,7 @@ public class JumpSettings
 
   [Tooltip("The horizontal speed applied to the opposite direction while jumping")]
   public float BackflipOnDirectionChangeSpeed = 200f;
+
+  [Tooltip("Useful in case a character's horizontal speed should be throttled while in air")]
+  public float MaxHorizontalSpeed = 100000f;
 }

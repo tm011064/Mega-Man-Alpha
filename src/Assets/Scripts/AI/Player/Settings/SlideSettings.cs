@@ -11,5 +11,7 @@ public class SlideSettings
   public float Distance = 200f;
 
   [Tooltip("You can pass in any button name as well as the following axis directions: Left, Right, Up, Down")]
-  public string[] InputButtonNames = new string[] { "Jump", "Down" };
+  public string[] InputButtonsPressed = new string[] { "Down" };
+
+  public string InputButtonDown = "Jump";
 }

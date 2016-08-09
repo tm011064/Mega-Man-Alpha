@@ -14,9 +14,12 @@ public class DefaultPlayerControlHandler : PlayerControlHandler
   {
     return PlayerController.SlideSettings.EnableSliding
       && PlayerController.IsGrounded()
-      && GameManager.InputStateManager.AreButtonsPressed(
-        PlayerController.SlideSettings.InputButtonNames,
-        PlayerController.InputSettings);
+      && (PlayerController.SlideSettings.InputButtonsPressed.Length > 0
+          && GameManager.InputStateManager.AreButtonsPressed(
+            PlayerController.SlideSettings.InputButtonsPressed,
+            PlayerController.InputSettings))
+      && (!string.IsNullOrEmpty(PlayerController.SlideSettings.InputButtonDown)
+          && GameManager.InputStateManager.IsButtonDown(PlayerController.SlideSettings.InputButtonDown));
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()

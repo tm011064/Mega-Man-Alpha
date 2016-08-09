@@ -279,12 +279,13 @@ MonoBehaviour:
     MaxDownwardSpeed: -400
     EnableBackflipOnDirectionChange: 0
     BackflipOnDirectionChangeSpeed: 200
+    MaxHorizontalSpeed: 66
   RunSettings:
     WalkSpeed: 92
     EnableRunning: 0
     RunSpeed: 2000
     AccelerationGroundDamping: 8
-    DecelerationGroundDamping: 24
+    DecelerationGroundDamping: 96
   ClimbSettings:
     EnableLadderClimbing: 1
     ClimbUpVelocity: 80
@@ -294,9 +295,9 @@ MonoBehaviour:
     EnableSliding: 1
     Duration: 0.42
     Distance: 62
-    InputButtonNames:
-    - Jump
+    InputButtonsPressed:
     - Down
+    InputButtonDown: Jump
   CrouchSettings:
     EnableCrouching: 0
   PlayerHealthSettings:

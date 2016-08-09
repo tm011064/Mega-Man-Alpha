@@ -112,7 +112,10 @@ public class PlayerControlHandler : BaseControlHandler
 
   protected float GetHorizontalVelocityWithDamping(Vector3 velocity, float hAxis, float normalizedHorizontalSpeed)
   {
-    var speed = PlayerController.RunSettings.WalkSpeed;
+    var speed = PlayerController.IsGrounded()
+      ? PlayerController.RunSettings.WalkSpeed
+      : Mathf.Min(PlayerController.RunSettings.WalkSpeed, PlayerController.JumpSettings.MaxHorizontalSpeed);
+
     if ((GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0)
     {
       if ( // allow dash speed if
