@@ -43,13 +43,13 @@ public class MegaBusterControlHandler : WeaponControlHandler
         .ButtonPressState & ButtonPressState.IsPressed) != 0;
   }
 
-  private bool IsFireButtonUp()
+  private bool IsFireButtonDown()
   {
     return (
       GameManager
         .InputStateManager
         .GetButtonState(_projectileWeaponSettings.InputButtonName)
-        .ButtonPressState & ButtonPressState.IsUp) != 0;
+        .ButtonPressState & ButtonPressState.IsDown) != 0;
   }
 
   private bool IsWithinRateOfFire()
@@ -69,7 +69,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
       && (PlayerController.PlayerState & PlayerState.Sliding) == 0
       && (_projectileWeaponSettings.EnableAutomaticFire
         ? IsFireButtonPressed()
-        : IsFireButtonUp())
+        : IsFireButtonDown())
       && IsWithinRateOfFire();
   }
 
