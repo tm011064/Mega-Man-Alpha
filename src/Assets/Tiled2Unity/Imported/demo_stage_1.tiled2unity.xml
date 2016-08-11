@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
+<<<<<<< HEAD
 <!--Last exported: 8/6/2016 7:44:35 AM-->
+=======
+<!--Last exported: 10/08/2016 04:54:03-->
+>>>>>>> 4ab9ebbc66811485d77030d54c31dd004e3d5988
 <Tiled2Unity version="1.0.7.7">
   <AssignMaterial mesh="mesh_0001" material="ru_tileset_1" />
   <AssignMaterial mesh="mesh_0002" material="ru_tileset_1" />
