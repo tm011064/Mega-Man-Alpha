@@ -105,8 +105,10 @@ namespace Assets.Editor.Tiled
     public string Color { get; set; }
     [XmlAttribute(AttributeName = "name")]
     public string Name { get; set; }
+    [XmlElement(ElementName = "properties")]
+    public Properties Properties { get; set; }
   }
-
+  
   [XmlRoot(ElementName = "map")]
   public class Map
   {

@@ -19,4 +19,8 @@
   <property name="Open Top" type="bool" default="false"/>
   <property name="Prefab" type="string" default="Full Screen Scroller"/>
  </objecttype>
+ <objecttype name="Camera Bounds" color="#ffff00"/>
+ <objecttype name="Camera Trigger" color="#a0a0a4">
+  <property name="Triggers Room Transition" type="bool"/>
+ </objecttype>
 </objecttypes>

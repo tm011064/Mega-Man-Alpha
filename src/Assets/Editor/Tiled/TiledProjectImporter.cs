@@ -78,11 +78,27 @@ namespace Assets.Editor.Tiled
       tiledObjectsGameObject.AttachChild(
         CreateTiledObjectPrefabs());
 
+      tiledObjectsGameObject.AttachChildren(
+        _map
+          .ForEachObjectGroupWithProperty("Collider", "camera modifier")
+          .Get<GameObject>(CreateCameraModifers));
+
       if (parent != null)
       {
         tiledObjectsGameObject.transform.parent = parent.transform;
       }
     }
+
+    private GameObject CreateCameraModifers(Objectgroup objectgroup)
+    {
+      var cameraBoundsObject = objectgroup.GetOrThrow("Camera Bounds", _objecttypesByName);
+      var cameraModiferObject = objectgroup.GetOrThrow("Camera Modifier", _objecttypesByName);
+
+
+
+      throw new NotImplementedException();
+    }
+
 
     private string GetPrefabName(string assetPath)
     {
