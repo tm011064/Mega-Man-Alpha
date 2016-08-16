@@ -155,12 +155,7 @@ public partial class PlayerController : BaseCharacterController
 
     var environmentCollider = spriteAndAnimator.transform.GetChildGameObject("Environment Collider");
 
-    var boxCollider = environmentCollider.GetComponent<BoxCollider2D>();
-
-    if (boxCollider == null)
-    {
-      throw new MissingComponentException("Environment Collider expects a BoxCollider2D");
-    }
+    var boxCollider = environmentCollider.GetComponentOrThrow<BoxCollider2D>();
 
     return boxCollider;
   }
@@ -171,12 +166,7 @@ public partial class PlayerController : BaseCharacterController
 
     var environmentCollider = spriteAndAnimator.transform.GetChildGameObject("Enemy Collider");
 
-    var boxCollider = environmentCollider.GetComponent<BoxCollider2D>();
-
-    if (boxCollider == null)
-    {
-      throw new MissingComponentException("Enemy Collider expects a BoxCollider2D");
-    }
+    var boxCollider = environmentCollider.GetComponentOrThrow<BoxCollider2D>();
 
     return boxCollider;
   }

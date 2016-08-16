@@ -1,9 +1,74 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
 
-public partial class CameraModifier : MonoBehaviour
+public partial class CameraModifier : IInstantiable
 {
   public ImportCameraSettings ImportCameraSettings;
+
+  public void Instantiate(InstantiationArguments arguments)
+  {
+    var cameraController = Camera.main.GetComponentOrThrow<CameraController>();
+
+    VerticalLockSettings = CreateVerticalLockSettings(arguments.Bounds, cameraController);
+    HorizontalLockSettings = CreateHorizontalLockSettings(arguments.Bounds, cameraController);
+
+    transform.position = new Vector2(
+      arguments.Vectors[0].x + (arguments.Vectors[1].x - arguments.Vectors[0].x) / 2,
+      arguments.Vectors[0].y + (arguments.Vectors[1].y - arguments.Vectors[0].y) / 2);
+
+    var boxCollider = this.GetComponentOrThrow<BoxCollider2D>();
+
+    boxCollider.size = new Vector2(1, Mathf.Abs(arguments.Vectors[1].y - arguments.Vectors[0].y));
+  }
+
+  private VerticalLockSettings CreateVerticalLockSettings(Bounds bounds, CameraController cameraController)
+  {
+    var verticalLockSettings = new VerticalLockSettings
+    {
+      Enabled = true,
+      EnableDefaultVerticalLockPosition = false,
+      DefaultVerticalLockPosition = 0f,
+      EnableTopVerticalLock = true,
+      EnableBottomVerticalLock = true,
+      TopVerticalLockPosition = bounds.max.y,
+      BottomVerticalLockPosition = bounds.min.y
+    };
+
+    verticalLockSettings.TopBoundary =
+      verticalLockSettings.TopVerticalLockPosition
+      - cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
+
+    verticalLockSettings.BottomBoundary =
+      verticalLockSettings.BottomVerticalLockPosition
+      + cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
+
+    verticalLockSettings.TranslatedVerticalLockPosition =
+      verticalLockSettings.DefaultVerticalLockPosition;
+
+    return verticalLockSettings;
+  }
+
+  private HorizontalLockSettings CreateHorizontalLockSettings(Bounds bounds, CameraController cameraController)
+  {
+    var horizontalLockSettings = new HorizontalLockSettings
+    {
+      Enabled = true,
+      EnableLeftHorizontalLock = true,
+      EnableRightHorizontalLock = true,
+      LeftHorizontalLockPosition = bounds.min.x,
+      RightHorizontalLockPosition = bounds.max.x
+    };
+
+    horizontalLockSettings.LeftBoundary =
+      horizontalLockSettings.LeftHorizontalLockPosition
+      + cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
+
+    horizontalLockSettings.RightBoundary =
+      horizontalLockSettings.RightHorizontalLockPosition
+      - cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
+
+    return horizontalLockSettings;
+  }
 
   public void ImportSettings()
   {

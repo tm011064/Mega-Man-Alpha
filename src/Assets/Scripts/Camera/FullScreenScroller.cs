@@ -20,12 +20,12 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
   [Tooltip("The (x, y) offset of the camera. This can be used when default vertical locking is disabled and you want the player to be below, above, right or left of the screen center.")]
   public Vector2 Offset;
 
+  [Tooltip("The dimensions of the camera boundaries")]
+  public Vector2 Size;
+
   public bool MustBeOnLadderToEnter;
 
   public float HorizontalOffsetDeltaMovementFactor = 40f;
-
-  [Tooltip("The boundary padding valeus reduce the scroll dimensions for the camera. This is necessary for room transitions where a room's box collider extends into another room which should not be visible once entry has happened")]
-  public Padding BoundaryPadding;
 
   public VerticalCameraFollowMode VerticalCameraFollowMode;
 
@@ -43,31 +43,35 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
   private Checkpoint _checkpoint;
 
+  private bool _hasEnterTrigger;
+
   void Awake()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
 
-    _checkpoint = GetComponentInChildren<Checkpoint>();
+    OnSceneReset();
 
-    var boxCollider = GetComponent<BoxCollider2D>();
+    var enterTrigger = GetComponentInChildren<ITriggerEnter>();
 
-    if (boxCollider == null)
+    if (enterTrigger != null)
     {
-      throw new MissingComponentException("BoxCollider2D expected");
+      enterTrigger.Entered += OnEnter;
+
+      _hasEnterTrigger = true;
     }
 
-    _horizontalLockSettings = CreateHorizontalLockSettings(boxCollider.bounds);
+    _checkpoint = GetComponentInChildren<Checkpoint>();
 
-    _verticalLockSettings = CreateVerticalLockSettings(boxCollider.bounds);
+    _horizontalLockSettings = CreateHorizontalLockSettings();
 
-    OnSceneReset();
+    _verticalLockSettings = CreateVerticalLockSettings();
   }
 
   public void OnSceneReset()
   {
-    var boxCollider = GetComponent<BoxCollider2D>();
+    var bounds = new Bounds(transform.position, Size);
 
-    _skipEnter = boxCollider.bounds.Contains(GameManager.Instance.Player.transform.position);
+    _skipEnter = bounds.Contains(GameManager.Instance.Player.transform.position);
   }
 
   private void SetCameraMovementSettings()
@@ -131,6 +135,11 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
   void OnTriggerEnter2D(Collider2D col)
   {
+    if (_hasEnterTrigger)
+    {
+      return;
+    }
+
     if (MustBeOnLadderToEnter
       && (GameManager.Instance.Player.PlayerState & PlayerState.ClimbingLadder) == 0)
     {
@@ -139,6 +148,11 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
     UpdatePlayerSpawnLocation();
 
+    OnEnter();
+  }
+
+  private void OnEnter()
+  {
     if (_skipEnter)
     {
       _skipEnter = false;
@@ -178,7 +192,7 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     }
   }
 
-  private VerticalLockSettings CreateVerticalLockSettings(Bounds bounds)
+  private VerticalLockSettings CreateVerticalLockSettings()
   {
     var verticalLockSettings = new VerticalLockSettings
     {
@@ -187,8 +201,8 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
       DefaultVerticalLockPosition = DefaultVerticalLockPosition,
       EnableTopVerticalLock = false,
       EnableBottomVerticalLock = false,
-      TopVerticalLockPosition = bounds.center.y + bounds.extents.y - BoundaryPadding.Top,
-      BottomVerticalLockPosition = bounds.center.y - bounds.extents.y + BoundaryPadding.Bottom
+      TopVerticalLockPosition = transform.position.y + Size.y * .5f,
+      BottomVerticalLockPosition = transform.position.y - Size.y * .5f
     };
 
     verticalLockSettings.TopBoundary =
@@ -205,15 +219,15 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     return verticalLockSettings;
   }
 
-  private HorizontalLockSettings CreateHorizontalLockSettings(Bounds bounds)
+  private HorizontalLockSettings CreateHorizontalLockSettings()
   {
     var horizontalLockSettings = new HorizontalLockSettings
     {
       Enabled = true,
       EnableLeftHorizontalLock = true,
       EnableRightHorizontalLock = true,
-      LeftHorizontalLockPosition = bounds.center.x - bounds.extents.x + BoundaryPadding.Left,
-      RightHorizontalLockPosition = bounds.center.x + bounds.extents.x - BoundaryPadding.Right
+      LeftHorizontalLockPosition = transform.position.x - Size.x * .5f,
+      RightHorizontalLockPosition = transform.position.x + Size.x * .5f
     };
 
     horizontalLockSettings.LeftBoundary =

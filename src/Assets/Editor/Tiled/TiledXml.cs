@@ -73,6 +73,13 @@ namespace Assets.Editor.Tiled
     public List<Property> Property { get; set; }
   }
 
+  [XmlRoot(ElementName = "polyline")]
+  public class PolyLine
+  {
+    [XmlAttribute(AttributeName = "points")]
+    public string Points { get; set; }
+  }
+
   [XmlRoot(ElementName = "object")]
   public class Object
   {
@@ -94,6 +101,8 @@ namespace Assets.Editor.Tiled
     public long? Gid { get; set; }
     [XmlElement(ElementName = "properties")]
     public Properties Properties { get; set; }
+    [XmlElement(ElementName = "polyline")]
+    public PolyLine PolyLine { get; set; }
   }
 
   [XmlRoot(ElementName = "objectgroup")]
@@ -108,7 +117,7 @@ namespace Assets.Editor.Tiled
     [XmlElement(ElementName = "properties")]
     public Properties Properties { get; set; }
   }
-  
+
   [XmlRoot(ElementName = "map")]
   public class Map
   {

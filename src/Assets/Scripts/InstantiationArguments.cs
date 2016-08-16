@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InstantiationArguments
 {
   public Bounds Bounds;
+
+  public Vector2[] Vectors;
 
   public Dictionary<string, string> Arguments;
 
@@ -13,11 +16,35 @@ public class InstantiationArguments
 
   public bool GetBool(string name)
   {
-    return bool.Parse(Arguments[name]);
+    if (!Arguments.ContainsKey(name))
+    {
+      throw new KeyNotFoundException("No key found with name '" + name + "'");
+    }
+
+    bool value;
+
+    if (!bool.TryParse(Arguments[name], out value))
+    {
+      throw new ArgumentException("Unable to convert value '" + (Arguments[name] ?? "NULL") + "' to boolean");
+    }
+
+    return value;
   }
 
   public int GetInt(string name)
   {
-    return int.Parse(Arguments[name]);
+    if (!Arguments.ContainsKey(name))
+    {
+      throw new KeyNotFoundException("No key found with name '" + name + "'");
+    }
+
+    int value;
+
+    if (!int.TryParse(Arguments[name], out value))
+    {
+      throw new ArgumentException("Unable to convert value '" + (Arguments[name] ?? "NULL") + "' to integer");
+    }
+
+    return value;
   }
 }

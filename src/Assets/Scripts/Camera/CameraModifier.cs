@@ -38,16 +38,13 @@ public partial class CameraModifier : MonoBehaviour
   void Start()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
-
-    if (ParentPositionObject == null)
-    {
-      throw new MissingComponentException("parentPositionObject for camera modifier not set");
-    }
   }
 
   void OnTriggerEnter2D(Collider2D col)
   {
-    var transformPoint = ParentPositionObject.transform.TransformPoint(Vector3.zero);
+    var transformPoint = (ParentPositionObject != null)
+      ? ParentPositionObject.transform.TransformPoint(Vector3.zero)
+      : Vector3.zero;
 
     if (ZoomSettings.ZoomPercentage == 0f)
     {

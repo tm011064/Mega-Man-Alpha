@@ -317,12 +317,12 @@
  <objectgroup color="#ffff00" name="Rooms">
   <object id="1" name="Room 1" type="Room" x="0" y="0" width="256" height="224">
    <properties>
-    <property name="Open Top" type="bool" value="true"/>
+    <property name="Open Top" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="Checkpoints">
-  <object id="15" name="Start" type="Checkpoint" gid="12" x="64" y="64" width="16" height="16">
+  <object id="15" name="Start" type="Checkpoint" gid="12" x="64" y="48" width="16" height="16">
    <properties>
     <property name="Is Level Start" type="bool" value="true"/>
    </properties>
@@ -330,7 +330,7 @@
  </objectgroup>
  <objectgroup name="Camera Modifier">
   <properties>
-   <property name="Collider" value="Camera Modifier"/>
+   <property name="Collider" value="CameraModifier"/>
   </properties>
   <object id="21" type="Camera Bounds" x="0" y="224" width="256" height="224"/>
   <object id="23" type="Camera Trigger" x="160" y="208">
@@ -342,7 +342,7 @@
  </objectgroup>
  <objectgroup name="Camera Modifier">
   <properties>
-   <property name="Collider" value="Camera Modifier"/>
+   <property name="Collider" value="CameraModifier"/>
   </properties>
   <object id="24" type="Camera Bounds" x="0" y="224" width="496" height="224"/>
   <object id="26" type="Camera Trigger" x="128" y="224">

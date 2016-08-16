@@ -17,12 +17,7 @@ public class CircleColliderGizmoDrawer : BaseMonoBehaviour
   {
     if (_circleCollider == null)
     {
-      _circleCollider = GetComponent<CircleCollider2D>();
-    }
-
-    if (_circleCollider == null)
-    {
-      throw new MissingComponentException();
+      _circleCollider = this.GetComponentOrThrow<CircleCollider2D>();
     }
 
     UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, _circleCollider.radius);

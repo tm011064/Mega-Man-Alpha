@@ -11,7 +11,7 @@ GameObject:
   - 61: {fileID: 6104260}
   - 114: {fileID: 11465204}
   m_Layer: 15
-  m_Name: CameraModifier
+  m_Name: Camera Modifier
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 170568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 32, y: 2048, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   Offset: {x: 0, y: 0}
   HorizontalOffsetDeltaMovementFactor: 40
   VerticalCameraFollowMode: 1
-  GizmoColor: {r: 0.44852942, g: 0.44852942, b: 0.44852942, a: 1}
+  GizmoColor: {r: 0.622, g: 1, b: 0.44852942, a: 1}
   ParentPositionObject: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

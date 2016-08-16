@@ -80,7 +80,7 @@ namespace Assets.Editor.Tiled
 
       tiledObjectsGameObject.AttachChildren(
         _map
-          .ForEachObjectGroupWithProperty("Collider", "camera modifier")
+          .ForEachObjectGroupWithProperty("Collider", "cameramodifier")
           .Get<GameObject>(CreateCameraModifers));
 
       if (parent != null)
@@ -91,14 +91,71 @@ namespace Assets.Editor.Tiled
 
     private GameObject CreateCameraModifers(Objectgroup objectgroup)
     {
-      var cameraBoundsObject = objectgroup.GetOrThrow("Camera Bounds", _objecttypesByName);
-      var cameraModiferObject = objectgroup.GetOrThrow("Camera Modifier", _objecttypesByName);
+      var cameraBoundsObject = objectgroup.GetTypeOrThrow("Camera Bounds");
+      var cameraModiferObject = objectgroup.GetTypeOrThrow("Camera Trigger");
 
+      var isFullScreenScroller = cameraModiferObject.HasProperty(
+        "Triggers Room Transition",
+        "true",
+        _objecttypesByName);
 
-
-      throw new NotImplementedException();
+      return isFullScreenScroller
+        ? CreateCameraModifier(
+            cameraModiferObject,
+            cameraBoundsObject,
+            "Full Screen Scroller With Edge Trigger",
+            (cameraModifierBounds, cameraBounds) =>
+              cameraModiferObject
+                .PolyLine
+                .ToVectors()
+                .Select(v => new Vector2(
+                  cameraModifierBounds.center.x - cameraBounds.center.x + v.x,
+                  cameraModifierBounds.center.y - cameraBounds.center.y + v.y))
+                .ToArray()
+            )
+        : CreateCameraModifier(
+            cameraModiferObject,
+            cameraBoundsObject,
+            "Camera Modifier",
+            (cameraModifierBounds, cameraBounds) =>
+              cameraModiferObject
+                .PolyLine
+                .ToVectors()
+                .Select(v => new Vector2(
+                  cameraModifierBounds.center.x + v.x,
+                  cameraModifierBounds.center.y - v.y))
+                .ToArray()
+            );
     }
 
+    private GameObject CreateCameraModifier(
+      Object cameraModiferObject,
+      Object cameraBoundsObject,
+      string prefabName,
+      Func<Bounds, Bounds, Vector2[]> vectorFactory)
+    {
+      if (cameraModiferObject.PolyLine == null)
+      {
+        throw new Exception("Camera Modifier object must have a poly line tag");
+      }
+
+      var cameraBounds = cameraBoundsObject.GetBounds();
+      var cameraModifierBounds = cameraModiferObject.GetBounds();
+
+      var vectors = vectorFactory(cameraModifierBounds, cameraBounds);
+
+      var asset = LoadPrefabAsset(prefabName);
+
+      return CreateInstantiableObject(
+       asset,
+       prefabName,
+       new InstantiationArguments
+       {
+         Bounds = cameraBounds,
+         Vectors = vectors,
+         Arguments = cameraModiferObject.GetProperties(_objecttypesByName)
+       });
+    }
 
     private string GetPrefabName(string assetPath)
     {
@@ -212,12 +269,7 @@ namespace Assets.Editor.Tiled
 
       gameObject.name = prefabName;
 
-      var instantiable = gameObject.GetComponent<IInstantiable>();
-
-      if (instantiable == null)
-      {
-        throw new MissingComponentException("Prefab '" + prefabName + "' is missing the " + typeof(IInstantiable).Name + " interface");
-      }
+      var instantiable = gameObject.GetComponentOrThrow<IInstantiable>();
 
       instantiable.Instantiate(arguments);
 

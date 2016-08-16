@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 10/08/2016 10:05:04-->
+<!--Last exported: 15/08/2016 08:23:02-->
 <Tiled2Unity version="1.0.7.7">
   <AssignMaterial mesh="mesh_0001" material="colored_blocks" />
   <AssignMaterial mesh="mesh_0002" material="colored_blocks" />
@@ -16,12 +16,12 @@
     </GameObject>
     <GameObject name="Rooms" x="0" y="0" z="0">
       <GameObject name="Room 1" x="0" y="0" rotation="0" layer="Room">
-        <Property name="Open Top" value="true" />
+        <Property name="Open Top" value="false" />
         <BoxCollider2D width="256" height="224" />
       </GameObject>
     </GameObject>
     <GameObject name="Checkpoints" x="0" y="0" z="0">
-      <GameObject name="Start" x="64" y="-64" rotation="0" layer="Checkpoint" scaleX="1" scaleY="1">
+      <GameObject name="Start" x="64" y="-48" rotation="0" layer="Checkpoint" scaleX="1" scaleY="1">
         <Property name="Is Level Start" value="true" />
         <GameObject name="TileObject">
           <GameObject name="tile_obj" copy="mesh_tile_0012" sortingLayerName="" sortingOrder="3" x="0" y="16" />
@@ -29,7 +29,7 @@
       </GameObject>
     </GameObject>
     <GameObject name="Camera Modifier" x="0" y="0" z="0">
-      <Property name="Collider" value="Camera Modifier" />
+      <Property name="Collider" value="CameraModifier" />
       <GameObject name="RectangleObject" x="0" y="-224" rotation="0" layer="Camera Bounds">
         <BoxCollider2D width="256" height="224" />
       </GameObject>
@@ -41,7 +41,7 @@
       </GameObject>
     </GameObject>
     <GameObject name="Camera Modifier" x="0" y="0" z="0">
-      <Property name="Collider" value="Camera Modifier" />
+      <Property name="Collider" value="CameraModifier" />
       <GameObject name="RectangleObject" x="0" y="-224" rotation="0" layer="Camera Bounds">
         <BoxCollider2D width="496" height="224" />
       </GameObject>
