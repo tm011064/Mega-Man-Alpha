@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 15/08/2016 08:23:02-->
+<!--Last exported: 17/08/2016 20:33:20-->
 <Tiled2Unity version="1.0.7.7">
   <AssignMaterial mesh="mesh_0001" material="colored_blocks" />
   <AssignMaterial mesh="mesh_0002" material="colored_blocks" />
@@ -44,6 +44,17 @@
       <Property name="Collider" value="CameraModifier" />
       <GameObject name="RectangleObject" x="0" y="-224" rotation="0" layer="Camera Bounds">
         <BoxCollider2D width="496" height="224" />
+      </GameObject>
+      <GameObject name="PolylineObject" x="128" y="-224" rotation="0" layer="Camera Trigger">
+        <EdgeCollider2D>
+          <Points>-32,0 -32,-96</Points>
+        </EdgeCollider2D>
+      </GameObject>
+    </GameObject>
+    <GameObject name="Camera Modifier" x="0" y="0" z="0">
+      <Property name="Collider" value="CameraModifier" />
+      <GameObject name="RectangleObject" x="0" y="-224" rotation="0" layer="Camera Bounds">
+        <BoxCollider2D width="256" height="224" />
       </GameObject>
       <GameObject name="PolylineObject" x="128" y="-224" rotation="0" layer="Camera Trigger">
         <EdgeCollider2D>

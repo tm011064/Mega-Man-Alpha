@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using System.Linq;
 using UnityEngine;
 
 public partial class CameraModifier : IInstantiable
@@ -12,13 +13,11 @@ public partial class CameraModifier : IInstantiable
     VerticalLockSettings = CreateVerticalLockSettings(arguments.Bounds, cameraController);
     HorizontalLockSettings = CreateHorizontalLockSettings(arguments.Bounds, cameraController);
 
-    transform.position = new Vector2(
-      arguments.Vectors[0].x + (arguments.Vectors[1].x - arguments.Vectors[0].x) / 2,
-      arguments.Vectors[0].y + (arguments.Vectors[1].y - arguments.Vectors[0].y) / 2);
+    var edgeCollider = this.GetComponentOrThrow<EdgeCollider2D>();
 
-    var boxCollider = this.GetComponentOrThrow<BoxCollider2D>();
+    Debug.Log(string.Join("; ", arguments.Vectors.Select(v => v.ToString()).ToArray()));
 
-    boxCollider.size = new Vector2(1, Mathf.Abs(arguments.Vectors[1].y - arguments.Vectors[0].y));
+    edgeCollider.points = arguments.Vectors;
   }
 
   private VerticalLockSettings CreateVerticalLockSettings(Bounds bounds, CameraController cameraController)
@@ -140,6 +139,17 @@ public partial class CameraModifier : IInstantiable
       Debug.LogError("Unable to import settings because object does not contain MultiWayCameraModifier nor CameraModifier component.");
 
       return;
+    }
+  }
+
+  void OnDrawGizmos()
+  {
+    foreach (var collider in GetComponents<EdgeCollider2D>())
+    {
+      Gizmos.color = GizmoColor;
+      Gizmos.DrawLine(collider.points[0], collider.points[1]);
+
+      break;
     }
   }
 }

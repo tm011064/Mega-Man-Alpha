@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="150" tilewidth="16" tileheight="16" nextobjectid="27">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="150" tilewidth="16" tileheight="16" nextobjectid="37">
  <tileset firstgid="1" name="Blocks" tilewidth="16" tileheight="16" tilecount="16" columns="4">
   <image source="../Sample Level/colored_blocks.png" width="64" height="64"/>
  </tileset>
@@ -346,6 +346,15 @@
   </properties>
   <object id="24" type="Camera Bounds" x="0" y="224" width="496" height="224"/>
   <object id="26" type="Camera Trigger" x="128" y="224">
+   <polyline points="-32,0 -32,96"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Camera Modifier">
+  <properties>
+   <property name="Collider" value="CameraModifier"/>
+  </properties>
+  <object id="29" type="Camera Bounds" x="0" y="224" width="256" height="224"/>
+  <object id="36" type="Camera Trigger" x="128" y="224">
    <polyline points="0,0 0,96"/>
   </object>
  </objectgroup>

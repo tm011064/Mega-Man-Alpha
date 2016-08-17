@@ -25,16 +25,6 @@ public partial class CameraModifier : MonoBehaviour
 
   private CameraController _cameraController;
 
-  void OnDrawGizmos()
-  {
-    foreach (var boxCollider in GetComponents<BoxCollider2D>())
-    {
-      GizmoUtility.DrawBoundingBox(transform.position, boxCollider.bounds.extents, GizmoColor);
-
-      break;
-    }
-  }
-
   void Start()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
