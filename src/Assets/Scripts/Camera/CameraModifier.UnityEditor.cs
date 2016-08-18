@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System.Linq;
 using UnityEngine;
 
 public partial class CameraModifier : IInstantiable
@@ -13,11 +12,13 @@ public partial class CameraModifier : IInstantiable
     VerticalLockSettings = CreateVerticalLockSettings(arguments.Bounds, cameraController);
     HorizontalLockSettings = CreateHorizontalLockSettings(arguments.Bounds, cameraController);
 
-    var edgeCollider = this.GetComponentOrThrow<EdgeCollider2D>();
+    foreach (var line in arguments.Lines)
+    {
+      var edgeCollider = gameObject.AddComponent<EdgeCollider2D>();
 
-    Debug.Log(string.Join("; ", arguments.Vectors.Select(v => v.ToString()).ToArray()));
-
-    edgeCollider.points = arguments.Vectors;
+      edgeCollider.isTrigger = true;
+      edgeCollider.points = line.ToVectors();
+    }
   }
 
   private VerticalLockSettings CreateVerticalLockSettings(Bounds bounds, CameraController cameraController)

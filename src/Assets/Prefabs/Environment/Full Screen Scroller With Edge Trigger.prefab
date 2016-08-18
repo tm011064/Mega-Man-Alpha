@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 484132}
-  - 68: {fileID: 6852206}
   - 114: {fileID: 11473940}
   m_Layer: 15
   m_Name: Edge Collider
@@ -60,21 +59,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 480258}
   m_RootOrder: 0
---- !u!68 &6852206
-EdgeCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118658}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
 --- !u!114 &11473940
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -109,13 +109,36 @@ namespace Assets.Editor.Tiled
         && string.Equals(propertyValue, value, StringComparison.OrdinalIgnoreCase);
     }
 
+    public static Object[] GetTypesOrThrow(this Objectgroup objectgroup, string typeName)
+    {
+      var items = objectgroup.GetTypes(typeName).ToArray();
+
+      if (items == null || !items.Any())
+      {
+        string errorMessage = "Unable to load any objects of type '" + typeName + "' for object '" + objectgroup.Name + "'";
+
+        Debug.LogError(errorMessage);
+
+        throw new Exception(errorMessage);
+      }
+
+      return items;
+    }
+
+    public static IEnumerable<Object> GetTypes(this Objectgroup objectgroup, string typeName)
+    {
+      return objectgroup
+        .Object
+        .Where(o => string.Equals(o.Type, typeName, StringComparison.InvariantCultureIgnoreCase));
+    }
+
     public static Object GetTypeOrThrow(this Objectgroup objectgroup, string typeName)
     {
       var obj = objectgroup.GetType(typeName);
 
       if (obj == null)
       {
-        string errorMessage = "Unable to load '" + typeName + "' object for object '" + objectgroup.Name + "'";
+        string errorMessage = "Unable to load object of type '" + typeName + "' for object '" + objectgroup.Name + "'";
 
         Debug.LogError(errorMessage);
 

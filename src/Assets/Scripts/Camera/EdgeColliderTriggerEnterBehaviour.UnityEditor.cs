@@ -6,9 +6,13 @@ public partial class EdgeColliderTriggerEnterBehaviour : IInstantiable
 {
   public void Instantiate(InstantiationArguments arguments)
   {
-    var edgeCollider = this.GetComponentOrThrow<EdgeCollider2D>();
+    foreach (var line in arguments.Lines)
+    {
+      var edgeCollider = gameObject.AddComponent<EdgeCollider2D>();
 
-    edgeCollider.points = arguments.Vectors;
+      edgeCollider.isTrigger = true;
+      edgeCollider.points = line.ToVectors();
+    }
 
     transform.position = arguments.Bounds.center;
   }

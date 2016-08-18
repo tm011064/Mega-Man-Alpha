@@ -6,7 +6,7 @@ public class InstantiationArguments
 {
   public Bounds Bounds;
 
-  public Vector2[] Vectors;
+  public Line2[] Lines;
 
   public Dictionary<string, string> Arguments;
 
