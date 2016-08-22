@@ -122,7 +122,6 @@ public class CameraController : MonoBehaviour
     SetCameraMovementSettings(cameraMovementSettings);
   }
 
-  // TODO (Roman): this should be made private eventually
   private void SetCameraMovementSettings(CameraMovementSettings cameraMovementSettings)
   {
     _cameraMovementSettings = cameraMovementSettings;
