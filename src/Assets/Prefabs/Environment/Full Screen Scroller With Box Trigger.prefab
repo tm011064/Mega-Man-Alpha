@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &120276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 424014}
+  - 114: {fileID: 11494178}
+  m_Layer: 0
+  m_Name: Full Screen Scroller With Box Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &145892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 465152}
+  - 61: {fileID: 6120422}
+  - 114: {fileID: 11449492}
+  m_Layer: 15
+  m_Name: Box Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &424014
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120276}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 780, y: 120, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 465152}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &465152
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 424014}
+  m_RootOrder: 0
+--- !u!61 &6120422
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145892}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+--- !u!114 &11449492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7b94030de0d96448eb9597a2b4985d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11494178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2ef088543486044bbfd10d05cc920b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineGizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ShowGizmoOutline: 1
+  ZoomSettings:
+    ZoomPercentage: 1
+    ZoomTime: 0
+    ZoomEasingType: 0
+  SmoothDampMoveSettings:
+    HorizontalSmoothDampTime: 0.02
+    VerticalSmoothDampTime: 0.02
+    VerticalRapidDescentSmoothDampTime: 0.01
+    VerticalAboveRapidAcsentSmoothDampTime: 0.2
+  FullScreenScrollSettings:
+    TransitionTime: 0.6
+    CameraScrollEasingType: 15
+    PlayerTranslationDistance: 56
+    PlayerTranslationEasingType: 0
+    StartScrollFreezeTime: 0.3
+    EndScrollFreezeTime: 0.4
+  EnableDefaultVerticalLockPosition: 1
+  DefaultVerticalLockPosition: 120
+  RelativePositioningParentObject: {fileID: 0}
+  Offset: {x: 0, y: 0}
+  Size: {x: 0, y: 0}
+  MustBeOnLadderToEnter: 0
+  HorizontalOffsetDeltaMovementFactor: 40
+  VerticalCameraFollowMode: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 120276}
+  m_IsPrefabParent: 1

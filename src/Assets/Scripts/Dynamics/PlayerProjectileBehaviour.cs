@@ -15,12 +15,7 @@ public class PlayerProjectileBehaviour : MonoBehaviour
   {
     if (ProjectileBlockedBehaviour == ProjectileBlockedBehaviour.Rebound)
     {
-      _projectileReboundBehaviour = GetComponent<IProjectileReboundBehaviour>();
-
-      if (_projectileReboundBehaviour == null)
-      {
-        throw new MissingComponentException(typeof(IProjectileReboundBehaviour).ToString());
-      }
+      _projectileReboundBehaviour = this.GetComponentOrThrow<IProjectileReboundBehaviour>();
     }
   }
 
@@ -55,12 +50,7 @@ public class PlayerProjectileBehaviour : MonoBehaviour
 
   private void HandleEnemyCollision(Collider2D collider)
   {
-    var enemyHealthBehaviour = collider.GetComponent<EnemyHealthBehaviour>();
-
-    if (enemyHealthBehaviour == null)
-    {
-      throw new MissingComponentException("Object " + name + " has no 'Enemy Health Behaviour' script component");
-    }
+    var enemyHealthBehaviour = collider.GetComponentOrThrow<EnemyHealthBehaviour>();
 
     var damageResult = enemyHealthBehaviour.ApplyDamage(DamageUnits);
 

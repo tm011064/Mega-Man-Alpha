@@ -187,12 +187,7 @@ public partial class BreakablePlatform : SpawnBucketItemBehaviour, IObjectPoolBe
 
       GameObject.transform.position = spawnLocation;
 
-      var attachPlayerControllerToObject = GameObject.GetComponent<AttachPlayerControllerToObject>();
-
-      if (attachPlayerControllerToObject == null)
-      {
-        throw new MissingComponentException("Game object " + GameObject.name + " must contain 'AttachPlayerControllerToObject' script.");
-      }
+      var attachPlayerControllerToObject = GameObject.GetComponentOrThrow<AttachPlayerControllerToObject>();
 
       attachPlayerControllerToObject.PlayerControllerGotGrounded += OnPlayerControllerGotGrounded;
     }

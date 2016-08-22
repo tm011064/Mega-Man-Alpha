@@ -17,6 +17,11 @@
   <property name="Open Left" type="bool" default="false"/>
   <property name="Open Right" type="bool" default="false"/>
   <property name="Open Top" type="bool" default="false"/>
-  <property name="Prefab" type="string" default="Full Screen Scroller"/>
+  <property name="Prefab" type="string" default="Full Screen Scroller With Box Trigger"/>
  </objecttype>
+ <objecttype name="Camera Trigger" color="#ff0000">
+  <property name="Enter On Ladder" type="bool" default="false"/>
+  <property name="Triggers Room Transition" type="bool"/>
+ </objecttype>
+ <objecttype name="Camera Bounds" color="#cccccc"/>
 </objecttypes>

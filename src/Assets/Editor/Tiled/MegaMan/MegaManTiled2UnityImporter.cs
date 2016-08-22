@@ -17,7 +17,6 @@ namespace Assets.Editor.Tiled
 
     public void CustomizePrefab(GameObject prefab)
     {
-      //Customize(prefab);
       CustomizeSafe(prefab);
     }
 
@@ -27,7 +26,8 @@ namespace Assets.Editor.Tiled
         prefab,
         "Rooms",
         "Enemies",
-        "Checkpoints");
+        "Checkpoints",
+        "Camera Modifier");
 
       if (prefab != null)
       {
@@ -96,11 +96,13 @@ namespace Assets.Editor.Tiled
       {
         var childTransform = prefab.transform.FindChild(name);
 
-        if (childTransform != null)
+        while (childTransform != null)
         {
           Debug.Log("Tile2Unity Import: Destroying game object " + name);
 
           UnityEngine.Object.DestroyImmediate(childTransform.gameObject);
+
+          childTransform = prefab.transform.FindChild(name);
         }
       }
     }

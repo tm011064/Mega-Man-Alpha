@@ -25,29 +25,27 @@ public partial class CameraModifier : MonoBehaviour
 
   private CameraController _cameraController;
 
-  void OnDrawGizmos()
+  void Awake()
   {
-    foreach (var boxCollider in GetComponents<BoxCollider2D>())
-    {
-      GizmoUtility.DrawBoundingBox(transform.position, boxCollider.bounds.extents, GizmoColor);
+    var triggerEnterBehaviours = GetComponentsInChildren<ITriggerEnterExit>();
 
-      break;
+    foreach (var triggerEnterBehaviour in triggerEnterBehaviours)
+    {
+      triggerEnterBehaviour.Entered += OnEnterTriggerInvoked;
+      triggerEnterBehaviour.Exited += OnExitTriggerInvoked;
     }
   }
 
   void Start()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
-
-    if (ParentPositionObject == null)
-    {
-      throw new MissingComponentException("parentPositionObject for camera modifier not set");
-    }
   }
 
-  void OnTriggerEnter2D(Collider2D col)
+  void OnEnterTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
   {
-    var transformPoint = ParentPositionObject.transform.TransformPoint(Vector3.zero);
+    var transformPoint = (ParentPositionObject != null)
+      ? ParentPositionObject.transform.TransformPoint(Vector3.zero)
+      : Vector3.zero;
 
     if (ZoomSettings.ZoomPercentage == 0f)
     {
@@ -100,6 +98,20 @@ public partial class CameraModifier : MonoBehaviour
 
     var cameraController = Camera.main.GetComponent<CameraController>();
 
-    cameraController.SetCameraMovementSettings(cameraMovementSettings);
+    cameraController.OnCameraModifierEnter(
+      this,
+      e.SourceCollider,
+      GameManager.Instance.Player.transform.position,
+      cameraMovementSettings);
+  }
+
+  void OnExitTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
+  {
+    var cameraController = Camera.main.GetComponent<CameraController>();
+
+    cameraController.OnCameraModifierExit(
+      this,
+      e.SourceCollider,
+      GameManager.Instance.Player.transform.position);
   }
 }
