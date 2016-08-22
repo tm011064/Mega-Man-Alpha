@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 {
@@ -51,11 +52,11 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
     OnSceneReset();
 
-    var enterTrigger = GetComponentInChildren<ITriggerEnter>();
+    var enterTrigger = GetComponentInChildren<ITriggerEnterExit>();
 
     if (enterTrigger != null)
     {
-      enterTrigger.Entered += OnEnter;
+      enterTrigger.Entered += (_, e) => OnEnter(e.SourceCollider);
 
       _hasEnterTrigger = true;
     }
@@ -74,7 +75,7 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     _skipEnter = bounds.Contains(GameManager.Instance.Player.transform.position);
   }
 
-  private void SetCameraMovementSettings()
+  private void SetCameraMovementSettings(Collider2D collider)
   {
     var cameraMovementSettings = new CameraMovementSettings(
       _verticalLockSettings,
@@ -85,12 +86,16 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
       VerticalCameraFollowMode,
       HorizontalOffsetDeltaMovementFactor);
 
-    _cameraController.SetCameraMovementSettings(cameraMovementSettings);
+    _cameraController.OnCameraModifierEnter(
+      this,
+      collider,
+      GameManager.Instance.Player.transform.position,
+      cameraMovementSettings);
   }
 
-  private void StartScroll()
+  private void StartScroll(Collider2D collider)
   {
-    SetCameraMovementSettings();
+    SetCameraMovementSettings(collider);
 
     // the order here is important. First we want to set the camera movement settings, then we can create
     // the scroll transform action.
@@ -148,16 +153,18 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
     UpdatePlayerSpawnLocation();
 
-    OnEnter();
+    var boxCollider = this.GetComponentOrThrow<BoxCollider2D>();
+
+    OnEnter(boxCollider);
   }
 
-  private void OnEnter()
+  private void OnEnter(Collider2D collider)
   {
     if (_skipEnter)
     {
       _skipEnter = false;
 
-      SetCameraMovementSettings();
+      SetCameraMovementSettings(collider);
 
       _cameraController.MoveCameraToTargetPosition(GameManager.Instance.Player.transform.position);
 
@@ -176,11 +183,13 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
           FullScreenScrollSettings.StartScrollFreezeTime,
           _animationShortNameHash));
 
-      Invoke("StartScroll", FullScreenScrollSettings.StartScrollFreezeTime);
+      var delay = TimeSpan.FromSeconds(FullScreenScrollSettings.StartScrollFreezeTime);
+
+      this.Invoke(delay, () => StartScroll(collider));
     }
     else
     {
-      StartScroll();
+      StartScroll(collider);
     }
   }
 

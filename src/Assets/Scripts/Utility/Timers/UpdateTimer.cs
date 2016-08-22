@@ -10,6 +10,11 @@ public class UpdateTimer
 
   protected float _duration;
 
+  public UpdateTimer(float duration)
+  {
+    _duration = duration;
+  }
+
   public bool HasEnded { get { return _hasEnded; } }
 
   protected virtual void DoUpdate(float currentTime)
@@ -38,10 +43,5 @@ public class UpdateTimer
     _hasStarted = true;
 
     _startTime = Time.time;
-  }
-
-  public UpdateTimer(float duration)
-  {
-    _duration = duration;
   }
 }

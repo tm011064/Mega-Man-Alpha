@@ -25,12 +25,23 @@ public partial class CameraModifier : MonoBehaviour
 
   private CameraController _cameraController;
 
+  void Awake()
+  {
+    var triggerEnterBehaviours = GetComponentsInChildren<ITriggerEnterExit>();
+
+    foreach (var triggerEnterBehaviour in triggerEnterBehaviours)
+    {
+      triggerEnterBehaviour.Entered += OnEnterTriggerInvoked;
+      triggerEnterBehaviour.Exited += OnExitTriggerInvoked;
+    }
+  }
+
   void Start()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
   }
 
-  void OnTriggerEnter2D(Collider2D col)
+  void OnEnterTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
   {
     var transformPoint = (ParentPositionObject != null)
       ? ParentPositionObject.transform.TransformPoint(Vector3.zero)
@@ -87,6 +98,20 @@ public partial class CameraModifier : MonoBehaviour
 
     var cameraController = Camera.main.GetComponent<CameraController>();
 
-    cameraController.SetCameraMovementSettings(cameraMovementSettings);
+    cameraController.OnCameraModifierEnter(
+      this,
+      e.SourceCollider,
+      GameManager.Instance.Player.transform.position,
+      cameraMovementSettings);
+  }
+
+  void OnExitTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
+  {
+    var cameraController = Camera.main.GetComponent<CameraController>();
+
+    cameraController.OnCameraModifierExit(
+      this,
+      e.SourceCollider,
+      GameManager.Instance.Player.transform.position);
   }
 }

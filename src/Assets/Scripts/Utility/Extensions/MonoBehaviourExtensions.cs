@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public static class MonoBehaviourExtensions
 {
@@ -27,5 +28,12 @@ public static class MonoBehaviourExtensions
     }
 
     return gameObject;
+  }
+
+  public static void Invoke(this MonoBehaviour self, TimeSpan delay, Action callback)
+  {
+    var timedAction = new TimedActionEnumerator(delay, callback);
+
+    self.StartCoroutine(timedAction);
   }
 }

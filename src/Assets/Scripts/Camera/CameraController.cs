@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour
   [HideInInspector]
   public Transform Transform;
 
+  private readonly CameraModifierManager _cameraModifierManager = new CameraModifierManager();
+
   private CharacterPhysicsManager _characterPhysicsManager;
 
   private float _horizontalSmoothDampVelocity;
@@ -48,7 +50,7 @@ public class CameraController : MonoBehaviour
   {
     _scrollActions.Enqueue(scrollAction);
   }
-  
+
   /// <summary>
   /// This method takes the requested target position and moves the camera to the according coordinates based
   /// on the current camera move settings.
@@ -92,7 +94,36 @@ public class CameraController : MonoBehaviour
     return rect.Contains(point);
   }
 
-  public void SetCameraMovementSettings(CameraMovementSettings cameraMovementSettings)
+  public void OnCameraModifierEnter(
+    MonoBehaviour monoBehaviour,
+    Collider2D collider2D,
+    Vector2 playerPosition,
+    CameraMovementSettings cameraMovementSettings)
+  {
+    _cameraModifierManager.EnterCameraModifier(
+      monoBehaviour,
+      collider2D,
+      playerPosition,
+      cameraMovementSettings);
+
+    SetCameraMovementSettings(cameraMovementSettings);
+  }
+
+  public void OnCameraModifierExit(
+    MonoBehaviour monoBehaviour,
+    Collider2D collider2D,
+    Vector2 playerPosition)
+  {
+    var cameraMovementSettings = _cameraModifierManager.ExitCameraModifier(
+      monoBehaviour,
+      collider2D,
+      playerPosition);
+
+    SetCameraMovementSettings(cameraMovementSettings);
+  }
+
+  // TODO (Roman): this should be made private eventually
+  private void SetCameraMovementSettings(CameraMovementSettings cameraMovementSettings)
   {
     _cameraMovementSettings = cameraMovementSettings;
 

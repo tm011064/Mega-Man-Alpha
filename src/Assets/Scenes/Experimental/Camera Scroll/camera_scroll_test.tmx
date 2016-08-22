@@ -354,14 +354,11 @@
    <property name="Collider" value="CameraModifier"/>
   </properties>
   <object id="29" type="Camera Bounds" x="0" y="224" width="256" height="224"/>
-  <object id="36" type="Camera Trigger" x="128" y="224">
+  <object id="36" type="Camera Trigger" x="112" y="224">
    <polyline points="0,0 0,96"/>
   </object>
-  <object id="37" type="Camera Trigger" x="160" y="224">
+  <object id="37" type="Camera Trigger" x="128" y="224">
    <polyline points="0,0 0,96"/>
-  </object>
-  <object id="38" x="848" y="304">
-   <polyline points="0,0"/>
   </object>
  </objectgroup>
 </map>

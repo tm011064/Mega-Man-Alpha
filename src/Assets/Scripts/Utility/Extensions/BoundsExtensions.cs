@@ -2,12 +2,17 @@
 
 public static class BoundsExtensions
 {
+  public static Rect ToRect(this Bounds self)
+  {
+    return new Rect(self.center, self.size);
+  }
+
   public static bool AreWithinVerticalShaftOf(this Bounds self, Bounds bounds)
   {
     return self.center.x - self.extents.x >= bounds.center.x - bounds.extents.x
       && self.center.x + self.extents.x <= bounds.center.x + bounds.extents.x;
   }
-  
+
   public static bool AreAbove(this Bounds self, Bounds bounds)
   {
     return self.center.y - self.extents.y > bounds.center.y + bounds.extents.y;
