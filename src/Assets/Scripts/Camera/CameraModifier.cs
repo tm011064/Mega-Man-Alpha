@@ -23,6 +23,8 @@ public partial class CameraModifier : MonoBehaviour
   [Tooltip("All lock positions are relative to this object.")]
   public GameObject ParentPositionObject;
 
+  public bool MustBeOnLadderToEnter;
+
   private CameraController _cameraController;
 
   void Awake()
@@ -43,6 +45,12 @@ public partial class CameraModifier : MonoBehaviour
 
   void OnEnterTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
   {
+    if (MustBeOnLadderToEnter
+      && (GameManager.Instance.Player.PlayerState & PlayerState.ClimbingLadder) == 0)
+    {
+      return;
+    }
+
     var transformPoint = (ParentPositionObject != null)
       ? ParentPositionObject.transform.TransformPoint(Vector3.zero)
       : Vector3.zero;

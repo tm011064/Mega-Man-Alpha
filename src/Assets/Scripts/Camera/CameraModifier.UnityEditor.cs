@@ -7,6 +7,8 @@ public partial class CameraModifier : IInstantiable
 
   public void Instantiate(InstantiationArguments arguments)
   {
+    MustBeOnLadderToEnter = arguments.GetBool("Enter On Ladder");
+
     var cameraController = Camera.main.GetComponentOrThrow<CameraController>();
 
     VerticalLockSettings = CreateVerticalLockSettings(arguments.Bounds, cameraController);

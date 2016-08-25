@@ -67,8 +67,8 @@ MonoBehaviour:
     ZoomTime: 0
     ZoomEasingType: 0
   SmoothDampMoveSettings:
-    HorizontalSmoothDampTime: 0.2
-    VerticalSmoothDampTime: 0.2
+    HorizontalSmoothDampTime: 0.02
+    VerticalSmoothDampTime: 0.02
     VerticalRapidDescentSmoothDampTime: 0.01
     VerticalAboveRapidAcsentSmoothDampTime: 0.2
   Offset: {x: 0, y: 0}
