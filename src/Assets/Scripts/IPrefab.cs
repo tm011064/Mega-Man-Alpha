@@ -1,7 +1,7 @@
-﻿
-public interface IInstantiable
+﻿public interface IInstantiable<TInstantiationArgument>
+  where TInstantiationArgument : InstantiationArguments
 {
 #if UNITY_EDITOR
-  void Instantiate(InstantiationArguments arguments);
+  void Instantiate(TInstantiationArgument arguments);
 #endif
 }

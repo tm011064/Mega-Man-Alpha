@@ -89,13 +89,17 @@ namespace Assets.Editor.Tiled.GameObjectFactories
       return AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject)) as GameObject;
     }
 
-    protected GameObject CreateInstantiableObject(GameObject asset, string prefabName, InstantiationArguments arguments)
+    protected GameObject CreateInstantiableObject<TInstantiationArguments>(
+      GameObject asset, 
+      string prefabName,
+      TInstantiationArguments arguments)
+      where TInstantiationArguments : InstantiationArguments
     {
       var gameObject = GameObject.Instantiate(asset, Vector3.zero, Quaternion.identity) as GameObject;
 
       gameObject.name = prefabName;
 
-      var instantiable = gameObject.GetComponentOrThrow<IInstantiable>();
+      var instantiable = gameObject.GetComponentOrThrow<IInstantiable<TInstantiationArguments>>();
 
       instantiable.Instantiate(arguments);
 

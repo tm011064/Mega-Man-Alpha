@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IInstantiable
+public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IInstantiable<InstantiationArguments>
 {
   public Color OutlineGizmoColor = Color.yellow;
 
@@ -36,7 +36,7 @@ public partial class EnemySpawnManager : SpawnBucketItemBehaviour, IInstantiable
   {
     transform.position = arguments.Bounds.center;
 
-    transform.ForEachChildComponent<IInstantiable>(
+    transform.ForEachChildComponent<IInstantiable<InstantiationArguments>>(
       instantiable => instantiable.Instantiate(arguments));
   }
 }

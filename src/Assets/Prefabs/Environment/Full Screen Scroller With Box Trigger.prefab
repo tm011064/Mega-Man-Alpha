@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 780, y: 120, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7b94030de0d96448eb9597a2b4985d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerStatesNeededToEnter: 
 --- !u!114 &11494178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,9 +109,9 @@ MonoBehaviour:
     VerticalRapidDescentSmoothDampTime: 0.01
     VerticalAboveRapidAcsentSmoothDampTime: 0.2
   FullScreenScrollSettings:
-    TransitionTime: 0.6
+    TransitionTime: 0.9
     CameraScrollEasingType: 15
-    PlayerTranslationDistance: 56
+    PlayerTranslationDistance: 32
     PlayerTranslationEasingType: 0
     StartScrollFreezeTime: 0.3
     EndScrollFreezeTime: 0.4

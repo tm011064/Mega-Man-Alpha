@@ -44,7 +44,7 @@ namespace Assets.Editor.Tiled.GameObjectFactories
        new InstantiationArguments
        {
          Bounds = obj.GetBounds(),
-         Arguments = properties,
+         Properties = properties,
          IsFlippedHorizontally = obj.Gid >= 2000000000,
          IsFlippedVertically = (obj.Gid >= 1000000000 && obj.Gid < 2000000000) || obj.Gid >= 3000000000
        });

@@ -55,7 +55,7 @@ namespace Assets.Editor.Tiled.GameObjectFactories
           new InstantiationArguments
           {
             Bounds = bounds,
-            Arguments = layer
+            Properties = layer
               .Properties
               .Property
               .ToDictionary(p => p.Name, p => p.Value, StringComparer.InvariantCultureIgnoreCase)

@@ -20,15 +20,13 @@ public class CameraController : MonoBehaviour
   [HideInInspector]
   public Transform Transform;
 
-  private readonly CameraModifierManager _cameraModifierManager = new CameraModifierManager();
+  private readonly CameraMovementSettingsManager _cameraMovementSettingsManager = new CameraMovementSettingsManager();
 
   private CharacterPhysicsManager _characterPhysicsManager;
 
   private float _horizontalSmoothDampVelocity;
 
   private float _verticalSmoothDampVelocity;
-
-  private CameraMovementSettings _cameraMovementSettings;
 
   private UpdateTimer _zoomTimer;
 
@@ -94,62 +92,47 @@ public class CameraController : MonoBehaviour
     return rect.Contains(point);
   }
 
-  public void OnCameraModifierEnter(
-    MonoBehaviour monoBehaviour,
-    Collider2D collider2D,
-    Vector2 playerPosition,
-    CameraMovementSettings cameraMovementSettings)
+  public bool IsCurrentCameraMovementSettings(CameraMovementSettings cameraMovementSettings)
   {
-    _cameraModifierManager.EnterCameraModifier(
-      monoBehaviour,
-      collider2D,
-      playerPosition,
-      cameraMovementSettings);
-
-    SetCameraMovementSettings(cameraMovementSettings);
+    return _cameraMovementSettingsManager.ActiveSettings == cameraMovementSettings;
   }
 
-  public void OnCameraModifierExit(
-    MonoBehaviour monoBehaviour,
-    Collider2D collider2D,
-    Vector2 playerPosition)
+  public void OnCameraModifierEnter(CameraMovementSettings cameraMovementSettings)
   {
-    var cameraMovementSettings = _cameraModifierManager.ExitCameraModifier(
-      monoBehaviour,
-      collider2D,
-      playerPosition);
-
-    SetCameraMovementSettings(cameraMovementSettings);
+    _cameraMovementSettingsManager.AddSettings(cameraMovementSettings);
   }
 
-  private void SetCameraMovementSettings(CameraMovementSettings cameraMovementSettings)
+  public void OnCameraModifierExit(CameraMovementSettings cameraMovementSettings)
   {
-    _cameraMovementSettings = cameraMovementSettings;
+    _cameraMovementSettingsManager.RemoveSettings(cameraMovementSettings);
+  }
 
+  void OnCameraMovementSettingsChanged()
+  {
     CameraOffset = new Vector3(
-      _cameraMovementSettings.Offset.x,
-      _cameraMovementSettings.Offset.y,
+      _cameraMovementSettingsManager.ActiveSettings.Offset.x,
+      _cameraMovementSettingsManager.ActiveSettings.Offset.y,
       CameraOffset.z);
 
-    var targetOrthographicSize = (TargetScreenSize.y * .5f) / _cameraMovementSettings.ZoomSettings.ZoomPercentage;
+    var targetOrthographicSize = (TargetScreenSize.y * .5f) / _cameraMovementSettingsManager.ActiveSettings.ZoomSettings.ZoomPercentage;
 
     if (!Mathf.Approximately(Camera.main.orthographicSize, targetOrthographicSize))
     {
       Logger.Info("Start zoom to target size: " + targetOrthographicSize + ", current size: " + Camera.main.orthographicSize);
 
-      if (_cameraMovementSettings.ZoomSettings.ZoomTime == 0f)
+      if (_cameraMovementSettingsManager.ActiveSettings.ZoomSettings.ZoomTime == 0f)
       {
         Camera.main.orthographicSize = targetOrthographicSize;
       }
       else
       {
-        _zoomTimer = new ZoomTimer(_cameraMovementSettings.ZoomSettings.ZoomTime, Camera.main.orthographicSize, targetOrthographicSize, _cameraMovementSettings.ZoomSettings.ZoomEasingType);
+        _zoomTimer = new ZoomTimer(_cameraMovementSettingsManager.ActiveSettings.ZoomSettings.ZoomTime, Camera.main.orthographicSize, targetOrthographicSize, _cameraMovementSettingsManager.ActiveSettings.ZoomSettings.ZoomEasingType);
 
         _zoomTimer.Start();
       }
     }
 
-    Logger.Info("Camera movement set to: " + _cameraMovementSettings.ToString());
+    Logger.Info("Camera movement set to: " + _cameraMovementSettingsManager.ActiveSettings.ToString());
 
     Logger.Info("Camera size; current: " + Camera.main.orthographicSize + ", target: " + targetOrthographicSize);
   }
@@ -161,20 +144,9 @@ public class CameraController : MonoBehaviour
     return CalculateTargetPosition(out updateParameters);
   }
 
-  void Reset()
+  void Awake()
   {
-    Logger.Info("Resetting camera movement settings.");
-
-    var cameraMovementSettings = new CameraMovementSettings(
-      new VerticalLockSettings(),
-      new HorizontalLockSettings(),
-      new ZoomSettings(),
-      new SmoothDampMoveSettings(),
-      Vector2.zero,
-      VerticalCameraFollowMode.FollowAlways,
-      0f);
-
-    SetCameraMovementSettings(cameraMovementSettings);
+    _cameraMovementSettingsManager.SettingsChanged += OnCameraMovementSettingsChanged;
   }
 
   void Start()
@@ -205,8 +177,6 @@ public class CameraController : MonoBehaviour
     _characterPhysicsManager = Target.GetComponent<CharacterPhysicsManager>();
 
     Logger.Info("Window size: " + Screen.width + " x " + Screen.height);
-
-    Reset();
   }
 
   void Update()
@@ -256,7 +226,7 @@ public class CameraController : MonoBehaviour
         Transform.position.x,
         targetPositon.x,
         ref _horizontalSmoothDampVelocity,
-        _cameraMovementSettings.SmoothDampMoveSettings.HorizontalSmoothDampTime),
+        _cameraMovementSettingsManager.ActiveSettings.SmoothDampMoveSettings.HorizontalSmoothDampTime),
       Mathf.SmoothDamp(
         Transform.position.y,
         targetPositon.y,
@@ -352,11 +322,11 @@ public class CameraController : MonoBehaviour
     }
 
     if (_isAboveJumpHeightLocked
-      && (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
-       && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary))
+      && (_cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.EnableTopVerticalLock
+       && Target.position.y > _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.TopBoundary))
     {
       // we were locked but character has exceeded the top boundary. In that case we set the y pos and smooth damp
-      updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
+      updateParameters.YPos = _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
 
       updateParameters.DoSmoothDamp = true;
     }
@@ -366,8 +336,8 @@ public class CameraController : MonoBehaviour
       if (_isAboveJumpHeightLocked // either we are locked in above jump height lock
           || (
                 (
-                  !_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock // OR (we either have no top boundary or we are beneath the top boundary in which case we can go up)
-                  || Target.position.y <= _cameraMovementSettings.VerticalLockSettings.TopBoundary)
+                  !_cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.EnableTopVerticalLock // OR (we either have no top boundary or we are beneath the top boundary in which case we can go up)
+                  || Target.position.y <= _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.TopBoundary)
                 &&
                 (
                   Target.position.y > Transform.position.y + CameraOffset.y + _playerController.JumpSettings.RunJumpHeight // (the character has exceeded the jump height which means he has been artifically catapulted upwards)
@@ -388,24 +358,24 @@ public class CameraController : MonoBehaviour
         if (_characterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
           || updateParameters.IsFallingDown)
         {
-          if (_cameraMovementSettings.VerticalLockSettings.Enabled)
+          if (_cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.Enabled)
           {
-            updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.EnableDefaultVerticalLockPosition
-              ? _cameraMovementSettings.VerticalLockSettings.TranslatedVerticalLockPosition
+            updateParameters.YPos = _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.EnableDefaultVerticalLockPosition
+              ? _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.DefaultVerticalLockPosition
               : Target.position.y;
 
-            if (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
-              && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary)
+            if (_cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.EnableTopVerticalLock
+              && Target.position.y > _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.TopBoundary)
             {
-              updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
+              updateParameters.YPos = _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
 
               // we might have been shot up, so use smooth damp override
               updateParameters.DoSmoothDamp = true;
             }
-            else if (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
-              && Target.position.y < _cameraMovementSettings.VerticalLockSettings.BottomBoundary)
+            else if (_cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.EnableTopVerticalLock
+              && Target.position.y < _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.BottomBoundary)
             {
-              updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y;
+              updateParameters.YPos = _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y;
 
               // we might have been falling down, so use smooth damp override
               updateParameters.DoSmoothDamp = true;
@@ -429,24 +399,24 @@ public class CameraController : MonoBehaviour
   {
     _isAboveJumpHeightLocked = false; // this is not used at this mode
 
-    if (_cameraMovementSettings.VerticalLockSettings.Enabled)
+    if (_cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.Enabled)
     {
-      updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.EnableDefaultVerticalLockPosition
-        ? _cameraMovementSettings.VerticalLockSettings.TranslatedVerticalLockPosition
+      updateParameters.YPos = _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.EnableDefaultVerticalLockPosition
+        ? _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.DefaultVerticalLockPosition
         : Target.position.y;
 
-      if (_cameraMovementSettings.VerticalLockSettings.EnableTopVerticalLock
-        && Target.position.y > _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y)
+      if (_cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.EnableTopVerticalLock
+        && Target.position.y > _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.TopBoundary + CameraOffset.y)
       {
-        updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
+        updateParameters.YPos = _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.TopBoundary + CameraOffset.y;
 
         // we might have been shot up, so use smooth damp override
         updateParameters.DoSmoothDamp = true;
       }
-      else if (_cameraMovementSettings.VerticalLockSettings.EnableBottomVerticalLock
-        && Target.position.y < _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y)
+      else if (_cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.EnableBottomVerticalLock
+        && Target.position.y < _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y)
       {
-        updateParameters.YPos = _cameraMovementSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y;
+        updateParameters.YPos = _cameraMovementSettingsManager.ActiveSettings.VerticalLockSettings.BottomBoundary + CameraOffset.y;
 
         // we might have been falling down, so use smooth damp override
         updateParameters.DoSmoothDamp = true;
@@ -489,19 +459,19 @@ public class CameraController : MonoBehaviour
 
   private bool NeedsHorizontalOffsetAdjustment(ref UpdateParameters updateParameters)
   {
-    if (_cameraMovementSettings.HorizontalLockSettings.Enabled)
+    if (_cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.Enabled)
     {
-      if (_cameraMovementSettings.HorizontalLockSettings.EnableRightHorizontalLock
-        && Target.position.x > _cameraMovementSettings.HorizontalLockSettings.RightBoundary - CameraOffset.x)
+      if (_cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.EnableRightHorizontalLock
+        && Target.position.x > _cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.RightBoundary - CameraOffset.x)
       {
-        updateParameters.XPos = _cameraMovementSettings.HorizontalLockSettings.RightBoundary;
+        updateParameters.XPos = _cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.RightBoundary;
 
         return false;
       }
-      else if (_cameraMovementSettings.HorizontalLockSettings.EnableLeftHorizontalLock
-        && Target.position.x < _cameraMovementSettings.HorizontalLockSettings.LeftBoundary + CameraOffset.x)
+      else if (_cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.EnableLeftHorizontalLock
+        && Target.position.x < _cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.LeftBoundary + CameraOffset.x)
       {
-        updateParameters.XPos = _cameraMovementSettings.HorizontalLockSettings.LeftBoundary;
+        updateParameters.XPos = _cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.LeftBoundary;
 
         return false;
       }
@@ -524,7 +494,7 @@ public class CameraController : MonoBehaviour
 
     updateParameters.XPos =
       _targetedTransformPositionX
-      + horizontalTargetDistance * _cameraMovementSettings.HorizontalOffsetDeltaMovementFactor;
+      + horizontalTargetDistance * _cameraMovementSettingsManager.ActiveSettings.HorizontalOffsetDeltaMovementFactor;
 
     if (horizontalTargetDistance > 0f) // going right
     {
@@ -533,10 +503,10 @@ public class CameraController : MonoBehaviour
         updateParameters.XPos = Target.position.x - CameraOffset.x;
       }
 
-      if (_cameraMovementSettings.HorizontalLockSettings.EnableRightHorizontalLock
-        && updateParameters.XPos > _cameraMovementSettings.HorizontalLockSettings.RightBoundary)
+      if (_cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.EnableRightHorizontalLock
+        && updateParameters.XPos > _cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.RightBoundary)
       {
-        updateParameters.XPos = _cameraMovementSettings.HorizontalLockSettings.RightBoundary;
+        updateParameters.XPos = _cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.RightBoundary;
       }
     }
     else // going left
@@ -546,10 +516,10 @@ public class CameraController : MonoBehaviour
         updateParameters.XPos = Target.position.x + CameraOffset.x;
       }
 
-      if (_cameraMovementSettings.HorizontalLockSettings.EnableLeftHorizontalLock
-        && updateParameters.XPos < _cameraMovementSettings.HorizontalLockSettings.LeftBoundary)
+      if (_cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.EnableLeftHorizontalLock
+        && updateParameters.XPos < _cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.LeftBoundary)
       {
-        updateParameters.XPos = _cameraMovementSettings.HorizontalLockSettings.LeftBoundary;
+        updateParameters.XPos = _cameraMovementSettingsManager.ActiveSettings.HorizontalLockSettings.LeftBoundary;
       }
     }
   }
@@ -558,12 +528,12 @@ public class CameraController : MonoBehaviour
   {
     if (IsCameraOnTrolley(ref updateParameters))
     {
-      updateParameters.VerticalSmoothDampTime = _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
+      updateParameters.VerticalSmoothDampTime = _cameraMovementSettingsManager.ActiveSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
 
       return;
     }
 
-    switch (_cameraMovementSettings.VerticalCameraFollowMode)
+    switch (_cameraMovementSettingsManager.ActiveSettings.VerticalCameraFollowMode)
     {
       case VerticalCameraFollowMode.FollowWhenGrounded:
         AdjustFollowWhenGroundedParameters(ref updateParameters);
@@ -576,12 +546,12 @@ public class CameraController : MonoBehaviour
     }
 
     updateParameters.VerticalSmoothDampTime = updateParameters.DoSmoothDamp // override
-      ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime
+      ? _cameraMovementSettingsManager.ActiveSettings.SmoothDampMoveSettings.VerticalSmoothDampTime
       : updateParameters.IsFallingDown
-        ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalRapidDescentSmoothDampTime
+        ? _cameraMovementSettingsManager.ActiveSettings.SmoothDampMoveSettings.VerticalRapidDescentSmoothDampTime
         : _isAboveJumpHeightLocked
-          ? _cameraMovementSettings.SmoothDampMoveSettings.VerticalAboveRapidAcsentSmoothDampTime
-          : _cameraMovementSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
+          ? _cameraMovementSettingsManager.ActiveSettings.SmoothDampMoveSettings.VerticalAboveRapidAcsentSmoothDampTime
+          : _cameraMovementSettingsManager.ActiveSettings.SmoothDampMoveSettings.VerticalSmoothDampTime;
   }
 
   private void CalculateHorizontalCameraPosition(ref UpdateParameters updateParameters)

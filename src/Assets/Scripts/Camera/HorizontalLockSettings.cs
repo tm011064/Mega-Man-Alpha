@@ -25,16 +25,33 @@ public class HorizontalLockSettings
   [HideInInspector]
   public float LeftBoundary;
 
+  public override bool Equals(object obj)
+  {
+    return obj != null
+      && GetHashCode() == obj.GetHashCode();
+  }
+
+  public override int GetHashCode()
+  {
+    unchecked
+    {
+      int hash = 17;
+
+      hash = hash * 23 + Enabled.GetHashCode();
+      hash = hash * 23 + EnableRightHorizontalLock.GetHashCode();
+      hash = hash * 23 + RightHorizontalLockPosition.GetHashCode();
+      hash = hash * 23 + EnableLeftHorizontalLock.GetHashCode();
+      hash = hash * 23 + LeftHorizontalLockPosition.GetHashCode();
+      hash = hash * 23 + RightBoundary.GetHashCode();
+      hash = hash * 23 + LeftBoundary.GetHashCode();
+
+      return hash;
+    }
+  }
+
   public override string ToString()
   {
-    return string.Format("enabled: {0}; enableRightHorizontalLock: {1}; rightHorizontalLockPosition: {2}; rightBoundary: {3}; enableLeftHorizontalLock: {4}; leftHorizontalLockPosition: {5}; leftBoundary: {6};",
-      Enabled,
-      EnableRightHorizontalLock,
-      RightHorizontalLockPosition,
-      RightBoundary,
-      EnableLeftHorizontalLock,
-      LeftHorizontalLockPosition,
-      LeftBoundary);
+    return this.GetFieldValuesFormatted();
   }
 
   public HorizontalLockSettings Clone()

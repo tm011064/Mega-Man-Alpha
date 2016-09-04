@@ -34,17 +34,13 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
   private CameraController _cameraController;
 
-  private VerticalLockSettings _verticalLockSettings;
-
-  private HorizontalLockSettings _horizontalLockSettings;
-
   private bool _skipEnter;
 
   private int _animationShortNameHash;
 
   private Checkpoint _checkpoint;
 
-  private bool _hasEnterTrigger;
+  private CameraMovementSettings _cameraMovementSettings;
 
   void Awake()
   {
@@ -57,15 +53,11 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     if (enterTrigger != null)
     {
       enterTrigger.Entered += (_, e) => OnEnter(e.SourceCollider);
-
-      _hasEnterTrigger = true;
     }
 
     _checkpoint = GetComponentInChildren<Checkpoint>();
 
-    _horizontalLockSettings = CreateHorizontalLockSettings();
-
-    _verticalLockSettings = CreateVerticalLockSettings();
+    _cameraMovementSettings = CreateCameraMovementSettings();
   }
 
   public void OnSceneReset()
@@ -75,27 +67,25 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     _skipEnter = bounds.Contains(GameManager.Instance.Player.transform.position);
   }
 
-  private void SetCameraMovementSettings(Collider2D collider)
+  private CameraMovementSettings CreateCameraMovementSettings()
   {
-    var cameraMovementSettings = new CameraMovementSettings(
-      _verticalLockSettings,
-      _horizontalLockSettings,
+    var horizontalLockSettings = CreateHorizontalLockSettings();
+
+    var verticalLockSettings = CreateVerticalLockSettings();
+
+    return new CameraMovementSettings(
+      verticalLockSettings,
+      horizontalLockSettings,
       ZoomSettings,
       SmoothDampMoveSettings,
       Offset,
       VerticalCameraFollowMode,
       HorizontalOffsetDeltaMovementFactor);
-
-    _cameraController.OnCameraModifierEnter(
-      this,
-      collider,
-      GameManager.Instance.Player.transform.position,
-      cameraMovementSettings);
   }
 
   private void StartScroll(Collider2D collider)
   {
-    SetCameraMovementSettings(collider);
+    _cameraController.OnCameraModifierEnter(_cameraMovementSettings);
 
     // the order here is important. First we want to set the camera movement settings, then we can create
     // the scroll transform action.
@@ -138,36 +128,23 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     _cameraController.EnqueueScrollAction(scrollTransformationAction);
   }
 
-  void OnTriggerEnter2D(Collider2D col)
-  {
-    if (_hasEnterTrigger)
-    {
-      return;
-    }
-
-    if (MustBeOnLadderToEnter
-      && (GameManager.Instance.Player.PlayerState & PlayerState.ClimbingLadder) == 0)
-    {
-      return;
-    }
-
-    UpdatePlayerSpawnLocation();
-
-    var boxCollider = this.GetComponentOrThrow<BoxCollider2D>();
-
-    OnEnter(boxCollider);
-  }
-
   private void OnEnter(Collider2D collider)
   {
+    UpdatePlayerSpawnLocation();
+
     if (_skipEnter)
     {
       _skipEnter = false;
 
-      SetCameraMovementSettings(collider);
+      _cameraController.OnCameraModifierEnter(_cameraMovementSettings);
 
       _cameraController.MoveCameraToTargetPosition(GameManager.Instance.Player.transform.position);
 
+      return;
+    }
+
+    if (_cameraController.IsCurrentCameraMovementSettings(_cameraMovementSettings))
+    {
       return;
     }
 
@@ -221,9 +198,6 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     verticalLockSettings.BottomBoundary =
       verticalLockSettings.BottomVerticalLockPosition
       + _cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
-
-    verticalLockSettings.TranslatedVerticalLockPosition =
-      verticalLockSettings.DefaultVerticalLockPosition;
 
     return verticalLockSettings;
   }

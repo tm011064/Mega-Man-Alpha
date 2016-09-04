@@ -16,13 +16,30 @@ public class SmoothDampMoveSettings
   [Tooltip("Camera smooth damping on rapid ascents. For example, if the player travel up at high speed due to being catapulted by a trampoline, we want the camera to stay tight so the player doesn't move off screen.")]
   public float VerticalAboveRapidAcsentSmoothDampTime = .2f;
 
+  public override bool Equals(object obj)
+  {
+    return obj != null
+      && GetHashCode() == obj.GetHashCode();
+  }
+
+  public override int GetHashCode()
+  {
+    unchecked
+    {
+      int hash = 17;
+
+      hash = hash * 23 + HorizontalSmoothDampTime.GetHashCode();
+      hash = hash * 23 + VerticalSmoothDampTime.GetHashCode();
+      hash = hash * 23 + VerticalRapidDescentSmoothDampTime.GetHashCode();
+      hash = hash * 23 + VerticalAboveRapidAcsentSmoothDampTime.GetHashCode();
+
+      return hash;
+    }
+  }
+
   public override string ToString()
   {
-    return string.Format("horizontalSmoothDampTime: {0}; verticalSmoothDampTime: {1}; verticalRapidDescentSmoothDampTime: {2}; verticalAboveRapidAcsentSmoothDampTime: {3};",
-      HorizontalSmoothDampTime,
-      VerticalSmoothDampTime,
-      VerticalRapidDescentSmoothDampTime,
-      VerticalAboveRapidAcsentSmoothDampTime);
+    return this.GetFieldValuesFormatted();
   }
 
   public SmoothDampMoveSettings Clone()

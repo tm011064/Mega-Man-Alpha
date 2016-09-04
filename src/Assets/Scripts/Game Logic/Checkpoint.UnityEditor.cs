@@ -1,12 +1,12 @@
 ﻿#if UNITY_EDITOR
 
-public partial class Checkpoint : IInstantiable
+public partial class Checkpoint : IInstantiable<InstantiationArguments>
 {
   public void Instantiate(InstantiationArguments arguments)
   {
     transform.position = arguments.Bounds.center;
 
-    if (arguments.GetBool("Is Level Start"))
+    if (arguments.Properties.GetBool("Is Level Start"))
     {
       Index = 0;
     }

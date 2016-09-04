@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public partial class BarrelMet : IInstantiable
+public partial class BarrelMet : IInstantiable<InstantiationArguments>
 {
   public void Instantiate(InstantiationArguments arguments)
   {

@@ -19,57 +19,79 @@ namespace Assets.Editor.Tiled.GameObjectFactories
     {
       return Map
         .ForEachObjectGroupWithProperty("Collider", "cameramodifier")
-        .Get<GameObject>(CreateCameraModifers);
+        .Get<IEnumerable<GameObject>>(CreateCameraModifers)
+        .SelectMany(l => l);
     }
 
-    private GameObject CreateCameraModifers(Objectgroup objectgroup)
+    private IEnumerable<GameObject> CreateCameraModifers(Objectgroup objectgroup)
     {
-      var cameraBoundsObject = objectgroup.GetTypeOrThrow("Camera Bounds");
-      var cameraModiferObjects = objectgroup.GetTypesOrThrow("Camera Trigger");
+      var bounds = objectgroup.GetTypeOrThrow("Camera Bounds");
+      var triggers = objectgroup.GetTypesOrThrow("Camera Trigger");
 
-      var isFullScreenScroller = cameraModiferObjects.All(o => o.HasProperty(
+      var fullScreenScrollers = triggers.Where(o => o.HasProperty(
         "Triggers Room Transition",
         "true",
-        ObjecttypesByName));
+        ObjecttypesByName)).ToArray();
 
-      return isFullScreenScroller
-        ? CreateCameraModifier(
-            cameraModiferObjects,
-            cameraBoundsObject,
-            "Full Screen Scroller With Edge Trigger",
-            (cameraModifierBounds, cameraBounds, vector) => new Vector2(
-                  cameraModifierBounds.center.x - cameraBounds.center.x + vector.x,
-                  cameraModifierBounds.center.y - cameraBounds.center.y + vector.y))
-        : CreateCameraModifier(
-            cameraModiferObjects,
-            cameraBoundsObject,
+      if (fullScreenScrollers.Any())
+      {
+        yield return CreateCameraModifier(
+          fullScreenScrollers,
+          bounds,
+          "Full Screen Scroller",
+          (cameraModifierBounds, cameraBounds, vector) => new Vector2(
+            cameraModifierBounds.center.x - cameraBounds.center.x + vector.x,
+            cameraModifierBounds.center.y - cameraBounds.center.y + vector.y));
+      }
+
+      var cameraModifiers = triggers.Except(fullScreenScrollers).ToArray();
+
+      if (cameraModifiers.Any())
+      {
+        yield return CreateCameraModifier(
+            cameraModifiers,
+            bounds,
             "Camera Modifier",
             (cameraModifierBounds, cameraBounds, vector) => new Vector2(
-                  cameraModifierBounds.center.x + vector.x,
-                  cameraModifierBounds.center.y - vector.y));
+              cameraModifierBounds.center.x + vector.x,
+              cameraModifierBounds.center.y - vector.y));
+      }
     }
 
     private GameObject CreateCameraModifier(
-      Object[] cameraModiferObjects,
-      Object cameraBoundsObject,
+      Object[] triggers,
+      Object boundsObject,
       string prefabName,
       Func<Bounds, Bounds, Vector2, Vector2> vectorFactory)
     {
-      if (cameraModiferObjects.Any(o => o.PolyLine == null))
-      {
-        throw new Exception("Camera Modifier objects must have a poly line tag");
-      }
+      var cameraBounds = boundsObject.GetBounds();
 
-      var cameraBounds = cameraBoundsObject.GetBounds();
+      var boundsPropertyInfos = triggers
+        .Where(t => t.PolyLine == null)
+        .Select(t => new CameraModifierInstantiationArguments.BoundsPropertyInfo
+          {
+            Bounds = t.GetBounds(),
+            Properties = t.GetProperties(ObjecttypesByName)
+          })
+        .ToArray();
 
-      var lines = cameraModiferObjects
+      var line2PropertyInfos = triggers
+        .Where(t => t.PolyLine != null)
         .Select(o => new { Bounds = o.GetBounds(), Object = o })
-        .Select(r => r.Object
-          .PolyLine
-          .ToVectors()
-          .Select(v => vectorFactory(r.Bounds, cameraBounds, v))
-          .ToArray())
-        .Select(v => new Line2(v))
+        .Select(r => new
+          {
+            Vectors = r.Object
+              .PolyLine
+              .ToVectors()
+              .Select(v => vectorFactory(r.Bounds, cameraBounds, v))
+              .ToArray(),
+            Object = r.Object
+          })
+        .Select(d => new CameraModifierInstantiationArguments.Line2PropertyInfo
+          {
+            Line = new Line2(d.Vectors),
+            Properties = d.Object.GetProperties(ObjecttypesByName)
+          })
         .ToArray();
 
       var asset = LoadPrefabAsset(prefabName);
@@ -77,11 +99,11 @@ namespace Assets.Editor.Tiled.GameObjectFactories
       return CreateInstantiableObject(
        asset,
        prefabName,
-       new InstantiationArguments
+       new CameraModifierInstantiationArguments
        {
+         BoundsPropertyInfos = boundsPropertyInfos,
          Bounds = cameraBounds,
-         Lines = lines,
-         Arguments = cameraModiferObjects.First().GetProperties(ObjecttypesByName) // TODO (Roman): this is not nice
+         Line2PropertyInfos = line2PropertyInfos
        });
     }
   }
