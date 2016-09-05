@@ -31,24 +31,35 @@ public class VerticalLockSettings
   [HideInInspector]
   public float BottomBoundary;
 
-  [HideInInspector]
-  public float TranslatedVerticalLockPosition;
+  public override bool Equals(object obj)
+  {
+    return obj != null
+      && GetHashCode() == obj.GetHashCode();
+  }
+
+  public override int GetHashCode()
+  {
+    unchecked
+    {
+      int hash = 17;
+
+      hash = hash * 23 + BottomBoundary.GetHashCode();
+      hash = hash * 23 + BottomVerticalLockPosition.GetHashCode();
+      hash = hash * 23 + DefaultVerticalLockPosition.GetHashCode();
+      hash = hash * 23 + EnableBottomVerticalLock.GetHashCode();
+      hash = hash * 23 + Enabled.GetHashCode();
+      hash = hash * 23 + EnableDefaultVerticalLockPosition.GetHashCode();
+      hash = hash * 23 + EnableTopVerticalLock.GetHashCode();
+      hash = hash * 23 + TopBoundary.GetHashCode();
+      hash = hash * 23 + TopVerticalLockPosition.GetHashCode();
+
+      return hash;
+    }
+  }
 
   public override string ToString()
   {
-    return string.Format(@"enabled: {0}; enableTopVerticalLock: {1}; topVerticalLockPosition: {2}; topBoundary: {3};
-enableBottomVerticalLock: {4}; bottomVerticalLockPosition: {5}; bottomBoundary: {6};
-enableDefaultVerticalLockPosition: {7}; defaultVerticalLockPosition: {8}; translatedVerticalLockPosition: {9}",
-      Enabled,
-      EnableTopVerticalLock,
-      TopVerticalLockPosition,
-      TopBoundary,
-      EnableBottomVerticalLock,
-      BottomVerticalLockPosition,
-      BottomBoundary,
-      EnableDefaultVerticalLockPosition,
-      DefaultVerticalLockPosition,
-      TranslatedVerticalLockPosition);
+    return this.GetFieldValuesFormatted();
   }
 
   public VerticalLockSettings Clone()

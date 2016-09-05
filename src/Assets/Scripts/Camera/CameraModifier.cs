@@ -20,10 +20,11 @@ public partial class CameraModifier : MonoBehaviour
 
   public Color GizmoColor = Color.magenta;
 
-  [Tooltip("All lock positions are relative to this object.")]
-  public GameObject ParentPositionObject;
+  public bool MustBeOnLadderToEnter;
 
   private CameraController _cameraController;
+
+  private CameraMovementSettings _cameraMovementSettings;
 
   void Awake()
   {
@@ -39,55 +40,50 @@ public partial class CameraModifier : MonoBehaviour
   void Start()
   {
     _cameraController = Camera.main.GetComponent<CameraController>();
+
+    _cameraMovementSettings = CreateCameraMovementSettings();
+
+    var playerPosition = GameManager.Instance.Player.transform.position;
+
+    if (_cameraMovementSettings.Contains(playerPosition))
+    {
+      _cameraController.OnCameraModifierEnter(_cameraMovementSettings);
+    }
   }
 
-  void OnEnterTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
+  private void SetHorizontalBoundaries(HorizontalLockSettings horizontalLockSettings, CameraController cameraController)
   {
-    var transformPoint = (ParentPositionObject != null)
-      ? ParentPositionObject.transform.TransformPoint(Vector3.zero)
-      : Vector3.zero;
+    horizontalLockSettings.LeftBoundary =
+      horizontalLockSettings.LeftHorizontalLockPosition
+      + cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
 
+    horizontalLockSettings.RightBoundary =
+      horizontalLockSettings.RightHorizontalLockPosition
+      - cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
+  }
+
+  private void SetVerticalBoundaries(VerticalLockSettings verticalLockSettings, CameraController cameraController)
+  {
+    verticalLockSettings.TopBoundary =
+      verticalLockSettings.TopVerticalLockPosition
+      - cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
+
+    verticalLockSettings.BottomBoundary =
+      verticalLockSettings.BottomVerticalLockPosition
+      + cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
+  }
+
+  private CameraMovementSettings CreateCameraMovementSettings()
+  {
     if (ZoomSettings.ZoomPercentage == 0f)
     {
       throw new ArgumentOutOfRangeException("Zoom Percentage must not be 0.");
     }
 
-    if (VerticalLockSettings.Enabled)
-    {
-      if (VerticalLockSettings.EnableTopVerticalLock)
-      {
-        VerticalLockSettings.TopBoundary =
-          transformPoint.y
-          + VerticalLockSettings.TopVerticalLockPosition
-          - _cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
-      }
+    SetVerticalBoundaries(VerticalLockSettings, _cameraController);
+    SetHorizontalBoundaries(HorizontalLockSettings, _cameraController);
 
-      if (VerticalLockSettings.EnableBottomVerticalLock)
-      {
-        VerticalLockSettings.BottomBoundary =
-          transformPoint.y
-          + VerticalLockSettings.BottomVerticalLockPosition
-          + _cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
-      }
-    }
-
-    if (HorizontalLockSettings.Enabled)
-    {
-      if (HorizontalLockSettings.EnableLeftHorizontalLock)
-      {
-        HorizontalLockSettings.LeftBoundary = transformPoint.x + HorizontalLockSettings.LeftHorizontalLockPosition + _cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
-      }
-
-      if (HorizontalLockSettings.EnableRightHorizontalLock)
-      {
-        HorizontalLockSettings.RightBoundary = transformPoint.x + HorizontalLockSettings.RightHorizontalLockPosition - _cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
-      }
-    }
-
-    VerticalLockSettings.TranslatedVerticalLockPosition =
-      transformPoint.y + VerticalLockSettings.DefaultVerticalLockPosition;
-
-    var cameraMovementSettings = new CameraMovementSettings(
+    return new CameraMovementSettings(
       VerticalLockSettings,
       HorizontalLockSettings,
       ZoomSettings,
@@ -95,23 +91,21 @@ public partial class CameraModifier : MonoBehaviour
       Offset,
       VerticalCameraFollowMode,
       HorizontalOffsetDeltaMovementFactor);
+  }
 
-    var cameraController = Camera.main.GetComponent<CameraController>();
+  void OnEnterTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
+  {
+    if (MustBeOnLadderToEnter
+      && (GameManager.Instance.Player.PlayerState & PlayerState.ClimbingLadder) == 0)
+    {
+      return;
+    }
 
-    cameraController.OnCameraModifierEnter(
-      this,
-      e.SourceCollider,
-      GameManager.Instance.Player.transform.position,
-      cameraMovementSettings);
+    _cameraController.OnCameraModifierEnter(_cameraMovementSettings);
   }
 
   void OnExitTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
   {
-    var cameraController = Camera.main.GetComponent<CameraController>();
-
-    cameraController.OnCameraModifierExit(
-      this,
-      e.SourceCollider,
-      GameManager.Instance.Player.transform.position);
+    _cameraController.OnCameraModifierExit(_cameraMovementSettings);
   }
 }

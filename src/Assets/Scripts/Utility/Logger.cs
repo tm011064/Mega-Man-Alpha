@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Threading;
 using UnityEngine;
 
 public class Logger : IDisposable
 {
+  private const string EQUALS_SIGN = ": ";
+
+  private static readonly string SEPARATOR = Environment.NewLine;
+
   private static Logger _logger;
 
   private LogSettings _loggerSettings;
@@ -275,6 +280,60 @@ public class Logger : IDisposable
       UnityEngine.Debug.Log(msg);
     }
 #endif
+  }
+
+  private static string GetMemberName<T>(Expression<Func<T>> memberExpression)
+  {
+    MemberExpression expressionBody = (MemberExpression)memberExpression.Body;
+
+    return expressionBody.Member.Name + EQUALS_SIGN + memberExpression.Compile().Invoke().ToString();
+  }
+
+  [Conditional("DEBUG"), Conditional("PROFILE")]
+  public static void DebugMember<T1>(Expression<Func<T1>> memberExpression1)
+  {
+    var message = GetMemberName(memberExpression1);
+
+    UnityEngine.Debug.Log(message);
+  }
+
+  [Conditional("DEBUG"), Conditional("PROFILE")]
+  public static void DebugMember<T1, T2>(
+    Expression<Func<T1>> memberExpression1,
+    Expression<Func<T2>> memberExpression2)
+  {
+    var message = GetMemberName(memberExpression1)
+      + SEPARATOR + GetMemberName(memberExpression2);
+
+    UnityEngine.Debug.Log(message);
+  }
+
+  [Conditional("DEBUG"), Conditional("PROFILE")]
+  public static void DebugMember<T1, T2, T3>(
+    Expression<Func<T1>> memberExpression1,
+    Expression<Func<T2>> memberExpression2,
+    Expression<Func<T3>> memberExpression3)
+  {
+    var message = GetMemberName(memberExpression1)
+      + SEPARATOR + GetMemberName(memberExpression2)
+      + SEPARATOR + GetMemberName(memberExpression3);
+
+    UnityEngine.Debug.Log(message);
+  }
+
+  [Conditional("DEBUG"), Conditional("PROFILE")]
+  public static void DebugMember<T1, T2, T3, T4>(
+    Expression<Func<T1>> memberExpression1,
+    Expression<Func<T2>> memberExpression2,
+    Expression<Func<T3>> memberExpression3,
+    Expression<Func<T4>> memberExpression4)
+  {
+    var message = GetMemberName(memberExpression1)
+      + SEPARATOR + GetMemberName(memberExpression2)
+      + SEPARATOR + GetMemberName(memberExpression3)
+      + SEPARATOR + GetMemberName(memberExpression4);
+
+    UnityEngine.Debug.Log(message);
   }
 
   [Conditional("DEBUG"), Conditional("PROFILE")]

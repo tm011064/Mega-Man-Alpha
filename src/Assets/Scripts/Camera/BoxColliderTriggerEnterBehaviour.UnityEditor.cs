@@ -2,21 +2,32 @@
 
 using UnityEngine;
 
-public partial class BoxColliderTriggerEnterBehaviour : IInstantiable
+public partial class BoxColliderTriggerEnterBehaviour : IInstantiable<CameraModifierInstantiationArguments>, IInstantiable<InstantiationArguments>
 {
+  public void Instantiate(CameraModifierInstantiationArguments arguments)
+  {
+    DoInstantiate(arguments);
+  }
+
   public void Instantiate(InstantiationArguments arguments)
+  {
+    DoInstantiate(arguments);
+  }
+
+  private void DoInstantiate<TInstantiationArguments>(TInstantiationArguments instantiationArguments)
+    where TInstantiationArguments : InstantiationArguments
   {
     var padding = new Padding
     {
-      Left = arguments.GetBool("Open Left") ? arguments.GetInt("Extension Left") : 0,
-      Right = arguments.GetBool("Open Right") ? arguments.GetInt("Extension Right") : 0,
-      Top = arguments.GetBool("Open Top") ? arguments.GetInt("Extension Top") : 0,
-      Bottom = arguments.GetBool("Open Bottom") ? arguments.GetInt("Extension Bottom") : 0
+      Left = instantiationArguments.Properties.GetBool("Open Left") ? instantiationArguments.Properties.GetInt("Extension Left") : 0,
+      Right = instantiationArguments.Properties.GetBool("Open Right") ? instantiationArguments.Properties.GetInt("Extension Right") : 0,
+      Top = instantiationArguments.Properties.GetBool("Open Top") ? instantiationArguments.Properties.GetInt("Extension Top") : 0,
+      Bottom = instantiationArguments.Properties.GetBool("Open Bottom") ? instantiationArguments.Properties.GetInt("Extension Bottom") : 0
     };
 
-    var width = arguments.Bounds.size.x + padding.Left + padding.Right;
+    var width = instantiationArguments.Bounds.size.x + padding.Left + padding.Right;
 
-    var height = arguments.Bounds.size.y + padding.Bottom + padding.Top;
+    var height = instantiationArguments.Bounds.size.y + padding.Bottom + padding.Top;
 
     var boxCollider = this.GetComponentOrThrow<BoxCollider2D>();
 

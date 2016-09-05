@@ -260,8 +260,8 @@ public partial class PlayerController : BaseCharacterController
         // wall jumps work like this: if the player makes contact with a wall, we want to keep track how long he moves towards the
         // wall (based on input axis). If a certain threshold is reached, we are "attached to the wall" which will result in a reduced "slide down"
         // gravity. When a player is on a wall, he can not detach by pressing the opposite direction - the only way to detach is to jump.
-        if (CurrentControlHandler != _reusableWallJumpControlHandler
-          && CurrentControlHandler != _reusableWallJumpEvaluationControlHandler)
+        if (ActiveControlHandler != _reusableWallJumpControlHandler
+          && ActiveControlHandler != _reusableWallJumpEvaluationControlHandler)
         {
           var wallJumpEnabledTime =
             WallJumpSettings.WallJumpEnabledTime >= 0f

@@ -8,7 +8,6 @@
   <property name="Prefab" type="string" default="Barrel Met Spawn Location"/>
  </objecttype>
  <objecttype name="Room" color="#a0a0a4">
-  <property name="Enter On Ladder" type="bool" default="false"/>
   <property name="Extension Bottom" type="int" default="14"/>
   <property name="Extension Left" type="int" default="14"/>
   <property name="Extension Right" type="int" default="14"/>

@@ -1,31 +1,38 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
 
-public partial class CameraModifier : IInstantiable
+public partial class CameraModifier : IInstantiable<CameraModifierInstantiationArguments>
 {
   public ImportCameraSettings ImportCameraSettings;
 
-  public void Instantiate(InstantiationArguments arguments)
+  public void Instantiate(CameraModifierInstantiationArguments arguments)
   {
     var cameraController = Camera.main.GetComponentOrThrow<CameraController>();
 
     VerticalLockSettings = CreateVerticalLockSettings(arguments.Bounds, cameraController);
     HorizontalLockSettings = CreateHorizontalLockSettings(arguments.Bounds, cameraController);
 
-    foreach (var line in arguments.Lines)
+    VerticalCameraFollowMode = VerticalCameraFollowMode.FollowAlways;
+
+    foreach (var args in arguments.BoundsPropertyInfos)
     {
-      var edgeColliderGameObject = new GameObject("Edge Collider With Enter Trigger");
+      var boxColliderGameObject = new GameObject("Box Collider With Enter Trigger");
 
-      var edgeCollider = edgeColliderGameObject.AddComponent<EdgeCollider2D>();
+      boxColliderGameObject.transform.position = args.Bounds.center;
+      boxColliderGameObject.layer = gameObject.layer;
+      boxColliderGameObject.transform.parent = gameObject.transform;
 
-      edgeCollider.isTrigger = true;
-      edgeCollider.points = line.ToVectors();
+      var boxCollider = boxColliderGameObject.AddComponent<BoxCollider2D>();
 
-      edgeColliderGameObject.AddComponent<EdgeColliderTriggerEnterBehaviour>();
+      boxCollider.isTrigger = true;
+      boxCollider.size = args.Bounds.size;
 
-      edgeColliderGameObject.layer = gameObject.layer;
+      var boxColliderTriggerEnterBehaviour = boxColliderGameObject.AddComponent<BoxColliderTriggerEnterBehaviour>();
 
-      edgeColliderGameObject.transform.parent = gameObject.transform;
+      if (args.Properties.GetBool("Enter On Ladder"))
+      {
+        boxColliderTriggerEnterBehaviour.PlayerStatesNeededToEnter = new PlayerState[] { PlayerState.ClimbingLadder };
+      }
     }
   }
 
@@ -42,16 +49,7 @@ public partial class CameraModifier : IInstantiable
       BottomVerticalLockPosition = bounds.min.y
     };
 
-    verticalLockSettings.TopBoundary =
-      verticalLockSettings.TopVerticalLockPosition
-      - cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
-
-    verticalLockSettings.BottomBoundary =
-      verticalLockSettings.BottomVerticalLockPosition
-      + cameraController.TargetScreenSize.y * .5f / ZoomSettings.ZoomPercentage;
-
-    verticalLockSettings.TranslatedVerticalLockPosition =
-      verticalLockSettings.DefaultVerticalLockPosition;
+    SetVerticalBoundaries(verticalLockSettings, cameraController);
 
     return verticalLockSettings;
   }
@@ -67,17 +65,25 @@ public partial class CameraModifier : IInstantiable
       RightHorizontalLockPosition = bounds.max.x
     };
 
-    horizontalLockSettings.LeftBoundary =
-      horizontalLockSettings.LeftHorizontalLockPosition
-      + cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
-
-    horizontalLockSettings.RightBoundary =
-      horizontalLockSettings.RightHorizontalLockPosition
-      - cameraController.TargetScreenSize.x * .5f / ZoomSettings.ZoomPercentage;
+    SetHorizontalBoundaries(horizontalLockSettings, cameraController);
 
     return horizontalLockSettings;
   }
-  
+
+  public bool Contains(Vector2 point)
+  {
+    var cameraMovementSettings = new CameraMovementSettings(
+      VerticalLockSettings,
+      HorizontalLockSettings,
+      ZoomSettings,
+      SmoothDampMoveSettings,
+      Offset,
+      VerticalCameraFollowMode,
+      HorizontalOffsetDeltaMovementFactor);
+
+    return cameraMovementSettings.Contains(point);
+  }
+
   void OnDrawGizmos()
   {
     foreach (var collider in GetComponents<EdgeCollider2D>())

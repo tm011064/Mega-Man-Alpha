@@ -53,19 +53,26 @@ namespace Assets.Editor.Tiled
     {
       var checkpoints = prefab.GetComponentsInChildren<Checkpoint>();
       var rooms = prefab.GetComponentsInChildren<FullScreenScroller>();
+      var cameraModifiers = prefab.GetComponentsInChildren<CameraModifier>();
 
       foreach (var checkpoint in checkpoints)
       {
-        var room = rooms
+        var roomTransforms = rooms
           .Where(r => r.Contains(checkpoint.transform.position))
-          .FirstOrDefault();
+          .Select(r => r.transform);
 
-        if (room == null)
+        var cameraModifierTransforms = cameraModifiers
+          .Where(c => c.Contains(checkpoint.transform.position))
+          .Select(c => c.transform);
+
+        var parentTransform = roomTransforms.Union(cameraModifierTransforms).FirstOrDefault();
+
+        if (parentTransform == null)
         {
           throw new Exception("Checkpoint " + checkpoint.name + " must be within a room");
         }
 
-        checkpoint.transform.parent = room.transform;
+        checkpoint.transform.parent = parentTransform;
       }
     }
 
