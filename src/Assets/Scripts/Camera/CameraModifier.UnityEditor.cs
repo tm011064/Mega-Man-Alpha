@@ -12,25 +12,27 @@ public partial class CameraModifier : IInstantiable<CameraModifierInstantiationA
     VerticalLockSettings = CreateVerticalLockSettings(arguments.Bounds, cameraController);
     HorizontalLockSettings = CreateHorizontalLockSettings(arguments.Bounds, cameraController);
 
-    foreach (var args in arguments.Line2PropertyInfos)
+    VerticalCameraFollowMode = VerticalCameraFollowMode.FollowAlways;
+
+    foreach (var args in arguments.BoundsPropertyInfos)
     {
-      var edgeColliderGameObject = new GameObject("Edge Collider With Enter Trigger");
+      var boxColliderGameObject = new GameObject("Box Collider With Enter Trigger");
 
-      var edgeCollider = edgeColliderGameObject.AddComponent<EdgeCollider2D>();
+      boxColliderGameObject.transform.position = args.Bounds.center;
+      boxColliderGameObject.layer = gameObject.layer;
+      boxColliderGameObject.transform.parent = gameObject.transform;
 
-      edgeCollider.isTrigger = true;
-      edgeCollider.points = args.Line.ToVectors();
+      var boxCollider = boxColliderGameObject.AddComponent<BoxCollider2D>();
 
-      var edgeColliderTriggerEnterBehaviour = edgeColliderGameObject.AddComponent<EdgeColliderTriggerEnterBehaviour>();
+      boxCollider.isTrigger = true;
+      boxCollider.size = args.Bounds.size;
+
+      var boxColliderTriggerEnterBehaviour = boxColliderGameObject.AddComponent<BoxColliderTriggerEnterBehaviour>();
 
       if (args.Properties.GetBool("Enter On Ladder"))
       {
-        edgeColliderTriggerEnterBehaviour.PlayerStatesNeededToEnter = new PlayerState[] { PlayerState.ClimbingLadder };
+        boxColliderTriggerEnterBehaviour.PlayerStatesNeededToEnter = new PlayerState[] { PlayerState.ClimbingLadder };
       }
-
-      edgeColliderGameObject.layer = gameObject.layer;
-
-      edgeColliderGameObject.transform.parent = gameObject.transform;
     }
   }
 
@@ -51,7 +53,7 @@ public partial class CameraModifier : IInstantiable<CameraModifierInstantiationA
 
     return verticalLockSettings;
   }
-  
+
   private HorizontalLockSettings CreateHorizontalLockSettings(Bounds bounds, CameraController cameraController)
   {
     var horizontalLockSettings = new HorizontalLockSettings

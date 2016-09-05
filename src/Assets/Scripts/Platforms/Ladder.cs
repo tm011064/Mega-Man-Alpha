@@ -60,6 +60,27 @@ public partial class Ladder : MonoBehaviour
       transform.position.y + LadderTopAnimationStartDistance + _extents.y;
   }
 
+  private bool TriggeredClimbDownFromEdge(AxisState verticalAxisState)
+  {
+    return (_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
+      && (_gameManager.Player.PlayerState & PlayerState.Sliding) == 0
+      && (_gameManager.Player.PlayerState & PlayerState.Locked) == 0
+      && _gameManager.Player.CurrentPlatform != null
+      && _gameManager.Player.CurrentPlatform == _topEdge
+      && verticalAxisState.Value < 0f
+      && IsPlayerBetweenVerticalColliders();
+  }
+
+  private bool TriggeredClimbUp(AxisState verticalAxisState)
+  {
+    return (_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
+      && (_gameManager.Player.PlayerState & PlayerState.Locked) == 0
+      && verticalAxisState.Value > 0f
+      && IsPlayerBetweenVerticalColliders()
+      && IsPlayerTopAboveBottomCollider()
+      && IsPlayerTopBelowTopBoundary();
+  }
+
   void Update()
   {
     if (!_gameManager.Player.ClimbSettings.EnableLadderClimbing)
@@ -69,12 +90,7 @@ public partial class Ladder : MonoBehaviour
 
     var verticalAxisState = _gameManager.InputStateManager.GetVerticalAxisState();
 
-    if ((_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
-      && (_gameManager.Player.PlayerState & PlayerState.Sliding) == 0
-      && _gameManager.Player.CurrentPlatform != null
-      && _gameManager.Player.CurrentPlatform == _topEdge
-      && verticalAxisState.Value < 0f
-      && IsPlayerBetweenVerticalColliders())
+    if (TriggeredClimbDownFromEdge(verticalAxisState))
     {
       _topEdgeCollider.enabled = false;
 
@@ -85,11 +101,7 @@ public partial class Ladder : MonoBehaviour
       return;
     }
 
-    if ((_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
-      && verticalAxisState.Value > 0f
-      && IsPlayerBetweenVerticalColliders()
-      && IsPlayerTopAboveBottomCollider()
-      && IsPlayerTopBelowTopBoundary())
+    if (TriggeredClimbUp(verticalAxisState))
     {
       _gameManager.Player.PlayerState |= PlayerState.ClimbingLadder;
 

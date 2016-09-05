@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
@@ -8,12 +10,6 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
   public SmoothDampMoveSettings SmoothDampMoveSettings;
 
   public FullScreenScrollSettings FullScreenScrollSettings;
-
-  [Tooltip("Enables the default vertical lock position. The default position simulates a Super Mario Bros style side scrolling camera which is fixed on the y axis, not reacting to vertical player movement.")]
-  public bool EnableDefaultVerticalLockPosition = true;
-
-  [Tooltip("Default is center of the screen.")]
-  public float DefaultVerticalLockPosition = 540f;
 
   [Tooltip("By default, all lock positions are relative to this game object's parent object. You can overwrite this by setting this gameobject as parent")]
   public GameObject RelativePositioningParentObject;
@@ -53,6 +49,7 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     if (enterTrigger != null)
     {
       enterTrigger.Entered += (_, e) => OnEnter(e.SourceCollider);
+      enterTrigger.Exited += (_, e) => _cameraController.OnCameraModifierExit(_cameraMovementSettings);
     }
 
     _checkpoint = GetComponentInChildren<Checkpoint>();
@@ -91,33 +88,7 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     // the scroll transform action.
     var targetPosition = _cameraController.CalculateTargetPosition();
 
-    Vector3? playerTranslationVector = null;
-
-    if (FullScreenScrollSettings.PlayerTranslationDistance != 0f)
-    {
-      var currentCameraPosition = _cameraController.gameObject.transform.position;
-
-      var directionVector = targetPosition - currentCameraPosition;
-
-      playerTranslationVector = directionVector.normalized * FullScreenScrollSettings.PlayerTranslationDistance;
-    }
-
-    if (FullScreenScrollSettings.EndScrollFreezeTime > 0f)
-    {
-      GameManager.Instance.Player.PushControlHandler(
-        new FreezePlayerControlHandler(
-          GameManager.Instance.Player,
-          FullScreenScrollSettings.EndScrollFreezeTime,
-          _animationShortNameHash));
-    }
-
-    GameManager.Instance.Player.PushControlHandler(
-      new FreezePlayerControlHandler(
-        GameManager.Instance.Player,
-        FullScreenScrollSettings.TransitionTime,
-        _animationShortNameHash,
-        playerTranslationVector,
-        FullScreenScrollSettings.PlayerTranslationEasingType));
+    PushControlHandlers(targetPosition);
 
     var scrollTransformationAction = new TranslateTransformAction(
       targetPosition,
@@ -126,6 +97,54 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
       GameManager.Instance.Easing);
 
     _cameraController.EnqueueScrollAction(scrollTransformationAction);
+  }
+
+  private void PushControlHandlers(Vector3 targetPosition)
+  {
+    Vector3? playerTranslationVector = GetPlayerTranslationVector(targetPosition);
+
+    var freezeControlHandlers = new Queue<FreezePlayerControlHandler>(GetScrollControlHandlers(playerTranslationVector));
+
+    GameManager.Instance.Player.ExchangeActiveControlHandler(
+      freezeControlHandlers.Dequeue());
+
+    while (freezeControlHandlers.Any())
+    {
+      GameManager.Instance.Player.PushControlHandler(
+        freezeControlHandlers.Dequeue());
+    }
+  }
+
+  private Vector3? GetPlayerTranslationVector(Vector3 targetPosition)
+  {
+    if (FullScreenScrollSettings.PlayerTranslationDistance == 0f)
+    {
+      return null;
+    }
+
+    var currentCameraPosition = _cameraController.gameObject.transform.position;
+
+    var directionVector = targetPosition - currentCameraPosition;
+
+    return directionVector.normalized * FullScreenScrollSettings.PlayerTranslationDistance;
+  }
+
+  private IEnumerable<FreezePlayerControlHandler> GetScrollControlHandlers(Vector3? playerTranslationVector)
+  {
+    if (FullScreenScrollSettings.EndScrollFreezeTime > 0f)
+    {
+      yield return new FreezePlayerControlHandler(
+          GameManager.Instance.Player,
+          FullScreenScrollSettings.EndScrollFreezeTime,
+          _animationShortNameHash);
+    }
+
+    yield return new FreezePlayerControlHandler(
+        GameManager.Instance.Player,
+        FullScreenScrollSettings.TransitionTime,
+        _animationShortNameHash,
+        playerTranslationVector,
+        FullScreenScrollSettings.PlayerTranslationEasingType);
   }
 
   private void OnEnter(Collider2D collider)
@@ -154,13 +173,13 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
 
     if (FullScreenScrollSettings.StartScrollFreezeTime > 0f)
     {
+      var delay = TimeSpan.FromSeconds(FullScreenScrollSettings.StartScrollFreezeTime);
+
       GameManager.Instance.Player.PushControlHandler(
         new FreezePlayerControlHandler(
           GameManager.Instance.Player,
-          FullScreenScrollSettings.StartScrollFreezeTime,
+          FullScreenScrollSettings.StartScrollFreezeTime + (float)delay.TotalSeconds,
           _animationShortNameHash));
-
-      var delay = TimeSpan.FromSeconds(FullScreenScrollSettings.StartScrollFreezeTime);
 
       this.Invoke(delay, () => StartScroll(collider));
     }
@@ -183,10 +202,10 @@ public partial class FullScreenScroller : MonoBehaviour, ISceneResetable
     var verticalLockSettings = new VerticalLockSettings
     {
       Enabled = true,
-      EnableDefaultVerticalLockPosition = EnableDefaultVerticalLockPosition,
-      DefaultVerticalLockPosition = DefaultVerticalLockPosition,
-      EnableTopVerticalLock = false,
-      EnableBottomVerticalLock = false,
+      EnableDefaultVerticalLockPosition = false,
+      DefaultVerticalLockPosition = 0f,
+      EnableTopVerticalLock = true,
+      EnableBottomVerticalLock = true,
       TopVerticalLockPosition = transform.position.y + Size.y * .5f,
       BottomVerticalLockPosition = transform.position.y - Size.y * .5f
     };

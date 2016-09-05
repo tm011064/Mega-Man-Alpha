@@ -38,10 +38,7 @@ namespace Assets.Editor.Tiled.GameObjectFactories
         yield return CreateCameraModifier(
           fullScreenScrollers,
           bounds,
-          "Full Screen Scroller",
-          (cameraModifierBounds, cameraBounds, vector) => new Vector2(
-            cameraModifierBounds.center.x - cameraBounds.center.x + vector.x,
-            cameraModifierBounds.center.y - cameraBounds.center.y + vector.y));
+          "Full Screen Scroller");
       }
 
       var cameraModifiers = triggers.Except(fullScreenScrollers).ToArray();
@@ -51,46 +48,21 @@ namespace Assets.Editor.Tiled.GameObjectFactories
         yield return CreateCameraModifier(
             cameraModifiers,
             bounds,
-            "Camera Modifier",
-            (cameraModifierBounds, cameraBounds, vector) => new Vector2(
-              cameraModifierBounds.center.x + vector.x,
-              cameraModifierBounds.center.y - vector.y));
+            "Camera Modifier");
       }
     }
 
     private GameObject CreateCameraModifier(
       Object[] triggers,
       Object boundsObject,
-      string prefabName,
-      Func<Bounds, Bounds, Vector2, Vector2> vectorFactory)
+      string prefabName)
     {
-      var cameraBounds = boundsObject.GetBounds();
-
       var boundsPropertyInfos = triggers
         .Where(t => t.PolyLine == null)
         .Select(t => new CameraModifierInstantiationArguments.BoundsPropertyInfo
           {
             Bounds = t.GetBounds(),
             Properties = t.GetProperties(ObjecttypesByName)
-          })
-        .ToArray();
-
-      var line2PropertyInfos = triggers
-        .Where(t => t.PolyLine != null)
-        .Select(o => new { Bounds = o.GetBounds(), Object = o })
-        .Select(r => new
-          {
-            Vectors = r.Object
-              .PolyLine
-              .ToVectors()
-              .Select(v => vectorFactory(r.Bounds, cameraBounds, v))
-              .ToArray(),
-            Object = r.Object
-          })
-        .Select(d => new CameraModifierInstantiationArguments.Line2PropertyInfo
-          {
-            Line = new Line2(d.Vectors),
-            Properties = d.Object.GetProperties(ObjecttypesByName)
           })
         .ToArray();
 
@@ -102,8 +74,7 @@ namespace Assets.Editor.Tiled.GameObjectFactories
        new CameraModifierInstantiationArguments
        {
          BoundsPropertyInfos = boundsPropertyInfos,
-         Bounds = cameraBounds,
-         Line2PropertyInfos = line2PropertyInfos
+         Bounds = boundsObject.GetBounds()
        });
     }
   }

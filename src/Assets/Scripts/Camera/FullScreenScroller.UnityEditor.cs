@@ -20,27 +20,6 @@ public partial class FullScreenScroller : IInstantiable<CameraModifierInstantiat
   {
     SetPosition(arguments.Bounds);
 
-    foreach (var args in arguments.Line2PropertyInfos)
-    {
-      var edgeColliderGameObject = new GameObject("Edge Collider With Enter Trigger");
-
-      edgeColliderGameObject.transform.position = transform.position;
-      edgeColliderGameObject.layer = gameObject.layer;
-      edgeColliderGameObject.transform.parent = gameObject.transform;
-
-      var edgeCollider = edgeColliderGameObject.AddComponent<EdgeCollider2D>();
-
-      edgeCollider.isTrigger = true;
-      edgeCollider.points = args.Line.ToVectors();
-
-      var edgeColliderTriggerEnterBehaviour = edgeColliderGameObject.AddComponent<EdgeColliderTriggerEnterBehaviour>();
-
-      if (args.Properties.GetBool("Enter On Ladder"))
-      {
-        edgeColliderTriggerEnterBehaviour.PlayerStatesNeededToEnter = new PlayerState[] { PlayerState.ClimbingLadder };
-      }
-    }
-
     foreach (var args in arguments.BoundsPropertyInfos)
     {
       var boxColliderGameObject = new GameObject("Box Collider With Enter Trigger");
@@ -66,10 +45,9 @@ public partial class FullScreenScroller : IInstantiable<CameraModifierInstantiat
   private void SetPosition(Bounds bounds)
   {
     transform.position = bounds.center;
-    EnableDefaultVerticalLockPosition = true;
-    DefaultVerticalLockPosition = transform.position.y;
 
     Size = bounds.size;
+    VerticalCameraFollowMode = VerticalCameraFollowMode.FollowAlways;
   }
 
   public bool Contains(Vector2 point)

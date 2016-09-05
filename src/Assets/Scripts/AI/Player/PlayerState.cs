@@ -1,4 +1,7 @@
-﻿public enum PlayerState
+﻿using System;
+
+[Flags]
+public enum PlayerState
 {
   Invincible = 1,
 

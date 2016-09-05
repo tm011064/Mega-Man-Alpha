@@ -38,7 +38,8 @@ public class CameraMovementSettingsManager
   {
     if (ActiveSettings != cameraMovementSettings)
     {
-      _cameraMovementSettings.Remove(cameraMovementSettings);
+      _cameraMovementSettings.Clear();
+      _cameraMovementSettings.Add(ActiveSettings);
 
       return;
     }

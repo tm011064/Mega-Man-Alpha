@@ -12,16 +12,16 @@ public class BaseCharacterController : BaseMonoBehaviour
 
   private CustomStack<BaseControlHandler> _controlHandlers = new CustomStack<BaseControlHandler>();
 
-  private BaseControlHandler _currentBaseControlHandler = null;
+  private BaseControlHandler _activeControlHandler = null;
 
-  public BaseControlHandler CurrentControlHandler { get { return _currentBaseControlHandler; } }
+  public BaseControlHandler ActiveControlHandler { get { return _activeControlHandler; } }
 
   private void TryActivateCurrentControlHandler(BaseControlHandler previousControlHandler)
   {
-    _currentBaseControlHandler = _controlHandlers.Peek();
+    _activeControlHandler = _controlHandlers.Peek();
 
-    while (_currentBaseControlHandler != null
-      && !_currentBaseControlHandler.TryActivate(previousControlHandler))
+    while (_activeControlHandler != null
+      && !_activeControlHandler.TryActivate(previousControlHandler))
     {
       previousControlHandler = _controlHandlers.Pop();
 
@@ -29,7 +29,7 @@ public class BaseCharacterController : BaseMonoBehaviour
 
       previousControlHandler.Dispose();
 
-      _currentBaseControlHandler = _controlHandlers.Peek();
+      _activeControlHandler = _controlHandlers.Peek();
     }
   }
 
@@ -37,9 +37,9 @@ public class BaseCharacterController : BaseMonoBehaviour
   {
     try
     {
-      if (_currentBaseControlHandler != null)
+      if (_activeControlHandler != null)
       {
-        while (_currentBaseControlHandler.Update() == ControlHandlerAfterUpdateStatus.CanBeDisposed)
+        while (_activeControlHandler.Update() == ControlHandlerAfterUpdateStatus.CanBeDisposed)
         {
           var poppedHandler = _controlHandlers.Pop();
 
@@ -79,7 +79,7 @@ public class BaseCharacterController : BaseMonoBehaviour
       _controlHandlers.RemoveAt(i);
     }
 
-    _currentBaseControlHandler = null;
+    _activeControlHandler = null;
 
     if (controlHandler != null)
     {
@@ -96,7 +96,7 @@ public class BaseCharacterController : BaseMonoBehaviour
       _controlHandlers.Push(controlHandlers[i]);
     }
 
-    TryActivateCurrentControlHandler(_currentBaseControlHandler);
+    TryActivateCurrentControlHandler(_activeControlHandler);
   }
 
   public void InsertControlHandler(int index, BaseControlHandler controlHandler)
@@ -128,14 +128,14 @@ public class BaseCharacterController : BaseMonoBehaviour
 
     _controlHandlers.Push(controlHandler);
 
-    TryActivateCurrentControlHandler(_currentBaseControlHandler);
+    TryActivateCurrentControlHandler(_activeControlHandler);
   }
 
   public void RemoveControlHandler(BaseControlHandler controlHandler)
   {
     Logger.Info("Removing handler: " + controlHandler.ToString());
 
-    if (controlHandler == _currentBaseControlHandler)
+    if (controlHandler == _activeControlHandler)
     {
       var poppedHandler = _controlHandlers.Pop();
 
@@ -151,11 +151,16 @@ public class BaseCharacterController : BaseMonoBehaviour
     }
   }
 
+  public void ExchangeActiveControlHandler(BaseControlHandler controlHandler)
+  {
+    ExchangeControlHandler(_controlHandlers.Count - 1, controlHandler);
+  }
+
   public void ExchangeControlHandler(int index, BaseControlHandler controlHandler)
   {
     Logger.Info("Exchanging handler " + _controlHandlers[index].ToString() + " (index: " + index + ") with " + controlHandler.ToString());
 
-    if (_controlHandlers[index] == _currentBaseControlHandler)
+    if (_controlHandlers[index] == _activeControlHandler)
     {
       var poppedHandler = _controlHandlers.Exchange(index, controlHandler);
 

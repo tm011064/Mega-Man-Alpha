@@ -94,7 +94,7 @@ public class CameraController : MonoBehaviour
 
   public bool IsCurrentCameraMovementSettings(CameraMovementSettings cameraMovementSettings)
   {
-    return _cameraMovementSettingsManager.ActiveSettings == cameraMovementSettings;
+    return _cameraMovementSettingsManager.ActiveSettings.Equals(cameraMovementSettings);
   }
 
   public void OnCameraModifierEnter(CameraMovementSettings cameraMovementSettings)

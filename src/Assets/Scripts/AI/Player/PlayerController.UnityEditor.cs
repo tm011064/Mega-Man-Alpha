@@ -4,9 +4,9 @@ public partial class PlayerController
 {
   void OnDrawGizmos()
   {
-    if (CurrentControlHandler != null)
+    if (ActiveControlHandler != null)
     {
-      CurrentControlHandler.DrawGizmos();
+      ActiveControlHandler.DrawGizmos();
     }
   }
 }
