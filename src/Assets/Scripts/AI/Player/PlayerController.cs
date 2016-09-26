@@ -79,66 +79,6 @@ public partial class PlayerController : BaseCharacterController
 
   public event Action JumpedThisFrame;
 
-  //public void AddState(PlayerState playerState)
-  //{
-  //  PlayerState |= playerState;
-  //}
-
-  //public void RemoveState(PlayerState playerState)
-  //{
-  //  PlayerState &= ~playerState;
-  //}
-
-  //public bool HasState(params PlayerState[] states)
-  //{
-  //  return states.All(state => (PlayerState & state) != 0);
-  //}
-
-  //public bool HasNotState(params PlayerState[] states)
-  //{
-  //  return states.All(state => (PlayerState & state) == 0);
-  //}
-
-  //public bool IsInvincible()
-  //{
-  //  return (PlayerState & PlayerState.Invincible) != 0;
-  //}
-
-  //public bool IsEnemyContactKnockback()
-  //{
-  //  return (PlayerState & PlayerState.EnemyContactKnockback) != 0;
-  //}
-
-  //public bool IsAttachedToWall()
-  //{
-  //  return (PlayerState & PlayerState.AttachedToWall) != 0;
-  //}
-
-  //public bool IsCrouching()
-  //{
-  //  return (PlayerState & PlayerState.Crouching) != 0;
-  //}
-
-  //public bool IsClimbingLadder()
-  //{
-  //  return (PlayerState & PlayerState.ClimbingLadder) != 0;
-  //}
-
-  //public bool IsClimbingLadderTop()
-  //{
-  //  return (PlayerState & PlayerState.ClimbingLadderTop) != 0;
-  //}
-
-  //public bool IsLocked()
-  //{
-  //  return (PlayerState & PlayerState.Locked) != 0;
-  //}
-
-  //public bool IsSliding()
-  //{
-  //  return (PlayerState & PlayerState.Sliding) != 0;
-  //}
-
   void Awake()
   {
     _gameManager = GameManager.Instance;
