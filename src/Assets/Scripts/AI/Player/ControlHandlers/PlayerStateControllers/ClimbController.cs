@@ -8,18 +8,18 @@ public class ClimbController : PlayerStateController
 
   public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
-    if ((PlayerController.PlayerState & PlayerState.ClimbingLadder) == 0
-      && (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0)
+    if (!PlayerController.IsClimbingLadder()
+      && !PlayerController.IsClimbingLadderTop())
     {
       return PlayerStateUpdateResult.Unhandled;
     }
 
-    var animationSpeed = (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) == 0
+    var animationSpeed = !PlayerController.IsClimbingLadderTop()
       && axisState.IsInVerticalSensitivityDeadZone()
         ? 0f
         : 1f;
 
-    return (PlayerController.PlayerState & PlayerState.ClimbingLadderTop) != 0
+    return PlayerController.IsClimbingLadderTop()
       ? PlayerStateUpdateResult.CreateHandled("Climb Laddertop", animationSpeed: animationSpeed)
       : PlayerStateUpdateResult.CreateHandled("Climb", animationSpeed: animationSpeed);
   }

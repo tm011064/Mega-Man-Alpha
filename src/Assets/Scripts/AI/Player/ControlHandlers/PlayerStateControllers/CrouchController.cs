@@ -15,7 +15,7 @@
       return;
     }
 
-    if ((PlayerController.PlayerState & PlayerState.Crouching) != 0)
+    if (PlayerController.IsCrouching())
     {
       if (axisState.YAxis >= 0f
         && PlayerController.CharacterPhysicsManager.CanMoveVertically(
@@ -42,7 +42,7 @@
 
   public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
-    if ((PlayerController.PlayerState & PlayerState.Crouching) == 0)
+    if (!PlayerController.IsCrouching())
     {
       return PlayerStateUpdateResult.Unhandled;
     }

@@ -79,6 +79,46 @@ public partial class PlayerController : BaseCharacterController
 
   public event Action JumpedThisFrame;
 
+  public bool IsInvincible()
+  {
+    return (PlayerState & PlayerState.Invincible) != 0;
+  }
+
+  public bool IsEnemyContactKnockback()
+  {
+    return (PlayerState & PlayerState.EnemyContactKnockback) != 0;
+  }
+
+  public bool IsAttachedToWall()
+  {
+    return (PlayerState & PlayerState.AttachedToWall) != 0;
+  }
+
+  public bool IsCrouching()
+  {
+    return (PlayerState & PlayerState.Crouching) != 0;
+  }
+
+  public bool IsClimbingLadder()
+  {
+    return (PlayerState & PlayerState.ClimbingLadder) != 0;
+  }
+
+  public bool IsClimbingLadderTop()
+  {
+    return (PlayerState & PlayerState.ClimbingLadderTop) != 0;
+  }
+
+  public bool IsLocked()
+  {
+    return (PlayerState & PlayerState.Locked) != 0;
+  }
+
+  public bool IsSliding()
+  {
+    return (PlayerState & PlayerState.Sliding) != 0;
+  }
+
   void Awake()
   {
     _gameManager = GameManager.Instance;

@@ -10,7 +10,7 @@
 
   public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
-    if ((PlayerController.PlayerState & PlayerState.Locked) == 0)
+    if (!PlayerController.IsLocked())
     {
       return PlayerStateUpdateResult.Unhandled;
     }

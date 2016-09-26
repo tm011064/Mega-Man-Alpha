@@ -59,14 +59,14 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private bool IsClimbingLadder(XYAxisState axisState)
   {
-    return (PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0
+    return PlayerController.IsClimbingLadder()
       && !axisState.IsInVerticalSensitivityDeadZone();
   }
 
   private bool CanFire(XYAxisState axisState)
   {
-    return (PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
-      && (PlayerController.PlayerState & PlayerState.Sliding) == 0
+    return !PlayerController.IsEnemyContactKnockback()
+      && !PlayerController.IsSliding()
       && (_projectileWeaponSettings.EnableAutomaticFire
         ? IsFireButtonPressed()
         : IsFireButtonDown())
@@ -77,7 +77,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
   {
     var spawnLocation = PlayerController.IsGrounded()
       ? _projectileWeaponSettings.GroundedSpawnLocation
-      : ((PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0)
+      : PlayerController.IsClimbingLadder()
         ? _projectileWeaponSettings.LadderSpawnLocation
         : _projectileWeaponSettings.AirborneSpawnLocation;
 
@@ -124,7 +124,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
       }
     }
 
-    if ((PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
+    if (!PlayerController.IsEnemyContactKnockback()
       && IsAttacking())
     {
       return PlayerStateUpdateResult.CreateHandled(GetAnimationName(axisState), 1);
@@ -135,7 +135,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private string GetAnimationName(XYAxisState axisState)
   {
-    if ((PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0)
+    if (PlayerController.IsClimbingLadder())
     {
       return "Climb And Shoot";
     }

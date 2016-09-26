@@ -62,9 +62,9 @@ public partial class Ladder : MonoBehaviour
 
   private bool TriggeredClimbDownFromEdge(AxisState verticalAxisState)
   {
-    return (_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
-      && (_gameManager.Player.PlayerState & PlayerState.Sliding) == 0
-      && (_gameManager.Player.PlayerState & PlayerState.Locked) == 0
+    return !_gameManager.Player.IsClimbingLadder()
+      && !_gameManager.Player.IsSliding()
+      && !_gameManager.Player.IsLocked()
       && _gameManager.Player.CurrentPlatform != null
       && _gameManager.Player.CurrentPlatform == _topEdge
       && verticalAxisState.Value < 0f
@@ -73,8 +73,8 @@ public partial class Ladder : MonoBehaviour
 
   private bool TriggeredClimbUp(AxisState verticalAxisState)
   {
-    return (_gameManager.Player.PlayerState & PlayerState.ClimbingLadder) == 0
-      && (_gameManager.Player.PlayerState & PlayerState.Locked) == 0
+    return !_gameManager.Player.IsClimbingLadder()
+      && !_gameManager.Player.IsLocked()
       && verticalAxisState.Value > 0f
       && IsPlayerBetweenVerticalColliders()
       && IsPlayerTopAboveBottomCollider()
