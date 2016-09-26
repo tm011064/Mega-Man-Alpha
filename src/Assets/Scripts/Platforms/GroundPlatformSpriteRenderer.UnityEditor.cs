@@ -4,7 +4,6 @@ using UnityEngine;
 
 public partial class GroundPlatformSpriteRenderer : BasePlatform
 {
-  // TODO (Roman): let's put all those gizmo stuff into a base class
   public Color OutlineGizmoColor = Color.white;
 
   public Color OutlineVisibilityMaskGizmoColor = Color.magenta;

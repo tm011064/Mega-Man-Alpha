@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
+  public int PlayerDamageUnits = 1;
+
   private GameManager _gameManager;
 
   private CustomStack<BaseProjectileControlHandler> _controlHandlers = new CustomStack<BaseProjectileControlHandler>();
@@ -25,8 +27,7 @@ public class ProjectileController : MonoBehaviour
 
       ObjectPoolingManager.Instance.Deactivate(gameObject);
 
-      // TODO (Roman): add player damage logic here
-      throw new NotImplementedException("Player damage not implemented");
+      _gameManager.Player.PlayerHealth.ApplyDamage(PlayerDamageUnits);
     }
   }
 
@@ -42,8 +43,7 @@ public class ProjectileController : MonoBehaviour
 
       ObjectPoolingManager.Instance.Deactivate(gameObject);
 
-      // TODO (Roman): add player damage logic here
-      throw new NotImplementedException("Player damage not implemented");
+      _gameManager.Player.PlayerHealth.ApplyDamage(PlayerDamageUnits);
     }
   }
 

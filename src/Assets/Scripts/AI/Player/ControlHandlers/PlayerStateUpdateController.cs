@@ -24,7 +24,6 @@ public class PlayerStateUpdateController
 
     if (playerStateUpdateResult.AnimationClipInfo != null)
     {
-      // TODO (Roman): theoretically this should never be null - ladder fall bottom bug
       PlayAnimation(playerStateUpdateResult.AnimationClipInfo);
     }
   }

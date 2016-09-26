@@ -100,7 +100,6 @@ public class GameManager : MonoBehaviour
   {
     GameObject checkpoint;
 
-    // TODO (Roman): don't hardcode tags
     switch (SceneManager.GetActiveScene().name)
     {
       default:

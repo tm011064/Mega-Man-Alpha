@@ -1,8 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ApplyDamageHazard : MonoBehaviour
 {
+  public int PlayerDamageUnits = 1;
+
   public bool DestroyHazardOnCollision = false;
 
   private GameManager _gameManager;
@@ -21,8 +22,7 @@ public class ApplyDamageHazard : MonoBehaviour
         ObjectPoolingManager.Instance.Deactivate(gameObject);
       }
 
-      // TODO (Roman): add player damage logic here
-      throw new NotImplementedException("Player damage not implemented");
+      _gameManager.Player.PlayerHealth.ApplyDamage(PlayerDamageUnits);
     }
   }
 
@@ -41,8 +41,7 @@ public class ApplyDamageHazard : MonoBehaviour
         ObjectPoolingManager.Instance.Deactivate(gameObject);
       }
 
-      // TODO (Roman): add player damage logic here
-      throw new NotImplementedException("Player damage not implemented");
+      _gameManager.Player.PlayerHealth.ApplyDamage(PlayerDamageUnits);
     }
   }
 
