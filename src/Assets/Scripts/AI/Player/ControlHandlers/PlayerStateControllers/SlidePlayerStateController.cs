@@ -7,7 +7,7 @@
 
   public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
-    if (!PlayerController.IsSliding())
+    if (!PlayerController.State.IsSliding())
     {
       return PlayerStateUpdateResult.Unhandled;
     }

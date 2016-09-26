@@ -96,7 +96,7 @@ public partial class CameraModifier : MonoBehaviour
   void OnEnterTriggerInvoked(object sender, TriggerEnterExitEventArgs e)
   {
     if (MustBeOnLadderToEnter
-      && !GameManager.Instance.Player.IsClimbingLadder())
+      && !GameManager.Instance.Player.State.IsClimbingLadder())
     {
       return;
     }

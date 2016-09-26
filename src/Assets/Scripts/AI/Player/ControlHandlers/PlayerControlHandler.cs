@@ -184,7 +184,7 @@ public class PlayerControlHandler : BaseControlHandler
   {
     if (!CharacterPhysicsManager.CanMoveVertically(
       VERTICAL_COLLISION_FUDGE_FACTOR,
-      !PlayerController.IsCrouching()))
+      !PlayerController.State.IsCrouching()))
     {
       // if we crouch we don't allow edge slide up to simplify things
       return false;

@@ -22,15 +22,15 @@ public class ClimbOverLadderTopControlHandler : PlayerControlHandler
 
   public override void Dispose()
   {
-    PlayerController.PlayerState &= ~PlayerState.ClimbingLadderTop;
-    PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
+    PlayerController.State.Unset(PlayerState.ClimbingLadderTop);
+    PlayerController.State.Unset(PlayerState.ClimbingLadder);
 
     CharacterPhysicsManager.WarpToGrounded();
   }
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
   {
-    PlayerController.PlayerState |= PlayerState.ClimbingLadderTop;
+    PlayerController.State.Set(PlayerState.ClimbingLadderTop);
 
     return true;
   }

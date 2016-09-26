@@ -26,7 +26,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
   {
     if (GameManager.InputStateManager.IsButtonDown("Jump"))
     {
-      PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
+      PlayerController.State.Unset(PlayerState.ClimbingLadder);
 
       PlayerController.OnFellFromClimb();
 
@@ -45,7 +45,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
     if (GameManager.Player.EnvironmentBoxCollider.bounds.max.y
       < _transform.position.y - _collisionExtents.y)
     {
-      PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
+      PlayerController.State.Unset(PlayerState.ClimbingLadder);
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }
@@ -69,7 +69,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
 
     if (PlayerController.IsGrounded())
     {
-      PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
+      PlayerController.State.Unset(PlayerState.ClimbingLadder);
 
       return ControlHandlerAfterUpdateStatus.CanBeDisposed;
     }

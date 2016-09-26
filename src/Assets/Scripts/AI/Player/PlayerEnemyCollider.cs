@@ -26,7 +26,7 @@ public class PlayerEnemyCollider : MonoBehaviour
 
   void OnTriggerStay2D(Collider2D collider)
   {
-    if (_playerController.IsInvincible())
+    if (_playerController.State.IsInvincible())
     {
       return;
     }

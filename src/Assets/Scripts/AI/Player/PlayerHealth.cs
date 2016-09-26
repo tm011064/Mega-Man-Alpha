@@ -35,7 +35,7 @@ public class PlayerHealth
 
   public DamageResult ApplyDamage(int healthUnitsToDeduct)
   {
-    if (_playerController.IsInvincible())
+    if (_playerController.State.IsInvincible())
     {
       return DamageResult.Invincible;
     }

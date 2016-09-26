@@ -12,7 +12,7 @@ public class ApplyDamageHazard : MonoBehaviour
   {
     if (col.gameObject == _gameManager.Player.gameObject)
     {
-      if (_gameManager.Player.IsInvincible())
+      if (_gameManager.Player.State.IsInvincible())
       {
         return;
       }
@@ -31,7 +31,7 @@ public class ApplyDamageHazard : MonoBehaviour
     // we have to check for player as the hazard might have collided with a hazard destroy trigger
     if (col.gameObject == _gameManager.Player.gameObject)
     {
-      if (_gameManager.Player.IsInvincible())
+      if (_gameManager.Player.State.IsInvincible())
       {
         return;
       }

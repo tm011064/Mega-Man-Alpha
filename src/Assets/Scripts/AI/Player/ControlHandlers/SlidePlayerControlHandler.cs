@@ -14,7 +14,7 @@ public class SlidePlayerControlHandler : PlayerControlHandler
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
   {
-    PlayerController.PlayerState |= PlayerState.Sliding;
+    PlayerController.State.Set(PlayerState.Sliding);
 
     _startTime = Time.time;
 
@@ -37,7 +37,7 @@ public class SlidePlayerControlHandler : PlayerControlHandler
   {
     PlayerController.CharacterPhysicsManager.Velocity.x = 0f;
 
-    PlayerController.PlayerState &= ~PlayerState.Sliding;
+    PlayerController.State.Unset(PlayerState.Sliding);
   }
 
   private bool PlayerHasEnoughVerticalSpaceToGetUp()

@@ -11,7 +11,7 @@ public class WallSlideController : PlayerStateController
   public override void UpdateState(XYAxisState axisState)
   {
     if (
-        PlayerController.IsAttachedToWall()
+        PlayerController.State.IsAttachedToWall()
       && PlayerController.CharacterPhysicsManager.Velocity.y < 0f
       &&
       (
@@ -44,7 +44,7 @@ public class WallSlideController : PlayerStateController
 
   private bool IsSlidingDownWall(Func<bool> isOnWall, Func<bool> flipScaleX)
   {
-    if (!PlayerController.IsAttachedToWall()
+    if (!PlayerController.State.IsAttachedToWall()
       || PlayerController.CharacterPhysicsManager.Velocity.y >= 0f
       || !isOnWall())
     {
