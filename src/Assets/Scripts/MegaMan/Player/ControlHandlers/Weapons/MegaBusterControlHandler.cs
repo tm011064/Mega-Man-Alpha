@@ -36,20 +36,12 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private bool IsFireButtonPressed()
   {
-    return (
-      GameManager
-        .InputStateManager
-        .GetButtonState(_projectileWeaponSettings.InputButtonName)
-        .ButtonPressState & ButtonPressState.IsPressed) != 0;
+    return GameManager.InputStateManager.IsButtonPressed(_projectileWeaponSettings.InputButtonName);
   }
 
   private bool IsFireButtonDown()
   {
-    return (
-      GameManager
-        .InputStateManager
-        .GetButtonState(_projectileWeaponSettings.InputButtonName)
-        .ButtonPressState & ButtonPressState.IsDown) != 0;
+    return GameManager.InputStateManager.IsButtonDown(_projectileWeaponSettings.InputButtonName);
   }
 
   private bool IsWithinRateOfFire()

@@ -24,7 +24,7 @@ public class LadderClimbControlHandler : PlayerControlHandler
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()
   {
-    if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsDown) != 0)
+    if (GameManager.InputStateManager.IsButtonDown("Jump"))
     {
       PlayerController.PlayerState &= ~PlayerState.ClimbingLadder;
 

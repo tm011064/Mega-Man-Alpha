@@ -27,6 +27,11 @@ public class InputStateManager
     }
   }
 
+  public bool IsButtonUp(string buttonName)
+  {
+    return (_buttonStates[buttonName].ButtonPressState & ButtonPressState.IsUp) != 0;
+  }
+
   public bool IsButtonDown(string buttonName)
   {
     return (_buttonStates[buttonName].ButtonPressState & ButtonPressState.IsDown) != 0;

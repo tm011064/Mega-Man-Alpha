@@ -82,7 +82,7 @@ public class PlayerControlHandler : BaseControlHandler
 
     if (canBreakUpMovement
       && velocity.y > 0f
-      && (GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsUp) != 0)
+      && GameManager.InputStateManager.IsButtonUp("Jump"))
     {
       calculatedVelocity *= PlayerMetricSettings.JumpReleaseUpVelocityMultiplier;
     }
@@ -116,7 +116,7 @@ public class PlayerControlHandler : BaseControlHandler
       ? PlayerController.RunSettings.WalkSpeed
       : Mathf.Min(PlayerController.RunSettings.WalkSpeed, PlayerController.JumpSettings.MaxHorizontalSpeed);
 
-    if ((GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0)
+    if (GameManager.InputStateManager.IsButtonPressed("Dash"))
     {
       if ( // allow dash speed if
           PlayerController.RunSettings.EnableRunning // running is enabled
@@ -257,7 +257,7 @@ public class PlayerControlHandler : BaseControlHandler
 
         HasPerformedGroundJumpThisFrame = true;
 
-        HadDashPressedWhileJumpOff = (GameManager.InputStateManager.GetButtonState("Dash").ButtonPressState & ButtonPressState.IsPressed) != 0;
+        HadDashPressedWhileJumpOff = GameManager.InputStateManager.IsButtonPressed("Dash");
 
         PlayerController.OnJumpedThisFrame();
       }
@@ -283,7 +283,7 @@ public class PlayerControlHandler : BaseControlHandler
   protected void HandleOneWayPlatformFallThrough()
   {
     if (CharacterPhysicsManager.LastMoveCalculationResult.CollisionState.Below
-      && (GameManager.InputStateManager.GetButtonState("Fall").ButtonPressState & ButtonPressState.IsPressed) != 0
+      && GameManager.InputStateManager.IsButtonPressed("Fall")
       && PlayerController.CurrentPlatform != null
       && PlayerController.CurrentPlatform.layer == LayerMask.NameToLayer("OneWayPlatform"))
     {
