@@ -18,7 +18,7 @@ public class EnemyContactInvinciblePlayerControlHandler : DefaultPlayerControlHa
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
   {
-    PlayerController.PlayerState |= PlayerState.Invincible;
+    PlayerController.State.Set(PlayerState.Invincible);
 
     _blinkTimer.Reset();
 
@@ -29,7 +29,7 @@ public class EnemyContactInvinciblePlayerControlHandler : DefaultPlayerControlHa
   {
     _blinkTimer.ShowSprite();
 
-    PlayerController.PlayerState &= ~PlayerState.Invincible;
+    PlayerController.State.Unset(PlayerState.Invincible);
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()

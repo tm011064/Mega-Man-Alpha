@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
 
 public abstract class ColliderTriggerEnterBehaviour : MonoBehaviour
@@ -31,9 +30,7 @@ public abstract class ColliderTriggerEnterBehaviour : MonoBehaviour
       return;
     }
 
-    var playerState = GameManager.Instance.Player.PlayerState;
-
-    if (PlayerStatesNeededToEnter.All(ps => (playerState & ps) != 0))
+    if (GameManager.Instance.Player.State.Is(PlayerStatesNeededToEnter))
     {
       _playerColliderState &= ~PlayerColliderState.WrongStateOnEnter;
 
@@ -45,10 +42,8 @@ public abstract class ColliderTriggerEnterBehaviour : MonoBehaviour
   {
     _playerColliderState = PlayerColliderState.Inside;
 
-    var playerState = GameManager.Instance.Player.PlayerState;
-
     if (PlayerStatesNeededToEnter != null
-      && PlayerStatesNeededToEnter.Any(ps => (playerState & ps) == 0))
+      && !GameManager.Instance.Player.State.Is(PlayerStatesNeededToEnter))
     {
       _playerColliderState |= PlayerColliderState.WrongStateOnEnter;
 

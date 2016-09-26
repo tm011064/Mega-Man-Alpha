@@ -15,14 +15,14 @@
       return;
     }
 
-    if ((PlayerController.PlayerState & PlayerState.Crouching) != 0)
+    if (PlayerController.State.IsCrouching())
     {
       if (axisState.YAxis >= 0f
         && PlayerController.CharacterPhysicsManager.CanMoveVertically(
           PlayerController.EnvironmentBoxCollider.size.y
           - CROUCH_STANDUP_COLLISION_FUDGE_FACTOR, false))
       {
-        PlayerController.PlayerState &= ~PlayerState.Crouching;
+        PlayerController.State.Unset(PlayerState.Crouching);
 
         return;
       }
@@ -31,7 +31,7 @@
     {
       if (axisState.YAxis < 0f)
       {
-        PlayerController.PlayerState |= PlayerState.Crouching;
+        PlayerController.State.Set(PlayerState.Crouching);
 
         Logger.Info(
           "Crouch executed, box collider size set to: " + PlayerController.CharacterPhysicsManager.BoxCollider.size
@@ -42,7 +42,7 @@
 
   public override PlayerStateUpdateResult GetPlayerStateUpdateResult(XYAxisState axisState)
   {
-    if ((PlayerController.PlayerState & PlayerState.Crouching) == 0)
+    if (!PlayerController.State.IsCrouching())
     {
       return PlayerStateUpdateResult.Unhandled;
     }

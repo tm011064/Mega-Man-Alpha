@@ -18,7 +18,7 @@ public class TopBounceableControlHandler : DefaultPlayerControlHandler
 
     if (!_hasPerformedDefaultBounce)
     {
-      if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsPressed) != 0)
+      if (GameManager.InputStateManager.IsButtonPressed("Jump"))
       {
         velocity.y = CalculateJumpHeight(velocity);
 
@@ -28,20 +28,19 @@ public class TopBounceableControlHandler : DefaultPlayerControlHandler
 
         return ControlHandlerAfterUpdateStatus.CanBeDisposed; // exit, we are done
       }
-      else
-      {
-        velocity.y = Mathf.Sqrt(2f * PlayerController.JumpSettings.WalkJumpHeight * -PlayerController.JumpSettings.Gravity) * _bounceJumpMultiplier;
 
-        _hasPerformedDefaultBounce = true;
+      velocity.y = Mathf.Sqrt(2f * PlayerController.JumpSettings.WalkJumpHeight * -PlayerController.JumpSettings.Gravity) * _bounceJumpMultiplier;
 
-        PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
+      _hasPerformedDefaultBounce = true;
 
-        Logger.Info("Top bounce jump executed. Jump button was not pressed. BounceJumpMultiplier: " + _bounceJumpMultiplier + ", new velocity y: " + velocity.y);
+      PlayerController.CharacterPhysicsManager.Move(velocity * Time.deltaTime);
 
-        return ControlHandlerAfterUpdateStatus.KeepAlive; // keep waiting, maybe user presses jump before time is up
-      }
+      Logger.Info("Top bounce jump executed. Jump button was not pressed. BounceJumpMultiplier: " + _bounceJumpMultiplier + ", new velocity y: " + velocity.y);
+
+      return ControlHandlerAfterUpdateStatus.KeepAlive; // keep waiting, maybe user presses jump before time is up
     }
-    if ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsPressed) != 0)
+
+    if (GameManager.InputStateManager.IsButtonPressed("Jump"))
     {
       velocity.y = CalculateJumpHeight(velocity);
 

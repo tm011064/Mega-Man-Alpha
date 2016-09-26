@@ -54,7 +54,7 @@ public partial class PlayerController : BaseCharacterController
   public GameObject CurrentPlatform = null;
 
   [HideInInspector]
-  public PlayerState PlayerState;
+  public readonly PlayerStateManager State = new PlayerStateManager();
 
   [HideInInspector]
   public WeaponControlHandler[] WeaponControlHandlers = new WeaponControlHandler[0];

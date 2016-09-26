@@ -36,20 +36,12 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private bool IsFireButtonPressed()
   {
-    return (
-      GameManager
-        .InputStateManager
-        .GetButtonState(_projectileWeaponSettings.InputButtonName)
-        .ButtonPressState & ButtonPressState.IsPressed) != 0;
+    return GameManager.InputStateManager.IsButtonPressed(_projectileWeaponSettings.InputButtonName);
   }
 
   private bool IsFireButtonDown()
   {
-    return (
-      GameManager
-        .InputStateManager
-        .GetButtonState(_projectileWeaponSettings.InputButtonName)
-        .ButtonPressState & ButtonPressState.IsDown) != 0;
+    return GameManager.InputStateManager.IsButtonDown(_projectileWeaponSettings.InputButtonName);
   }
 
   private bool IsWithinRateOfFire()
@@ -59,14 +51,14 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private bool IsClimbingLadder(XYAxisState axisState)
   {
-    return (PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0
+    return PlayerController.State.IsClimbingLadder()
       && !axisState.IsInVerticalSensitivityDeadZone();
   }
 
   private bool CanFire(XYAxisState axisState)
   {
-    return (PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
-      && (PlayerController.PlayerState & PlayerState.Sliding) == 0
+    return !PlayerController.State.IsEnemyContactKnockback()
+      && !PlayerController.State.IsSliding()
       && (_projectileWeaponSettings.EnableAutomaticFire
         ? IsFireButtonPressed()
         : IsFireButtonDown())
@@ -77,7 +69,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
   {
     var spawnLocation = PlayerController.IsGrounded()
       ? _projectileWeaponSettings.GroundedSpawnLocation
-      : ((PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0)
+      : PlayerController.State.IsClimbingLadder()
         ? _projectileWeaponSettings.LadderSpawnLocation
         : _projectileWeaponSettings.AirborneSpawnLocation;
 
@@ -124,7 +116,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
       }
     }
 
-    if ((PlayerController.PlayerState & PlayerState.EnemyContactKnockback) == 0
+    if (!PlayerController.State.IsEnemyContactKnockback()
       && IsAttacking())
     {
       return PlayerStateUpdateResult.CreateHandled(GetAnimationName(axisState), 1);
@@ -135,7 +127,7 @@ public class MegaBusterControlHandler : WeaponControlHandler
 
   private string GetAnimationName(XYAxisState axisState)
   {
-    if ((PlayerController.PlayerState & PlayerState.ClimbingLadder) != 0)
+    if (PlayerController.State.IsClimbingLadder())
     {
       return "Climb And Shoot";
     }

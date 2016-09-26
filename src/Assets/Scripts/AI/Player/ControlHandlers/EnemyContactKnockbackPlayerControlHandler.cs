@@ -21,8 +21,8 @@ public class EnemyContactKnockbackPlayerControlHandler : PlayerControlHandler
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
   {
-    PlayerController.PlayerState |= PlayerState.Invincible;
-    PlayerController.PlayerState |= PlayerState.EnemyContactKnockback;
+    PlayerController.State.Set(PlayerState.Invincible);
+    PlayerController.State.Set(PlayerState.EnemyContactKnockback);
 
     _blinkTimer.Reset();
 
@@ -41,7 +41,7 @@ public class EnemyContactKnockbackPlayerControlHandler : PlayerControlHandler
   {
     _blinkTimer.ShowSprite();
 
-    PlayerController.PlayerState &= ~PlayerState.EnemyContactKnockback;
+    PlayerController.State.Unset(PlayerState.EnemyContactKnockback);
   }
 
   protected override ControlHandlerAfterUpdateStatus DoUpdate()

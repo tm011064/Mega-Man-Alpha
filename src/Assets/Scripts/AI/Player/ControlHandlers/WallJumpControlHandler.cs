@@ -39,7 +39,7 @@ public class WallJumpControlHandler : PlayerControlHandler
   {
     PlayerController.AdjustedGravity = PlayerController.JumpSettings.Gravity;
 
-    PlayerController.PlayerState &= ~PlayerState.AttachedToWall;
+    PlayerController.State.Unset(PlayerState.AttachedToWall);
   }
 
   public override bool TryActivate(BaseControlHandler previousControlHandler)
@@ -59,7 +59,7 @@ public class WallJumpControlHandler : PlayerControlHandler
       return false;
     }
 
-    PlayerController.PlayerState |= PlayerState.AttachedToWall;
+    PlayerController.State.Set(PlayerState.AttachedToWall);
 
     return base.TryActivate(previousControlHandler);
   }
@@ -115,7 +115,7 @@ public class WallJumpControlHandler : PlayerControlHandler
     var isWallJump = false;
 
     if (!_hasJumpedFromWall
-        && ((GameManager.InputStateManager.GetButtonState("Jump").ButtonPressState & ButtonPressState.IsDown) != 0))
+        && GameManager.InputStateManager.IsButtonDown("Jump"))
     {
       // set flag for later calcs outside this scope
       isWallJump = true;

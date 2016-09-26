@@ -20,7 +20,7 @@ public class ProjectileController : MonoBehaviour
   {
     if (col.gameObject == _gameManager.Player.gameObject)
     {
-      if ((_gameManager.Player.PlayerState & PlayerState.Invincible) != 0)
+      if (_gameManager.Player.State.IsInvincible())
       {
         return;
       }
@@ -36,7 +36,7 @@ public class ProjectileController : MonoBehaviour
     // we have to check for player as the hazard might have collided with a hazard destroy trigger
     if (col.gameObject == _gameManager.Player.gameObject)
     {
-      if ((_gameManager.Player.PlayerState & PlayerState.Invincible) != 0)
+      if (_gameManager.Player.State.IsInvincible())
       {
         return;
       }
